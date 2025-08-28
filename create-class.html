@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tạo lớp học — Mẫu HTML/CSS/JS</title>
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --accent:#2563eb; --muted:#6b7280; --danger:#ef4444;
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,#f8fafc 0%, var(--bg) 100%);
+      margin:0; padding:32px; color:#0f172a;
+    }
+    .wrap{max-width:800px; margin:0 auto;}
+    .card{
+      background:var(--card); border-radius:var(--radius);
+      padding:20px; box-shadow:0 6px 18px rgba(12,18,31,0.06);
+    }
+    h1{margin:0 0 8px; font-size:20px}
+    p.lead{margin:0 0 18px; color:var(--muted); font-size:14px}
+    form .row{display:flex; gap:12px}
+    .col{flex:1}
+    label{display:block; font-size:13px; color:#111827; margin-bottom:6px}
+    input[type="text"], input[type="password"], textarea{
+      width:100%; padding:10px 12px; border:1px solid #e6e9ef; border-radius:10px;
+      font-size:14px; background:#fff;
+    }
+    textarea{min-height:90px; resize:vertical}
+    .muted{font-size:12px; color:var(--muted); margin-top:6px}
+    .controls{display:flex; gap:8px; align-items:center}
+    button{background:var(--accent); color:white; border:none; padding:10px 14px; border-radius:10px; cursor:pointer}
+    button.ghost{background:transparent; color:var(--accent); border:1px solid #e6e9ef}
+    .small{padding:8px 10px; font-size:13px}
+    .help{font-size:12px; color:var(--muted)}
+    .error{color:var(--danger); font-size:12px; margin-top:6px}
+    .inline{display:inline-flex; gap:8px; align-items:center}
+    .footer{margin-top:12px; font-size:12px; color:var(--muted)}
+    .success{color:green; font-size:12px; margin-top:6px}
+    @media(max-width:640px){
+      .row{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Tạo lớp mới</h1>
+      <p class="lead">Tạo không gian chung để giáo viên và học sinh tương tác — nhập thông tin lớp bên dưới.</p>
+
+      <form id="formCreate" autocomplete="off" novalidate>
+        <div style="margin-bottom:14px">
+          <label>ID người tạo (teacher id)</label>
+          <input type="text" id="user_create_id" value="123" readonly />
+          <div class="help">ID này thường được gán bởi hệ thống (từ token/auth).</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label>Tên lớp <span style="color:var(--danger)">*</span></label>
+          <input type="text" id="name" placeholder="Ví dụ: Lớp Toán 10A1" />
+          <div id="err-name" class="error" style="display:none"></div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label>Mô tả</label>
+          <textarea id="description" placeholder="Mô tả ngắn về lớp (chủ đề, mục tiêu...)"></textarea>
+        </div>
+
+        <div class="row" style="margin-bottom:14px">
+          <div class="col">
+            <label>Mã lớp (code) <span style="color:var(--danger)">*</span></label>
+            <input type="text" id="code" />
+            <div id="err-code" class="error" style="display:none"></div>
+            <div class="muted">Mã dùng để học sinh tham gia. Nên duy nhất.</div>
+          </div>
+
+          <div style="width:160px">
+            <label>&nbsp;</label>
+            <div class="controls">
+              <button type="button" id="genCode" class="small ghost">Sinh mã</button>
+              <button type="button" id="checkUnique" class="small">Kiểm tra</button>
+            </div>
+            <div id="checkResult" class="help" style="margin-top:8px"></div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom:14px; align-items:center">
+  <div class="col">
+    <label class="inline">Bảo vệ bằng mật khẩu</label>
+    <div class="inline" style="margin-left:6px">
+      <input type="checkbox" id="password_protected" />
+      <span class="help">Bật để yêu cầu mật khẩu khi tham gia lớp</span>
+    </div>
+  </div>
+  <div style="width:260px">
+    <label id="pwdLabel" style="display:none">Mật khẩu lớp</label>
+    <input type="password" id="password" style="display:none" placeholder="Mật khẩu (ít nhất 4 ký tự)" />
+    <div id="showPwdWrap" class="inline" style="display:none; margin-top:6px">
+      <input type="checkbox" id="showPassword" />
+      <span class="help">Hiện mật khẩu</span>
+    </div>
+    <div id="err-password" class="error" style="display:none"></div>
+  </div>
+</div>
+
+
+        <div style="display:flex; gap:10px; align-items:center; margin-top:8px">
+          <button type="submit" id="btnCreate">Tạo lớp</button>
+          <button type="button" id="btnReset" class="ghost">Đặt lại</button>
+          <div id="formMsg" class="help" style="margin-left:8px"></div>
+        </div>
+
+        <div class="footer">
+          Lưu ý: Kiểm tra mã lớp ở server-side để đảm bảo không trùng trước khi lưu vào database.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // generate random code
+    function generateCode(len = 6) {
+      const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+      return Array.from({length: len}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+    }
+
+    // DOM refs
+    const form = document.getElementById('formCreate');
+    const userId = document.getElementById('user_create_id');
+    const nameEl = document.getElementById('name');
+    const descEl = document.getElementById('description');
+    const codeEl = document.getElementById('code');
+    const genBtn = document.getElementById('genCode');
+    const checkBtn = document.getElementById('checkUnique');
+    const checkResult = document.getElementById('checkResult');
+    const pwdProtected = document.getElementById('password_protected');
+    const pwdEl = document.getElementById('password');
+    const pwdLabel = document.getElementById('pwdLabel');
+    const errName = document.getElementById('err-name');
+    const errCode = document.getElementById('err-code');
+    const errPwd = document.getElementById('err-password');
+    const formMsg = document.getElementById('formMsg');
+    const showPwd = document.getElementById('showPassword');
+const showPwdWrap = document.getElementById('showPwdWrap');
+
+    // init
+    codeEl.value = generateCode();
+
+    genBtn.addEventListener('click', () => {
+      codeEl.value = generateCode();
+      checkResult.textContent = '';
+      errCode.style.display = 'none';
+    });
+
+    // toggle password
+    // toggle password
+pwdProtected.addEventListener('change', () => {
+  const on = pwdProtected.checked;
+  pwdEl.style.display = on ? 'block' : 'none';
+  pwdLabel.style.display = on ? 'block' : 'none';
+  showPwdWrap.style.display = on ? 'flex' : 'none'; // hiện checkbox hiện mật khẩu
+  if (!on) {
+    pwdEl.value = '';
+    errPwd.style.display = 'none';
+    showPwd.checked = false;
+    pwdEl.type = 'password';
+  }
+});
+
+// toggle hiển thị mật khẩu
+showPwd.addEventListener('change', () => {
+  pwdEl.type = showPwd.checked ? 'text' : 'password';
+});
+
+
+    // fake uniqueness check
+    checkBtn.addEventListener('click', async () => {
+      const code = codeEl.value.trim();
+      checkResult.textContent = '';
+      errCode.style.display = 'none';
+
+      if (!code) {
+        errCode.textContent = 'Mã lớp không được để trống';
+        errCode.style.display = 'block';
+        return;
+      }
+
+      checkResult.textContent = 'Đang kiểm tra...';
+      await new Promise(r => setTimeout(r, 500));
+      const exists = Math.random() < 0.3;
+      checkResult.textContent = exists ? 'Mã đã tồn tại, hãy sinh mã khác.' : 'Mã khả dụng ✓';
+      checkResult.style.color = exists ? 'var(--danger)' : 'green';
+    });
+
+    function validate() {
+      let ok = true;
+      errName.style.display = 'none';
+      errCode.style.display = 'none';
+      errPwd.style.display = 'none';
+      formMsg.textContent = '';
+
+      if (!nameEl.value.trim()) {
+        errName.textContent = 'Tên lớp không được để trống';
+        errName.style.display = 'block';
+        ok = false;
+      }
+      if (!codeEl.value.trim()) {
+        errCode.textContent = 'Mã lớp không được để trống';
+        errCode.style.display = 'block';
+        ok = false;
+      }
+      if (pwdProtected.checked && pwdEl.value.length < 4) {
+        errPwd.textContent = 'Mật khẩu tối thiểu 4 ký tự';
+        errPwd.style.display = 'block';
+        ok = false;
+      }
+      return ok;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      const payload = {
+        user_create_id: userId.value,
+        name: nameEl.value.trim(),
+        description: descEl.value.trim() || null,
+        code: codeEl.value.trim(),
+        password_protected: !!pwdProtected.checked,
+        password: pwdProtected.checked ? pwdEl.value : null
+      };
+
+      formMsg.textContent = 'Đang gửi...';
+      formMsg.style.color = 'var(--muted)';
+      try {
+        await new Promise(r => setTimeout(r, 700));
+        console.log('Payload gửi tới server:', payload);
+        formMsg.textContent = 'Tạo lớp thành công (demo). Kiểm tra console để xem payload.';
+        formMsg.style.color = 'green';
+
+        nameEl.value = '';
+        descEl.value = '';
+        codeEl.value = generateCode();
+        pwdProtected.checked = false;
+        pwdEl.value = '';
+        pwdEl.style.display = 'none';
+        pwdLabel.style.display = 'none';
+      } catch (err) {
+        console.error(err);
+        formMsg.textContent = 'Lỗi khi tạo lớp: ' + (err.message || err);
+        formMsg.style.color = 'var(--danger)';
+      }
+    });
+
+    document.getElementById('btnReset').addEventListener('click', () => {
+      nameEl.value = '';
+      descEl.value = '';
+      codeEl.value = generateCode();
+      pwdProtected.checked = false;
+      pwdEl.value = '';
+      pwdEl.style.display = 'none';
+      pwdLabel.style.display = 'none';
+      errName.style.display = errCode.style.display = errPwd.style.display = 'none';
+      formMsg.textContent = '';
+      checkResult.textContent = '';
+    });
+  </script>
+</body>
+</html>
