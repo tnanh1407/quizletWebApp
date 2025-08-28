@@ -8,6 +8,9 @@
 .flex{
     display: flex;
 }
+.active{
+    background: #282e3e;
+}
 
 
 .header{
@@ -43,8 +46,56 @@
 
 /* Css Navbar */
 .navbar{
-    width: 250px;   
+    width: 224px;   
     height:700px; 
     color:#fff;
     background: #0a092d;
+    padding: 5px 24px 0 0;
+}
+
+.navbar a, .navbar h3{
+    font-size: 14px;
+    text-decoration: none;
+    color: #a7b0fe;
+}
+
+.navbar a{
+    line-height: 100%;
+}
+
+.navbar-a{
+    padding: 10px 10px ;
+    border-radius: 10px;
+}
+
+.navbar-a{
+    margin: 5px 0;
+}
+.navbar h3{
+    margin: 0 0 20px 10px;
+}
+
+.navbar-one{
+    padding: 0 0 20px 0;
+}
+
+.navbar-two, .navbar-three{
+    padding: 20px 0;
+}
+
+.navbar-one, .navbar-two{
+    margin-left: 16px;
+    border-bottom: 2px solid #282e3e;
+}
+
+.navbar-three{
+    margin-left: 16px;
+}
+
+.navbar-a i{
+    margin-right: 15px;
+}
+
+a:hover .navbar-a{
+    background: #282e3e;
 }
