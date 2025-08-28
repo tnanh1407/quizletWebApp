@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quizlet — Đăng nhập</title>
+  <link rel="stylesheet" href="stylelogin.css">
+</head>
+<body>
+  <main class="container" aria-labelledby="heading">
+    <section class="hero" aria-hidden="false">
+      <h1 id="heading">Học nhanh. Học sâu. Nhớ lâu.</h1>
+      <p>Đăng nhập để truy cập bộ thẻ, ôn luyện, và theo dõi tiến độ học. Đây là bản mô phỏng frontend — thay phần <code>fakeLogin</code> bằng API thật khi cần.</p>
+    </section>
+
+    <aside class="card" aria-labelledby="card-heading">
+      <div class="brand" role="img" aria-label="Quizlet-like logo">
+        <div class="logo">QZ</div>
+        <div>
+          <div class="title">Quizlet — Đăng nhập</div>
+          <div style="font-size:13px;color:var(--muted)">Account access</div>
+        </div>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="action">
+          <div class="social-buttons">
+                <a href="/auth/google" class="btn social google">
+                  <img src="https://www.svgrepo.com/show/355037/google.svg" class="icon"> Google
+                </a>
+                <a href="/auth/facebook" class="btn social facebook">
+                  <img src="https://www.svgrepo.com/show/355037/facebook.svg" class="icon"> Facebook
+                </a>
+                <a href="/auth/apple" class="btn social apple">
+                  <img src="https://www.svgrepo.com/show/303128/apple-black-logo.svg" class="icon"> Apple
+                </a>
+        </div>
+
+        </div>
+        <div>
+          <label for="username">Email hoặc username</label>
+          <div class="field">
+            <input id="username" name="username" type="text" inputmode="email"
+              minlength="3" maxlength="80" placeholder="you@example.com or username" autocomplete="username" required
+              aria-describedby="usernameHelp usernameError" />
+            <div class="end" aria-hidden="true">
+              <button type="button" id="clearUsername" title="Clear">✕</button>
+            </div>
+          </div>
+          <div id="usernameHelp" class="help">Không cần @ nếu dùng username.</div>
+          <div id="usernameError" class="error" aria-live="polite"></div>
+        </div>
+
+        <div>
+          <label for="password">Mật khẩu</label>
+          <div class="field">
+            <input id="password" name="password" type="password"
+              minlength="6" maxlength="128" placeholder="••••••••" autocomplete="current-password" required
+              aria-describedby="passwordError" />
+            <div class="end">
+              <button type="button" id="togglePw" aria-pressed="false" title="Hiện/ẩn mật khẩu">👁️</button>
+            </div>
+          </div>
+          <div id="passwordError" class="error" aria-live="polite"></div>
+        </div>
+
+        <div class="meta">
+          <label class="remember">
+            <input id="remember" name="remember" type="checkbox" aria-checked="false" />
+            <span>Ghi nhớ tôi</span>
+          </label>
+          <a href="/Forgot.html" class="forgot">Quên mật khẩu?</a>
+        </div>
+
+        <div class="actions">
+          <button id="submitBtn" class="btn" type="submit" aria-live="polite">
+            <span id="btnLabel">Đăng nhập</span>
+          </button>
+          <a href="/register/index.html" class="btn secondary">Đăng ký</a>
+        </div>
+
+        <div id="globalMessage" aria-live="polite" style="min-height:40px"></div>
+      </form>
+    </aside>
+  </main>
+
+  <script src="scriptlogin.js"></script>
+  <script src="sever.js"></script>
+  <script src="config.js"></script>
+</body>
+</html>

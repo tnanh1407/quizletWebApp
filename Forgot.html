@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quizlet — Quên mật khẩu</title>
+  <link rel="stylesheet" href="forgot.css">
+</head>
+<body>
+<main class="container">
+  <section class="hero">
+    <h1>Quên mật khẩu?</h1>
+    <p>Nhập email bạn đã đăng ký, chúng tôi sẽ gửi liên kết đặt lại mật khẩu cho bạn.</p>
+  </section>
+
+  <aside class="card">
+    <div class="brand">
+      <div class="logo">QZ</div>
+      <div>
+        <div style="font-weight:600">Quizlet — Quên mật khẩu</div>
+        <div style="font-size:13px;color:var(--muted)">Reset your password</div>
+      </div>
+    </div>
+
+    <form id="forgotForm" novalidate>
+      <div>
+        <label>Email</label>
+        <input id="email" type="email" required placeholder="you@example.com" />
+        <div id="emailErr" class="error"></div>
+      </div>
+
+      <button class="btn" type="submit">Gửi liên kết</button>
+      <div id="msgBox"></div>
+
+      <div class="links">
+        <a href="/login/login'.html">Quay lại đăng nhập</a>
+      </div>
+    </form>
+  </aside>
+</main>
+
+<script src="forgot.js"></script>
+</body>
+</html>
