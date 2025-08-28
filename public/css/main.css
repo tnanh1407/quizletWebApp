@@ -1,0 +1,6 @@
+@import "resert.css";
+@import "quizz/header.css";
+
+* {
+  box-sizing: border-box;
+}
