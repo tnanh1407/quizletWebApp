@@ -17,7 +17,7 @@
     margin-bottom: 30px;
 }
 .padding-16{
-    padding: 16px;
+    padding:0 16px;
 }
 .h2{
     font-size: 15px;
@@ -32,11 +32,20 @@
     border: 2px solid #2e3856 ;
 }
 .khung-mo-ta{
-    font-size: 13px;
-    padding: 8px;
+    font-size: 10px;
+    padding: 5px 10px;
     background: #586380 ;
     border-radius: 50px;
     margin-right: 10px;
+    align-items: center;
+}
+
+.khung-mo-ta i{
+    margin-right: 5px;
+}
+
+.hidden{
+    display: none;
 }
 
 /* Css Header  */
@@ -110,16 +119,88 @@
     color: #d9dde8;
 }
 
+.setting button{
+    border: none;
+    background: rgba(0,0,0,0);
+}
+
 .setting img{
     width: 40px;
     height:40px;
     border-radius: 50px;
 }
 
+/* Css Setting */
+
+#account-setting{
+    width: 270px;
+    position: absolute;
+    top:64px;
+    right: 16px;
+    border: 1px solid #d9dde8;
+    border-radius: 10px;
+    background: #0a092d;
+}
+
+#account-setting a{
+    text-decoration: none;
+    color:#d9dde8;
+}
+
+.account-in4{
+    padding: 10px 20px;
+    border-bottom: 1px solid #d9dde8;
+}
+
+.account-in4 img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+}
+
+.in4{
+    align-items: center;
+    margin: auto;
+    margin-left: 10px;
+}
+
+.account-in4 h1,.account-in4 p{
+    font-size: 13px;
+}
+
+.account-other li{
+    list-style-type:none;
+}
+
+.account-setting{
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid #d9dde8;
+}
+
+.setting-item{
+    width: 100%;
+    height:40px;
+    padding:5px 20px;
+    text-decoration: none;
+    align-items: center;
+}
+
+.setting-item i{
+    margin-right: 10px;
+}
+
+a:hover .setting-item{
+    background:#282e3e ;
+}
+
 /* Css Main  */
 .main{
+    width:100%;
     padding-top:64px;
     background: #0a092d;
+    padding: 0 100px 0 310px;
+    position: relative;
 }
 
 /* Css Navbar */
@@ -183,10 +264,9 @@ a:hover .navbar-a{
 /* Css MainContent */
 .maincontent{
     width:100%;
-    height:1200px;
+    height:100%;
     color: #f6f7fb;
     padding: 20px 0 0 0;
-    margin: 0 100px 0 310px ;
 }
 
 .maincontent-recent h1 {
@@ -258,16 +338,16 @@ a:hover .recent{
 }
 
 .session-terms{
-    font-size: 14px;
-    width: 70px;
+    font-size: 10px;
+    width: 50px;
     background: #586380;
     padding:2px;
     border-radius: 20px;
     text-align: center;
 }
 
-a:hover .session{
-    background: #2e3856;
+a:hover .session, a:hover .popular-session, a:hover .top-creators-main-sesstion{
+    border: 2px solid #4255ff;
 }
 
 .session-author{
@@ -304,7 +384,7 @@ a:hover .session{
     margin-bottom: 15px;
 }
 
-.popular-session p{
+.popular-session-content>p{
     font-size: 13px;
 }
 
@@ -314,12 +394,13 @@ a:hover .session{
 }
 
 .popular-session-solution{
-    font-size: 14px;
+    font-size: 10px;
     padding: 5px 10px;
     border-radius: 50px;
     background: #586380;
     position: absolute;
     bottom: 0;
+    align-items: center;
 }
 
 .popular-session-solution p{
@@ -377,4 +458,21 @@ a:hover .session{
 
 .top-creators-main a{
     margin-right: 15px;
+}
+
+
+
+.footer{
+    width:100%;
+    justify-content:space-between;
+    padding: 25px 0 ;
+}
+
+.footer a{
+    text-decoration: none;
+}
+
+.footer p{
+    color: #d4f5fc;
+    margin-right:10px;
 }

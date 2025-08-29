@@ -25,13 +25,66 @@
                 <a href=""><i class="fa-solid fa-plus"></i></a>
             </div>
             <div class="setting">
-                <a href="">
+                <button id="toggleBtn">
                     <img src="./accet/Img/account.jpg" alt="">
+                </button>
+            </div>
+        </div>
+        <div id="account-setting" class="hidden">
+            <div class="account-in4 flex">
+                <img src="./accet/Img/account.jpg" alt="">
+                <div class="in4">
+                    <h1>thien2805</h1>
+                    <p>khongthien2805@gmail.com</p>
+                </div>
+            </div>
+            <div class="account-setting">
+                <a href="">
+                    <div class="setting-item flex">
+                        <i class="fa-solid fa-trophy"></i>
+                        <p>Achievements</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="setting-item flex">
+                        <i class="fa-solid fa-gear"></i>
+                        <p>Setting</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="setting-item flex">
+                        <i class="fa-solid fa-sun"></i>
+                        <p>Light mode</p>
+                    </div>
+                </a>
+            </div>
+            <div class="account-setting">
+                <a href="" class="account-logout">
+                    <div class="setting-item flex">
+                        <p>Log out</p>
+                    </div>
+                </a>
+            </div>
+            <div class="account-setting">
+                <a href="">
+                    <div class="setting-item flex">
+                        <p>Privacy policy</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="setting-item flex">
+                        <p>Help and feedback</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="setting-item flex">
+                        <p>Upgrade</p>
+                    </div>
                 </a>
             </div>
         </div>
     </div>
-    <div class="main flex">
+    <div class="main">
         <div class="navbar">
             <div class="navbar-one">
                 <a href="" class="navbar-one-home">
@@ -297,11 +350,11 @@
                                     </div>
                                 </div>
                                 <div class="creator-tag flex">
-                                    <div class="creator-tag-1 flex khung-mo-ta">
+                                    <div class="flex khung-mo-ta">
                                         <i class="fa-solid fa-thumbs-up"></i>
                                         <p>flashcard sets</p>
                                     </div>
-                                    <div class="creator-tag-2 flex khung-mo-ta">
+                                    <div class="flex khung-mo-ta">
                                         <i class="fa-solid fa-thumbs-up"></i>
                                         <p>0 classes</p>
                                     </div>
@@ -320,11 +373,11 @@
                                     </div>
                                 </div>
                                 <div class="creator-tag flex">
-                                    <div class="creator-tag-1 flex khung-mo-ta">
+                                    <div class="flex khung-mo-ta">
                                         <i class="fa-solid fa-thumbs-up"></i>
                                         <p>flashcard sets</p>
                                     </div>
-                                    <div class="creator-tag-2 flex khung-mo-ta">
+                                    <div class="flex khung-mo-ta">
                                         <i class="fa-solid fa-thumbs-up"></i>
                                         <p>0 classes</p>
                                     </div>
@@ -343,11 +396,11 @@
                                     </div>
                                 </div>
                                 <div class="creator-tag flex">
-                                    <div class="creator-tag-1 flex khung-mo-ta">
+                                    <div class="flex khung-mo-ta">
                                         <i class="fa-solid fa-thumbs-up"></i>
                                         <p>flashcard sets</p>
                                     </div>
-                                    <div class="creator-tag-2 flex khung-mo-ta">
+                                    <div class="flex khung-mo-ta">
                                         <i class="fa-solid fa-thumbs-up"></i>
                                         <p>0 classes</p>
                                     </div>
@@ -358,6 +411,27 @@
                 </div>
             </div>
         </div>
+        <div class="footer flex">
+            <div class="footer-other flex">
+                <a href="">
+                    <p>Privacy</p>
+                </a>
+                <a href="">
+                    <p>Terms</p>
+                </a>
+            </div>
+            <div class="footer-language">
+                <p>English</p>
+            </div>
+        </div>
     </div>
+    <script>
+        const toggleBtn = document.getElementById('toggleBtn');
+        const contentDiv = document.getElementById('account-setting');
+
+        toggleBtn.addEventListener('click', function() {
+        contentDiv.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
