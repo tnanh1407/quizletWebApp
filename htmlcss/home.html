@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image" href="./accet/Img/favicon-96x96.png">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+    <script src="https://kit.fontawesome.com/4c66f67b55.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="header flex">
+        <div class="logo-button flex">
+            <div class="button-navbar">
+                <button id="click-navbar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <a href="">
+                <img src="./accet/Img/logoQ.png" alt="" class="logo">
+            </a>
+        </div>
+        <div class="search flex">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search for practive tests" class="input-research">
+        </div>
+        <div class="account flex">
+            <div class="add-folder">
+                <a href=""><i class="fa-solid fa-plus"></i></a>
+            </div>
+            <div class="setting">
+                <button id="toggleBtn">
+                    <img src="./accet/Img/account.jpg" alt="">
+                </button>
+            </div>
+        </div>
+        <div id="account-setting" class="hidden">
+            <div class="account-in4 flex">
+                <img src="./accet/Img/account.jpg" alt="">
+                <div class="in4">
+                    <h1>thien2805</h1>
+                    <p>khongthien2805@gmail.com</p>
+                </div>
+            </div>
+            <div class="account-setting">
+                <a href="">
+                    <div class="setting-item flex">
+                        <i class="fa-solid fa-trophy"></i>
+                        <p>Achievements</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="setting-item flex">
+                        <i class="fa-solid fa-gear"></i>
+                        <p>Setting</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="setting-item flex">
+                        <i class="fa-solid fa-sun"></i>
+                        <p>Light mode</p>
+                    </div>
+                </a>
+            </div>
+            <div class="account-setting">
+                <a href="" class="account-logout">
+                    <div class="setting-item flex">
+                        <p>Log out</p>
+                    </div>
+                </a>
+            </div>
+            <div class="account-setting">
+                <a href="">
+                    <div class="setting-item flex">
+                        <p>Privacy policy</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="setting-item flex">
+                        <p>Help and feedback</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="setting-item flex">
+                        <p>Upgrade</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main flex">
+        <nav class="navbar" id="navbar">
+            <div class="navbar-one">
+                <a href="">
+                    <div class="navbar-a flex active" id="navbar-one-home">
+                        <i class="fa-solid fa-house"></i>
+                        <p>Home</p>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="navbar-a flex" id="navbar-one-library">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <p>Your library</p>
+                    </div>
+                </a>
+                <button id="click-notifi" >
+                    <div class="navbar-a flex" id="navbar-one-notifi">
+                        <i class="fa-solid fa-bell"></i>
+                        <p>Notifications</p>
+                    </div>
+                </button>
+                <div id="notifications-main" class="hidden">
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="notifi-main-children flex">
+                            <img src="./accet/Img/account.jpg" alt="">
+                            <div class="notifi-main-content">
+                                <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                            </div>
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-two">
+                <p>Your folders</p>
+                <a href="" class="navbar-one-home">
+                    <div class="navbar-a flex">
+                        <i class="fa-solid fa-folder"></i>
+                        <p>Demo</p>
+                    </div>
+                </a>
+                <a href="" class="navbar-one-notifi">
+                    <div class="navbar-a flex">
+                        <i class="fa-solid fa-plus"></i>
+                        <p>New folder</p>
+                    </div>
+                </a>
+            </div>
+            <div class="navbar-three">
+                <p>Start here</p>
+                <a href="" class="navbar-one-library">
+                    <div class="navbar-a flex">
+                        <i class="fa-solid fa-address-card"></i>
+                        <p>Flashcards</p>
+                    </div>
+                </a>
+                <a href="" class="navbar-one-home">
+                    <div class="navbar-a flex">
+                        <i class="fa-solid fa-book"></i>
+                        <p>Expert Solutions</p>
+                    </div>
+                </a>
+            </div>
+        </nav>
+        <div class="maincontent">
+            <div class="main-content">
+                <div class="maincontent-recent margin-bottom-50">
+                    <h1>Recents</h1>
+                    <div class="recent-main">
+                        <a href="">
+                            <div class="recent flex">
+                                <div class="recent-icon">
+                                    <i class="fa-solid fa-address-card"></i>      
+                                </div>
+                                <div class="recent-content">
+                                    <p>Phát triển iot</p>
+                                    <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="recent flex">
+                                <div class="recent-icon">
+                                    <i class="fa-solid fa-address-card"></i>      
+                                </div>
+                                <div class="recent-content">
+                                    <p>Phát triển iot</p>
+                                    <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="recent flex">
+                                <div class="recent-icon">
+                                    <i class="fa-solid fa-address-card"></i>      
+                                </div>
+                                <div class="recent-content">
+                                    <p>Phát triển iot</p>
+                                    <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="recent flex">
+                                <div class="recent-icon">
+                                    <i class="fa-solid fa-address-card"></i>      
+                                </div>
+                                <div class="recent-content">
+                                    <p>Phát triển iot</p>
+                                    <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="recent flex">
+                                <div class="recent-icon">
+                                    <i class="fa-solid fa-address-card"></i>      
+                                </div>
+                                <div class="recent-content">
+                                    <p>Phát triển iot</p>
+                                    <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="recent flex">
+                                <div class="recent-icon">
+                                    <i class="fa-solid fa-address-card"></i>      
+                                </div>
+                                <div class="recent-content">
+                                    <p>Phát triển iot</p>
+                                    <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="maincontent-next-study-session margin-bottom-50 padding-16">
+                    <h2 class="h2">For your next study session</h2>
+                    <div class="next-study-session-main flex">
+                        <button class="btn maincontent-recent-left ">
+                            <i class="fa-solid fa-circle-chevron-left"></i>
+                        </button>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <button class="btn maincontent-recent-right ">
+                            <i class="fa-solid fa-circle-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="maincontent-next-study-session margin-bottom-50 padding-16">
+                    <h2 class="h2">Popular flashcard sets</h2>
+                    <div class="next-study-session-main flex">
+                        <button class="btn maincontent-recent-left ">
+                            <i class="fa-solid fa-circle-chevron-left"></i>
+                        </button>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="session all-section">
+                                <h1>Câu trả lời Đúng/Sai và giải thích</h1>
+                                <div class="session-terms">
+                                    <p>10 terms</p>
+                                </div>
+                                <div class="session-author flex">
+                                    <img src="./accet/Img/account.jpg" alt="">
+                                    <p>Thien</p>
+                                </div>
+                            </div>
+                        </a>
+                        <button class="btn maincontent-recent-right ">
+                            <i class="fa-solid fa-circle-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="popular-textbooks margin-bottom-50 padding-16">
+                    <h2 class="h2">Popular textbooks</h2>
+                    <div class="popular-textbooks-main flex">
+                        <a href="">
+                            <div class="popular-session flex all-section">
+                                <img src="./accet/Img/imgSach.jpg" alt="">
+                                <div class="popular-session-content">
+                                    <h1>English Grammar in Use</h1>
+                                    <p>4th Edition•ISBN: 9780521189088 Raymond Murphy</p>
+                                    <div class="popular-session-solution flex">
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <p>999 solutions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="popular-session flex all-section">
+                                <img src="./accet/Img/imgSach.jpg" alt="">
+                                <div class="popular-session-content">
+                                    <h1>English Grammar in Use</h1>
+                                    <p>4th Edition•ISBN: 9780521189088 Raymond Murphy</p>
+                                    <div class="popular-session-solution flex">
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <p>999 solutions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="popular-session flex all-section">
+                                <img src="./accet/Img/imgSach.jpg" alt="">
+                                <div class="popular-session-content">
+                                    <h1>English Grammar in Use</h1>
+                                    <p>4th Edition•ISBN: 9780521189088 Raymond Murphy</p>
+                                    <div class="popular-session-solution flex">
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <p>999 solutions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="popular-textbooks margin-bottom-50 padding-16">
+                    <h2 class="h2">Popular textbooks</h2>
+                    <div class="popular-textbooks-main flex">
+                        <a href="">
+                            <div class="popular-session flex all-section">
+                                <img src="./accet/Img/imgSach.jpg" alt="">
+                                <div class="popular-session-content">
+                                    <h1>English Grammar in Use</h1>
+                                    <p>4th Edition•ISBN: 9780521189088 Raymond Murphy</p>
+                                    <div class="popular-session-solution flex">
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <p>999 solutions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="popular-session flex all-section">
+                                <img src="./accet/Img/imgSach.jpg" alt="">
+                                <div class="popular-session-content">
+                                    <h1>English Grammar in Use</h1>
+                                    <p>4th Edition•ISBN: 9780521189088 Raymond Murphy</p>
+                                    <div class="popular-session-solution flex">
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <p>999 solutions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="popular-session flex all-section">
+                                <img src="./accet/Img/imgSach.jpg" alt="">
+                                <div class="popular-session-content">
+                                    <h1>English Grammar in Use</h1>
+                                    <p>4th Edition•ISBN: 9780521189088 Raymond Murphy</p>
+                                    <div class="popular-session-solution flex">
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <p>999 solutions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="top-creators margin-bottom-50 padding-16">
+                    <h2 class="h2">Top creators</h2>
+                    <div class="top-creators-main flex">
+                        <a href="">
+                            <div class="top-creators-main-sesstion all-section">
+                                <img src="./accet/Img/account.jpg" alt="">
+                                <div class="creator-in4">
+                                    <div class="creator-rule flex">
+                                        <h3>Thien</h3>
+                                        <div class="creator-rule-important">
+                                            <p>Teacher</p>
+                                        </div>
+                                    </div>
+                                    <div class="creator-tag flex">
+                                        <div class="flex khung-mo-ta">
+                                            <i class="fa-solid fa-thumbs-up"></i>
+                                            <p>flashcard sets</p>
+                                        </div>
+                                        <div class="flex khung-mo-ta">
+                                            <i class="fa-solid fa-thumbs-up"></i>
+                                            <p>0 classes</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="top-creators-main-sesstion all-section">
+                                <img src="./accet/Img/account.jpg" alt="">
+                                <div class="creator-in4">
+                                    <div class="creator-rule flex">
+                                        <h3>Thien</h3>
+                                        <div class="creator-rule-important">
+                                            <p>Teacher</p>
+                                        </div>
+                                    </div>
+                                    <div class="creator-tag flex">
+                                        <div class="flex khung-mo-ta">
+                                            <i class="fa-solid fa-thumbs-up"></i>
+                                            <p>flashcard sets</p>
+                                        </div>
+                                        <div class="flex khung-mo-ta">
+                                            <i class="fa-solid fa-thumbs-up"></i>
+                                            <p>0 classes</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="top-creators-main-sesstion all-section">
+                                <img src="./accet/Img/account.jpg" alt="">
+                                <div class="creator-in4">
+                                    <div class="creator-rule flex">
+                                        <h3>Thien</h3>
+                                        <div class="creator-rule-important">
+                                            <p>Teacher</p>
+                                        </div>
+                                    </div>
+                                    <div class="creator-tag flex">
+                                        <div class="flex khung-mo-ta">
+                                            <i class="fa-solid fa-thumbs-up"></i>
+                                            <p>flashcard sets</p>
+                                        </div>
+                                        <div class="flex khung-mo-ta">
+                                            <i class="fa-solid fa-thumbs-up"></i>
+                                            <p>0 classes</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer flex">
+                    <div class="footer-other flex">
+                        <a href="">
+                            <p>Privacy</p>
+                        </a>
+                        <a href="">
+                            <p>Terms</p>
+                        </a>
+                    </div>
+                    <div class="footer-language">
+                        <p>English</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const toggleBtn = document.getElementById('toggleBtn');
+        const contentDiv = document.getElementById('account-setting');
+     
+        toggleBtn.addEventListener('click', function() {
+            contentDiv.classList.toggle('hidden');
+        });
+        
+
+        const clickNavbar = document.getElementById("click-navbar");
+        const contentNavbar = document.getElementById("navbar");
+        const allParagraphsInNavbar = contentNavbar.querySelectorAll('p'); 
+        let isCollapsed = false;
+
+        clickNavbar.addEventListener('click', function() {
+            allParagraphsInNavbar.forEach(a => {
+                a.classList.toggle('hidden');
+            });
+            if (!isCollapsed) {
+                notifications.style.left = '50px';
+                contentNavbar.style.width = '67px';
+            } else {
+                notifications.style.left = ''; 
+                contentNavbar.style.width = ''; 
+            }
+
+            isCollapsed = !isCollapsed;
+        });
+
+        const clickNotifi = document.getElementById("click-notifi");
+        const notifications = document.getElementById("notifications-main");
+        const hoverNotifi = document.getElementById("navbar-one-notifi");
+
+        clickNotifi.addEventListener('click', function() {
+            notifications.classList.toggle('hidden');
+            hoverNotifi.classList.toggle('active');
+        })
+
+    </script>
+</body>
+</html>
