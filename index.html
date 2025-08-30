@@ -13,9 +13,16 @@
 </head>
 <body>
     <div class="header flex">
-        <a href="">
-            <img src="./accet/Img/logoQ.png" alt="" class="logo">
-        </a>
+        <div class="logo-button flex">
+            <div class="button-navbar">
+                <button id="click-navbar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <a href="">
+                <img src="./accet/Img/logoQ.png" alt="" class="logo">
+            </a>
+        </div>
         <div class="search flex">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Search for practive tests" class="input-research">
@@ -84,8 +91,8 @@
             </div>
         </div>
     </div>
-    <div class="main">
-        <div class="navbar">
+    <div class="main flex">
+        <nav class="navbar" id="navbar">
             <div class="navbar-one">
                 <a href="" class="navbar-one-home">
                     <div class="navbar-a flex active">
@@ -107,7 +114,7 @@
                 </a>
             </div>
             <div class="navbar-two">
-                <h3>Your folders</h3>
+                <p>Your folders</p>
                 <a href="" class="navbar-one-home">
                     <div class="navbar-a flex">
                         <i class="fa-solid fa-folder"></i>
@@ -122,7 +129,7 @@
                 </a>
             </div>
             <div class="navbar-three">
-                <h3>Start here</h3>
+                <p>Start here</p>
                 <a href="" class="navbar-one-library">
                     <div class="navbar-a flex">
                         <i class="fa-solid fa-address-card"></i>
@@ -136,7 +143,7 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </nav>
         <div class="maincontent">
             <div class="maincontent-recent margin-bottom-50">
                 <h1>Recents</h1>
@@ -148,7 +155,7 @@
                             </div>
                             <div class="recent-content">
                                 <p>Phát triển iot</p>
-                                <p>Flashcard set  •  50 terms  •  by quizlette42792101</p>
+                                <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
                             </div>
                         </div>
                     </a>
@@ -159,7 +166,7 @@
                             </div>
                             <div class="recent-content">
                                 <p>Phát triển iot</p>
-                                <p>Flashcard set  •  50 terms  •  by quizlette42792101</p>
+                                <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
                             </div>
                         </div>
                     </a>
@@ -170,7 +177,7 @@
                             </div>
                             <div class="recent-content">
                                 <p>Phát triển iot</p>
-                                <p>Flashcard set  •  50 terms  •  by quizlette42792101</p>
+                                <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
                             </div>
                         </div>
                     </a>
@@ -181,7 +188,7 @@
                             </div>
                             <div class="recent-content">
                                 <p>Phát triển iot</p>
-                                <p>Flashcard set  •  50 terms  •  by quizlette42792101</p>
+                                <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
                             </div>
                         </div>
                     </a>
@@ -192,7 +199,7 @@
                             </div>
                             <div class="recent-content">
                                 <p>Phát triển iot</p>
-                                <p>Flashcard set  •  50 terms  •  by quizlette42792101</p>
+                                <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
                             </div>
                         </div>
                     </a>
@@ -203,7 +210,7 @@
                             </div>
                             <div class="recent-content">
                                 <p>Phát triển iot</p>
-                                <p>Flashcard set  •  50 terms  •  by quizlette42792101</p>
+                                <p>Flashcard set  •  50 terms  •  by quizlette42792101  •  by quizlette42792101</p>
                             </div>
                         </div>
                     </a>
@@ -410,28 +417,48 @@
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="footer flex">
-            <div class="footer-other flex">
-                <a href="">
-                    <p>Privacy</p>
-                </a>
-                <a href="">
-                    <p>Terms</p>
-                </a>
-            </div>
-            <div class="footer-language">
-                <p>English</p>
+            <div class="footer flex">
+                <div class="footer-other flex">
+                    <a href="">
+                        <p>Privacy</p>
+                    </a>
+                    <a href="">
+                        <p>Terms</p>
+                    </a>
+                </div>
+                <div class="footer-language">
+                    <p>English</p>
+                </div>
             </div>
         </div>
     </div>
     <script>
         const toggleBtn = document.getElementById('toggleBtn');
         const contentDiv = document.getElementById('account-setting');
-
+     
         toggleBtn.addEventListener('click', function() {
-        contentDiv.classList.toggle('hidden');
+            contentDiv.classList.toggle('hidden');
         });
+        
+
+        const clickNavbar = document.getElementById("click-navbar");
+        const contentNavbar = document.getElementById("navbar");
+        const allParagraphsInNavbar = contentNavbar.querySelectorAll('p'); 
+        let isCollapsed = false;
+
+        clickNavbar.addEventListener('click', function() {
+            allParagraphsInNavbar.forEach(a => {
+                a.classList.toggle('hidden');
+            });
+            if (!isCollapsed) {
+                contentNavbar.style.width = '67px';
+            } else {
+                contentNavbar.style.width = ''; 
+            }
+
+            isCollapsed = !isCollapsed;
+        });
+
     </script>
 </body>
 </html>

@@ -65,6 +65,21 @@
     z-index: 1000;
 }
 
+#click-navbar{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    color:#d9dde8;
+    background:#0a092d ;
+    border: none;
+    padding: 5px;
+    border-radius: 50px;
+}
+
+.button-navbar:hover #click-navbar{
+    background: #2e3856;
+}
+
 .logo{
     height: 25px;
     width: auto;
@@ -197,23 +212,23 @@ a:hover .setting-item{
 /* Css Main  */
 .main{
     width:100%;
+    height: 100vh;
     padding-top:64px;
     background: #0a092d;
-    padding: 0 100px 0 310px;
     position: relative;
+    overflow: hidden;
 }
 
 /* Css Navbar */
 .navbar{
-    width: 210px;   
-    height:700px;
+    width: 220px;   
+    height:100vh;
     padding: 5px 12px 0 0;
-    position: fixed;
-    top:64px;
-    left:0;
+    position: sticky;
+    top:0;
 }
 
-.navbar a, .navbar h3{
+.navbar a, .navbar-two >p, .navbar-three >p{
     font-size: 14px;
     text-decoration: none;
     color: #f6f7fb;
@@ -231,7 +246,7 @@ a:hover .setting-item{
 .navbar-a{
     margin: 5px 0;
 }
-.navbar h3{
+.navbar-two >p, .navbar-three >p{
     margin: 0 0 20px 10px;
 }
 
@@ -253,7 +268,11 @@ a:hover .setting-item{
 }
 
 .navbar-a i{
-    margin-right: 15px;
+    align-items: center;
+}
+
+.navbar-a p{
+    margin-left: 15px;
 }
 
 a:hover .navbar-a{
@@ -263,10 +282,14 @@ a:hover .navbar-a{
 
 /* Css MainContent */
 .maincontent{
-    width:100%;
+    width:75vw;
     height:100%;
     color: #f6f7fb;
     padding: 20px 0 0 0;
+    margin-left:auto;
+    margin-right:auto;
+    overflow-y: auto;
+    scrollbar-width: none;  
 }
 
 .maincontent-recent h1 {
