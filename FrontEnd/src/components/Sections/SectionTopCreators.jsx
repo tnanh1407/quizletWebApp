@@ -1,6 +1,6 @@
 import account from "../../assets/img/account.jpg"
 
-export default function SectionNextStudy (){
+export default function SectionTopCreators (){
     return (
             <div className="top-creators margin-bottom-50 padding-16">
                                     <h2 className="h2">Top creators</h2>

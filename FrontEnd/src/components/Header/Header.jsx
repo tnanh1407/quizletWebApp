@@ -1,7 +1,7 @@
 import account from "../../assets/img/account.jpg";
 import logo from "../../assets/img/logoQ.png";
-import React, { useState, useRef } from "react";
-// import { useNav } from "./Header";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Header(){
     const [isOpenAccount, setIsOpenAccount] = useState(false);
@@ -14,9 +14,9 @@ export default function Header(){
         <>
             <div className="header flex">
                 <div className="logo-button flex">
-                    <a href="">
+                    <Link to="/">
                         <img src={logo} alt="" className="logo"/>
-                    </a>
+                    </Link>
                 </div>
                 <div className="search flex">
                     <i className="fa-solid fa-magnifying-glass"></i>

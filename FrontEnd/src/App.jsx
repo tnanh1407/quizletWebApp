@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
 import './App.css'
 import './components/Header/CssHeader.css'
 import Header from './components/Header/Header.jsx'
@@ -7,26 +8,24 @@ import MainContent from './components/MainContent/MainContent.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
 
 function App() {
+    const [isPadded, setIsPadded] = useState(true);  // state quản lý padding
+
     return (
         <>
-        {/* <Router> */}
-            <Header/>
-            <Navbar/>
-            <MainContent/>
-            {/* <Routes>
-                <Route path="/" element={<MainContent/>}/> */}
-                {/* <Route path="/phimle" element={<PhimLe />} />
-                <Route path="/phimbo" element={<PhimBo/>}/> */}
-                {/* <Route path="/theloai" element={<MainContentPhim />} />
-                <Route path="/quocgia" element={<MainContentPhim/>}/>
-                <Route path="/namphathanh" element={<MainContentPhim />} /> */}
-                {/* <Route path="/phimchieurap" element={<PhimChieuRap />} />
-                <Route path="/trailer" element={<MainContentPhim />} />
-                <Route path="/topphim" element={<TopPhim />} />
-                <Route path="/phim/:idphim" element={<MovieDetail />} /> */}
-            {/* </Routes> */}
-            {/* <Footer/> */}
-        {/* </Router> */}
+            <Router>
+                <Header/>
+                {/* Truyền togglePadding xuống Navbar */}
+                <Navbar togglePadding={() => setIsPadded(!isPadded)} />
+                <Routes>
+                    {/* Truyền state xuống MainContent */}
+                    <Route path="/" element={<MainContent isPadded={isPadded} />} />
+                    <Route path="/library" element={<h1>Library</h1>} />
+                    <Route path="/demo" element={<h1>Demo</h1>} />
+                    <Route path="/newfolder" element={<h1>New Folder</h1>} />
+                    <Route path="/flashcards" element={<h1>Flashcards</h1>} />
+                    <Route path="/expertsolutions" element={<h1>Expert Solutions</h1>} />
+                </Routes>
+            </Router>
         </>
     )
 }
