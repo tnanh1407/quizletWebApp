@@ -14,11 +14,10 @@ export default function YourLibrary({isPadded}){
                     <div className="main-content-library">
                         <h1>Your library</h1>
                         <menu className="main-content-items flex">
-                            <Link to="flashcard" onClick={()=> handleActiveContent("flashcard")}>
+                            <Link to="/library" onClick={()=> handleActiveContent("flashcard")}>
                                 <div className={`items ${activeContentItem === "flashcard" ? "active-items" : ""}`}>
                                     <p>Flashcard set</p>
                                 </div>
-                                
                             </Link>
                             <Link to="practive-tests" onClick={()=> handleActiveContent("practive-tests")}>
                                 <div className={`items ${activeContentItem === "practive-tests" ? "active-items" : ""}`}>

@@ -34,7 +34,7 @@ function App() {
                     {/* Truyền state xuống MainContent */}
                     <Route path="/" element={<MainContent isPadded={isPadded} />} />
                     <Route path="/library" element={<YourLibrary isPadded={isPadded} />}>
-                        <Route path="flashcard" element={<FlashCard/>} />
+                        <Route path="/library" element={<FlashCard/>} />
                         <Route path="practive-tests" element={<PractiveTests/>} />
                         <Route path="expert-solutions" element={<ExpertSolutions/>} />
                         <Route path="folders" element={<Folders/>} />
