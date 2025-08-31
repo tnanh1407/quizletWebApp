@@ -28,15 +28,20 @@
     position: relative;
     overflow: hidden;
     z-index: 100;
+    padding-left: 200px;
 }
 
 /* Css Navbar */
 .navbar{
-    width: 16vw;   
+    width: 215px;   
     height:100vh;
     padding: 5px 12px 0 0;
     position: sticky;
     top:0;
+    background: #0a092d;
+    position: fixed;
+    top:64px;
+    z-index: 99999;
 }
 
 .navbar a, .navbar-two >p, .navbar-three >p{
