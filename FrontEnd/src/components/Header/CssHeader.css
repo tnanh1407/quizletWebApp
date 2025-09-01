@@ -63,7 +63,7 @@
 
 .add-folder i{
     line-height: 40px;
-    margin-left: 10px;
+    margin-left: 12px;
     color: #d9dde8;
 }
 
@@ -140,4 +140,27 @@
 
 a:hover .setting-item{
     background:#282e3e ;
+}
+
+.add-folder button{
+    background: none;
+    border: none;
+}
+
+#add-folder {
+    background: #0a092d;
+    position:fixed;
+    top:64px;
+    right: 70px;
+    border: 1px solid #d9dde8;
+    border-radius: 10px;
+    padding:10px 0 ;
+} 
+
+#add-folder a{
+    text-decoration: none;
+}
+
+#add-folder i, #add-folder p{
+    color: #d9dde8;
 }

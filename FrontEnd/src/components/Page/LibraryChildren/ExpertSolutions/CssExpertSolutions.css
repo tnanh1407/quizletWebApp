@@ -1,0 +1,10 @@
+.expert-solutions{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0px;
+}
+
+.expert-solutions a {
+    padding-bottom: 25px;
+    margin:0 !important;
+}

@@ -5,14 +5,15 @@ export default function SectionFlashCardSet(){
     return (
         <>
             <section className="sectionflashcardset">
-                <Link>
                     <div className="header-flashcash flex">
                         <p>IN AUGUST 2025</p>
                         <div className="header-line"></div>
                     </div>
+                <Link>
                     <div className="main-flashcard">
                         <div className="flashcard-creator flex">
                             <p>2 terms</p>
+                            <span className="span"></span>
                             <div className="creator-in4 flex">
                                 <img src={account} alt="" />
                                 <p>thien2805</p>

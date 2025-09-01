@@ -8,7 +8,7 @@ import Footer from "../Footer/Footer.jsx"
 export default function MainContent ({isPadded}){
     return (
         <>
-            <div className="main flex" style={{ paddingLeft: isPadded ? "200px" : "20px" }}>
+            <div className="main flex" style={{ paddingLeft: isPadded ? "200px" : "60px" }}>
                 <div className="maincontent">
                     <div className="main-content">
                         <SectionRecents/>

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import SectionFlashCardSet from "../../../Sections/SectionFlashCardSet";
 
 export default function FlashCard (){

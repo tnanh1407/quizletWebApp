@@ -1,5 +1,12 @@
+import SectionClasses from "../../../Sections/SectionClasses"
+
 export default function Classes (){
     return(
-        <h1>Classes</h1>
+        <>
+            <SectionClasses/>
+            <SectionClasses/>
+            <SectionClasses/>
+            <SectionClasses/>
+        </>
     )
 }

@@ -1,5 +1,9 @@
 export default function PractiveTests (){
     return(
-        <h1>Practice Tests</h1>
+        <div className="practivetests">
+            <img src="" alt="" />
+            <h1>Find practive tests to take based on what you're studying</h1>
+            <button>Search for practive tests</button>
+        </div>
     )
 }
