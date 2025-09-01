@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
+import Footer from '../Footer/Footer.jsx'
 
 export default function YourLibrary({isPadded}){
     const [activeContentItem, setActiveContentItem] = useState("flashcard");
@@ -41,7 +42,10 @@ export default function YourLibrary({isPadded}){
                             </Link>
                         </menu>
                     </div>
-                    <Outlet /> 
+                    <div className="out-let">
+                        <Outlet /> 
+                    </div>
+                    <Footer/>
                 </div>
             </div>
         </div>

@@ -1,3 +1,7 @@
+.main-content-library{
+    margin-bottom: 24px;
+}
+
 .main-content-library h1{
     font-size: 35px;
     margin:10px 0 0 0;
@@ -26,4 +30,8 @@ a:hover p{
 .active-items{
     color:#f6f7fb;
     /* border-bottom: 1px solid #a8b1ff ; */
+}
+
+.out-let{
+    padding:32px 0;
 }
