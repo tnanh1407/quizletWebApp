@@ -18,3 +18,7 @@
 .sectionclasses a:hover .main-flashcard{
     border-bottom: 5px solid #5070c8;
 }
+
+#classes{
+    margin-top: 50px;
+}

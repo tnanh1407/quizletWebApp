@@ -1,0 +1,38 @@
+.sectionfolder p{
+    border: none;
+}
+
+.sectionfolder i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #f6f7fb;
+}
+
+.sectionfolder {
+    margin-bottom: 20px;
+}
+
+.sectionfolder a:hover .main-flashcard{
+    border-bottom: 5px solid #5070c8;
+}
+
+.folder{
+    width: 200px;
+    position: absolute;
+    top:45px;
+    left:0;
+    border: 1px solid #d9dde8;
+    border-radius: 10px;
+    background: #0a092d;
+    padding:8px 0;
+}
+
+.folder p{
+    margin-left: 10px;
+    color: #d9dde8;
+    font-size: 16px;
+}
+
+.folder a{
+    text-decoration: none;
+}

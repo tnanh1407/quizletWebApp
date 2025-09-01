@@ -69,6 +69,42 @@ export default function Navbar ({togglePadding }){
                                 <i className="fa-solid fa-ellipsis"></i>
                             </div>
                         </Link>
+                        <Link to="/">
+                            <div className="notifi-main-children flex">
+                                <img src={account} alt=""/>
+                                <div className="notifi-main-content">
+                                    <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                                </div>
+                                <i className="fa-solid fa-ellipsis"></i>
+                            </div>
+                        </Link>
+                        <Link to="/">
+                            <div className="notifi-main-children flex">
+                                <img src={account} alt=""/>
+                                <div className="notifi-main-content">
+                                    <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                                </div>
+                                <i className="fa-solid fa-ellipsis"></i>
+                            </div>
+                        </Link>
+                        <Link to="/">
+                            <div className="notifi-main-children flex">
+                                <img src={account} alt=""/>
+                                <div className="notifi-main-content">
+                                    <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                                </div>
+                                <i className="fa-solid fa-ellipsis"></i>
+                            </div>
+                        </Link>
+                        <Link to="/">
+                            <div className="notifi-main-children flex">
+                                <img src={account} alt=""/>
+                                <div className="notifi-main-content">
+                                    <h1>Way to go! You're on a 2 day week.<strong>Keep up the momentum and study again</strong><span>1 hours ago</span></h1>
+                                </div>
+                                <i className="fa-solid fa-ellipsis"></i>
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className="navbar-two">

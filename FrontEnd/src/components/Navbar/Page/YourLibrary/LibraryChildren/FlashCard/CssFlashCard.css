@@ -4,6 +4,27 @@
     padding-bottom:50px ;
 }
 
+.recentcard{
+    width: 200px;
+    position: absolute;
+    top:45px;
+    left:0;
+    border: 1px solid #d9dde8;
+    border-radius: 10px;
+    background: #0a092d;
+    padding:8px 0;
+}
+
+.recentcard p{
+    margin-left: 10px;
+    color: #d9dde8;
+    font-size: 16px;
+}
+
+.recentcard a{
+    text-decoration: none;
+}
+
 .flashcard-option{
     height: 50px;
 }
@@ -16,6 +37,7 @@
     align-items: center;
     padding: 0 15px ;
     font-weight: 600;
+    position: relative;
 }
 
 .flashcard-option i{

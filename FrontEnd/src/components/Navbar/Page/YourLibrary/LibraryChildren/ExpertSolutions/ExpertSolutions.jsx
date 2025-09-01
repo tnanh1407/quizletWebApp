@@ -1,13 +1,39 @@
-import sach from "../../../../assets/img/imgSach.jpg"
+import sach from "../../../../../../assets/img/imgSach.jpg"
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function ExpertSolutions (){
+    const [isFilterExpertSolutions, setIsFilterExpertSolutions] = useState(false);
+    
+    const toggleFilterExpertSolutions = () => {
+        setIsFilterExpertSolutions(!isFilterExpertSolutions);
+    };    
     return(
         <div className="flashcard-set">
             <div className="flashcardsearch">
                 <div className="flashcard-option">
-                    <button className="flex">
+                    <button className="flex" onClick={toggleFilterExpertSolutions}>
                         <p>All</p>
                         <i className="fa-solid fa-magnifying-glass"></i>
+                        <div className={`expertsolution ${isFilterExpertSolutions ? "block" : "hidden"}`}>
+                                <div className="folder-option">
+                                    <Link href="">
+                                        <div className="setting-item flex">
+                                            <p>All</p>
+                                        </div>
+                                    </Link>
+                                    <Link href="">
+                                        <div className="setting-item flex">
+                                            <p>Textbooks</p>
+                                        </div>
+                                    </Link>
+                                    <Link href="">
+                                        <div className="setting-item flex">
+                                            <p>Expert solutions</p>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
                     </button>
                 </div>
                 <div className="flashcard-search flex">
