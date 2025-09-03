@@ -3,83 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Tạo bộ flashcard</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f6f7fb;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    h2 {
-      margin-bottom: 15px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin-top: 8px;
-      font-size: 14px;
-    }
-    .flashcard {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-      padding: 15px;
-      border: 1px solid #e2e2e2;
-      border-radius: 12px;
-      background: #fafafa;
-    }
-    .flashcard input {
-      flex: 1;
-    }
-    .controls {
-      text-align: right;
-      margin-top: 20px;
-    }
-    button {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .add-btn {
-      background: #4a90e2;
-      color: white;
-    }
-    .save-btn {
-      background: #28a745;
-      color: white;
-    }
-    .remove-btn {
-      background: #dc3545;
-      color: white;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 16px;
-    }
-  </style>
+  <link rel="stylesheet" href="../../../public/css/style.css">
+  
 </head>
 <body>
-  <div class="container">
+  <div class="header">
     <h2>Tạo một học phần mới</h2>
+    <button class="save-btn" onclick="saveSet()">Lưu bộ thẻ</button>
+  </div>
+
+  <div class="container">
+    
     <label>Tiêu đề</label>
     <input type="text" id="title" placeholder="Nhập tiêu đề bộ thẻ...">
     <label>Mô tả</label>
     <textarea id="description" rows="3" placeholder="Thêm mô tả..."></textarea>
+
+    <div class="actions">
+      <button id="import-btn" class="btn">+ Nhập</button>
+      <button id="del-all-btn" class="btn-danger">Xóa</button>
+    </div>
 
     <div id="cards"></div>
 
@@ -89,42 +32,7 @@
     </div>
   </div>
 
-  <script>
-    let cardCount = 0;
-
-    function addCard() {
-      cardCount++;
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "flashcard";
-      cardDiv.innerHTML = `
-        <input type="text" placeholder="Thuật ngữ">
-        <input type="text" placeholder="Định nghĩa">
-        <button class="remove-btn" onclick="removeCard(this)">×</button>
-      `;
-      document.getElementById("cards").appendChild(cardDiv);
-    }
-
-    function removeCard(btn) {
-      btn.parentElement.remove();
-    }
-
-    function saveSet() {
-      const title = document.getElementById("title").value;
-      const description = document.getElementById("description").value;
-      const cards = [];
-      document.querySelectorAll(".flashcard").forEach(card => {
-        const term = card.children[0].value;
-        const definition = card.children[1].value;
-        if(term && definition) {
-          cards.push({term, definition});
-        }
-      });
-      console.log("Bộ thẻ:", {title, description, cards});
-      alert("Đã lưu bộ thẻ! Xem dữ liệu trong console.");
-    }
-
-    // tạo 1 thẻ mặc định ban đầu
-    addCard();
+  <script src="../../../public/js/main.js">
   </script>
 </body>
 </html>
