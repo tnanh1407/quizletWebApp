@@ -1,0 +1,81 @@
+#newfolder {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999999;
+  padding-top: 50px;
+}
+/* transform: translateX(-50%); */
+
+.newfolder-main {
+  margin: auto;
+  background: #0a092d;
+  width: 450px;
+  height: 250px;
+  border-radius: 15px;
+  padding: 35px 30px;
+  text-align: center;
+  color: #d9dde8;
+}
+
+.newfolder-main p {
+  font-size: 35px;
+  color: #d9dde8;
+}
+
+.newfolder-main input {
+  text-align: center;
+  font-size: 25px;
+  color: #d9dde8;
+  width: 100%;
+  background: #2e3856;
+  border: none;
+  margin-top: 10px;
+  padding: 10px 30px;
+  border-radius: 10px;
+}
+
+.input-name-new-folder input:focus {
+  outline: none;
+}
+
+.newfolder-main-button {
+  margin-top: 30px;
+}
+
+.newfolder-main-button .newfolder-cancel,
+.newfolder-main-button .newfolder-create {
+  height: 40px;
+  color: #d9dde8;
+  border-radius: 20px;
+  margin-right: 15px;
+  font-weight: 600;
+}
+
+.newfolder-main-button .newfolder-cancel {
+  background: none;
+  border: 2px solid #d9dde8;
+}
+
+.newfolder-main-button .newfolder-create {
+  background: #4255ff;
+  border: none;
+}
+
+.newfolder-main-button span {
+  padding: 10px 20px;
+}
+
+.newfolder-cancel:hover span {
+  background: #2e3856;
+  border-radius: 20px;
+}
+
+.newfolder-create:hover span {
+  background: #4352dd;
+  border-radius: 20px;
+}

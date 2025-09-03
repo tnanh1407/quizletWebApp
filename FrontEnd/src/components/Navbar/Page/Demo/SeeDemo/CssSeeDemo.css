@@ -14,8 +14,8 @@
 }
 
 .study-other p {
-  color: #586380;
-  background: #2e3856;
+  color: #f6f7fb;
+  background: 4255ff;
   padding: 10px 20px;
   border-radius: 25px;
 }
@@ -100,4 +100,72 @@
 
 .new-folder-main-filter {
   margin-bottom: 25px;
+}
+
+.see-folder-maincontent {
+  width: 100%;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 30px;
+}
+
+.see-folder-button-recent,
+.see-folder-button-material {
+  background: none;
+  color: #f6f7fb;
+  border: none;
+  border-radius: 20px;
+  border: 2px solid #f6f7fb;
+}
+
+.see-folder-button-material {
+  align-items: center;
+}
+
+.see-folder-button-recent {
+  align-items: center;
+}
+.see-folder-button-recent-main,
+.see-folder-button-material-main {
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+
+.see-folder-button-recent p,
+.see-folder-button-material i {
+  margin-right: 5px;
+}
+
+.see-folder-button-recent:hover .see-folder-button-recent-main {
+  background: #2e3856;
+}
+
+.see-folder-button-material:hover .see-folder-button-material-main {
+  background: #2e3856;
+}
+
+.see-folder-search input {
+  width: 350px;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  background: #2e3856;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.see-folder-search {
+  position: relative;
+}
+
+.see-folder-search i {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+
+.see-folder-search input:focus {
+  color: #929bb4;
+  border: 2px solid #d9dde8;
+  background: #0a092d;
 }

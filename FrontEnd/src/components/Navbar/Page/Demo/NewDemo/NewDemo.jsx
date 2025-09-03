@@ -11,7 +11,7 @@ export default function NewDemo({ isPadded }) {
         <div className="main-content">
           <div className="main-content-new-folder">
             <div className="new-folder-header flex">
-              <h1>Demo</h1>
+              <h1>NewDemo</h1>
               <div className="study-other flex">
                 <p>Study</p>
                 <button className="other-new-folder">

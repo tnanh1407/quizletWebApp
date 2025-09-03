@@ -1,0 +1,66 @@
+.item-folder-main {
+  justify-content: space-between;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+#item-folder {
+  margin-top: 10px;
+}
+
+.item-folder {
+  width: 100%;
+  padding-left: 20px;
+  line-height: 20px;
+}
+
+.item-folder-main-icon-card {
+  width: 40px;
+  height: 40px;
+}
+
+.item-folder-main-icon-card i {
+  line-height: 37px;
+  color: #51cfff;
+  width: 100%;
+  font-size: 18px;
+  background: #2e3856;
+  border-radius: 10px;
+}
+
+.item-folder h1,
+.item-folder p {
+  font-size: 14px;
+}
+
+.item-folder h1 {
+  margin: 0;
+}
+
+.item-folder-button-option {
+  background: none;
+  border: none;
+}
+
+.button-option {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+.button-option i {
+  line-height: 40px;
+}
+
+.item-folder-button-option i {
+  color: #f6f7fb;
+  font-size: 18px;
+}
+
+#item-folder:hover .item-folder-main {
+  background: #2e3856;
+}
+
+.item-folder-button-option:hover .button-option {
+  background: #0a092d;
+}

@@ -32,6 +32,12 @@ export default function Navbar({ togglePadding }) {
   const handleActive = (item) => {
     setActiveItem(item);
   };
+
+  const [isNewFolder, setIsNewFolder] = useState(false);
+
+  const toggleNewFolder = () => {
+    setIsNewFolder(!isNewFolder);
+  };
   return (
     <>
       <div class="button-navbar">
@@ -90,58 +96,6 @@ export default function Navbar({ togglePadding }) {
                 <i className="fa-solid fa-ellipsis"></i>
               </div>
             </Link>
-            <Link to="/">
-              <div className="notifi-main-children flex">
-                <img src={account} alt="" />
-                <div className="notifi-main-content">
-                  <h1>
-                    Way to go! You're on a 2 day week.
-                    <strong>Keep up the momentum and study again</strong>
-                    <span>1 hours ago</span>
-                  </h1>
-                </div>
-                <i className="fa-solid fa-ellipsis"></i>
-              </div>
-            </Link>
-            <Link to="/">
-              <div className="notifi-main-children flex">
-                <img src={account} alt="" />
-                <div className="notifi-main-content">
-                  <h1>
-                    Way to go! You're on a 2 day week.
-                    <strong>Keep up the momentum and study again</strong>
-                    <span>1 hours ago</span>
-                  </h1>
-                </div>
-                <i className="fa-solid fa-ellipsis"></i>
-              </div>
-            </Link>
-            <Link to="/">
-              <div className="notifi-main-children flex">
-                <img src={account} alt="" />
-                <div className="notifi-main-content">
-                  <h1>
-                    Way to go! You're on a 2 day week.
-                    <strong>Keep up the momentum and study again</strong>
-                    <span>1 hours ago</span>
-                  </h1>
-                </div>
-                <i className="fa-solid fa-ellipsis"></i>
-              </div>
-            </Link>
-            <Link to="/">
-              <div className="notifi-main-children flex">
-                <img src={account} alt="" />
-                <div className="notifi-main-content">
-                  <h1>
-                    Way to go! You're on a 2 day week.
-                    <strong>Keep up the momentum and study again</strong>
-                    <span>1 hours ago</span>
-                  </h1>
-                </div>
-                <i className="fa-solid fa-ellipsis"></i>
-              </div>
-            </Link>
           </div>
         </div>
         <div className="navbar-two">
@@ -157,17 +111,32 @@ export default function Navbar({ togglePadding }) {
               <p className={isCollapsed ? "hidden" : "block"}>Demo</p>
             </div>
           </Link>
-          <Link to="/newfolder" onClick={() => handleActive("newfolder")}>
-            <div
-              className={`navbar-a flex ${
-                activeItem === "newfolder" ? "active" : ""
-              }`}
-              id="navbar-one-new-folder"
-            >
+          <button id="click-notifi" onClick={toggleNewFolder}>
+            <div className={`navbar-a flex `} id="navbar-one-notifi">
               <i className="fa-solid fa-plus"></i>
               <p className={isCollapsed ? "hidden" : "block"}>New folder</p>
             </div>
-          </Link>
+          </button>
+          <div id="newfolder" className={isNewFolder ? "block" : "hidden"}>
+            <div className="newfolder-main">
+              <p>
+                <i className="fa-solid fa-folder"></i>
+              </p>
+              <input
+                type="text"
+                placeholder="Name your folder"
+                className="input-name-new-folder"
+              />
+              <div className="newfolder-main-button flex">
+                <button className="newfolder-create">
+                  <span>Create</span>
+                </button>
+                <button className="newfolder-cancel" onClick={toggleNewFolder}>
+                  <span>Cancel</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="navbar-three">
           <p className={isCollapsed ? "hidden" : "block"}>Start here</p>
