@@ -8,7 +8,8 @@ import "./components/Footer/CssFooter.css";
 import "./components/Navbar/Page/Demo/NewDemo/CssNewDemo.css";
 import "./components/Navbar/Page/Demo/SeeDemo/CssSeeDemo.css";
 import "./components/Navbar/Page/Demo/SeeDemo/Items/CssItemsSeeDemo.css";
-import "./components//Navbar/Page/YourLibrary/CssYourLibrary.css";
+import "./components/Navbar/Page/YourLibrary/CssYourLibrary.css";
+import "./components/Navbar/Page/FlashCards/CssFlashCards.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/Classes/CssClasses.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/ExpertSolutions/CssExpertSolutions.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/CssFlashCard.css";
@@ -25,6 +26,7 @@ import Folders from "./components/Navbar/Page/YourLibrary/LibraryChildren/Folder
 import Classes from "./components/Navbar/Page/YourLibrary/LibraryChildren/Classes/Classes.jsx";
 import NewDemo from "./components/Navbar/Page/Demo/NewDemo/NewDemo.jsx";
 import SeeDemo from "./components/Navbar/Page/Demo/SeeDemo/SeeDemo.jsx";
+import FlashCards from "./components/Navbar/Page/FlashCards/FlashCards.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -44,6 +46,10 @@ function App() {
             <Route path="classes" element={<Classes />} />
           </Route>
           <Route path="/demo" element={<SeeDemo isPadded={isPadded} />} />
+          <Route
+            path="/flashcards"
+            element={<FlashCards isPadded={isPadded} />}
+          />
           {/* <Route path="/newfolder" element={<h1>New Folder</h1>isPadded={isPadded} } />
                     <Route path="/flashcards" element={<h1>Flashcards</h1>isPadded={isPadded} } />
                     <Route path="/expertsolutions" element={<h1>Expert Solutions</h1>isPadded={isPadded} } />    */}

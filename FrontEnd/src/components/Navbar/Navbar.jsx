@@ -129,7 +129,9 @@ export default function Navbar({ togglePadding }) {
               />
               <div className="newfolder-main-button flex">
                 <button className="newfolder-create">
-                  <span>Create</span>
+                  <span>
+                    <Link to="">Create</Link>
+                  </span>
                 </button>
                 <button className="newfolder-cancel" onClick={toggleNewFolder}>
                   <span>Cancel</span>
