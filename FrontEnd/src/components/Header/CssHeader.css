@@ -1,0 +1,166 @@
+.header{
+    background: #0a092d;
+    max-width: 100%;
+    height:64px;
+    padding: 12px 16px;
+    margin:auto;
+    color:#d9dde8;
+    justify-content:space-between;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 1000;
+}
+
+.logo{
+    height: 25px;
+    width: auto;
+    margin: 8px 8px 8px 40px ;
+}
+
+.search{
+    width: 600px;
+    height:36px;
+    border-radius: 10px;
+    background: #2e3856;
+    position: relative;
+}
+
+.input-research{
+    width:600px;
+    padding-left: 40px;
+    border-radius: 10px;
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background: #2e3856;
+    color:#929bb4;
+}
+
+.input-research:focus{
+    border: 2px solid #d9dde8;
+    background: #0a092d;
+}
+
+.search i{
+    position: absolute;
+    top:10px;
+    left:10px;
+}
+
+.add-folder, .setting img{
+    width: 40px;
+    height:40px;
+    border-radius: 50px;
+    margin-left: 10px;
+}
+
+.add-folder{
+    background: #4255ff;
+}
+
+.add-folder i{
+    line-height: 40px;
+    margin-left: 12px;
+    color: #d9dde8;
+}
+
+.setting button{
+    border: none;
+    background: rgba(0,0,0,0);
+}
+
+.setting img{
+    width: 40px;
+    height:40px;
+    border-radius: 50px;
+}
+
+/* Css Setting */
+
+#account-setting{
+    width: 270px;
+    position: absolute;
+    top:64px;
+    right: 16px;
+    border: 1px solid #d9dde8;
+    border-radius: 10px;
+    background: #0a092d;
+}
+
+#account-setting a{
+    text-decoration: none;
+    color:#d9dde8;
+}
+
+.account-in4{
+    padding: 10px 20px;
+    border-bottom: 1px solid #d9dde8;
+}
+
+.account-in4 img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+}
+
+.in4{
+    align-items: center;
+    margin: auto;
+    margin-left: 10px;
+}
+
+.account-in4 h1,.account-in4 p{
+    font-size: 13px;
+}
+
+.account-other li{
+    list-style-type:none;
+}
+
+.account-setting{
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid #d9dde8;
+}
+
+.setting-item{
+    width: 100%;
+    height:40px;
+    padding:5px 20px;
+    text-decoration: none;
+    align-items: center;
+}
+
+.setting-item i{
+    margin-right: 10px;
+}
+
+a:hover .setting-item{
+    background:#282e3e ;
+}
+
+.add-folder button{
+    background: none;
+    border: none;
+}
+
+#add-folder {
+    background: #0a092d;
+    position:fixed;
+    top:64px;
+    right: 70px;
+    border: 1px solid #d9dde8;
+    border-radius: 10px;
+    padding:10px 0 ;
+} 
+
+#add-folder a{
+    text-decoration: none;
+}
+
+#add-folder i, #add-folder p{
+    color: #d9dde8;
+}

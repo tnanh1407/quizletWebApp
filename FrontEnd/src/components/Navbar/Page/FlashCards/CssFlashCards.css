@@ -1,0 +1,232 @@
+.create-flashcard-header,
+.create-flashcard-maincontent {
+  height: 40px;
+  justify-content: space-between;
+}
+
+.create-flashcard-title h1,
+.create-flashcard-title p {
+  line-height: 40px;
+}
+
+.create-flashcard-title h1 {
+  font-size: 24px;
+}
+
+.create-flashcard-title p {
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.button-create-flashcard-create,
+.button-create-flashcard-create-practice {
+  border-radius: 20px;
+  color: #f6f7fb;
+}
+
+.button-create-flashcard-create {
+  padding: 10px 20px;
+  background: none;
+  border: 2px solid #586380;
+  font-size: 14px;
+  margin-right: 15px;
+}
+
+.button-create-flashcard-create-practice {
+  padding: 12px 22px;
+  background: #4255ff;
+  border: none;
+  font-size: 14px;
+}
+
+.create-flashcard-header {
+  margin-bottom: 30px;
+}
+
+.button-create-flashcard-main-title input {
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  padding: 4px 12px;
+  border-radius: 10px;
+  background: #2e3856;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.button-create-flashcard-main-title input::placeholder {
+  color: #dddee4;
+}
+
+.button-create-flashcard-main-desc input {
+  width: 100%;
+  height: 76px;
+  font-size: 16px;
+  padding: 8px 12px 30px 12px;
+  border-radius: 10px;
+  background: #2e3856;
+  border: none;
+  margin-bottom: 30px;
+}
+
+.button-create-flashcard-main-desc input::placeholder {
+  color: #9198b2;
+}
+
+.button-import-flashcard-main,
+.button-adddiagram-flashcard-main {
+  color: #f6f7fb;
+  font-size: 14px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: #0a092d;
+  border: 2px solid #586380;
+  margin-right: 15px;
+}
+
+.button-import-flashcard-main p{
+  line-height: 20px;
+}
+
+.button-adddiagram-flashcard-main i,
+.button-adddiagram-flashcard-main p {
+  line-height: 20px;
+}
+
+.create-flashcard-maincontent-left .fa-plus {
+  line-height: 20px;
+  margin-right: 5px;
+}
+
+.lock-flashcard-main {
+  width: 30px;
+  color: #000;
+  background: #ffcd1f;
+  margin-left: 5px;
+  border-radius: 10px;
+}
+
+.create-flashcard-maincontent-right p {
+  color: #f6f7fb;
+  line-height: 40px;
+  margin-right: 15px;
+}
+
+.button-create-flashcard-maincontent-setting,
+.button-create-flashcard-maincontent-swap,
+.button-create-flashcard-maincontent-keyboard,
+.button-create-flashcard-maincontent-delete {
+  background: #0a092d;
+  border: none;
+}
+
+.create-flashcard-maincontent-setting,
+.create-flashcard-maincontent-swap,
+.create-flashcard-maincontent-keyboard,
+.create-flashcard-maincontent-delete {
+  color: #f6f7fb;
+  border: 2px solid #586380;
+  background: #0a092d;
+  width: 40px;
+  height: 40px;
+  line-height: 36px;
+  border-radius: 50px;
+  margin-right: 15px;
+  font-size: 15px;
+}
+
+.create-flashcard-main-content-header{
+  height: 64px;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 2px solid #000;
+}
+
+.create-flashcard-main-content-header-option button{
+  border: none;
+  background:none;
+}
+
+.button-create-flashcard-main-content-grip-line{
+  margin-right: 10px;
+}
+
+.create-flashcard-main-content-header-option i{
+  width: 32px;
+  height: 32px;
+  padding: 10px;
+  color: #f6f7fb;
+}
+
+.create-flashcard-main-content-header p{
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.create-flashcard-main-content-main{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap:20px;
+  padding: 16px 24px;
+}
+
+.create-flashcard-main-content{
+  color: #f6f7fb;
+  background: #2e3856;
+  margin-top: 15px;
+  border-radius: 15px;
+}
+
+.create-flashcard-main-content-main input{
+  width:100%;
+}
+
+.option-input-term-create-flashcard-main-content-main,.option-input-definition-create-flashcard-main-content-main{
+  justify-content: space-between;
+}
+
+.input-definition-create-flashcard-main-content-main{
+  display: grid;
+  gap:20px;
+  grid-template-columns: 77% 15%;
+}
+
+.create-flashcard-main-content-main input{
+  width:100%;
+  height:48px;
+  background: #0a092d;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin: 10px 0 15px 0;
+}
+
+.option-input-term-create-flashcard-main-content-main, .option-input-definition-create-flashcard-main-content-main{
+  margin-bottom: 10px;
+}
+
+.option-input-term-create-flashcard-main-content-main button, .option-input-definition-create-flashcard-main-content-main button{
+  background:none;
+  border: none;
+  color:#6671d5;
+}
+
+.option-input-term-create-flashcard-main-content-main p, .option-input-definition-create-flashcard-main-content-main p{
+  font-size: 13px;
+}
+
+.input-definition-create-flashcard-main-img{
+  padding: 10px;
+  border: 2px solid #586380;
+  border-radius: 5px;
+  text-align: center;
+  margin: 10px 0 25px 0;
+}
+
+.button-create-flashcard-create:hover {
+  background: #2e3856;
+}
+
+.button-create-flashcard-create-practice:hover {
+  background: #2f43f1;
+}
