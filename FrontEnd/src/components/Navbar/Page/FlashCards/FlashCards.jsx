@@ -1,3 +1,6 @@
+import SectionFlashCards from "../../../Sections/SectionFlashCardCreate";
+import Footer from "../../../Footer/Footer.jsx"
+
 export default function FlashCards({ isPadded }) {
   return (
     <>
@@ -34,7 +37,7 @@ export default function FlashCards({ isPadded }) {
               </div>
               <div className="create-flashcard-maincontent flex">
                 <div className="create-flashcard-maincontent-left flex">
-                  <button className="button-import-flashcard-main">
+                  {/* <button className="button-import-flashcard-main">
                     <div className="flex">
                       <i class="fa-solid fa-plus"></i>
                       <p>Import</p>
@@ -48,25 +51,25 @@ export default function FlashCards({ isPadded }) {
                     <div className="lock-flashcard-main">
                       <i class="fa-solid fa-lock"></i>
                     </div>
-                  </button>
+                  </button> */}
                 </div>
                 <div className="create-flashcard-maincontent-right flex">
-                  <p>Suggestions</p>
+                  {/* <p>Suggestions</p> */}
                   <button className="button-create-flashcard-maincontent-setting">
                     <div className="create-flashcard-maincontent-setting">
                       <i class="fa-solid fa-gear"></i>
                     </div>
                   </button>
-                  <button className="button-create-flashcard-maincontent-swap">
+                  {/* <button className="button-create-flashcard-maincontent-swap">
                     <div className="create-flashcard-maincontent-swap">
                       <i class="fa-solid fa-right-left"></i>
                     </div>
-                  </button>
-                  <button className="button-create-flashcard-maincontent-keyboard">
+                  </button> */}
+                  {/* <button className="button-create-flashcard-maincontent-keyboard">
                     <div className="create-flashcard-maincontent-keyboard">
                       <i class="fa-solid fa-keyboard"></i>
                     </div>
-                  </button>
+                  </button> */}
                   <button className="button-create-flashcard-maincontent-delete">
                     <div className="create-flashcard-maincontent-delete">
                       <i class="fa-solid fa-trash"></i>
@@ -74,7 +77,12 @@ export default function FlashCards({ isPadded }) {
                   </button>
                 </div>
               </div>
+                <SectionFlashCards/>
+                <SectionFlashCards/>
+                <SectionFlashCards/>
+                <SectionFlashCards/>
             </div>
+            <Footer/>
           </div>
         </div>
       </div>

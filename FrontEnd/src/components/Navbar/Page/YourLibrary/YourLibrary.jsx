@@ -43,12 +43,12 @@ export default function YourLibrary({ isPadded }) {
                 </div>
               </Link>
               <Link
-                to="expert-solutions"
-                onClick={() => handleActiveContent("expert-solutions")}
+                to="expert-solution"
+                onClick={() => handleActiveContent("expert-solution")}
               >
                 <div
                   className={`items ${
-                    activeContentItem === "expert-solutions"
+                    activeContentItem === "expert-solution"
                       ? "active-items"
                       : ""
                   }`}

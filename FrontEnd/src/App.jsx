@@ -11,7 +11,7 @@ import "./components/Navbar/Page/Demo/SeeDemo/Items/CssItemsSeeDemo.css";
 import "./components/Navbar/Page/YourLibrary/CssYourLibrary.css";
 import "./components/Navbar/Page/FlashCards/CssFlashCards.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/Classes/CssClasses.css";
-import "./components/Navbar/Page/YourLibrary/LibraryChildren/ExpertSolutions/CssExpertSolutions.css";
+import "./components/Navbar/Page/YourLibrary/LibraryChildren/ExpertSolution/CssExpertSolution.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/CssFlashCard.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/Folders/CssFolders.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/PracticeTests/CssPracticeTests.css";
@@ -21,12 +21,13 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import YourLibrary from "./components/Navbar/Page/YourLibrary/YourLibrary.jsx";
 import FlashCard from "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/FlashCard.jsx";
 import PractiveTests from "./components/Navbar/Page/YourLibrary/LibraryChildren/PracticeTests/PracticeTests.jsx";
-import ExpertSolutions from "./components/Navbar/Page/YourLibrary/LibraryChildren/ExpertSolutions/ExpertSolutions.jsx";
+import ExpertSolution from "./components/Navbar/Page/YourLibrary/LibraryChildren/ExpertSolution/ExpertSolution.jsx";
 import Folders from "./components/Navbar/Page/YourLibrary/LibraryChildren/Folders/Folders.jsx";
 import Classes from "./components/Navbar/Page/YourLibrary/LibraryChildren/Classes/Classes.jsx";
 import NewDemo from "./components/Navbar/Page/Demo/NewDemo/NewDemo.jsx";
 import SeeDemo from "./components/Navbar/Page/Demo/SeeDemo/SeeDemo.jsx";
 import FlashCards from "./components/Navbar/Page/FlashCards/FlashCards.jsx";
+import ExpertSolutions from "./components/Navbar/Page/ExpertSolution/ExpertSolutions.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -41,7 +42,7 @@ function App() {
           <Route path="/library" element={<YourLibrary isPadded={isPadded} />}>
             <Route path="/library" element={<FlashCard />} />
             <Route path="practive-tests" element={<PractiveTests />} />
-            <Route path="expert-solutions" element={<ExpertSolutions />} />
+            <Route path="expert-solution" element={<ExpertSolution />} />
             <Route path="folders" element={<Folders />} />
             <Route path="classes" element={<Classes />} />
           </Route>
@@ -50,6 +51,7 @@ function App() {
             path="/flashcards"
             element={<FlashCards isPadded={isPadded} />}
           />
+          <Route path="/expert-solutions" element={<ExpertSolutions isPadded={isPadded} />} />
           {/* <Route path="/newfolder" element={<h1>New Folder</h1>isPadded={isPadded} } />
                     <Route path="/flashcards" element={<h1>Flashcards</h1>isPadded={isPadded} } />
                     <Route path="/expertsolutions" element={<h1>Expert Solutions</h1>isPadded={isPadded} } />    */}

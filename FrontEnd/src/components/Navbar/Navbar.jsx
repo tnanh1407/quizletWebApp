@@ -154,12 +154,12 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
           <Link
-            to="/expertsolutions"
-            onClick={() => handleActive("expertsolutions")}
+            to="/expert-solutions"
+            onClick={() => handleActive("expert-solutions")}
           >
             <div
               className={`navbar-a flex ${
-                activeItem === "expertsolutions" ? "active" : ""
+                activeItem === "expert-solutions" ? "active" : ""
               }`}
               id="navbar-one-expert-solutions"
             >
