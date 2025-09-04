@@ -82,7 +82,7 @@ export default function FlashCards({ isPadded }) {
                 <SectionFlashCards/>
                 <SectionFlashCards/>
               <div className="button-add-a-card">
-                <button>
+                <button >
                   <div className="">
                     <p>Add a card</p>
                   </div>

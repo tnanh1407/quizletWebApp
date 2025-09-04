@@ -230,3 +230,21 @@
 .button-create-flashcard-create-practice:hover {
   background: #2f43f1;
 }
+
+.button-add-a-card{
+  width: 150px;
+  height:70px;
+  background: none;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.button-add-a-card button{
+  border: 2px solid #586380;
+  background:none;
+  padding: 20px 35px;
+  color: #f6f7fb;
+  border-radius: 50px ;
+  font-size: 16px;
+}
