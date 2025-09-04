@@ -19,7 +19,7 @@ import Header from "./components/Header/Header.jsx";
 import MainContent from "./components/MainContent/MainContent.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import YourLibrary from "./components/Navbar/Page/YourLibrary/YourLibrary.jsx";
-import FlashCard from "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/FlashCard.jsx";
+import FlashCardSet from "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/FlashCard.jsx";
 import PractiveTests from "./components/Navbar/Page/YourLibrary/LibraryChildren/PracticeTests/PracticeTests.jsx";
 import ExpertSolution from "./components/Navbar/Page/YourLibrary/LibraryChildren/ExpertSolution/ExpertSolution.jsx";
 import Folders from "./components/Navbar/Page/YourLibrary/LibraryChildren/Folders/Folders.jsx";
@@ -28,6 +28,7 @@ import NewDemo from "./components/Navbar/Page/Demo/NewDemo/NewDemo.jsx";
 import SeeDemo from "./components/Navbar/Page/Demo/SeeDemo/SeeDemo.jsx";
 import FlashCards from "./components/Navbar/Page/FlashCards/FlashCards.jsx";
 import ExpertSolutions from "./components/Navbar/Page/ExpertSolution/ExpertSolutions.jsx";
+import FlashCard from "./components/FlashCardItems/FlashCard.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -40,7 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainContent isPadded={isPadded} />} />
           <Route path="/library" element={<YourLibrary isPadded={isPadded} />}>
-            <Route path="/library" element={<FlashCard />} />
+            <Route path="/library" element={<FlashCardSet />} />
             <Route path="practive-tests" element={<PractiveTests />} />
             <Route path="expert-solution" element={<ExpertSolution />} />
             <Route path="folders" element={<Folders />} />
@@ -51,10 +52,14 @@ function App() {
             path="/flashcards"
             element={<FlashCards isPadded={isPadded} />}
           />
-          <Route path="/expert-solutions" element={<ExpertSolutions isPadded={isPadded} />} />
-          {/* <Route path="/newfolder" element={<h1>New Folder</h1>isPadded={isPadded} } />
-                    <Route path="/flashcards" element={<h1>Flashcards</h1>isPadded={isPadded} } />
-                    <Route path="/expertsolutions" element={<h1>Expert Solutions</h1>isPadded={isPadded} } />    */}
+          <Route
+            path="/expert-solutions"
+            element={<ExpertSolutions isPadded={isPadded} />}
+          />
+          <Route
+            path="/flashcard"
+            element={<FlashCard isPadded={isPadded} />}
+          />
         </Routes>
       </Router>
     </>
