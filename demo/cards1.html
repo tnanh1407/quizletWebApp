@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f7fb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container{
+            max-width: 800px;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header{
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1{
+            margin-bottom: 10px;
+        }
+
+        .setSelector{
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        select{
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .card-container{
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .card{
+            width: 800px;
+            height: 400px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            position: relative;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .back{
+            transform: rotateY(180deg);
+        }
+        
+        .count{
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .controls{
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button{
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover{
+            background: #0056b3;
+        }
+
+        .completed-mess{
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .completed-mess h2{
+            margin-bottom: 15px;
+        }
+
+        .review{
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-restart{
+            background-color: #007bff;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Thẻ ghi nhớ</h1>
+            <div class="set-seclector">
+                <select id="setSelector">
+                    <option value="">-- Chọn học phần --</option>
+                </select>
+            </div>
+        </header>
+    </div>
+
+    <div class="count">
+        <p>Đang học: <span id="learningCount">0</span> |  Đã biết: <span id="knowCount">0</span></p>
+    </div>
+
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="front"></div>
+            <div class="back"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevCard()">⬅</button>
+        <button onclick="markLearning()">Đang học</button>
+        <button onclick="markKnown()">Đã biết</button>
+        <button onclick="nextCard()">➡</button>
+    </div>
+
+    <div id="completed" class="completed-mess" style="display:none;">
+        <h2>Chúc mừng</h2>
+        <p>Bạn đã hoàn thành tất cả các thẻ trong bộ này.</p>
+        <div class="review">
+            <button class="btn-restart" id="learnUnknown">Học lại thẻ chưa nhớ</button>
+            <button class="btn-restart" id="learnAll">Học lại tất cả</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSet = null;
+        let currentCardIndex = 0;
+        let cardSets = JSON.parse(localStorage.getItem('cardSets')) || [];
+        let currentCards = [];
+        let learningCount = 0;
+        let knowCount = 0;
+
+        // Load card sets into dropdown
+        function loadSets() {
+            const setSelector = document.getElementById('setSelector');
+            setSelector.innerHTML = '<option value="">-- Chọn học phần --</option>';
+            cardSets.forEach((set, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = set.title;
+                setSelector.appendChild(option);
+            });
+        }
+
+        // Update card display
+        function updateCardDisplay() {
+            const card = document.getElementById('card');
+            const front = card.querySelector('.front');
+            const back = card.querySelector('.back');
+            const completed = document.getElementById('completed');
+            const cardContainer = document.querySelector('.card-container');
+            const controls = document.querySelector('.controls');
+
+            if (!currentSet || currentCards.length === 0) {
+                cardContainer.style.display = 'none';
+                controls.style.display = 'none';
+                completed.style.display = 'none';
+                return;
+            }
+
+            cardContainer.style.display = 'block';
+            controls.style.display = 'flex';
+            card.classList.remove('flipped');
+            front.textContent = currentCards[currentCardIndex].term;
+            back.textContent = currentCards[currentCardIndex].definition;
+            updateCounts();
+            checkCompletion();
+        }
+
+        // Update learning and known counts
+        function updateCounts() {
+            learningCount = currentCards.filter(card => card.status === 'learning').length;
+            knowCount = currentCards.filter(card => card.status === 'known').length;
+            document.getElementById('learningCount').textContent = learningCount;
+            document.getElementById('knowCount').textContent = knowCount;
+        }
+
+        // Check if all cards are known
+        function checkCompletion() {
+            const completed = document.getElementById('completed');
+            if (knowCount === currentCards.length && currentCards.length > 0) {
+                document.querySelector('.card-container').style.display = 'none';
+                document.querySelector('.controls').style.display = 'none';
+                completed.style.display = 'block';
+            } else {
+                completed.style.display = 'none';
+            }
+        }
+
+        // Flip card on click
+        document.getElementById('card').addEventListener('click', () => {
+            document.getElementById('card').classList.toggle('flipped');
+        });
+
+        // Previous card
+        function prevCard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                updateCardDisplay();
+            }
+        }
+
+        // Next card
+        function nextCard() {
+            if (currentCardIndex < currentCards.length - 1) {
+                currentCardIndex++;
+                updateCardDisplay();
+            }
+        }
+
+        // Mark card as learning
+        function markLearning() {
+            if (currentCards[currentCardIndex]) {
+                currentCards[currentCardIndex].status = 'learning';
+                saveCurrentSet();
+                updateCardDisplay();
+                if (currentCardIndex < currentCards.length - 1) {
+                    nextCard();
+                }
+            }
+        }
+
+        // Mark card as known
+        function markKnown() {
+            if (currentCards[currentCardIndex]) {
+                currentCards[currentCardIndex].status = 'known';
+                saveCurrentSet();
+                updateCardDisplay();
+                if (currentCardIndex < currentCards.length - 1) {
+                    nextCard();
+                }
+            }
+        }
+
+        // Save current set to localStorage
+        function saveCurrentSet() {
+            if (currentSet) {
+                cardSets[currentSet.index].cards = currentCards;
+                localStorage.setItem('cardSets', JSON.stringify(cardSets));
+            }
+        }
+
+        // Load selected set
+        document.getElementById('setSelector').addEventListener('change', (e) => {
+            const index = e.target.value;
+            if (index === '') {
+                currentSet = null;
+                currentCards = [];
+                currentCardIndex = 0;
+                updateCardDisplay();
+                return;
+            }
+            currentSet = cardSets[index];
+            currentSet.index = index;
+            currentCards = currentSet.cards.map(card => ({
+                ...card,
+                status: card.status || 'learning' // Default to 'learning' if no status
+            }));
+            currentCardIndex = 0;
+            updateCardDisplay();
+        });
+
+        // Restart with unknown (learning) cards
+        document.getElementById('learnUnknown').addEventListener('click', () => {
+            currentCards = currentCards.filter(card => card.status === 'learning');
+            currentCardIndex = 0;
+            document.querySelector('.card-container').style.display = 'block';
+            document.querySelector('.controls').style.display = 'flex';
+            document.getElementById('completed').style.display = 'none';
+            saveCurrentSet();
+            updateCardDisplay();
+        });
+
+        // Restart with all cards
+        document.getElementById('learnAll').addEventListener('click', () => {
+            currentCards = currentSet.cards.map(card => ({
+                ...card,
+                status: 'learning'
+            }));
+            currentCardIndex = 0;
+            document.querySelector('.card-container').style.display = 'block';
+            document.querySelector('.controls').style.display = 'flex';
+            document.getElementById('completed').style.display = 'none';
+            saveCurrentSet();
+            updateCardDisplay();
+        });
+
+        // Initialize
+        loadSets();
+    </script>
+</body>
+</html>
