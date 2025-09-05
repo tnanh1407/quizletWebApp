@@ -57,7 +57,7 @@ function App() {
             element={<ExpertSolutions isPadded={isPadded} />}
           />
           <Route
-            path="/flashcard"
+            path="/flashcard/:idflashcard"
             element={<FlashCard isPadded={isPadded} />}
           />
         </Routes>
