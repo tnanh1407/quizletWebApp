@@ -16,12 +16,12 @@ export default function SeeDemo({ isPadded }) {
     setIsRecentOption(!isRecentOption);
   };
 
-  const [isAddTag2, setIsAddTag2] = useState(false);
+  // const [isAddTag2, setIsAddTag2] = useState(false);
 
-  const toggleAddTag2 = () => {
-    setIsAddTag2(!isAddTag2);
-    setIsAddOrRemoveTags(!isAddOrRemoveTags);
-  };
+  // const toggleAddTag2 = () => {
+  //   setIsAddTag2(!isAddTag2);
+  //   setIsAddOrRemoveTags(!isAddOrRemoveTags);
+  // };
 
   const [isAddTag, setIsAddTag] = useState(false);
 
@@ -36,10 +36,7 @@ export default function SeeDemo({ isPadded }) {
   };
   return (
     <>
-      <div
-        id="new-folder-add-tag"
-        className={isAddTag || isAddTag2 ? "block" : "hidden"}
-      >
+      <div id="new-folder-add-tag" className={isAddTag ? "block" : "hidden"}>
         <div className="new-folder-add-tag-container">
           <button className="new-folder-add-tag-close" onClick={toggleAddTag}>
             <i class="fa-solid fa-xmark"></i>
@@ -96,7 +93,7 @@ export default function SeeDemo({ isPadded }) {
                 <i class="fa-regular fa-circle"></i>
                 <p>demo2</p>
               </button>
-              <button onClick={toggleAddTag2}>
+              <button onClick={toggleAddTag}>
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>

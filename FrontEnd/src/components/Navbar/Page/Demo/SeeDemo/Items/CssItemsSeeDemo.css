@@ -111,7 +111,7 @@
 
 #add-or-remove-tags {
   position: fixed;
-  z-index: 999999;
+  z-index: 9999;
   width: 100%;
   height: 100%;
   top: 0;
@@ -128,7 +128,7 @@
   color: #f6f7fb;
   position: relative;
   background: #0a092d;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .add-or-remove-tags-container h1 {

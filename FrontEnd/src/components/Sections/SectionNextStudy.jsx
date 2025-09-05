@@ -9,7 +9,7 @@ export default function SectionNextStudy() {
         <button className="btn maincontent-recent-left ">
           <i className="fa-solid fa-circle-chevron-left"></i>
         </button>
-        <Link to="/flashcard">
+        <Link to="/itemflashcard">
           <div className="session all-section">
             <h1>Câu trả lời Đúng/Sai và giải thích</h1>
             <div className="session-terms">
@@ -21,7 +21,7 @@ export default function SectionNextStudy() {
             </div>
           </div>
         </Link>
-        <Link to="/flashcard">
+        <Link to="/itemflashcard">
           <div className="session all-section">
             <h1>Câu trả lời Đúng/Sai và giải thích</h1>
             <div className="session-terms">
@@ -33,7 +33,7 @@ export default function SectionNextStudy() {
             </div>
           </div>
         </Link>
-        <Link to="/flashcard">
+        <Link to="/itemflashcard">
           <div className="session all-section">
             <h1>Câu trả lời Đúng/Sai và giải thích</h1>
             <div className="session-terms">
@@ -45,7 +45,7 @@ export default function SectionNextStudy() {
             </div>
           </div>
         </Link>
-        <Link to="/flashcard">
+        <Link to="/itemflashcard">
           <div className="session all-section">
             <h1>Câu trả lời Đúng/Sai và giải thích</h1>
             <div className="session-terms">
@@ -57,19 +57,7 @@ export default function SectionNextStudy() {
             </div>
           </div>
         </Link>
-        <Link to="/flashcard">
-          <div className="session all-section">
-            <h1>Câu trả lời Đúng/Sai và giải thích</h1>
-            <div className="session-terms">
-              <p>10 terms</p>
-            </div>
-            <div className="session-author flex">
-              <img src={account} alt="" />
-              <p>Thien</p>
-            </div>
-          </div>
-        </Link>
-        <Link to="/flashcard">
+        <Link to="/itemflashcard">
           <div className="session all-section">
             <h1>Câu trả lời Đúng/Sai và giải thích</h1>
             <div className="session-terms">
