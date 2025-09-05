@@ -11,6 +11,7 @@ import "./components/Navbar/Page/Demo/SeeDemo/Items/CssItemsSeeDemo.css";
 import "./components/Navbar/Page/YourLibrary/CssYourLibrary.css";
 import "./components/Navbar/Page/FlashCards/CssFlashCards.css";
 import "./components/FlashCardItems/CssFlashCard.css";
+import "./components/SettingAccount/CssSettingAccount.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/Classes/CssClasses.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/ExpertSolution/CssExpertSolution.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/CssFlashCard.css";
@@ -30,6 +31,7 @@ import SeeDemo from "./components/Navbar/Page/Demo/SeeDemo/SeeDemo.jsx";
 import FlashCards from "./components/Navbar/Page/FlashCards/FlashCards.jsx";
 import ExpertSolutions from "./components/Navbar/Page/ExpertSolution/ExpertSolutions.jsx";
 import FlashCard from "./components/FlashCardItems/FlashCard.jsx";
+import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -60,6 +62,10 @@ function App() {
           <Route
             path="/itemflashcard"
             element={<FlashCard isPadded={isPadded} />}
+          />
+          <Route
+            path="/settingaccount"
+            element={<SettingAccount isPadded={isPadded} />}
           />
           {/* <Route
             path="/flashcard/:idflashcard"

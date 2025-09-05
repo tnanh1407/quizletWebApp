@@ -1,0 +1,29 @@
+.account-defalt {
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+}
+
+.set-picture img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+#setting-account {
+  padding: 0 100px;
+}
+
+.add-picture {
+  color: #d9dde8;
+  width: 36px;
+  height: 36px;
+  border-radius: 50px;
+  border: none;
+  background: none;
+  border: 2px solid #d9dde8;
+}
+
+.delete-setting-account {
+  justify-content: space-between;
+}

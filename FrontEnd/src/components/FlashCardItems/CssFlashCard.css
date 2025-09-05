@@ -52,6 +52,8 @@
   color: #d9dde8;
   text-decoration: none;
   border-radius: 10px;
+  border-bottom: 5px solid #2e3856;
+  border-top: 5px solid #2e3856;
 }
 
 .itemflashcard-header-title-review {
@@ -59,18 +61,28 @@
   margin: 4px 0 15px;
 }
 
-.title-review-growth {
+.title-review-growth,
+.title-review-study-day {
   align-items: center;
   margin-right: 20px;
   font-size: 14px;
+  padding: 10px;
+  border: 2px solid #0a092d;
 }
 
-.title-review-growth i {
+.title-review-growth i,
+.title-review-study-day i {
   margin-right: 10px;
 }
 
 .itemflashcard-main-content-header-hint p {
   margin-left: 10px;
+}
+
+.itemflashcard-main-content-header-hint p,
+.itemflashcard-main-content-header-hint i {
+  line-height: 40px;
+  color: #d9dde8;
 }
 
 .itemflashcard-main-content-header {
@@ -80,7 +92,7 @@
 .itemflashcard-main-content {
   height: 400px;
   background: #2e3856;
-  padding: 40px;
+  padding: 20px 40px;
   border-radius: 20px;
   margin-top: 20px;
 }
@@ -159,4 +171,26 @@
 
 .itemflashcard-main-created-in4 h2 {
   font-size: 14px;
+}
+
+.title-review-growth:hover {
+  border: 2px solid #d9dde8;
+  border-radius: 50px;
+}
+
+.itemflashcard-header-title-solution a:hover {
+  border-bottom: 5px solid #4255ff;
+}
+
+.itemflashcard-main-content-header .fa-star {
+  color: #d9dde8;
+  line-height: 40px;
+  height: 40px;
+  width: 40px;
+  background: #2e3856;
+  border-radius: 50px;
+}
+
+.fa-star:hover {
+  background: #0a092d;
 }

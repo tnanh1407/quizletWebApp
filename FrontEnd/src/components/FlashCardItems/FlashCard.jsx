@@ -29,7 +29,7 @@ export default function FlashCard({ isPadded }) {
             <div className="itemflashcard-header-title">
               <h1>Bài 1: XÂY DỰNG NỀN QUỐC PHÒNG TOÀN DÂN AN NINH NHÂN DÂN</h1>
               <div className="itemflashcard-header-title-review flex">
-                <div className="title-review-growth flex">
+                <div className="title-review-study-day flex">
                   <i class="fa-regular fa-star"></i>
                   <p>10 studiers today</p>
                 </div>

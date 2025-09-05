@@ -78,7 +78,7 @@ export default function Header() {
                 <p>Achievements</p>
               </div>
             </Link>
-            <Link to="/">
+            <Link to="/settingaccount">
               <div className="setting-item flex">
                 <i className="fa-solid fa-gear"></i>
                 <p>Setting</p>

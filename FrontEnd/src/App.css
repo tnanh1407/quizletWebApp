@@ -10,6 +10,11 @@
 }
 
 /* Css dùng chung */
+.padding-24px {
+  padding: 24px;
+  justify-content: space-between;
+}
+
 .flex {
   display: flex;
 }
