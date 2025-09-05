@@ -1,0 +1,22 @@
+.practivetests{
+    width: 300px;
+    text-align: center;
+    margin: 40px auto 250px;
+}
+
+.practivetests h1, .practivetests button{
+    color:#f6f7fb;
+}
+
+.practivetests h1{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.practivetests button{
+    font-size: 16px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    background: #4255ff;
+}

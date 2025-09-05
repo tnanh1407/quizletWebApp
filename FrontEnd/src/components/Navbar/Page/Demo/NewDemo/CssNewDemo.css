@@ -1,0 +1,103 @@
+.main-content-new-folder {
+  margin-bottom: 200px;
+  justify-content: space-between;
+}
+
+.main-content-new-folder h1 {
+  font-size: 35px;
+  margin: 10px 0 30px 0;
+}
+
+.main-content-new-folder a {
+  text-decoration: none;
+  color: #929bb4;
+}
+
+.study-other p {
+  color: #f6f7fb;
+  background: #4255ff;
+  padding: 10px 20px;
+  border-radius: 25px;
+}
+
+.other-new-folder {
+  width: 40px;
+  height: 40px;
+  background: #0a092d;
+  border: 2px solid #f6f7fb;
+  border-radius: 50px;
+  margin-left: 10px;
+}
+
+.other-new-folder i {
+  font-size: 20px;
+  color: #f6f7fb;
+}
+
+.new-folder-header {
+  padding: 0px 0 40px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-add {
+  width: 50px;
+  height: 40px;
+  background: #0a092d;
+  border: 2px solid #f6f7fb;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.new-folder-filter-add {
+  color: #f6f7fb;
+  background: #2e3856;
+  border: none;
+  border-radius: 50px;
+}
+
+.filter-add p {
+  color: #f6f7fb;
+}
+
+.new-folder-maincontent {
+  height: 250px;
+  background: #2e3856;
+  border-radius: 10px;
+  padding: 70px;
+}
+
+.new-folder-main-content {
+  width: 300px;
+  text-align: center;
+  margin: auto;
+}
+
+.new-folder-main-content h2,
+.new-folder-main-content button {
+  color: #f6f7fb;
+}
+
+.new-folder-main-content h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.new-folder-maincontent button {
+  font-size: 16px;
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #4255ff;
+}
+
+.new-folder-main-filter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0px;
+  width: 10%;
+}
+
+.new-folder-main-filter {
+  margin-bottom: 25px;
+}
