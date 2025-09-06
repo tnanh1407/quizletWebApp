@@ -226,6 +226,7 @@
   border: none;
   padding: 10px 20px;
   background: #2e3856;
+  border: 2px solid #2e3856;
   margin-left: 10px;
   border-radius: 5px;
 }

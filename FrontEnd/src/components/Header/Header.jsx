@@ -1,14 +1,31 @@
 import account from "../../assets/img/account.jpg";
 import logo from "../../assets/img/logoQ.png";
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 
 export default function Header() {
+// const Dropdown = () => {
+//   const [isOpenAccount, setIsOpenAccount] = useState(false);
+//   const toggleaccountRef = useRef(null);
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (toggleaccountRef.current && !toggleaccountRef.current.contains(event.target)) {
+//         setIsOpen(false);
+//       }
+//     };
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => {
+//       document.removeEventListener('mousedown', handleClickOutside);
+//     };
+//   }, [toggleaccountRef]);
+
+
   const [isOpenAccount, setIsOpenAccount] = useState(false);
 
   const toggleAcconut = () => {
     setIsOpenAccount(!isOpenAccount);
   };
+
 
   const [isAddFolder, setIsAddFolder] = useState(false);
 
@@ -46,18 +63,18 @@ export default function Header() {
         </div>
         <div id="add-folder" className={isAddFolder ? "block" : "hidden"}>
           <div className="folder-option">
-            <Link to="/">
+            <Link to="/flashcards">
               <div className="setting-item flex">
                 <i className="fa-solid fa-trophy"></i>
                 <p>Flashcard set</p>
               </div>
             </Link>
-            <Link to="/">
+            <button>
               <div className="setting-item flex">
                 <i className="fa-solid fa-gear"></i>
                 <p>Folder</p>
               </div>
-            </Link>
+            </button>
           </div>
         </div>
         <div

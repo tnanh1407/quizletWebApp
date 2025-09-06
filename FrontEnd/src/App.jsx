@@ -35,7 +35,6 @@ import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
-
   return (
     <>
       <Router>
