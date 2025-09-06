@@ -1,19 +1,11 @@
-export default function SectionFlashCards ({index, card, onUpdate, onDelete}){
-    const termChange = (e) => {
-        onUpdate({ ...card, term: e.target.value });
-    }
-
-    const definitionChange = (e) => {
-    onUpdate({ ...card, definition: e.target.value });
-    };
-
+export default function SectionFlashCards (){
     return(
         <>
         <div className="create-flashcard-main-content">
 
             <div className="create-flashcard-main-content-header flex">
                 <div className="create-flashcard-main-content-header-stt">
-                    <p>{index}</p>
+                    <p>1</p>
                 </div>
                 <div className="create-flashcard-main-content-header-option">
                     <button>
@@ -30,7 +22,7 @@ export default function SectionFlashCards ({index, card, onUpdate, onDelete}){
             </div>
             <div className="create-flashcard-main-content-main">
                 <div className="input-term-create-flashcard-main-content-main">
-                    <input type="text" placeholder="Nhập thuật ngữ" value={card.term} onChange={termChange}/>
+                    <input type="text" placeholder="Nhập thuật ngữ" />
                     <div className="option-input-term-create-flashcard-main-content-main flex">
                         <p>THUẬT NGỮ</p>
                         <button>
@@ -42,7 +34,7 @@ export default function SectionFlashCards ({index, card, onUpdate, onDelete}){
                 </div>
                 <div className="input-definition-create-flashcard-main-content-main">
                     <div className="container-input-definition">
-                        <input type="text" placeholder="Nhập định nghĩa" value={card.definition} onChange={definitionChange}/>
+                        <input type="text" placeholder="Nhập định nghĩa" />
                         <div className="option-input-definition-create-flashcard-main-content-main flex">
                             <p>ĐỊNH NGHĨA</p>
                             <button>

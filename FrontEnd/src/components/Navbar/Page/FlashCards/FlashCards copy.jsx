@@ -1,52 +1,7 @@
-import { useState } from "react";
 import SectionFlashCards from "../../../Sections/SectionFlashCardCreate";
 import Footer from "../../../Footer/Footer.jsx"
 
 export default function FlashCards({ isPadded }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [cards, setCards] = useState([
-    {term:"", definition: ""},
-    {term:"", definition: ""},
-  ]);
-
-  const addCard = () => {
-    setCards([...cards, {term: "", definition: ""}]);
-  }
-
-  const updateCard = (index, updatedCard) => {
-    const newCards = [...cards];
-    newCards[index] = updatedCard;
-    setCards(newCards);
-  }
-
-  const deleteCard = (index) => {
-    const newCards = cards.filter((_, i) => i !== index);
-    setCards = newCards;
-  }
-
-  const saveSets = (withPractice = false) => {
-    //kiểm tra ít nhất có 2 thẻ không rỗng
-    const filtedCarrds = cards.filter(card => card.term.trim() !== "" && card.definition.trim( ) !== "");
-    if(filtedCarrds.length < 2) {
-      alert("Bạn cần hai thẻ ghi nhớ để tạo học phần. ")
-      return;
-    }
-
-    const flashcardSet = {
-      title,
-      description,
-      cards: filtedCarrds
-    }
-    console.log("Đã lưu học phần:", flashcardSet);
-
-    if(withPractice){
-      console.log("Chuyển sang chế độ ôn luyện");
-    }else{
-      console.log("Tạo học phần mới thành công!");
-    }
-  };
-
   return (
     <>
       <div
@@ -61,12 +16,12 @@ export default function FlashCards({ isPadded }) {
                 <p>Saved 7 mins ago</p>
               </div>
               <div className="create-flashcard-title-button">
-                <button className="button-create-flashcard-create" onClick={() => saveSets(false)}>
+                <button className="button-create-flashcard-create">
                   <div>
                     <p>Tạo</p>
                   </div>
                 </button>
-                <button className="button-create-flashcard-create-practice" onClick={() => saveSets(true)}>
+                <button className="button-create-flashcard-create-practice">
                   <div>
                     <p>Tạo và Ôn luyện</p>
                   </div>
@@ -75,10 +30,10 @@ export default function FlashCards({ isPadded }) {
             </div>
             <div className="create-flashcard-main">
               <div className="button-create-flashcard-main-title">
-                <input type="text" placeholder="Tiêu đề" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <input type="text" placeholder="Tiêu đề" />
               </div>
               <div className="button-create-flashcard-main-desc">
-                <input type="text" placeholder="Thêm mô tả..." value={description} onChange={(e) => setDescription(e.target.value)}/>
+                <input type="text" placeholder="Thêm mô tả..." />
               </div>
               <div className="create-flashcard-maincontent flex">
                 <div className="create-flashcard-maincontent-left flex">
@@ -122,15 +77,10 @@ export default function FlashCards({ isPadded }) {
                   </button>
                 </div>
               </div>
-              {cards.map((card, index) =>(
-                <SectionFlashCards
-                key={index}
-                index={index + 1}
-                card={card}
-                onUpdate={(updatedCard) => updateCard(index, updatedCard)}
-                onDelete={() => deleteCard(index)}/>
-              ))}
-                
+                <SectionFlashCards/>
+                <SectionFlashCards/>
+                <SectionFlashCards/>
+                <SectionFlashCards/>
               <div className="button-add-a-card">
                 <button>
                   <div className="">
