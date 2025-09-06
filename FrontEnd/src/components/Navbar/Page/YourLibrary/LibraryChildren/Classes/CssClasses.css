@@ -1,0 +1,24 @@
+.span{
+    width: 2px;
+    height: 20px;
+    background-color: #1b1d28;
+    margin:0 10px;
+}
+
+.nameflashcard i{
+    font-size: 18px;
+    color: #f6f7fb;
+    margin-right:10px;
+}
+
+.sectionclasses {
+    margin-bottom: 20px ;
+}
+
+.sectionclasses a:hover .main-flashcard{
+    border-bottom: 5px solid #5070c8;
+}
+
+#classes{
+    margin-top: 50px;
+}

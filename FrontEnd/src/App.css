@@ -1,0 +1,60 @@
+#root {
+  width: 100%;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Roboto";
+}
+
+/* Css dùng chung */
+.flex{
+    display: flex;
+}
+.active{
+    background: #282e3e;
+    color: #a7b0fe;
+}
+.margin-bottom-50{
+    margin-bottom: 30px;
+}
+.padding-16{
+    padding:0 16px;
+}
+.h2{
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+.all-section{
+    width:350px;
+    height: 150px;
+    padding: 14px;
+    background: #202040;
+    border-radius: 10px;
+    border: 2px solid #2e3856 ;
+}
+.khung-mo-ta{
+    font-size: 10px;
+    padding: 5px 10px;
+    background: #586380 ;
+    border-radius: 50px;
+    margin-right: 10px;
+    align-items: center;
+}
+
+.khung-mo-ta i{
+    margin-right: 5px;
+}
+
+.hidden{
+    display: none;
+}
+
+
+/* Css Header  */
+
+
+
+/* Css Main  */

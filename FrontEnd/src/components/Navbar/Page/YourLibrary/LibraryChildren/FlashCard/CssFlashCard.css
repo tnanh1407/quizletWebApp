@@ -1,0 +1,129 @@
+.flashcardsearch{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom:50px ;
+}
+
+.recentcard{
+    width: 200px;
+    position: absolute;
+    top:45px;
+    left:0;
+    border: 1px solid #d9dde8;
+    border-radius: 10px;
+    background: #0a092d;
+    padding:8px 0;
+}
+
+.recentcard p{
+    margin-left: 10px;
+    color: #d9dde8;
+    font-size: 16px;
+}
+
+.recentcard a{
+    text-decoration: none;
+}
+
+.flashcard-option{
+    height: 50px;
+}
+
+.flashcard-option button{
+    border-radius: 50px;
+    border: 1px solid #f6f7fb;
+    background: none;
+    color:#f6f7fb;
+    align-items: center;
+    padding: 0 15px ;
+    font-weight: 600;
+    position: relative;
+}
+
+.flashcard-option i{
+    line-height: 40px;
+    margin-left: 10px;
+}
+
+.flashcard-search{
+    position: relative;
+}
+
+.flashcard-search i{
+    position: absolute;
+    top:18px;
+    right:20px;
+}
+
+.input-research-flashcard{
+    padding-left:15px;
+    font-size: 20px;
+}
+
+
+
+
+.sectionflashcardset{
+    margin-bottom: 60px;
+}
+
+.header-flashcash p{
+    font-size: 14px;
+}
+
+.sectionflashcardset a, .sectionfolder a, .sectionclasses a{
+    text-decoration: none;
+}
+
+.creator-in4 img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+}
+
+.header-flashcash{
+    /* height: 30px; */
+}
+
+.header-flashcash .header-line{
+    background: #2e3856;
+    width:89%;
+    height:2px;
+    margin: 6px 0 0 15px;
+}
+
+.header-flashcash {
+    margin-bottom: 15px;
+}
+
+.main-flashcard{
+    padding: 12px 20px;
+    height: 75px;
+    background: #2e3856;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.sectionflashcardset p, .sectionflashcardset h1,.sectionfolder p, .sectionfolder h1,.sectionclasses a,.sectionclasses h1{
+    color:#f6f7fb;
+}
+
+.sectionflashcardset h1, .sectionfolder h1 ,.sectionclasses h1{
+    font-size: 18px;
+}
+
+.flashcard-creator{
+    margin-bottom: 10px;
+}
+
+/* .flashcard-creator>p{
+    padding-right: 15px;
+    border-right: 2px solid #1b1d28;
+} */
+
+.creator-in4 p{
+    margin-left: 10px;
+}
+.sectionflashcardset a:hover .main-flashcard{
+    border-bottom: 5px solid #5070c8;
+}
