@@ -32,6 +32,7 @@ import FlashCards from "./components/Navbar/Page/FlashCards/FlashCards.jsx";
 import ExpertSolutions from "./components/Navbar/Page/ExpertSolution/ExpertSolutions.jsx";
 import FlashCard from "./components/FlashCardItems/FlashCard.jsx";
 import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
+import SectionClass from "./components/Sections/SectionClass/SectionClass.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -65,6 +66,11 @@ function App() {
           <Route
             path="/settingaccount"
             element={<SettingAccount isPadded={isPadded} />}
+          />
+
+          <Route
+            path="/class"
+            element={<SectionClass isPadded={isPadded} />}
           />
           {/* <Route
             path="/flashcard/:idflashcard"
