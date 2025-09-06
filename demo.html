@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tạo lớp học mới</title>
+    <link rel="stylesheet" href="public/css/main.css" />
+</head>
+<body>
+    
+    <header class="header">
+        <div class="header__content">
+            <div class="header__left">
+                <button class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <a href="#" class="logo">Q</a>
+                <span class="header__text">Tạo lớp học mới</span>
+            </div>
+            
+            <div class="header__search">
+                <input type="text" placeholder="Tìm kiếm lớp học" class="search-input" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="search-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
+            
+            <div class="header__right">
+                <button class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                </button>
+                <button class="button button--primary header__upgrade-button">Nâng cấp lên Quizlet Plus</button>
+                <div class="avatar"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="form-container">
+            <h1 class="form-title">Tạo lớp học mới</h1>
+
+            <div class="form-section">
+                <input type="text" placeholder="Tên lớp học" class="input-field" />
+                <textarea placeholder="Mô tả lớp học..." rows="3" class="textarea-field"></textarea>
+            </div>
+            
+            <div class="form-section">
+                <h3 class="section-title">Mã lớp học</h3>
+                <div class="class-code-bar">
+                    <span id="class-code-display" class="class-code-text">
+                        <span class="placeholder-text">Mã sẽ được tạo sau khi lớp được tạo</span>
+                    </span>
+                    <button class="icon-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3 class="section-title">Cài đặt riêng tư</h3>
+                <div class="content-block">
+                    <div class="flex-row">
+                        <input type="checkbox" id="private-class-checkbox" class="checkbox" />
+                        <label for="private-class-checkbox" class="label-text">Đây là lớp học riêng tư</label>
+                    </div>
+                    <p class="description-text">Chỉ những thành viên được bạn mời mới có thể tham gia.</p>
+                    
+                    <div id="password-field" class="hidden password-section">
+                        <input type="password" placeholder="Mật khẩu" class="input-underline" />
+                        <span class="description-text--small">Mật khẩu cần thiết để tham gia lớp học.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="section-title">Thành viên</h3>
+                <div class="flex-row member-input-group">
+                    <input type="text" placeholder="Tên người dùng hoặc email" class="input-field member-input" />
+                    <button class="button button--primary">Thêm</button>
+                </div>
+                
+                <div class="member-list">
+                    <div class="member-item">
+                        <span>nguyenvana@email.com</span>
+                        <button class="delete-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="delete-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="member-item">
+                        <span>lethec@email.com</span>
+                        <button class="delete-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="delete-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </svg>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__actions">
+            <button class="button button--secondary">Hủy</button>
+            <button class="button button--primary">Tạo lớp học</button>
+        </div>
+    </footer>
+
+    <script>
+        const privateCheckbox = document.getElementById('private-class-checkbox');
+        const passwordField = document.getElementById('password-field');
+
+        privateCheckbox.addEventListener('change', (event) => {
+            if (event.target.checked) {
+                passwordField.classList.remove('hidden');
+            } else {
+                passwordField.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
