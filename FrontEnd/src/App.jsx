@@ -17,6 +17,9 @@ import "./components/Navbar/Page/YourLibrary/LibraryChildren/ExpertSolution/CssE
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/CssFlashCard.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/Folders/CssFolders.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/PracticeTests/CssPracticeTests.css";
+import "./components/Achievements/CssAchievements.css";
+// Thêm Css Component
+
 import Header from "./components/Header/Header.jsx";
 import MainContent from "./components/MainContent/MainContent.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
@@ -33,6 +36,8 @@ import ExpertSolutions from "./components/Navbar/Page/ExpertSolution/ExpertSolut
 import FlashCard from "./components/FlashCardItems/FlashCard.jsx";
 import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
 import SectionClass from "./components/Sections/SectionClass/SectionClass.jsx";
+import Achievements from "./components/Achievements/Achievements.jsx";
+// Thêm Component
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -67,15 +72,15 @@ function App() {
             path="/settingaccount"
             element={<SettingAccount isPadded={isPadded} />}
           />
-
+          <Route path="/class" element={<SectionClass isPadded={isPadded} />} />
           <Route
-            path="/class"
-            element={<SectionClass isPadded={isPadded} />}
+            path="/achievenments"
+            element={<Achievements isPadded={isPadded} />}
           />
-          {/* <Route
-            path="/flashcard/:idflashcard"
-            element={<FlashCard isPadded={isPadded} />}
-          /> */}
+          <Route
+            path="/class-item"
+            element={<Achievements isPadded={isPadded} />}
+          />
         </Routes>
       </Router>
     </>

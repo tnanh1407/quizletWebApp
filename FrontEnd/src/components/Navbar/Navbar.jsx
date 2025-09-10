@@ -140,8 +140,44 @@ export default function Navbar({ togglePadding }) {
             </div>
           </div>
         </div>
+        {/* <div className="navbar-two">
+          <p className={isCollapsed ? "hidden" : "block"}>Quizizz</p>
+          <Link to="/" onClick={() => handleActive("flashcards")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "flashcards" ? "active" : ""
+              }`}
+              id="navbar-one-flash-cards"
+            >
+              <i className="fa-solid fa-address-card"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Create Quizizz</p>
+            </div>
+          </Link>
+          <Link to="/" onClick={() => handleActive("expert-solutions")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "expert-solutions" ? "active" : ""
+              }`}
+              id="navbar-one-expert-solutions"
+            >
+              <i className="fa-solid fa-book"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Enter Code</p>
+            </div>
+          </Link>
+          <Link to="/" onClick={() => handleActive("expert-solutions")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "expert-solutions" ? "active" : ""
+              }`}
+              id="navbar-one-expert-solutions"
+            >
+              <i className="fa-solid fa-book"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Library</p>
+            </div>
+          </Link>
+        </div> */}
         <div className="navbar-three">
-          <p className={isCollapsed ? "hidden" : "block"}>Start here</p>
+          <p className={isCollapsed ? "hidden" : "block"}></p>
           <Link to="/flashcards" onClick={() => handleActive("flashcards")}>
             <div
               className={`navbar-a flex ${
