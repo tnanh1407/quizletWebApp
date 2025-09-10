@@ -4,7 +4,7 @@ export default function SectionClasses(){
     return (
         <>
             <section className="sectionclasses">
-                <Link>
+                <Link to="/class">
                     <div className="main-flashcard">
                         <div className="flashcard-creator flex classes">
                             <p>0 sets</p>

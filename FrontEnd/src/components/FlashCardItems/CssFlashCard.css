@@ -1,0 +1,196 @@
+.itemflashcard-header-option {
+  justify-content: space-between;
+}
+
+.itemflashcard-header-option-right {
+  margin-bottom: 10px;
+}
+
+.itemflashcard-header-option-right button {
+  background: none;
+  border: none;
+  color: #d9dde8;
+  padding: 10px;
+  border: 2px solid #d9dde8;
+  border-radius: 50px;
+  margin-left: 10px;
+  font-size: 16px;
+  line-height: 15px;
+}
+
+.itemflashcard-header-option-left p {
+  line-height: 40px;
+}
+
+.itemflashcard-header-option-right button p {
+  margin-left: 5px;
+}
+
+.itemflashcard-header-title h1 {
+  font-size: 32px;
+}
+
+.itemflashcard-header-title-solution {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.itemflashcard-header-title-solution i {
+  margin-right: 10px;
+}
+
+.title-solution {
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.itemflashcard-header-title-solution a {
+  height: 50px;
+  background: #2e3856;
+  color: #d9dde8;
+  text-decoration: none;
+  border-radius: 10px;
+  border-bottom: 5px solid #2e3856;
+  border-top: 5px solid #2e3856;
+}
+
+.itemflashcard-header-title-review {
+  height: 40px;
+  margin: 4px 0 15px;
+}
+
+.title-review-growth,
+.title-review-study-day {
+  align-items: center;
+  margin-right: 20px;
+  font-size: 14px;
+  padding: 10px;
+  border: 2px solid #0a092d;
+}
+
+.title-review-growth i,
+.title-review-study-day i {
+  margin-right: 10px;
+}
+
+.itemflashcard-main-content-header-hint p {
+  margin-left: 10px;
+}
+
+.itemflashcard-main-content-header-hint p,
+.itemflashcard-main-content-header-hint i {
+  line-height: 40px;
+  color: #d9dde8;
+}
+
+.itemflashcard-main-content-header {
+  justify-content: space-between;
+}
+
+.itemflashcard-main-content {
+  height: 400px;
+  background: #2e3856;
+  padding: 20px 40px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.itemflashcard-main-content-contruction {
+  text-align: center;
+  margin-top: 150px;
+}
+
+.itemflashcard-main-content-option {
+  justify-content: space-between;
+  padding-top: 18px;
+  border-bottom: 2px solid #d9dde8;
+  padding-bottom: 20px;
+}
+
+.itemflashcard-main-content-option h1 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 45px;
+}
+
+.itemflashcard-main-content-option-move button {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  color: #d9dde8;
+}
+
+.itemflashcard-main-content-option p {
+  margin: 15px 20px 0;
+  font-size: 18px;
+}
+
+.itemflashcard-main-content-option-move button {
+  border: 2px solid #d9dde8;
+  border-radius: 50px;
+  font-size: 18px;
+}
+
+.itemflashcard-main-content-option-move button:hover {
+  background: #2e3856;
+}
+
+.itemflashcard-main-content-option-option button {
+  padding: 10px;
+  background: none;
+  border: none;
+  color: #d9dde8;
+  border-radius: 50px;
+  font-size: 18px;
+}
+
+.itemflashcard-main-content-option-option button:hover {
+  background: #2e3856;
+}
+
+.itemflashcard-main-created {
+  margin-top: 20px;
+}
+
+.itemflashcard-main-created img {
+  height: 50px;
+  border-radius: 50px;
+}
+
+.itemflashcard-main-created-in4 {
+  height: 100px;
+  margin-left: 10px;
+  line-height: 25px;
+}
+
+.itemflashcard-main-created-in4 p {
+  font-size: 12px;
+}
+
+.itemflashcard-main-created-in4 h2 {
+  font-size: 14px;
+}
+
+.title-review-growth:hover {
+  border: 2px solid #d9dde8;
+  border-radius: 50px;
+}
+
+.itemflashcard-header-title-solution a:hover {
+  border-bottom: 5px solid #4255ff;
+}
+
+.itemflashcard-main-content-header .fa-star {
+  color: #d9dde8;
+  line-height: 40px;
+  height: 40px;
+  width: 40px;
+  background: #2e3856;
+  border-radius: 50px;
+}
+
+.fa-star:hover {
+  background: #0a092d;
+}
