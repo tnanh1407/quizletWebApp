@@ -1,0 +1,105 @@
+.account-defalt {
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+}
+
+.set-picture img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  margin: 2.5px 5px;
+}
+
+#setting-account {
+  padding: 0 100px;
+  margin-bottom: 50px;
+}
+
+#setting-account button{
+  padding: 10px 15px;
+  border-radius: 50px;
+  background: none;
+  border: none;
+  border: 2px solid #d9dde8;
+  color: #d9dde8;
+}
+
+#setting-account button:hover{
+  background: #2e3856;
+}
+
+#setting-account i{
+  line-height: 20px;
+}
+
+.add-picture {
+  color: #d9dde8;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  border: none;
+  background: none;
+  border: 2px solid #d9dde8;
+  /* line-height: 65px; */
+}
+
+.add-picture{
+      padding:0px !important;
+}
+
+.delete-setting-account {
+  justify-content: space-between;
+}
+
+#setting-account h1{
+  font-size: 44px;
+  margin-bottom: 40px;
+}
+
+#setting-account h2{
+  font-size: 16px;
+  margin: 40px 0 15px 0;
+}
+
+#setting-account h3{
+    font-size: 16px;
+
+}
+#setting-account p{
+    font-size: 16px;
+}
+
+.setting-account-personal-block{
+  border: 2px solid #d9dde8;
+  border-radius: 10px;
+}
+
+.setting-account-personal-information-account-type h3,
+.setting-account-personal-information-theme h3,
+.setting-account-personal-information-language h3,
+.setting-account-personal-information-create h3{
+  line-height: 40px;
+}
+
+.delete-setting-account-title {
+line-height: 20px;
+}
+
+.button-delete-setting-account{
+  background: #b00020 !important;
+  border: 2px solid #b00020 !important;
+  padding: 10px 30px;
+}
+
+.account-defalt{
+  margin-right: 10px;
+}
+
+.setting-account-personal-information-picture h3{
+  margin-bottom: 10px;
+}
+
+.setting-account-personal-information-account-privacy{
+  margin-bottom: 60px;
+}
