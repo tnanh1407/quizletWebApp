@@ -1,25 +1,61 @@
-import { useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import account from "../../assets/img/account.jpg";
 
 export default function Navbar({ togglePadding }) {
   const [isOpen, setIsOpen] = useState(false);
+  const messageRef = useRef(null);
+  const buttonRef = useRef(null);
 
-  const toggleContent = () => {
-    setIsOpen(!isOpen);
-  };
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        messageRef.current &&
+        !messageRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const [isCollapsed, setIsCollapsed] = useState(false);
   const contentNavbarRef = useRef(null);
-  const notificationsRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        messageRef.current &&
+        !messageRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const contentNavbarRef = useRef(null);
 
   const handleClick = () => {
-    if (contentNavbarRef.current && notificationsRef.current) {
+    if (contentNavbarRef.current && messageRef.current) {
       if (!isCollapsed) {
-        notificationsRef.current.style.left = "50px";
+        messageRef.current.style.left = "50px";
         contentNavbarRef.current.style.width = "67px";
       } else {
-        notificationsRef.current.style.left = "";
+        messageRef.current.style.left = "";
         contentNavbarRef.current.style.width = "";
       }
     }
@@ -69,7 +105,14 @@ export default function Navbar({ togglePadding }) {
               <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
             </div>
           </Link>
-          <button id="click-notifi" onClick={toggleContent}>
+          <button
+            id="click-notifi"
+            ref={buttonRef}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(true);
+            }}
+          >
             <div
               className={`navbar-a flex ${isOpen ? "active" : ""}`}
               id="navbar-one-notifi"
@@ -78,25 +121,23 @@ export default function Navbar({ togglePadding }) {
               <p className={isCollapsed ? "hidden" : "block"}>Notifications</p>
             </div>
           </button>
-          <div
-            id="notifications-main"
-            className={isOpen ? "block" : "hidden"}
-            ref={notificationsRef}
-          >
-            <Link to="/">
-              <div className="notifi-main-children flex">
-                <img src={account} alt="" />
-                <div className="notifi-main-content">
-                  <h1>
-                    Way to go! You're on a 2 day week.
-                    <strong>Keep up the momentum and study again</strong>
-                    <span>1 hours ago</span>
-                  </h1>
+          {isOpen && (
+            <div id="notifications-main" ref={messageRef}>
+              <Link to="/">
+                <div className="notifi-main-children flex">
+                  <img src={account} alt="" />
+                  <div className="notifi-main-content">
+                    <h1>
+                      Way to go! You're on a 2 day week.
+                      <strong>Keep up the momentum and study again</strong>
+                      <span>1 hours ago</span>
+                    </h1>
+                  </div>
+                  <i className="fa-solid fa-ellipsis"></i>
                 </div>
-                <i className="fa-solid fa-ellipsis"></i>
-              </div>
-            </Link>
-          </div>
+              </Link>
+            </div>
+          )}
         </div>
         <div className="navbar-two">
           <p className={isCollapsed ? "hidden" : "block"}>Your folders</p>

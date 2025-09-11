@@ -4,6 +4,27 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
+  const [addFolder, setAddFolder] = useState(false);
+  const messageRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        messageRef.current &&
+        !messageRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setAddFolder(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   // const Dropdown = () => {
   //   const [isOpenAccount, setIsOpenAccount] = useState(false);
   //   const toggleaccountRef = useRef(null);
@@ -25,12 +46,6 @@ export default function Header() {
     setIsOpenAccount(!isOpenAccount);
   };
 
-  const [isAddFolder, setIsAddFolder] = useState(false);
-
-  const toggleAdd = () => {
-    setIsAddFolder(!isAddFolder);
-  };
-
   return (
     <>
       <div className="header flex">
@@ -49,7 +64,13 @@ export default function Header() {
         </div>
         <div className="account flex">
           <div className="add-folder">
-            <button onClick={toggleAdd}>
+            <button
+              ref={buttonRef}
+              onClick={(e) => {
+                e.stopPropagation();
+                setAddFolder(true);
+              }}
+            >
               <i className="fa-solid fa-plus"></i>
             </button>
           </div>
@@ -59,22 +80,28 @@ export default function Header() {
             </button>
           </div>
         </div>
-        <div id="add-folder" className={isAddFolder ? "block" : "hidden"}>
-          <div className="folder-option">
-            <Link to="/flashcards">
-              <div className="setting-item flex">
-                <i className="fa-solid fa-trophy"></i>
-                <p>Flashcard set</p>
-              </div>
-            </Link>
-            <button className="header-add-folder">
-              <div className="setting-item flex">
-                <i className="fa-solid fa-gear"></i>
-                <p>Folder</p>
-              </div>
-            </button>
+        {addFolder && (
+          <div
+            id="add-folder"
+            // className={isAddFolder ? "block" : "hidden"}
+            ref={messageRef}
+          >
+            <div className="folder-option">
+              <Link to="/flashcards">
+                <div className="setting-item flex">
+                  <i className="fa-solid fa-trophy"></i>
+                  <p>Flashcard set</p>
+                </div>
+              </Link>
+              <button className="header-add-folder">
+                <div className="setting-item flex">
+                  <i className="fa-solid fa-gear"></i>
+                  <p>Folder</p>
+                </div>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
         <div
           id="account-setting"
           className={isOpenAccount ? "block" : "hidden"}
