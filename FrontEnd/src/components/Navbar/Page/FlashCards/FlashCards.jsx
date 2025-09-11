@@ -22,7 +22,7 @@ export default function FlashCards({ isPadded }) {
 
   const deleteCard = (index) => {
     const newCards = cards.filter((_, i) => i !== index);
-    setCards = newCards;
+    setCards(newCards);
   }
 
   const saveSets = (withPractice = false) => {
@@ -58,7 +58,7 @@ export default function FlashCards({ isPadded }) {
             <div className="create-flashcard-header flex">
               <div className="create-flashcard-title flex">
                 <h1>Tạo một học phần mới</h1>
-                <p>Saved 7 mins ago</p>
+                
               </div>
               <div className="create-flashcard-title-button">
                 <button className="button-create-flashcard-create" onClick={() => saveSets(false)}>
@@ -82,13 +82,13 @@ export default function FlashCards({ isPadded }) {
               </div>
               <div className="create-flashcard-maincontent flex">
                 <div className="create-flashcard-maincontent-left flex">
-                  { /*<button className="button-import-flashcard-main">
+                   <button className="button-import-flashcard-main">
                     <div className="flex">
                       <i class="fa-solid fa-plus"></i>
-                      <p>Import</p>
+                      <p>Nhập</p>
                     </div>
                   </button>
-                  <button className="button-adddiagram-flashcard-main flex">
+                  {/*<button className="button-adddiagram-flashcard-main flex">
                     <div className="flex">
                       <i class="fa-solid fa-plus"></i>
                       <p>Add diagram</p>
@@ -99,22 +99,22 @@ export default function FlashCards({ isPadded }) {
                   </button> */}
                 </div>
                 <div className="create-flashcard-maincontent-right flex">
-                  {/* <p>Suggestions</p> */}
+                  {/*<p>Suggestions</p> */}
                   <button className="button-create-flashcard-maincontent-setting">
                     <div className="create-flashcard-maincontent-setting">
                       <i class="fa-solid fa-gear"></i>
                     </div>
                   </button>
-                  {/* <button className="button-create-flashcard-maincontent-swap">
+                   <button className="button-create-flashcard-maincontent-swap">
                     <div className="create-flashcard-maincontent-swap">
                       <i class="fa-solid fa-right-left"></i>
                     </div>
-                  </button> */}
-                  {/* <button className="button-create-flashcard-maincontent-keyboard">
+                  </button> 
+                   <button className="button-create-flashcard-maincontent-keyboard">
                     <div className="create-flashcard-maincontent-keyboard">
                       <i class="fa-solid fa-keyboard"></i>
                     </div>
-                  </button> */}
+                  </button> 
                   <button className="button-create-flashcard-maincontent-delete">
                     <div className="create-flashcard-maincontent-delete">
                       <i class="fa-solid fa-trash"></i>
@@ -132,10 +132,10 @@ export default function FlashCards({ isPadded }) {
               ))}
                 
               <div className="button-add-a-card">
-                <button>
-                  <div className="">
+                <button onClick={addCard}>
+                  
                     <p>Thêm thẻ</p>
-                  </div>
+                  
                 </button>
               </div>
             </div>
