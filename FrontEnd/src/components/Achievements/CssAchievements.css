@@ -1,0 +1,248 @@
+
+
+.main{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: none;
+
+}
+
+.maincontent{
+    flex: 1;
+    padding: 20px 0 20px 20px;
+}
+
+.main-content{
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.main-content h1{
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.main-content h2{
+    font-size: 20px;
+    font-weight: 400;
+    margin: 10px 0 ;
+}
+
+.container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #202040;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 100%;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    border: 0.125rem solid #2E3856
+}
+
+
+/*Recent activity*/
+.recent-activity-card{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
+  width: 100%;
+  padding-top: 1rem;
+  min-width: 17rem;
+  
+}
+.column{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  height: 300px;
+}
+.column-content{
+  font-size: 12px;
+  padding: 10px;
+}
+.AchievementImage,
+.CalendarBox,
+.StreakBox {
+  background: none;
+  min-height: 150px;
+  padding: 10px;
+}
+.column-2 .CalendarBox {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+@media(max-width: 1000px){
+  .recent-activity-card{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  .column {
+  height: auto;
+  width: 100%;
+  } 
+}
+
+/*Calender*/
+.calendar-root {
+  background-color: #202040;
+  color: #ffffff;
+  font-family: inherit;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 400px;
+}
+.calendar-month {
+  width: 100%;
+}
+.calendar-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.calendar-nav{
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.calendar-nav-button {
+  background-color: #2E3856;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.calendar-nav-button:hover {
+  background-color: #3a4566;
+}
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.calendar-head {
+  background-color: #2E3856;
+}
+.calendar-cell {
+  width: 14.28%;
+  padding: 8px;
+  text-align: center;
+  border: none;
+}
+.calendar-day {
+  background-color: #202040;
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.calendar-day:hover {
+  background-color: #3a4566;
+}
+.calendar-day-selected {
+  background-color: #4a90e2;
+  color: #ffffff;
+}
+.calendar-day-today {
+  background-color: #6aa84f;
+  color: #ffffff;
+}
+
+/*Stresks*/
+.container-column{
+  padding: 0.5rem 0;
+}
+.container-title{
+  font-size: 18px;
+  margin-bottom: 1rem;
+  padding: 10px;
+}
+.container-grid{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+}
+@media(max-width: 1000px){
+  .container-grid{
+  grid-template-columns: repeat(3, 1fr);
+  
+ }
+}
+.container-card{
+  padding: 10px;
+  text-align: center;
+  
+}
+.container-image{
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.container-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+.container-image img.earned {
+    opacity: 1;
+    filter: none;
+}
+.container-image img.unearned {
+    opacity: 0.5;
+    filter:grayscale(100%);
+}
+.container-image .number-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    
+    pointer-events: none; 
+}
+.container-image .number-overlay.earned {
+    opacity: 1;
+    filter: none;
+}
+.container-image .number-overlay.unearned {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+.container-text{
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+}
+.container-date{
+  font-size: 12px;
+}
+
+
