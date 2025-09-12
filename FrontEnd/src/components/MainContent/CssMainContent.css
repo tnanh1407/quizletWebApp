@@ -9,7 +9,7 @@
 }
 
 .main-content {
-  width: 73vw;
+  max-width: 1265px;
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
@@ -94,80 +94,6 @@ a:hover .recent {
   color: #f6f7fb;
 }
 
-/* .maincontent-next-study-session:hover .btn{
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.maincontent-next-study-session:hover .btn.maincontent-recent-left{
-    background: linear-gradient(to right, rgba(10,9,45,1), rgba(10,9,45,0.8))
-}
-
-.maincontent-next-study-session:hover .btn.maincontent-recent-right{
-    background: linear-gradient(to left, rgba(10,9,45,1), rgba(10,9,45,0.8))
-} */
-/* Css session */
-
-.maincontent-next-study-session {
-  padding: 0 16px;
-}
-
-.next-study-session-main {
-  /* position: relative; */
-  height: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
-  /* z-index: 1; */
-}
-
-.next-study-session-main a {
-  text-decoration: none;
-  margin-right: 15px;
-}
-
-.session {
-  color: #d4f5fc;
-  /* position: relative;
-    z-index: 1; */
-}
-
-.session h1 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.session-terms {
-  font-size: 10px;
-  width: 50px;
-  background: #586380;
-  padding: 2px;
-  border-radius: 20px;
-  text-align: center;
-}
-
-a:hover .session,
-a:hover .popular-session,
-a:hover .top-creators-main-sesstion {
-  border: 2px solid #4255ff;
-}
-
-.session-author {
-  /* position: absolute; */
-  /* bottom:15px; */
-  margin-top: 50px;
-}
-
-.session-author img {
-  width: 20px;
-  height: 20px;
-  border-radius: 50px;
-}
-
-.session-author p {
-  margin-left: 10px;
-}
-
 /* Css Popular Textbooks */
 .popular-textbooks {
   padding: 0 16px;
@@ -225,6 +151,19 @@ a:hover .top-creators-main-sesstion {
 }
 
 /* Css creators */
+
+.top-creators-main {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+
+.top-creators-main::-webkit-scrollbar {
+  display: none;
+}
+
 .top-creators-main a {
   color: #d4f5fc;
   text-decoration: none;
@@ -274,10 +213,10 @@ a:hover .top-creators-main-sesstion {
 .creator-rule-important p {
   line-height: 20px;
 }
-
+/* 
 .top-creators-main a {
   margin-right: 15px;
-}
+} */
 
 .footer {
   width: 100%;

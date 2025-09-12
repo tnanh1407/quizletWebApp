@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import "./App.css";
 import "./components/Header/CssHeader.css";
 import "./components/Navbar/CssNavbar.css";
@@ -18,6 +19,7 @@ import "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/CssFlashC
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/Folders/CssFolders.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/PracticeTests/CssPracticeTests.css";
 import "./components/Achievements/CssAchievements.css";
+import "./components/Sections/SectionNextStudy/CssSectionNextStudy.css";
 // Thêm Css Component
 
 import Header from "./components/Header/Header.jsx";
@@ -37,10 +39,12 @@ import FlashCard from "./components/FlashCardItems/FlashCard.jsx";
 import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
 import SectionClass from "./components/Sections/SectionClass/SectionClass.jsx";
 import Achievements from "./components/Achievements/Achievements.jsx";
+import SectionCreators from "./components/Sections/SectionCreators/SectionCreators.jsx";
 // Thêm Component
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
+
   return (
     <>
       <Router>
@@ -80,6 +84,10 @@ function App() {
           <Route
             path="/class-item"
             element={<Achievements isPadded={isPadded} />}
+          />
+          <Route
+            path="/creators"
+            element={<SectionCreators isPadded={isPadded} />}
           />
         </Routes>
       </Router>

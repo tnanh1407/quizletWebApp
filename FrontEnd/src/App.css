@@ -45,14 +45,16 @@
   font-size: 15px;
   margin-bottom: 15px;
 }
+
 .all-section {
-  width: 350px;
+  width: 400px;
   height: 150px;
   padding: 14px;
   background: #202040;
   border-radius: 10px;
   border: 2px solid #2e3856;
 }
+
 .khung-mo-ta {
   font-size: 10px;
   padding: 5px 10px;

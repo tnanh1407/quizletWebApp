@@ -1,6 +1,6 @@
 // import React, { useState, useRef } from "react"
 import SectionRecents from "../Sections/SectionRecents.jsx";
-import SectionNextStudy from "../Sections/SectionNextStudy.jsx";
+import SectionNextStudy from "../Sections/SectionNextStudy/SectionNextStudy.jsx";
 import SectionPopular from "../Sections/SectionPopular.jsx";
 import SectionTopCreators from "../Sections/SectionTopCreators.jsx";
 import Footer from "../Footer/Footer.jsx";
