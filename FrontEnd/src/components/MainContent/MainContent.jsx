@@ -17,8 +17,8 @@ export default function MainContent({ isPadded }) {
             <SectionRecents />
             <SectionNextStudy />
             <SectionNextStudy />
-            <SectionPopular />
-            <SectionPopular />
+            {/* <SectionPopular />
+            <SectionPopular /> */}
             <SectionTopCreators />
             <Footer />
           </div>

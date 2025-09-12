@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 export default function SectionRecents() {
   return (
     <div className="maincontent-recent margin-bottom-50">
       <h1>Recents</h1>
       <div className="recent-main">
-        <a href="">
+        <Link to="/itemflashcard">
           <div className="recent flex">
             <div className="recent-icon">
               <i className="fa-solid fa-address-card"></i>
@@ -16,8 +17,8 @@ export default function SectionRecents() {
               </p>
             </div>
           </div>
-        </a>
-        <a href="">
+        </Link>
+        <Link to="/itemflashcard">
           <div className="recent flex">
             <div className="recent-icon">
               <i className="fa-solid fa-address-card"></i>
@@ -30,8 +31,8 @@ export default function SectionRecents() {
               </p>
             </div>
           </div>
-        </a>
-        <a href="">
+        </Link>
+        <Link to="/itemflashcard">
           <div className="recent flex">
             <div className="recent-icon">
               <i className="fa-solid fa-address-card"></i>
@@ -44,8 +45,8 @@ export default function SectionRecents() {
               </p>
             </div>
           </div>
-        </a>
-        <a href="">
+        </Link>
+        <Link to="/itemflashcard">
           <div className="recent flex">
             <div className="recent-icon">
               <i className="fa-solid fa-address-card"></i>
@@ -58,8 +59,8 @@ export default function SectionRecents() {
               </p>
             </div>
           </div>
-        </a>
-        <a href="">
+        </Link>
+        <Link to="/itemflashcard">
           <div className="recent flex">
             <div className="recent-icon">
               <i className="fa-solid fa-address-card"></i>
@@ -72,8 +73,8 @@ export default function SectionRecents() {
               </p>
             </div>
           </div>
-        </a>
-        <a href="">
+        </Link>
+        <Link to="/itemflashcard">
           <div className="recent flex">
             <div className="recent-icon">
               <i className="fa-solid fa-address-card"></i>
@@ -86,7 +87,7 @@ export default function SectionRecents() {
               </p>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );
