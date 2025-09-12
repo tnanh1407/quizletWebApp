@@ -1,12 +1,6 @@
-/**
- * Updated by trungquandev.com's author on August 17 2023
- * YouTube: https://youtube.com/@trungquandev
- * "A bit of fragrance clings to the hand that gives flowers!"
- * Sample Eslint config for NodeJS ExpressJS MongoDB project
- */
 module.exports = {
   env: { es2020: true, node: true },
-  extends: ["eslint:recommended", "plugin:prettier/recommended"],
+  extends: ["eslint:recommended"],
   parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaVersion: "latest",
@@ -36,7 +30,5 @@ module.exports = {
     "comma-dangle": 1,
     "comma-spacing": 1,
     "arrow-spacing": 1,
-    quotes: ["error", "single"],
-    doubleQuote: false,
   },
 };

@@ -1,35 +1,30 @@
 import express from "express";
-import exitHook from "async-exit-hook";
-import { CONNECT_DB, GET_DB, CLOSE_DB } from "./config/mongodb.js";
-import { env } from "~/config/environment.js";
-import { APIs_V1 } from "~/routes/v1";
-import { errorHandlingMiddleware } from "~/middlewares/errorHandlingMiddleware.js";
+import { mapOrder } from "~/utils/sorts.js";
 
-const START_SERVER = () => {
-  const app = express();
+const app = express();
 
-  app.use(express.json());
+const hostname = "localhost";
+const port = 8017;
 
-  app.use("/v1", APIs_V1);
-  app.use(errorHandlingMiddleware);
+app.get("/", (req, res) => {
+  // Test Absolute import mapOrder
+  console.log(
+    mapOrder(
+      [
+        { id: "id-1", name: "One" },
+        { id: "id-2", name: "Two" },
+        { id: "id-3", name: "Three" },
+        { id: "id-4", name: "Four" },
+        { id: "id-5", name: "Five" },
+      ],
+      ["id-5", "id-4", "id-2", "id-3", "id-1"],
+      "id"
+    )
+  );
+  res.end("<h1>Hello World!</h1><hr>");
+});
 
-  app.listen(env.APP_PORT, env.APP_HOST, () => {
-    console.log(
-      `3. Hello ${env.AUTHOR}, I am running at ${env.APP_HOST}:${env.APP_PORT}/`
-    );
-  });
-
-  exitHook(() => {
-    console.log("4. Disconnecting");
-    CLOSE_DB();
-  });
-};
-
-console.log("1. Connecting");
-CONNECT_DB()
-  .then(() => console.log("2. Connected"))
-  .then(() => START_SERVER())
-  .catch((error) => {
-    console.error(error);
-    process.exit(0);
-  });
+app.listen(port, hostname, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Hello Thien, I am running at ${hostname}:${port}/`);
+});
