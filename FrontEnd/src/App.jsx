@@ -44,9 +44,21 @@ import SectionCreators from "./components/Sections/SectionCreators/SectionCreato
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/hello")
+      .then((res) => res.json())
+      .then((result) => setData(result.message))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <>
+      <div>
+        <h1>React - NodeJS Connect</h1>
+        <p>Backend trả về: {data}</p>
+      </div>
       <Router>
         <Header />
         <Navbar togglePadding={() => setIsPadded(!isPadded)} />
