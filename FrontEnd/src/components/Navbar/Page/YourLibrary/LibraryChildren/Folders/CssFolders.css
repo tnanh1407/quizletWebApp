@@ -5,34 +5,56 @@
 .sectionfolder i {
     font-size: 20px;
     margin-right: 10px;
+}
+
+body.dark-mode .sectionfolder i {
     color: #f6f7fb;
+}
+
+body.light-mode .sectionfolder i {
+    color: #222;
 }
 
 .sectionfolder {
     margin-bottom: 20px;
 }
 
-.sectionfolder a:hover .main-flashcard{
+.sectionfolder a:hover .main-flashcard {
     border-bottom: 5px solid #5070c8;
 }
 
-.folder{
+.folder {
     width: 200px;
     position: absolute;
-    top:45px;
-    left:0;
-    border: 1px solid #d9dde8;
+    top: 45px;
+    left: 0;
     border-radius: 10px;
-    background: #0a092d;
-    padding:8px 0;
+    padding: 8px 0;
 }
 
-.folder p{
+body.dark-mode .folder {
+    background: #0a092d;
+    border: 1px solid #d9dde8;
+}
+
+body.light-mode .folder {
+    background: #fff;
+    border: 1px solid #222;
+}
+
+.folder p {
     margin-left: 10px;
-    color: #d9dde8;
     font-size: 16px;
 }
 
-.folder a{
+body.dark-mode .folder p {
+    color: #d9dde8;
+}
+
+body.light-mode .folder p {
+    color: #222;
+}
+
+.folder a {
     text-decoration: none;
 }

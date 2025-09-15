@@ -10,28 +10,54 @@
 
 .main-content-new-folder a {
   text-decoration: none;
+  /* bỏ color ở đây */
+}
+body.dark-mode .main-content-new-folder a {
   color: #929bb4;
+}
+body.light-mode .main-content-new-folder a {
+  color: #222;
 }
 
 .stydy-other-a p {
-  color: #f6f7fb;
-  background: #4255ff;
+  /* bỏ color, background ở đây */
   padding: 10px 20px;
   border-radius: 25px;
+}
+body.dark-mode .stydy-other-a p {
+  color: #f6f7fb;
+  background: #4255ff;
+}
+body.light-mode .stydy-other-a p {
+  color: #222;
+  background: #e0e0e0;
 }
 
 .other-new-folder {
   width: 40px;
   height: 40px;
-  background: #0a092d;
-  border: 2px solid #f6f7fb;
+  /* bỏ background, border ở đây */
   border-radius: 50px;
   margin-left: 10px;
+}
+body.dark-mode .other-new-folder {
+  background: #0a092d;
+  border: 2px solid #f6f7fb;
+}
+body.light-mode .other-new-folder {
+  background: #fff;
+  border: 2px solid #222;
 }
 
 .other-new-folder i {
   font-size: 20px;
+  /* bỏ color ở đây */
+}
+body.dark-mode .other-new-folder i {
   color: #f6f7fb;
+}
+body.light-mode .other-new-folder i {
+  color: #222;
 }
 
 .new-folder-header {
@@ -43,28 +69,54 @@
 .filter-add {
   width: 50px;
   height: 40px;
-  background: #0a092d;
-  border: 2px solid #f6f7fb;
+  /* bỏ background, border ở đây */
   border-radius: 50px;
   margin-right: 10px;
 }
+body.dark-mode .filter-add {
+  background: #0a092d;
+  border: 2px solid #f6f7fb;
+}
+body.light-mode .filter-add {
+  background: #fff;
+  border: 2px solid #222;
+}
 
 .new-folder-filter-add {
-  color: #f6f7fb;
-  background: #2e3856;
+  /* bỏ color, background ở đây */
   border: none;
   border-radius: 50px;
 }
+body.dark-mode .new-folder-filter-add {
+  color: #f6f7fb;
+  background: #2e3856;
+}
+body.light-mode .new-folder-filter-add {
+  color: #222;
+  background: #e0e0e0;
+}
 
 .filter-add p {
+  /* bỏ color ở đây */
+}
+body.dark-mode .filter-add p {
   color: #f6f7fb;
+}
+body.light-mode .filter-add p {
+  color: #222;
 }
 
 .new-folder-maincontent {
   height: 250px;
-  background: #2e3856;
+  /* bỏ background ở đây */
   border-radius: 10px;
   padding: 70px;
+}
+body.dark-mode .new-folder-maincontent {
+  background: #2e3856;
+}
+body.light-mode .new-folder-maincontent {
+  background: #e0e0e0;
 }
 
 .new-folder-main-content {
@@ -75,7 +127,15 @@
 
 .new-folder-main-content h2,
 .new-folder-main-content button {
+  /* bỏ color ở đây */
+}
+body.dark-mode .new-folder-main-content h2,
+body.dark-mode .new-folder-main-content button {
   color: #f6f7fb;
+}
+body.light-mode .new-folder-main-content h2,
+body.light-mode .new-folder-main-content button {
+  color: #222;
 }
 
 .new-folder-main-content h2 {
@@ -88,7 +148,15 @@
   border-radius: 20px;
   padding: 10px 20px;
   border: none;
+  /* bỏ background ở đây */
+}
+body.dark-mode .new-folder-maincontent button {
   background: #4255ff;
+  color: #f6f7fb;
+}
+body.light-mode .new-folder-maincontent button {
+  background: #1976d2;
+  color: #fff;
 }
 
 .new-folder-main-filter {
@@ -96,8 +164,5 @@
   grid-template-columns: 1fr 1fr;
   gap: 0px;
   width: 10%;
-}
-
-.new-folder-main-filter {
   margin-bottom: 25px;
 }

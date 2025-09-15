@@ -1,24 +1,9 @@
 import account from "../../assets/img/account.jpg";
 import logo from "../../assets/img/logoQ.png";
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
-  // const Dropdown = () => {
-  //   const [isOpenAccount, setIsOpenAccount] = useState(false);
-  //   const toggleaccountRef = useRef(null);
-  //   useEffect(() => {
-  //     const handleClickOutside = (event) => {
-  //       if (toggleaccountRef.current && !toggleaccountRef.current.contains(event.target)) {
-  //         setIsOpen(false);
-  //       }
-  //     };
-  //     document.addEventListener('mousedown', handleClickOutside);
-  //     return () => {
-  //       document.removeEventListener('mousedown', handleClickOutside);
-  //     };
-  //   }, [toggleaccountRef]);
-
   const [isOpenAccount, setIsOpenAccount] = useState(false);
 
   const toggleAcconut = () => {
@@ -30,6 +15,14 @@ export default function Header() {
   const toggleAdd = () => {
     setIsAddFolder(!isAddFolder);
   };
+
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    document.body.className = isDarkMode ? "dark-mode" : "light-mode";
+  }, [isDarkMode]);
+
+  const toggleTheme = () => setIsDarkMode((prev) => !prev);
 
   return (
     <>
@@ -99,12 +92,23 @@ export default function Header() {
                 <p>Setting</p>
               </div>
             </Link>
-            <Link to="/">
+            <button
+              onClick={toggleTheme}
+              style={{
+                background: "none",
+                border: "none",
+                color: "inherit",
+                width: "100%",
+                textAlign: "left",
+                cursor: "pointer",
+                padding: 0,
+              }}
+            >
               <div className="setting-item flex">
-                <i className="fa-solid fa-sun"></i>
-                <p>Light mode</p>
+                <i className={`fa-solid ${isDarkMode ? "fa-sun" : "fa-moon"}`}></i>
+                <p>{isDarkMode ? "Light mode" : "Dark mode"}</p>
               </div>
-            </Link>
+            </button>
           </div>
           <div className="account-setting">
             <Link to="/" className="account-logout">
