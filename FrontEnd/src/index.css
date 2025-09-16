@@ -12,3 +12,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } */
+body.dark-mode {
+  background: #18192b;
+  color: #fff;
+}
+
+body.light-mode {
+  background: #f5f5f5;
+  color: #222;
+}
+
+.dark-mode .card,
+.dark-mode .modal {
+  background: #23243a;
+  color: #fff;
+}
+.light-mode .card,
+.light-mode .modal {
+  background: #fff;
+  color: #222;
+}

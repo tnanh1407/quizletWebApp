@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import "./App.css";
 import "./components/Header/CssHeader.css";
 import "./components/Navbar/CssNavbar.css";
@@ -18,6 +19,7 @@ import "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/CssFlashC
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/Folders/CssFolders.css";
 import "./components/Navbar/Page/YourLibrary/LibraryChildren/PracticeTests/CssPracticeTests.css";
 import "./components/Achievements/CssAchievements.css";
+import "./components/Sections/SectionNextStudy/CssSectionNextStudy.css";
 // Thêm Css Component
 
 import Header from "./components/Header/Header.jsx";
@@ -35,8 +37,11 @@ import FlashCards from "./components/Navbar/Page/FlashCards/FlashCards.jsx";
 import ExpertSolutions from "./components/Navbar/Page/ExpertSolution/ExpertSolutions.jsx";
 import FlashCard from "./components/FlashCardItems/FlashCard.jsx";
 import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
-import SectionClass from "./components/Sections/SectionClass/SectionClass.jsx";
+// import SectionClass from "./components/Navbar/Page/ClassRoomSectionClass/SectionClass.jsx";
 import Achievements from "./components/Achievements/Achievements.jsx";
+import SectionCreators from "./components/Sections/SectionCreators/SectionCreators.jsx";
+import Classroom from "./components/Navbar/Page/ClassRoom/SectionClass.jsx";
+import CreateClass from "./components/Navbar/Page/ClassRoom/CreateClass/CreateClass.jsx";
 // Thêm Component
 
 function App() {
@@ -65,21 +70,33 @@ function App() {
             element={<ExpertSolutions isPadded={isPadded} />}
           />
           <Route
-            path="/itemflashcard"
+            path="/itemflashcard/:id"
             element={<FlashCard isPadded={isPadded} />}
           />
           <Route
             path="/settingaccount"
             element={<SettingAccount isPadded={isPadded} />}
           />
-          <Route path="/class" element={<SectionClass isPadded={isPadded} />} />
+          {/* <Route path="/class" element={<SectionClass isPadded={isPadded} />} /> */}
           <Route
             path="/achievenments"
             element={<Achievements isPadded={isPadded} />}
           />
           <Route
-            path="/class-item"
+            path="/class-item/:id"
             element={<Achievements isPadded={isPadded} />}
+          />
+          <Route
+            path="/creators"
+            element={<SectionCreators isPadded={isPadded} />}
+          />
+          <Route
+            path="/classroom"
+            element={<Classroom isPadded={isPadded} />}
+          />
+          <Route
+            path="/classroom/createClassroom"
+            element={<CreateClass isPadded={isPadded} />}
           />
         </Routes>
       </Router>
