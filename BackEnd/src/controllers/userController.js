@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { userService } from "~/services/userService.js";
+import { userService } from "../services/userService.js";
 
 const getAll = async (req, res, next) => {
   try {

@@ -1,5 +1,5 @@
 import express from "express";
-import { flashCardController } from "~/controllers/flashCardController.js";
+import { flashCardController } from "../../controllers/flashCardController.js";
 
 const router = express.Router();
 

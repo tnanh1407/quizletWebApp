@@ -1,6 +1,6 @@
 import express from "express";
-import { flashCardRoutes } from "../v1/flashCardRouter";
-import { userRoutes } from "../v1/userRouter";
+import { flashCardRoutes } from "../v1/flashCardRouter.js";
+import { userRoutes } from "../v1/userRouter.js";
 
 const router = express.Router();
 
