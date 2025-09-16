@@ -1,8 +1,8 @@
 // import React, { useState, useRef } from "react"
-import SectionRecents from "../Sections/SectionRecents.jsx";
-import SectionNextStudy from "../Sections/SectionNextStudy.jsx";
-import SectionPopular from "../Sections/SectionPopular.jsx";
-import SectionTopCreators from "../Sections/SectionTopCreators.jsx";
+import SectionRecents from "../Sections/SectionRecents/SectionRecents.jsx";
+import SectionNextStudy from "../Sections/SectionNextStudy/SectionNextStudy.jsx";
+import SectionPopular from "../Sections/SectionPopular/SectionPopular.jsx";
+import SectionTopCreators from "../Sections/SectionTopCreator/SectionTopCreators.jsx";
 import Footer from "../Footer/Footer.jsx";
 
 export default function MainContent({ isPadded }) {
@@ -16,8 +16,6 @@ export default function MainContent({ isPadded }) {
           <div className="main-content">
             <SectionRecents />
             <SectionNextStudy />
-            <SectionNextStudy />
-            <SectionPopular />
             <SectionPopular />
             <SectionTopCreators />
             <Footer />

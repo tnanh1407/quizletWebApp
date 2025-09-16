@@ -12,7 +12,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } */
-/* Thêm vào file App.css hoặc index.css */
 body.dark-mode {
   background: #18192b;
   color: #fff;
@@ -23,12 +22,13 @@ body.light-mode {
   color: #222;
 }
 
-/* Nếu muốn đồng bộ cho các box, card, modal... */
-.dark-mode .card, .dark-mode .modal {
+.dark-mode .card,
+.dark-mode .modal {
   background: #23243a;
   color: #fff;
 }
-.light-mode .card, .light-mode .modal {
+.light-mode .card,
+.light-mode .modal {
   background: #fff;
   color: #222;
 }

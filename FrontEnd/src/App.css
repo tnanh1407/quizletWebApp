@@ -11,15 +11,15 @@
 
 /* Css dùng chung */
 
-.margin-left{
+.margin-left {
   margin-left: 10px;
 }
 
-.margin-right{
+.margin-right {
   margin-right: 10px;
 }
 
-.border-bottom-2px{
+.border-bottom-2px {
   border-bottom: 2px solid #d9dde8;
 }
 
@@ -45,14 +45,16 @@
   font-size: 15px;
   margin-bottom: 15px;
 }
+
 .all-section {
-  width: 350px;
+  width: 352px;
   height: 150px;
   padding: 14px;
   background: #202040;
   border-radius: 10px;
   border: 2px solid #2e3856;
 }
+
 .khung-mo-ta {
   font-size: 10px;
   padding: 5px 10px;
@@ -73,7 +75,3 @@
 .padding-32-32-0 {
   padding: 32px 32px 0;
 }
-
-/* Css Header  */
-
-/* Css Main  */

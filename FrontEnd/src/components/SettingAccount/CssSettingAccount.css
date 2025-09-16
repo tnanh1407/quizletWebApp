@@ -53,13 +53,9 @@ body.light-mode #setting-account button:hover {
   background: none;
   padding: 0px !important;
 }
-body.light-mode .add-picture {
-  color: #222;
-  border: 2px solid #222;
-}
-body.dark-mode .add-picture {
-  color: #d9dde8;
-  border: 2px solid #d9dde8;
+
+.add-picture {
+  padding: 0px !important;
 }
 
 .delete-setting-account {
@@ -89,9 +85,9 @@ body.light-mode #setting-account p {
 }
 
 #setting-account h3 {
+  align-content: center;
   font-size: 16px;
 }
-
 #setting-account p {
   font-size: 16px;
 }
@@ -123,6 +119,10 @@ body.dark-mode .setting-account-personal-block {
   border: 2px solid #b00020 !important;
   padding: 10px 30px;
   color: #fff !important;
+}
+
+.account-defalt {
+  margin-right: 10px;
 }
 
 .setting-account-personal-information-picture h3 {

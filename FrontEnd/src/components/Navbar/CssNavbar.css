@@ -115,3 +115,14 @@ body.light-mode .newfolder-main-button .newfolder-create {
   background: #4352dd;
   border-radius: 20px;
 }
+
+#navbar-one-notifi {
+  width: 100%;
+}
+
+.position-notifi {
+  width: 0;
+  position: relative;
+  top: 0;
+  left: 10px;
+}

@@ -60,7 +60,17 @@ body.light-mode .button-create-flashcard-create-practice {
 }
 
 .create-flashcard-header {
+  width: 73%;
+  height: 80px;
   margin-bottom: 30px;
+  position: fixed;
+  top: 50px;
+  background: #0a092d;
+  padding: 20px 0;
+}
+
+.create-flashcard-main {
+  margin-top: 70px;
 }
 
 .button-create-flashcard-main-title input {
@@ -256,7 +266,7 @@ body.light-mode .create-flashcard-main-content-header-option i {
 
 .create-flashcard-main-content-main {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 49% 49%;
   gap: 20px;
   padding: 16px 24px;
 }
@@ -285,9 +295,10 @@ body.light-mode .create-flashcard-main-content {
 }
 
 .input-definition-create-flashcard-main-content-main {
-  display: grid;
+  /* display: grid;
   gap: 20px;
-  grid-template-columns: 77% 15%;
+  /* grid-template-columns: 77% 15%; */
+  /* grid-template-columns: 77% 15%; */
 }
 
 .create-flashcard-main-content-main input {
@@ -320,11 +331,15 @@ body.light-mode .create-flashcard-main-content-main input {
   /* bỏ color ở đây */
 }
 body.dark-mode .option-input-term-create-flashcard-main-content-main button,
-body.dark-mode .option-input-definition-create-flashcard-main-content-main button {
+body.dark-mode
+  .option-input-definition-create-flashcard-main-content-main
+  button {
   color: #6671d5;
 }
 body.light-mode .option-input-term-create-flashcard-main-content-main button,
-body.light-mode .option-input-definition-create-flashcard-main-content-main button {
+body.light-mode
+  .option-input-definition-create-flashcard-main-content-main
+  button {
   color: #1976d2;
 }
 
