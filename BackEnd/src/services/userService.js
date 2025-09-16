@@ -1,4 +1,4 @@
-import { userModel } from "~/models/userModel.js";
+import { userModel } from "../models/userModel.js";
 
 const getAll = async () => {
   return await userModel.getAll();

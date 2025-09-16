@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { flashCardService } from "~/services/flashCardService.js";
+import { flashCardService } from "../services/flashCardService.js";
 
 const getAll = async (req, res, next) => {
   try {

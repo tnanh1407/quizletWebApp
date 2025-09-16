@@ -1,9 +1,10 @@
 import express from "express";
+// import "../src/register.js";
 import exitHook from "async-exit-hook";
 import { CONNECT_DB, GET_DB, CLOSE_DB } from "./config/mongodb.js";
-import { env } from "~/config/environment.js";
-import { APIs_V1 } from "~/routes/v1";
-// import { errorHandlingMiddleware } from "~/middlewares/errorHandlingMiddleware.js";
+import { env } from "../src/config/environment.js";
+import { APIs_V1 } from "../src/routes/v1/index.js";
+// import { errorHandlingMiddleware } from "../src/middlewares/errorHandlingMiddleware.js";
 import cors from "cors";
 
 const START_SERVER = () => {

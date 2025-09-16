@@ -1,4 +1,4 @@
-import { flashCardModel } from "~/models/flashCardModel.js";
+import { flashCardModel } from "../models/flashCardModel.js";
 
 const getAll = async () => {
   return await flashCardModel.getAll();

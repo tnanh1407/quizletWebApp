@@ -1,5 +1,5 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
-import { env } from "~/config/environment.js";
+import { env } from "../config/environment.js";
 
 let demoDatabaseInstance = null;
 

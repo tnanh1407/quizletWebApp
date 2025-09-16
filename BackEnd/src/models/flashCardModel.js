@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { GET_DB } from "~/config/mongodb.js";
+import { GET_DB } from "../config/mongodb.js";
 import { ObjectId } from "mongodb";
 
 const FLASHCARD_COLLECTION_NAME = "flashcards";
