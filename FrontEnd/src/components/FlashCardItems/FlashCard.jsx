@@ -1,6 +1,19 @@
 import account from "../../assets/img/account.jpg";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function FlashCard({ isPadded }) {
+  const { id } = useParams();
+  const [flashcard, setFlashcard] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:9999/v1/flashcards/${id}`)
+      .then((res) => res.json())
+      .then((data) => setFlashcard(data))
+      .catch((err) => console.error(err));
+  }, [id]);
+
+  if (!flashcard) return <p>Loading...</p>;
   return (
     <div
       className="main flex"
@@ -27,15 +40,15 @@ export default function FlashCard({ isPadded }) {
               </div>
             </div>
             <div className="itemflashcard-header-title">
-              <h1>Bài 1: XÂY DỰNG NỀN QUỐC PHÒNG TOÀN DÂN AN NINH NHÂN DÂN</h1>
+              <h1>{flashcard.title}</h1>
               <div className="itemflashcard-header-title-review flex">
                 <div className="title-review-study-day flex">
                   <i class="fa-regular fa-star"></i>
-                  <p>10 studiers today</p>
+                  <p>{flashcard.metadata.likes} likes</p>
                 </div>
                 <div className="title-review-growth flex">
                   <i class="fa-regular fa-star"></i>
-                  <p>4.9 (18 reviews)</p>
+                  <p>{flashcard.metadata.views} views</p>
                 </div>
               </div>
               <div className="itemflashcard-header-title-solution">
@@ -121,7 +134,7 @@ export default function FlashCard({ isPadded }) {
               <img src={account} alt="" />
               <div className="itemflashcard-main-created-in4">
                 <p>Created by</p>
-                <h2>thien2805</h2>
+                <h2>{flashcard.creator.username}</h2>
               </div>
             </div>
           </div>

@@ -1,7 +1,39 @@
 import account from "../../../src/assets/img/account.jpg";
-import Footer from "../Footer/Footer";
+// import Footer from "../Footer/Footer";
+import { userApi } from "../../api/userApi";
+import { useEffect, useState } from "react";
 
-export default function SettingAccount({ isPadded }) {
+export default function SettingAccount({ isPadded, id }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchuser = async () => {
+      try {
+        const data = await userApi.getById(id);
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchuser();
+  }, [id]);
+
+  if (!user) {
+    return (
+      <div
+        className="main flex"
+        style={{ paddingLeft: isPadded ? "200px" : "60px" }}
+      >
+        <div className="maincontent">
+          <div className="main-content" id="setting-account">
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div
@@ -14,7 +46,6 @@ export default function SettingAccount({ isPadded }) {
             <div className="setting-account-personal-information">
               <h2>Personal information</h2>
               <div className="setting-account-personal-block">
-
                 <div className="setting-account-personal-information-picture padding-24px border-bottom-2px">
                   <h3>Profile picture</h3>
                   <div className="setting-account-personal-information-setting-picture flex">
@@ -61,7 +92,7 @@ export default function SettingAccount({ isPadded }) {
                 <div className="setting-account-personal-information-username padding-24px flex border-bottom-2px">
                   <div className="setting-account-personal-information-username-title">
                     <h3>Username</h3>
-                    <p>thien2805</p>
+                    <p>{user.username}</p>
                   </div>
                   <button>
                     <p>Edit</p>
@@ -70,7 +101,7 @@ export default function SettingAccount({ isPadded }) {
                 <div className="setting-account-personal-information-email padding-24px flex border-bottom-2px">
                   <div className="setting-account-personal-information-username-title">
                     <h3>Email</h3>
-                    <p>khongthien2805@gmail.com</p>
+                    <p>{user.email}</p>
                   </div>
                   <button>
                     <p>Edit</p>
@@ -88,7 +119,6 @@ export default function SettingAccount({ isPadded }) {
             <div className="setting-account-personal-information">
               <h2>Appearance</h2>
               <div className="setting-account-personal-block">
-
                 <div className="setting-account-personal-information-theme padding-24px flex border-bottom-2px">
                   <h3>Theme</h3>
                   <button className="flex">
@@ -126,7 +156,9 @@ export default function SettingAccount({ isPadded }) {
                   <div className="delete-setting-account flex">
                     <div className="delete-setting-account-title">
                       <h3>Delete your account</h3>
-                      <p>This will delete all your data and cannot be undone.</p>
+                      <p>
+                        This will delete all your data and cannot be undone.
+                      </p>
                     </div>
                     <button className="button-delete-setting-account">
                       <p>Delete</p>
@@ -135,7 +167,7 @@ export default function SettingAccount({ isPadded }) {
                 </div>
               </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </div>
       </div>

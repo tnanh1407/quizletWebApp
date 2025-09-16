@@ -21,7 +21,15 @@
 .button-create-flashcard-create,
 .button-create-flashcard-create-practice {
   border-radius: 20px;
+  /* bỏ color ở đây */
+}
+body.dark-mode .button-create-flashcard-create,
+body.dark-mode .button-create-flashcard-create-practice {
   color: #f6f7fb;
+}
+body.light-mode .button-create-flashcard-create,
+body.light-mode .button-create-flashcard-create-practice {
+  color: #222;
 }
 
 .button-create-flashcard-create {
@@ -31,16 +39,38 @@
   font-size: 14px;
   margin-right: 15px;
 }
+body.dark-mode .button-create-flashcard-create {
+  border: 2px solid #586380;
+}
+body.light-mode .button-create-flashcard-create {
+  border: 2px solid #1976d2;
+}
 
 .button-create-flashcard-create-practice {
   padding: 12px 22px;
-  background: #4255ff;
+  /* bỏ background ở đây */
   border: none;
   font-size: 14px;
 }
+body.dark-mode .button-create-flashcard-create-practice {
+  background: #4255ff;
+}
+body.light-mode .button-create-flashcard-create-practice {
+  background: #1976d2;
+}
 
 .create-flashcard-header {
+  width: 73%;
+  height: 80px;
   margin-bottom: 30px;
+  position: fixed;
+  top: 50px;
+  background: #0a092d;
+  padding: 20px 0;
+}
+
+.create-flashcard-main {
+  margin-top: 70px;
 }
 
 .button-create-flashcard-main-title input {
@@ -49,9 +79,17 @@
   font-size: 16px;
   padding: 4px 12px;
   border-radius: 10px;
-  background: #2e3856;
+  /* bỏ background ở đây */
   border: none;
   margin-bottom: 10px;
+}
+body.dark-mode .button-create-flashcard-main-title input {
+  background: #2e3856;
+  color: #f6f7fb;
+}
+body.light-mode .button-create-flashcard-main-title input {
+  background: #e0e0e0;
+  color: #222;
 }
 
 .button-create-flashcard-main-title input::placeholder {
@@ -64,9 +102,17 @@
   font-size: 16px;
   padding: 8px 12px 30px 12px;
   border-radius: 10px;
-  background: #2e3856;
+  /* bỏ background ở đây */
   border: none;
   margin-bottom: 30px;
+}
+body.dark-mode .button-create-flashcard-main-desc input {
+  background: #2e3856;
+  color: #f6f7fb;
+}
+body.light-mode .button-create-flashcard-main-desc input {
+  background: #e0e0e0;
+  color: #222;
 }
 
 .button-create-flashcard-main-desc input::placeholder {
@@ -75,13 +121,23 @@
 
 .button-import-flashcard-main,
 .button-adddiagram-flashcard-main {
-  color: #f6f7fb;
+  /* bỏ color, background ở đây */
   font-size: 14px;
   padding: 8px 15px;
   border-radius: 20px;
-  background: #0a092d;
   border: 2px solid #586380;
   margin-right: 15px;
+}
+body.dark-mode .button-import-flashcard-main,
+body.dark-mode .button-adddiagram-flashcard-main {
+  color: #f6f7fb;
+  background: #0a092d;
+}
+body.light-mode .button-import-flashcard-main,
+body.light-mode .button-adddiagram-flashcard-main {
+  color: #222;
+  background: #e0e0e0;
+  border: 2px solid #1976d2;
 }
 
 .button-import-flashcard-main p {
@@ -107,26 +163,43 @@
 }
 
 .create-flashcard-maincontent-right p {
-  color: #f6f7fb;
+  /* bỏ color ở đây */
   line-height: 40px;
   margin-right: 15px;
+}
+body.dark-mode .create-flashcard-maincontent-right p {
+  color: #f6f7fb;
+}
+body.light-mode .create-flashcard-maincontent-right p {
+  color: #222;
 }
 
 .button-create-flashcard-maincontent-setting,
 .button-create-flashcard-maincontent-swap,
 .button-create-flashcard-maincontent-keyboard,
 .button-create-flashcard-maincontent-delete {
-  background: #0a092d;
+  /* bỏ background ở đây */
   border: none;
+}
+body.dark-mode .button-create-flashcard-maincontent-setting,
+body.dark-mode .button-create-flashcard-maincontent-swap,
+body.dark-mode .button-create-flashcard-maincontent-keyboard,
+body.dark-mode .button-create-flashcard-maincontent-delete {
+  background: #0a092d;
+}
+body.light-mode .button-create-flashcard-maincontent-setting,
+body.light-mode .button-create-flashcard-maincontent-swap,
+body.light-mode .button-create-flashcard-maincontent-keyboard,
+body.light-mode .button-create-flashcard-maincontent-delete {
+  background: #e0e0e0;
 }
 
 .create-flashcard-maincontent-setting,
 .create-flashcard-maincontent-swap,
 .create-flashcard-maincontent-keyboard,
 .create-flashcard-maincontent-delete {
-  color: #f6f7fb;
+  /* bỏ color, background ở đây */
   border: 2px solid #586380;
-  background: #0a092d;
   width: 40px;
   height: 40px;
   line-height: 36px;
@@ -134,12 +207,34 @@
   margin-right: 15px;
   font-size: 15px;
 }
+body.dark-mode .create-flashcard-maincontent-setting,
+body.dark-mode .create-flashcard-maincontent-swap,
+body.dark-mode .create-flashcard-maincontent-keyboard,
+body.dark-mode .create-flashcard-maincontent-delete {
+  color: #f6f7fb;
+  background: #0a092d;
+  border: 2px solid #586380;
+}
+body.light-mode .create-flashcard-maincontent-setting,
+body.light-mode .create-flashcard-maincontent-swap,
+body.light-mode .create-flashcard-maincontent-keyboard,
+body.light-mode .create-flashcard-maincontent-delete {
+  color: #222;
+  background: #e0e0e0;
+  border: 2px solid #1976d2;
+}
 
 .create-flashcard-main-content-header {
   height: 64px;
   justify-content: space-between;
   padding: 16px 24px;
   border-bottom: 2px solid #000;
+}
+body.dark-mode .create-flashcard-main-content-header {
+  border-bottom: 2px solid #f6f7fb;
+}
+body.light-mode .create-flashcard-main-content-header {
+  border-bottom: 2px solid #222;
 }
 
 .create-flashcard-main-content-header-option button {
@@ -155,7 +250,13 @@
   width: 32px;
   height: 32px;
   padding: 10px;
+  /* bỏ color ở đây */
+}
+body.dark-mode .create-flashcard-main-content-header-option i {
   color: #f6f7fb;
+}
+body.light-mode .create-flashcard-main-content-header-option i {
+  color: #222;
 }
 
 .create-flashcard-main-content-header p {
@@ -165,16 +266,23 @@
 
 .create-flashcard-main-content-main {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 49% 49%;
   gap: 20px;
   padding: 16px 24px;
 }
 
 .create-flashcard-main-content {
-  color: #f6f7fb;
-  background: #2e3856;
+  /* bỏ color, background ở đây */
   margin-top: 15px;
   border-radius: 15px;
+}
+body.dark-mode .create-flashcard-main-content {
+  color: #f6f7fb;
+  background: #2e3856;
+}
+body.light-mode .create-flashcard-main-content {
+  color: #222;
+  background: #fff;
 }
 
 .create-flashcard-main-content-main input {
@@ -187,19 +295,28 @@
 }
 
 .input-definition-create-flashcard-main-content-main {
-  display: grid;
+  /* display: grid;
   gap: 20px;
-  grid-template-columns: 77% 15%;
+  /* grid-template-columns: 77% 15%; */
+  /* grid-template-columns: 77% 15%; */
 }
 
 .create-flashcard-main-content-main input {
   width: 100%;
   height: 48px;
-  background: #0a092d;
+  /* bỏ background ở đây */
   border: none;
   padding: 8px 12px;
   border-radius: 10px;
   margin: 10px 0 15px 0;
+}
+body.dark-mode .create-flashcard-main-content-main input {
+  background: #0a092d;
+  color: #f6f7fb;
+}
+body.light-mode .create-flashcard-main-content-main input {
+  background: #e0e0e0;
+  color: #222;
 }
 
 .option-input-term-create-flashcard-main-content-main,
@@ -211,7 +328,19 @@
 .option-input-definition-create-flashcard-main-content-main button {
   background: none;
   border: none;
+  /* bỏ color ở đây */
+}
+body.dark-mode .option-input-term-create-flashcard-main-content-main button,
+body.dark-mode
+  .option-input-definition-create-flashcard-main-content-main
+  button {
   color: #6671d5;
+}
+body.light-mode .option-input-term-create-flashcard-main-content-main button,
+body.light-mode
+  .option-input-definition-create-flashcard-main-content-main
+  button {
+  color: #1976d2;
 }
 
 .option-input-term-create-flashcard-main-content-main p,
@@ -248,9 +377,16 @@
   border: 2px solid #586380;
   background: none;
   padding: 20px 25px;
-  color: #f6f7fb;
+  /* bỏ color ở đây */
   border-radius: 50px;
   font-size: 16px;
+}
+body.dark-mode .button-add-a-card button {
+  color: #f6f7fb;
+}
+body.light-mode .button-add-a-card button {
+  color: #222;
+  border: 2px solid #1976d2;
 }
 
 #flashcard-setting {
@@ -267,11 +403,18 @@
 
 .flashcard-main {
   margin: auto;
-  background: #0a092d;
+  /* bỏ background, color ở đây */
   width: 800px;
   padding: 30px;
   border-radius: 15px;
+}
+body.dark-mode .flashcard-main {
+  background: #0a092d;
   color: #f6f7fb;
+}
+body.light-mode .flashcard-main {
+  background: #fff;
+  color: #222;
 }
 
 .flashcard-main h1 {
@@ -288,9 +431,17 @@
   padding: 10px 20px;
   background: none;
   border: none;
-  color: #a7b0fe;
+  /* bỏ color ở đây */
   font-size: 14px;
   border: 2px solid #0a092d;
+}
+body.dark-mode .flashcard-main-content button {
+  color: #a7b0fe;
+  border: 2px solid #0a092d;
+}
+body.light-mode .flashcard-main-content button {
+  color: #1976d2;
+  border: 2px solid #1976d2;
 }
 
 .flashcard-main-content button i {
@@ -306,8 +457,14 @@
   height: 30px;
   width: 100%;
   padding: none;
-  border-bottom: 1px solid #f6f7fb;
+  /* bỏ border ở đây */
   margin-top: 20px;
+}
+body.dark-mode .flashcard-line {
+  border-bottom: 1px solid #f6f7fb;
+}
+body.light-mode .flashcard-line {
+  border-bottom: 1px solid #222;
 }
 
 .flashcard-button-save {
@@ -317,13 +474,20 @@
 }
 
 .flashcard-button-save button {
-  color: #f6f7fb;
+  /* bỏ color, background ở đây */
   line-height: 20px;
   padding: 10px 16px;
   border: none;
   border-radius: 50px;
   margin-top: 10px;
+}
+body.dark-mode .flashcard-button-save button {
+  color: #f6f7fb;
   background: #4255ff;
+}
+body.light-mode .flashcard-button-save button {
+  color: #fff;
+  background: #1976d2;
 }
 
 .flashcard-button-save button:hover {
@@ -343,22 +507,39 @@
 }
 
 .flashcard-button-option button {
-  color: #f6f7fb;
+  /* bỏ color, background ở đây */
   line-height: 20px;
   padding: 10px 16px;
   border-radius: 50px;
   margin-top: 20px;
+}
+body.dark-mode .flashcard-button-option button {
+  color: #f6f7fb;
+  background: #4255ff;
+}
+body.light-mode .flashcard-button-option button {
+  color: #fff;
+  background: #1976d2;
 }
 
 .flashcard-button-delete {
   background: #b00020;
   border: 2px solid #b00020;
   margin-left: 10px;
+  color: #fff;
 }
 
 .flashcard-button-cancel {
-  background: #0a092d;
+  /* bỏ background ở đây */
   border: 2px solid #586380;
+}
+body.dark-mode .flashcard-button-cancel {
+  background: #0a092d;
+  color: #f6f7fb;
+}
+body.light-mode .flashcard-button-cancel {
+  background: #e0e0e0;
+  color: #222;
 }
 
 .flashcard-button-cancel:hover {
@@ -368,4 +549,9 @@
 .flashcard-button-delete:hover {
   border: 2px solid #df3252;
   background: #df3252;
+}
+
+.button-trash.disabled {
+  opacity: 0.4; /* làm mờ */
+  cursor: not-allowed; /* đổi con trỏ */
 }

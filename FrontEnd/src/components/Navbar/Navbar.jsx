@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import account from "../../assets/img/account.jpg";
+import { flashCardApi } from "../../api/flashCardApi";
 
 export default function Navbar({ togglePadding }) {
   const [isOpen, setIsOpen] = useState(false); // chỉ cho thông báo
@@ -11,6 +12,16 @@ export default function Navbar({ togglePadding }) {
   const navbarRef = useRef(null);
   const notificationsRef = useRef(null);
   const buttonRef = useRef(null);
+  const [flashCards, setFlashCards] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await flashCardApi.getAll();
+      setFlashCards(data);
+    };
+
+    fetchData();
+  }, []);
 
   // ✅ Collapse: độc lập, không phụ thuộc isOpen
   const handleCollapse = () => {
@@ -84,6 +95,17 @@ export default function Navbar({ togglePadding }) {
               <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
             </div>
           </Link>
+          <Link to="/classroom" onClick={() => setActiveItem("Classroom")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "Classroom" ? "active" : ""
+              }`}
+              id="navbar-one-library"
+            >
+              <i className="fa-solid fa-folder-open"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Classroom</p>
+            </div>
+          </Link>
 
           {/* Notifications */}
           <button
@@ -104,8 +126,12 @@ export default function Navbar({ togglePadding }) {
             </div>
             <div className="position-notifi">
               {isOpen && (
-                <div id="notifications-main" ref={notificationsRef}>
-                  <Link to="/achievenments">
+                <div
+                  id="notifications-main"
+                  ref={notificationsRef}
+                  key={flashCards._id}
+                >
+                  <Link to={`/itemflashcard/${flashCards._id}`}>
                     <div className="notifi-main-children flex">
                       <img src={account} alt="" />
                       <div className="notifi-main-content">

@@ -1,4 +1,4 @@
-import SectionFlashCardSet from "../../../../../Sections/SectionFlashCardSet";
+import SectionFlashCardSet from "../../../../../Sections/SectionFlashCardSet/SectionFlashCardSet";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 

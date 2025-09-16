@@ -37,28 +37,17 @@ import FlashCards from "./components/Navbar/Page/FlashCards/FlashCards.jsx";
 import ExpertSolutions from "./components/Navbar/Page/ExpertSolution/ExpertSolutions.jsx";
 import FlashCard from "./components/FlashCardItems/FlashCard.jsx";
 import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
-import SectionClass from "./components/Sections/SectionClass/SectionClass.jsx";
+// import SectionClass from "./components/Navbar/Page/ClassRoomSectionClass/SectionClass.jsx";
 import Achievements from "./components/Achievements/Achievements.jsx";
 import SectionCreators from "./components/Sections/SectionCreators/SectionCreators.jsx";
+import Classroom from "./components/Navbar/Page/ClassRoom/SectionClass.jsx";
+import CreateClass from "./components/Navbar/Page/ClassRoom/CreateClass/CreateClass.jsx";
 // Thêm Component
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
-  const [data, setData] = useState("");
-
-  useEffect(() => {
-    fetch("http://localhost:5001/api/hello")
-      .then((res) => res.json())
-      .then((result) => setData(result.message))
-      .catch((err) => console.error(err));
-  }, []);
-
   return (
     <>
-      <div>
-        <h1>React - NodeJS Connect</h1>
-        <p>Backend trả về: {data}</p>
-      </div>
       <Router>
         <Header />
         <Navbar togglePadding={() => setIsPadded(!isPadded)} />
@@ -81,25 +70,33 @@ function App() {
             element={<ExpertSolutions isPadded={isPadded} />}
           />
           <Route
-            path="/itemflashcard"
+            path="/itemflashcard/:id"
             element={<FlashCard isPadded={isPadded} />}
           />
           <Route
             path="/settingaccount"
             element={<SettingAccount isPadded={isPadded} />}
           />
-          <Route path="/class" element={<SectionClass isPadded={isPadded} />} />
+          {/* <Route path="/class" element={<SectionClass isPadded={isPadded} />} /> */}
           <Route
             path="/achievenments"
             element={<Achievements isPadded={isPadded} />}
           />
           <Route
-            path="/class-item"
+            path="/class-item/:id"
             element={<Achievements isPadded={isPadded} />}
           />
           <Route
             path="/creators"
             element={<SectionCreators isPadded={isPadded} />}
+          />
+          <Route
+            path="/classroom"
+            element={<Classroom isPadded={isPadded} />}
+          />
+          <Route
+            path="/classroom/createClassroom"
+            element={<CreateClass isPadded={isPadded} />}
           />
         </Routes>
       </Router>

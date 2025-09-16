@@ -1,0 +1,53 @@
+@import url(CssSectionClass.css);
+@import url(CreateClass/CssCreateClass.css);
+.button--join,
+.button--create {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button--join {
+  background-color: #6366f1; /* Một màu sắc khác để phân biệt */
+}
+
+.button--create {
+  background-color: #3b82f6;
+}
+
+.button--join:hover {
+  background-color: #4f46e5;
+}
+
+.button--create:hover {
+  background-color: #2563eb;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

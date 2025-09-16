@@ -154,7 +154,6 @@ a:hover .recent {
 
 .top-creators-main {
   display: flex;
-  gap: 15px;
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 10px 0;
@@ -232,3 +231,5 @@ a:hover .recent {
   color: #d4f5fc;
   margin-right: 10px;
 }
+
+/* Css calender */
