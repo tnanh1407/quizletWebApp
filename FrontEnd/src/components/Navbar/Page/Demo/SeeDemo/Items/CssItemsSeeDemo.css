@@ -23,11 +23,18 @@
 
 .item-folder-main-icon-card i {
   line-height: 37px;
-  color: #51cfff;
+  /* bỏ color, background ở đây */
   width: 100%;
   font-size: 18px;
-  background: #2e3856;
   border-radius: 10px;
+}
+body.dark-mode .item-folder-main-icon-card i {
+  color: #51cfff;
+  background: #2e3856;
+}
+body.light-mode .item-folder-main-icon-card i {
+  color: #1976d2;
+  background: #e0e0e0;
 }
 
 .item-folder h1,
@@ -59,8 +66,14 @@
 }
 
 .item-folder-button-option i {
-  color: #f6f7fb;
+  /* bỏ color ở đây */
   font-size: 18px;
+}
+body.dark-mode .item-folder-button-option i {
+  color: #f6f7fb;
+}
+body.light-mode .item-folder-button-option i {
+  color: #222;
 }
 
 #item-folder:hover .item-folder-main {
@@ -73,22 +86,35 @@
 
 #item-folder-button-option-menu {
   width: 250px;
-  background: #0a092d;
+  /* bỏ background, border ở đây */
   position: absolute;
   top: 55px;
   right: 0;
   z-index: 99999;
-  border: 2px solid #d9dde8;
   padding: 10px 0;
   border-radius: 10px;
+}
+body.dark-mode #item-folder-button-option-menu {
+  background: #0a092d;
+  border: 2px solid #d9dde8;
+}
+body.light-mode #item-folder-button-option-menu {
+  background: #fff;
+  border: 2px solid #222;
 }
 
 #item-folder-button-option-menu button {
   width: 100%;
   background: none;
   border: none;
-  color: #f6f7fb;
+  /* bỏ color ở đây */
   padding: 5px 20px;
+}
+body.dark-mode #item-folder-button-option-menu button {
+  color: #f6f7fb;
+}
+body.light-mode #item-folder-button-option-menu button {
+  color: #222;
 }
 
 #item-folder-button-option-menu button:hover {
@@ -125,10 +151,17 @@
   height: 280px;
   margin: auto;
   margin-top: 60px;
-  color: #f6f7fb;
+  /* bỏ color, background ở đây */
   position: relative;
-  background: #0a092d;
   border-radius: 20px;
+}
+body.dark-mode .add-or-remove-tags-container {
+  color: #f6f7fb;
+  background: #0a092d;
+}
+body.light-mode .add-or-remove-tags-container {
+  color: #222;
+  background: #fff;
 }
 
 .add-or-remove-tags-container h1 {
@@ -142,10 +175,17 @@
 
 .add-or-remove-tags-container-main button {
   padding: 15px 20px;
-  background: #202040;
+  /* bỏ background, color ở đây */
   border: none;
-  color: #f6f7fb;
   border-radius: 50px;
+}
+body.dark-mode .add-or-remove-tags-container-main button {
+  background: #202040;
+  color: #f6f7fb;
+}
+body.light-mode .add-or-remove-tags-container-main button {
+  background: #e0e0e0;
+  color: #222;
 }
 
 .add-or-remove-tags-container-main button i,
@@ -162,15 +202,22 @@
 }
 
 .button-add-or-remove-tags-done {
-  color: #f6f7fb;
+  /* bỏ color, background, border ở đây */
   display: flex;
   float: right;
-  background: #2e3856;
-  border: none;
   font-size: 16px;
   padding: 15px 20px;
-  border: 2px solid #2e3856;
   border-radius: 50px;
+}
+body.dark-mode .button-add-or-remove-tags-done {
+  color: #f6f7fb;
+  background: #2e3856;
+  border: 2px solid #2e3856;
+}
+body.light-mode .button-add-or-remove-tags-done {
+  color: #222;
+  background: #e0e0e0;
+  border: 2px solid #e0e0e0;
 }
 
 .button-add-or-remove-tags-done:hover {

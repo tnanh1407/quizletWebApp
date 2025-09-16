@@ -1,15 +1,10 @@
 import express from "express";
-import { StatusCodes } from "http-status-codes";
-import { boardRoute } from "~/routes/v1/boardRouter";
-import { cardRoute } from "~/routes/v1/cardRouter";
+import { flashCardRoutes } from "../v1/flashCardRouter";
+import { userRoutes } from "../v1/userRouter";
 
-const Router = express.Router();
+const router = express.Router();
 
-Router.get("/status", (req, res) => {
-  res.status(StatusCodes.OK).json({ message: "API V1 are ready to use" });
-});
+router.use("/flashCards", flashCardRoutes);
+router.use("/users", userRoutes);
 
-Router.use("/boards", boardRoute);
-Router.use("/cards", cardRoute);
-
-export const APIs_V1 = Router;
+export const APIs_V1 = router;

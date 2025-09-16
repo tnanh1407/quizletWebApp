@@ -46,6 +46,13 @@ export default function Header() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    document.body.className = isDarkMode ? "dark-mode" : "light-mode";
+  }, [isDarkMode]);
+
+  const toggleTheme = () => setIsDarkMode((prev) => !prev);
   return (
     <>
       <div className="header flex">
@@ -134,12 +141,26 @@ export default function Header() {
                   <p>Setting</p>
                 </div>
               </Link>
-              <Link to="/">
+              <button
+                onClick={toggleTheme}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "inherit",
+                  width: "100%",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  padding: 0,
+                }}
+                className="button-mode"
+              >
                 <div className="setting-item flex">
-                  <i className="fa-solid fa-sun"></i>
-                  <p>Light mode</p>
+                  <i
+                    className={`fa-solid ${isDarkMode ? "fa-sun" : "fa-moon"}`}
+                  ></i>
+                  <p>{isDarkMode ? "Light mode" : "Dark mode"}</p>
                 </div>
-              </Link>
+              </button>
             </div>
             <div className="account-setting">
               <Link to="/" className="account-logout">

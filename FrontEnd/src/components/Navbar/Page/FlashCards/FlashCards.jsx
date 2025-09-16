@@ -2,6 +2,14 @@ import SectionFlashCards from "../../../Sections/SectionFlashCardCreate";
 import Footer from "../../../Footer/Footer.jsx";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 export default function FlashCards({ isPadded }) {
   const [isSettingCard, setIsSettingCard] = useState(false);
@@ -14,6 +22,27 @@ export default function FlashCards({ isPadded }) {
 
   const toggleDeleteCard = () => {
     setIsDeleteCard(!isDeleteCard);
+  };
+
+  const [cards, setCards] = useState([{ id: "1" }]);
+
+  const addCard = () => {
+    setCards([...cards, { id: Date.now().toString() }]);
+  };
+
+  const deleteCard = (id) => {
+    setCards(cards.filter((c) => c.id !== id));
+  };
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (!over) return;
+
+    if (active.id !== over.id) {
+      const oldIndex = cards.findIndex((c) => c.id === active.id);
+      const newIndex = cards.findIndex((c) => c.id === over.id);
+      setCards((items) => arrayMove(items, oldIndex, newIndex));
+    }
   };
   return (
     <>
@@ -92,14 +121,14 @@ export default function FlashCards({ isPadded }) {
                     <p>Create</p>
                   </div>
                 </button>
-                <button className="button-create-flashcard-create-practice">
+                {/* <button className="button-create-flashcard-create-practice">
                   <div>
                     <p>Create and practice</p>
                   </div>
-                </button>
+                </button> */}
               </div>
             </div>
-            <div className="create-flashcard-main">
+            <form className="create-flashcard-main">
               <div className="button-create-flashcard-main-title">
                 <input type="text" placeholder="Title" />
               </div>
@@ -127,6 +156,7 @@ export default function FlashCards({ isPadded }) {
                 <div className="create-flashcard-maincontent-right flex">
                   {/* <p>Suggestions</p> */}
                   <button
+                    type="button"
                     className="button-create-flashcard-maincontent-setting"
                     onClick={toggleSettingCard}
                   >
@@ -145,6 +175,7 @@ export default function FlashCards({ isPadded }) {
                     </div>
                   </button> */}
                   <button
+                    type="button"
                     className="button-create-flashcard-maincontent-delete"
                     onClick={toggleDeleteCard}
                   >
@@ -154,21 +185,64 @@ export default function FlashCards({ isPadded }) {
                   </button>
                 </div>
               </div>
-              <SectionFlashCards />
-              <SectionFlashCards />
-              <SectionFlashCards />
-              <SectionFlashCards />
+              <DndContext
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
+                <SortableContext
+                  items={cards.map((c) => c.id)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {cards.map((card, index) => (
+                    <SortableCard
+                      key={card.id}
+                      id={card.id}
+                      index={index + 1}
+                      onDelete={deleteCard}
+                    />
+                  ))}
+                </SortableContext>
+              </DndContext>
               <div className="button-add-a-card">
-                <button>
+                <button type="button" onClick={addCard}>
                   <div className="">
                     <p>Add a card</p>
                   </div>
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </>
+  );
+}
+
+// ===== SORTABLE WRAPPER =====
+function SortableCard({ id, index, onDelete }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: String(id) });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes}>
+      <SectionFlashCards
+        id={id}
+        index={index}
+        onDelete={onDelete}
+        listeners={listeners || {}}
+      />
+    </div>
   );
 }
