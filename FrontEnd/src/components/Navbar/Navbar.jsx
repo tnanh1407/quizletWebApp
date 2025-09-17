@@ -177,7 +177,7 @@ export default function Navbar({ togglePadding }) {
           </button>
 
           {isNewFolder && (
-            <div id="newfolder">
+            <form id="newfolder">
               <div className="newfolder-main">
                 <p>
                   <i className="fa-solid fa-folder"></i>
@@ -201,7 +201,7 @@ export default function Navbar({ togglePadding }) {
                   </button>
                 </div>
               </div>
-            </div>
+            </form>
           )}
         </div>
 
