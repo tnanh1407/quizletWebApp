@@ -102,10 +102,40 @@ const getById = async (id) => {
   }
 };
 
+const updateById = async (id, data) => {
+  try {
+    const db = GET_DB();
+    const result = await db
+      .collection(CLASSROOM_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        { $set: data },
+        { returnDocument: "after" } // trả về document sau khi update
+      );
+    return result.value; // result chứa { ok, value, ... }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const deleteById = async (id) => {
+  try {
+    const db = GET_DB();
+    const result = await db
+      .collection(CLASSROOM_COLLECTION_NAME)
+      .deleteOne({ _id: new ObjectId(id) });
+    return result.deletedCount > 0;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const classroomModel = {
   CLASSROOM_COLLECTION_NAME,
   CLASSROOM_COLLECTION_SCHEMA,
   getAll,
   createNew,
   getById,
+  updateById,
+  deleteById,
 };

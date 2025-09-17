@@ -12,8 +12,18 @@ const getById = async (id) => {
   return await folderModel.getById(id);
 };
 
+const updateById = async (id, data) => {
+  return await folderService.updateById(id, data);
+};
+
+const deleteById = async (id) => {
+  return await folderService.deleteById(id);
+};
+
 export const folderService = {
   getAll,
   createNew,
   getById,
+  updateById,
+  deleteById,
 };

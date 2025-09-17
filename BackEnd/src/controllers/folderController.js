@@ -35,8 +35,44 @@ const getById = async (req, res, next) => {
   }
 };
 
+const updateById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updatedFolder = await folderService.updateById(
+      id,
+      req.body,
+      req.user
+    );
+    if (!updatedFolder) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Folder not found" });
+    }
+    res.status(StatusCodes.OK).json(updatedFolder);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deleted = await folderService.deleteById(id, req.user);
+    if (!deleted) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Folder not found" });
+    }
+    res.status(StatusCodes.NO_CONTENT).send();
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const folderController = {
   getAll,
   createNew,
   getById,
+  updateById,
+  deleteById,
 };

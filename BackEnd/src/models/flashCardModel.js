@@ -106,10 +106,64 @@ const getById = async (id) => {
   }
 };
 
+const updateById = async (id, data) => {
+  try {
+    const db = GET_DB();
+
+    const updateOps = {};
+
+    // Nếu client gửi content (mảng), update cả content_count
+    if (data.content && Array.isArray(data.content)) {
+      updateOps.$set = {
+        ...(updateOps.$set || {}),
+        content: data.content,
+        content_count: data.content.length,
+      };
+    }
+
+    // Các field khác ngoài content
+    const { content, ...rest } = data;
+    if (Object.keys(rest).length > 0) {
+      updateOps.$set = {
+        ...(updateOps.$set || {}),
+        ...rest,
+      };
+    }
+
+    const result = await db
+      .collection(FLASHCARD_COLLECTION_NAME)
+      .findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        updateOps,
+        { returnDocument: "after" } // trả về document sau khi update
+      );
+
+    return result.value; // document sau khi update
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+// Xóa flashcard theo id
+const deleteById = async (id) => {
+  try {
+    const db = GET_DB();
+    const result = await db
+      .collection(FLASHCARD_COLLECTION_NAME)
+      .deleteOne({ _id: new ObjectId(id) });
+
+    return result.deletedCount > 0; // true nếu xóa thành công
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const flashCardModel = {
   FLASHCARD_COLLECTION_NAME,
   FLASHCARD_COLLECTION_SCHEMA,
   getAll,
   createNew,
   getById,
+  updateById,
+  deleteById,
 };

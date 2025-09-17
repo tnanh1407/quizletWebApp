@@ -24,7 +24,7 @@ export default function SectionRecentItem() {
             <div className="recent-content">
               <p>{card.title || "Untitled"}</p>
               <p>
-                Flashcard set • {card.metadata?.views ?? 0} terms • by{" "}
+                Flashcard set • {card.content_count} terms • by{" "}
                 {card.creator?.username || "Unknown"}
               </p>
             </div>
