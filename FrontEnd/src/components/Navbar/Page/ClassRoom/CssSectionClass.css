@@ -21,7 +21,7 @@
   .create-class {
     display: flex;
     justify-content: space-between;
-    background-color: #f7f9fc;
+    background-color: #2e3856;
     border-radius: 12px;
     padding: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -46,7 +46,7 @@
       & h3 {
         font-size: 24px;
         font-weight: 700;
-        color: #1a202c;
+        color: #f6f7fb;
         margin-bottom: 10px;
       }
 
@@ -147,7 +147,7 @@
       gap: 20px;
 
       .manage-class__item {
-        background-color: white;
+        background-color: #2e3856;
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         padding: 24px 24px;

@@ -92,8 +92,11 @@ body.light-mode .button-create-flashcard-main-title input {
   color: #222;
 }
 
-.button-create-flashcard-main-title input::placeholder {
-  color: #dddee4;
+.button-create-flashcard-main-title input::placeholder,
+.button-create-flashcard-main-desc input::placeholder,
+.input-term-create-flashcard-main-content-main input::placeholder,
+.container-input-definition input::placeholder {
+  color: #9198b2;
 }
 
 .button-create-flashcard-main-desc input {
@@ -113,10 +116,6 @@ body.dark-mode .button-create-flashcard-main-desc input {
 body.light-mode .button-create-flashcard-main-desc input {
   background: #e0e0e0;
   color: #222;
-}
-
-.button-create-flashcard-main-desc input::placeholder {
-  color: #9198b2;
 }
 
 .button-import-flashcard-main,
@@ -246,6 +245,11 @@ body.light-mode .create-flashcard-main-content-header {
   margin-right: 10px;
 }
 
+.button-create-flashcard-main-content-grip-line:hover {
+  background: #0a092d;
+  border-radius: 50px;
+}
+
 .create-flashcard-main-content-header-option i {
   width: 32px;
   height: 32px;
@@ -254,6 +258,11 @@ body.light-mode .create-flashcard-main-content-header {
 }
 body.dark-mode .create-flashcard-main-content-header-option i {
   color: #f6f7fb;
+}
+
+.button-trash:hover {
+  background: #0a092d;
+  border-radius: 50px;
 }
 body.light-mode .create-flashcard-main-content-header-option i {
   color: #222;
@@ -294,6 +303,12 @@ body.light-mode .create-flashcard-main-content {
   justify-content: space-between;
 }
 
+.option-input-term-create-flashcard-main-content-main p,
+.option-input-definition-create-flashcard-main-content-main p {
+  font-size: 12px;
+  margin-left: 10px;
+}
+
 .input-definition-create-flashcard-main-content-main {
   /* display: grid;
   gap: 20px;
@@ -306,7 +321,7 @@ body.light-mode .create-flashcard-main-content {
   height: 48px;
   /* bỏ background ở đây */
   border: none;
-  padding: 8px 12px;
+  padding: 8px 20px;
   border-radius: 10px;
   margin: 10px 0 15px 0;
 }
@@ -341,11 +356,6 @@ body.light-mode
   .option-input-definition-create-flashcard-main-content-main
   button {
   color: #1976d2;
-}
-
-.option-input-term-create-flashcard-main-content-main p,
-.option-input-definition-create-flashcard-main-content-main p {
-  font-size: 13px;
 }
 
 .input-definition-create-flashcard-main-img {

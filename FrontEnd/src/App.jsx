@@ -42,6 +42,8 @@ import Achievements from "./components/Achievements/Achievements.jsx";
 import SectionCreators from "./components/Sections/SectionCreators/SectionCreators.jsx";
 import Classroom from "./components/Navbar/Page/ClassRoom/SectionClass.jsx";
 import CreateClass from "./components/Navbar/Page/ClassRoom/CreateClass/CreateClass.jsx";
+import AuthContext from "./logic/AuthContext.jsx";
+import ProtectedRoute from "./logic/ProtectedRoute.jsx";
 // Thêm Component
 
 function App() {
@@ -53,25 +55,51 @@ function App() {
         <Navbar togglePadding={() => setIsPadded(!isPadded)} />
         <Routes>
           <Route path="/" element={<MainContent isPadded={isPadded} />} />
-          <Route path="/library" element={<YourLibrary isPadded={isPadded} />}>
+          <Route
+            path="/library"
+            element={
+              // <ProtectedRoute>
+              <YourLibrary isPadded={isPadded} />
+              // </ProtectedRoute>
+            }
+          >
             <Route path="/library" element={<FlashCardSet />} />
             <Route path="practive-tests" element={<PractiveTests />} />
             <Route path="expert-solution" element={<ExpertSolution />} />
             <Route path="folders" element={<Folders />} />
             <Route path="classes" element={<Classes />} />
           </Route>
-          <Route path="/demo" element={<SeeDemo isPadded={isPadded} />} />
+          <Route
+            path="/demo"
+            element={
+              // <ProtectedRoute>
+              <SeeDemo isPadded={isPadded} />
+              // </ProtectedRoute>
+            }
+          />
           <Route
             path="/flashcards"
-            element={<FlashCards isPadded={isPadded} />}
+            element={
+              // <ProtectedRoute>
+              <FlashCards isPadded={isPadded} />
+              // </ProtectedRoute>
+            }
           />
           <Route
             path="/expert-solutions"
-            element={<ExpertSolutions isPadded={isPadded} />}
+            element={
+              // <ProtectedRoute>
+              <ExpertSolutions isPadded={isPadded} />
+              // </ProtectedRoute>
+            }
           />
           <Route
             path="/itemflashcard/:id"
-            element={<FlashCard isPadded={isPadded} />}
+            element={
+              // <ProtectedRoute>
+              <FlashCard isPadded={isPadded} />
+              // </ProtectedRoute>
+            }
           />
           <Route
             path="/settingaccount"
@@ -95,7 +123,7 @@ function App() {
             element={<Classroom isPadded={isPadded} />}
           />
           <Route
-            path="/classroom/createClassroom"
+            path="/create-classroom"
             element={<CreateClass isPadded={isPadded} />}
           />
         </Routes>

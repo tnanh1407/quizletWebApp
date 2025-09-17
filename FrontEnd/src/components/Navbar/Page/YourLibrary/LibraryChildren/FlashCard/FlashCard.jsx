@@ -49,11 +49,6 @@ export default function FlashCard() {
           </div>
         </div>
         <SectionFlashCardSet />
-        <SectionFlashCardSet />
-        <SectionFlashCardSet />
-        <SectionFlashCardSet />
-        <SectionFlashCardSet />
-        <SectionFlashCardSet />
       </div>
     </>
   );

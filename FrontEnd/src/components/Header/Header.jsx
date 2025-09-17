@@ -106,12 +106,12 @@ export default function Header() {
                   <p>Flashcard set</p>
                 </div>
               </Link>
-              <button className="header-add-folder">
+              <Link to="/create-classroom">
                 <div className="setting-item flex">
-                  <i className="fa-solid fa-gear"></i>
-                  <p>Folder</p>
+                  <i className="fa-solid fa-trophy"></i>
+                  <p>Class Room</p>
                 </div>
-              </button>
+              </Link>
             </div>
           </div>
         )}
@@ -163,6 +163,16 @@ export default function Header() {
               </button>
             </div>
             <div className="account-setting">
+              <Link to="/" className="account-logout">
+                <div className="setting-item flex">
+                  <p>Sign Up</p>
+                </div>
+              </Link>
+              <Link to="/" className="account-logout">
+                <div className="setting-item flex">
+                  <p>Sign In</p>
+                </div>
+              </Link>
               <Link to="/" className="account-logout">
                 <div className="setting-item flex">
                   <p>Log out</p>

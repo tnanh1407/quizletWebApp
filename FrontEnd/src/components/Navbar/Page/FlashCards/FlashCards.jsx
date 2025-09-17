@@ -65,7 +65,10 @@ export default function FlashCards({ isPadded }) {
       // 👉 Reset form sau khi tạo thành công
       setTitle("");
       setDescription("");
-      setCards([{ id: "1", front: "", back: "" }]);
+      setCards([
+        { id: "1", front: "", back: "" },
+        { id: "2", front: "", back: "" },
+      ]);
     } catch (err) {
       console.error("Error creating flashcard:", err);
       alert("Failed to create flashcard set");
@@ -98,7 +101,6 @@ export default function FlashCards({ isPadded }) {
                 </button>
               </div>
             </div>
-
             <form
               className="create-flashcard-main"
               onSubmit={(e) => e.preventDefault()}
@@ -119,7 +121,54 @@ export default function FlashCards({ isPadded }) {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
-
+              <div className="create-flashcard-maincontent flex">
+                <div className="create-flashcard-maincontent-left flex">
+                  <button className="button-import-flashcard-main">
+                    <div className="flex">
+                      <i class="fa-solid fa-plus"></i>
+                      <p>Import</p>
+                    </div>
+                  </button>
+                  <button className="button-adddiagram-flashcard-main flex">
+                    <div className="flex">
+                      <i class="fa-solid fa-plus"></i>
+                      <p>Add diagram</p>
+                    </div>
+                    <div className="lock-flashcard-main">
+                      <i class="fa-solid fa-lock"></i>
+                    </div>
+                  </button>
+                </div>
+                <div className="create-flashcard-maincontent-right flex">
+                  {/* <p>Suggestions</p> */}
+                  <button
+                    className="button-create-flashcard-maincontent-setting"
+                    onClick={toggleSettingCard}
+                  >
+                    <div className="create-flashcard-maincontent-setting">
+                      <i class="fa-solid fa-gear"></i>
+                    </div>
+                  </button>
+                  <button className="button-create-flashcard-maincontent-swap">
+                    <div className="create-flashcard-maincontent-swap">
+                      <i class="fa-solid fa-right-left"></i>
+                    </div>
+                  </button>
+                  <button className="button-create-flashcard-maincontent-keyboard">
+                    <div className="create-flashcard-maincontent-keyboard">
+                      <i class="fa-solid fa-keyboard"></i>
+                    </div>
+                  </button>
+                  <button
+                    className="button-create-flashcard-maincontent-delete"
+                    onClick={toggleDeleteCard}
+                  >
+                    <div className="create-flashcard-maincontent-delete">
+                      <i class="fa-solid fa-trash"></i>
+                    </div>
+                  </button>
+                </div>
+              </div>
               <DndContext
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}

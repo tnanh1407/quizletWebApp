@@ -7,10 +7,9 @@ const CreateClass = ({ isPadded }) => {
       >
         <div className="maincontent">
           <div className="main-content">
-            <div className="out-let">
-              <Outlet />
-            </div>
-            <Footer />
+            {/* <div className="out-let"><Outlet /></div> */}
+            {/* <Footer /> */}
+            <h1>CreateClass</h1>
           </div>
         </div>
       </div>

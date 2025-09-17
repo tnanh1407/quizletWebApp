@@ -22,7 +22,7 @@ export default function SectionNextStudyItem() {
             <h1>{card.title}</h1>
             <div className="session-terms">
               {/* Nếu views nằm trong metadata */}
-              <p>{card.metadata.views} term</p>
+              <p>{card.content_count} term</p>
             </div>
             <div className="session-author flex">
               <img src={account} alt="author" />
