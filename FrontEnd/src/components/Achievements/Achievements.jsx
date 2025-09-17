@@ -2,6 +2,7 @@ import Footer from "../Footer/Footer.jsx";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { addMonths, subMonths } from "date-fns";
+import "react-day-picker/style.css";
 
 import bageCreatedFirstSet from "../../assets/img_achievements/badge-CreatedFirstSet.svg";
 import bageDay from "../../assets/img_achievements/badge-Day.svg";
@@ -16,6 +17,7 @@ import badgeStudiedWithMatch from "../../assets/img_achievements/badge-StudiedWi
 import badgeStudiedWithTest from "../../assets/img_achievements/badge-StudiedWithTest.svg";
 import badgeWeek from "../../assets/img_achievements/badge-Week.svg";
 import lockedbadgeCreatedFirstPracticeTest from "../../assets/img_achievements/locked-badge-CreatedFirstPracticeTest.svg";
+import streakFlame from "../../assets/img_achievements/streak-flame.svg"
 
 const imgMapping = {
   "Flashcard whiz": badgeStudiedWithFlashcards,
@@ -139,109 +141,127 @@ export default function Achievements({ isPadded }) {
   const [showAllSets, setShowAllSets] = useState(false);
   const [showAllRounds, setShowAllRounds] = useState(false);
 
-  const prevMonth = () => {
-    setMonth(subMonths(month, 1));
+  const allAchievements = {
+    studying: [
+      { text: "Flashcard whiz", earned: true, dateEarned: "2024-01-04" },
+      { text: "Active learner", earned: true, dateEarned: "2025-03-12" },
+      { text: "Committed learner", earned: false },
+      { text: "Match whiz", earned: true, dateEarned: "2025-06-09" },
+      { text: "Night owl", earned: true, dateEarned: "2023-12-18" },
+      { text: "Early bird", earned: true, dateEarned: "2025-04-26" },
+      { text: "Test acer", earned: true, dateEarned: "2025-01-01" },
+      { text: "Set builder", earned: true, dateEarned: "2025-06-05" },
+      { text: "Match marker", earned: true, dateEarned: "2025-06-09" },
+      { text: "Exam ready", earned: false },
+    ],
+    dailyStreaks: [
+      { text: "3-day streak", earned: true, dateEarned: "2025-04-02" },
+      { text: "5-day streak", earned: true, dateEarned: "2025-04-04" },
+      { text: "7-day streak", earned: true, dateEarned: "2025-06-22" },
+      { text: "10-day streak", earned: true, dateEarned: "2025-06-25" },
+      { text: "20-day streak", earned: true, dateEarned: "2025-07-05" }, 
+      { text: "30-day streak", earned: false},
+      { text: "45-day streak", earned: false },
+      { text: "60-day streak", earned: false },
+      { text: "70-day streak", earned: false},
+      { text: "80-day streak", earned: false },
+    ],
+    weeklyStreaks: [
+      { text: "3-week streak", earned: true, dateEarned: "2025-03-10" },
+      { text: "5-week streak", earned: true, dateEarned: "2025-06-29" },
+      { text: "10-week streak", earned: false },
+      { text: "20-week streak", earned: false },
+      { text: "30-week streak", earned: false },
+      { text: "40-week streak", earned: false },
+      { text: "52-week streak", earned: false },
+      { text: "60-week streak", earned: false },
+      { text: "70-week streak", earned: false },
+      { text: "80-week streak", earned: false },
+      { text: "90-week streak", earned: false },
+      { text: "104-week streak", earned: false },
+      { text: "125-week streak", earned: false },
+      { text: "156-week streak", earned: false },
+      { text: "175-week streak", earned: false },
+      { text: "204-week streak", earned: false },
+    ],
+    setsStudied: [
+      { text: "Studied first set", earned: true, dateEarned: "2023-12-18" },
+      { text: "3 sets studied", earned: true, dateEarned: "2024-01-04" },
+      { text: "5 sets studied", earned: true, dateEarned: "2024-04-29" },
+      { text: "10 sets studied", earned: true, dateEarned: "2024-06-31" },
+      { text: "25 sets studied", earned: true, dateEarned: "2025-02-27" },
+      { text: "50 sets studied", earned: true, dateEarned: "2025-04-01" },
+      { text: "75 sets studied", earned: true, dateEarned: "2025-06-22" },
+      { text: "100 sets studied", earned: false },
+      { text: "150 sets studied", earned: false },
+      { text: "200 sets studied", earned: false },
+      { text: "250 sets studied", earned: false },
+      { text: "300 sets studied", earned: false },
+      { text: "350 sets studied", earned: false },
+      { text: "400 sets studied", earned: false },
+      { text: "450 sets studied", earned: false },
+      { text: "500 sets studied", earned: false },
+      { text: "600 sets studied", earned: false },
+      { text: "700 sets studied", earned: false },
+      { text: "800 sets studied", earned: false },
+      { text: "900 sets studied", earned: false },
+      { text: "1000 sets studied", earned: false },
+      { text: "1500 sets studied", earned: false },
+      { text: "2000 sets studied", earned: false },
+      { text: "2500 sets studied", earned: false },
+      { text: "3000 sets studied", earned: false },
+      { text: "3500 sets studied", earned: false },
+      { text: "4000 sets studied", earned: false },
+      { text: "4500 sets studied", earned: false },
+      { text: "5000 sets studied", earned: false },
+    ],
+    roundsStudied: [
+      { text: "Studied first round", earned: true, dateEarned: "2025-04-26" },
+      { text: "3 rounds studied", earned: true, dateEarned: "2025-04-26" },
+      { text: "5 rounds studied", earned: true, dateEarned: "2025-06-17" },
+      { text: "10 rounds studied", earned: false },
+      { text: "25 rounds studied", earned: false },
+      { text: "50 rounds studied", earned: false },
+      { text: "75 rounds studied", earned: false },
+      { text: "100 rounds studied", earned: false },
+      { text: "150 rounds studied", earned: false },
+      { text: "200 rounds studied", earned: false },
+      { text: "250 rounds studied", earned: false },
+      { text: "300 rounds studied", earned: false },
+      { text: "350 rounds studied", earned: false },
+      { text: "400 rounds studied", earned: false },
+      { text: "450 rounds studied", earned: false },
+      { text: "500 rounds studied", earned: false },
+      { text: "600 rounds studied", earned: false },
+      { text: "700 rounds studied", earned: false },
+      { text: "800 rounds studied", earned: false },
+      { text: "900 rounds studied", earned: false },
+      { text: "1000 rounds studied", earned: false },
+      { text: "1500 rounds studied", earned: false },
+      { text: "2000 rounds studied", earned: false },
+      { text: "2500 rounds studied", earned: false },
+      { text: "3000 rounds studied", earned: false },
+      { text: "3500 rounds studied", earned: false },
+      { text: "4000 rounds studied", earned: false },
+      { text: "4500 rounds studied", earned: false },
+      { text: "5000 rounds studied", earned: false },
+    ],
   };
 
-  const nextMonth = () => {
-    setMonth(addMonths(month, 1));
+  // Logic để lấy recently earned: Lấy tất cả earned achievements, sort theo dateEarned descending, lấy cái đầu tiên
+  const getRecentlyEarned = () => {
+    const earnedList = Object.values(allAchievements).flat().filter(item => item.earned && item.dateEarned);
+    earnedList.sort((a, b) => new Date(b.dateEarned) - new Date(a.dateEarned)); // Sort descending (gần nhất trước)
+    return earnedList[0] || { text: "No recent achievements", earned: false }; // Fallback nếu không có
   };
 
-  const dailyStreaks = [
-    "3-day streak",
-    "5-day streak",
-    "7-day streak",
-    "10-day streak",
-    "20-day streak",
-    "30-day streak",
-    "45-day streak",
-    "60-day streak",
-    "70-day streak",
-    "80-day streak",
-  ].map((text) => ({ text, earned: true }));
+  const recentlyEarned = getRecentlyEarned();
+  
+  // Ngày học (16/09/2025) có streak
+  const streakDate = new Date("2025-09-16");
 
-  const weeklyStreaks = [
-    { text: "3-week streak", earned: true },
-    { text: "5-week streak", earned: true },
-    { text: "10-week streak", earned: false },
-    { text: "20-week streak", earned: false },
-    { text: "30-week streak", earned: false },
-    { text: "40-week streak", earned: false },
-    { text: "52-week streak", earned: false },
-    { text: "60-week streak", earned: false },
-    { text: "70-week streak", earned: false },
-    { text: "80-week streak", earned: false },
-    { text: "90-week streak", earned: false },
-    { text: "104-week streak", earned: false },
-    { text: "125-week streak", earned: false },
-    { text: "156-week streak", earned: false },
-    { text: "175-week streak", earned: false },
-    { text: "204-week streak", earned: false },
-  ];
-
-  const setsStudied = [
-    { text: "Studied first set", earned: true },
-    { text: "3 sets studied", earned: true },
-    { text: "5 sets studied", earned: true },
-    { text: "10 sets studied", earned: true },
-    { text: "25 sets studied", earned: true },
-    { text: "50 sets studied", earned: true },
-    { text: "75 sets studied", earned: true },
-    { text: "100 sets studied", earned: false },
-    { text: "150 sets studied", earned: false },
-    { text: "200 sets studied", earned: false },
-    { text: "250 sets studied", earned: false },
-    { text: "300 sets studied", earned: false },
-    { text: "350 sets studied", earned: false },
-    { text: "400 sets studied", earned: false },
-    { text: "450 sets studied", earned: false },
-    { text: "500 sets studied", earned: false },
-    { text: "600 sets studied", earned: false },
-    { text: "700 sets studied", earned: false },
-    { text: "800 sets studied", earned: false },
-    { text: "900 sets studied", earned: false },
-    { text: "1000 sets studied", earned: false },
-    { text: "1500 sets studied", earned: false },
-    { text: "2000 sets studied", earned: false },
-    { text: "2500 sets studied", earned: false },
-    { text: "3000 sets studied", earned: false },
-    { text: "3500 sets studied", earned: false },
-    { text: "4000 sets studied", earned: false },
-    { text: "4500 sets studied", earned: false },
-    { text: "5000 sets studied", earned: false },
-  ];
-
-  const roundsStudied = [
-    { text: "Studied first round", earned: true },
-    { text: "3 rounds studied", earned: true },
-    { text: "5 rounds studied", earned: true },
-    { text: "10 rounds studied", earned: false },
-    { text: "25 rounds studied", earned: false },
-    { text: "50 rounds studied", earned: false },
-    { text: "75 rounds studied", earned: false },
-    { text: "100 rounds studied", earned: false },
-    { text: "150 rounds studied", earned: false },
-    { text: "200 rounds studied", earned: false },
-    { text: "250 rounds studied", earned: false },
-    { text: "300 rounds studied", earned: false },
-    { text: "350 rounds studied", earned: false },
-    { text: "400 rounds studied", earned: false },
-    { text: "450 rounds studied", earned: false },
-    { text: "500 rounds studied", earned: false },
-    { text: "600 rounds studied", earned: false },
-    { text: "700 rounds studied", earned: false },
-    { text: "800 rounds studied", earned: false },
-    { text: "900 rounds studied", earned: false },
-    { text: "1000 rounds studied", earned: false },
-    { text: "1500 rounds studied", earned: false },
-    { text: "2000 rounds studied", earned: false },
-    { text: "2500 rounds studied", earned: false },
-    { text: "3000 rounds studied", earned: false },
-    { text: "3500 rounds studied", earned: false },
-    { text: "4000 rounds studied", earned: false },
-    { text: "4500 rounds studied", earned: false },
-    { text: "5000 rounds studied", earned: false },
-  ];
+  // Kiểm tra xem có ngày nào trong lịch có streak hay không
+  const hasStreak = month.getFullYear() === streakDate.getFullYear() && month.getMonth() === streakDate.getMonth();
 
   return (
     <div
@@ -257,18 +277,27 @@ export default function Achievements({ isPadded }) {
               <div className="recent-activity-card">
                 <div className="column column-1">
                   <h4>Recently earned</h4>
-                  <span className="column-content">3-day streak</span>
+                  <span className="column-content">{recentlyEarned.text}</span>
                   <div className="AchievementImage">
-                    <img
-                      src={getImageSrc("3-day streak")}
-                      alt="3-day streak"
-                      className="earned"
-                    />
-                    <span className="number-overlay earned"></span>
+                    <div className="container-image">
+                      <img
+                        src={getImageSrc(recentlyEarned.text)}
+                        alt={recentlyEarned.text}
+                        className={recentlyEarned.earned ? "earned" : "unearned"}
+                      />
+                      {getNumber(recentlyEarned.text) && (
+                        <span
+                          className={`number-overlay ${recentlyEarned.earned ? "earned" : "unearned"}`}
+                        >
+                          {getNumber(recentlyEarned.text)}
+                        </span>
+                      )}
+                    </div>
                   </div>
+
                 </div>
                 <div className="column column-2">
-                  <h4>Calender</h4>
+                  {/*<h4>Calender</h4>*/}
                   <div className="CalendarBox">
                     <DayPicker
                       mode="single"
@@ -276,6 +305,16 @@ export default function Achievements({ isPadded }) {
                       onMonthChange={setMonth}
                       captionLayout="dropdown-buttons"
                       showOutsideDays
+                      modifiers={{
+                        streakDay: streakDate
+                        
+                      }}
+                      modifiersClassNames={{
+                        streakDay: 'streak-day',
+                        selected: "calendar-day-selected",
+                        today: "calendar-day-today"
+                        
+                      }}
                       className={{
                         root: "calendar-root",
                         month: "calendar-month",
@@ -290,21 +329,20 @@ export default function Achievements({ isPadded }) {
                         day_selected: "calendar-day-selected",
                         day_today: "calendar-day-today",
                       }}
-                      modifiersClassNames={{
-                        selected: "calendar-day-selected",
-                        today: "calendar-day-today",
-                      }}
                     />
-                    {/*<div className="calender-nav">
-                    <button onClick={prevMonth} className="calender-nav-button">Prev</button>
-                    <button onClick={nextMonth} className="calender-nav-button">Next</button>
-                  </div> */}
                   </div>
                 </div>
+                
                 <div className="column column-3">
                   <h4>Current streak</h4>
-                  <div className="containerBox">
-                    <p>NO PROGRESS YET</p>
+                  <div className="StreakBox">
+                    {hasStreak && (
+                      <>
+                        <p>1-week streak</p>
+                        <img src={streakFlame} alt="Streak Flame" className="streak-flame" />
+                      </>
+                    )}
+                    {!hasStreak && <p>NO PROGRESS YET</p>}
                   </div>
                 </div>
               </div>
@@ -314,18 +352,7 @@ export default function Achievements({ isPadded }) {
             <div className="container">
               <div className="container-column">
                 <div className="container-grid">
-                  {[
-                    { text: "Flashcard whiz", earned: true },
-                    { text: "Active learner", earned: true },
-                    { text: "Committed learner", earned: false },
-                    { text: "Match whiz", earned: true },
-                    { text: "Night owl", earned: true },
-                    { text: "Early bird", earned: true },
-                    { text: "Test acer", earned: true },
-                    { text: "Set builder", earned: true },
-                    { text: "Match marker", earned: true },
-                    { text: "Exam ready", earned: false },
-                  ].map((item, index) => (
+                  {allAchievements.studying.map((item, index) => (
                     <div className="container-card" key={index}>
                       <div className="container-image">
                         <img
@@ -333,11 +360,20 @@ export default function Achievements({ isPadded }) {
                           alt={item.text}
                           className={item.earned ? "earned" : "unearned"}
                         />
+                        {getNumber(item.text) && (
+                          <span
+                            className={`number-overlay ${item.earned ? "earned" : "unearned"}`}
+                          >
+                            {getNumber(item.text)}
+                          </span>
+                        )}
                       </div>
                       <p className="container-text">{item.text}</p>
-                      <span className="container-date">
-                        {item.earned ? "Earned" : ""}
-                      </span>
+                      {item.earned && item.dateEarned && (
+                        <span className="earned-date">
+                          Earned {new Date(item.dateEarned).toLocaleDateString()}
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -352,8 +388,8 @@ export default function Achievements({ isPadded }) {
                   className="container-grid"
                   style={{ display: showAllDaily ? "grid" : "grid" }}
                 >
-                  {dailyStreaks
-                    .slice(0, showAllDaily ? dailyStreaks.length : 6)
+                  {allAchievements.dailyStreaks
+                    .slice(0, showAllDaily ? allAchievements.dailyStreaks.length : 6)
                     .map((item, index) => (
                       <div className="container-card" key={index}>
                         <div className="container-image">
@@ -364,18 +400,18 @@ export default function Achievements({ isPadded }) {
                           />
                           {getNumber(item.text) && (
                             <span
-                              className={`number-overlay ${
-                                item.earned ? "earned" : "unearned"
-                              }`}
+                              className={`number-overlay ${item.earned ? "earned" : "unearned"}`}
                             >
                               {getNumber(item.text)}
                             </span>
                           )}
                         </div>
                         <p className="container-text">{item.text}</p>
-                        <span className="container-date">
-                          {item.earned ? "Earned" : ""}
-                        </span>
+                        {item.earned && item.dateEarned && (
+                          <span className="earned-date">
+                            Earned {new Date(item.dateEarned).toLocaleDateString()}
+                          </span>
+                        )}
                       </div>
                     ))}
                 </div>
@@ -398,8 +434,8 @@ export default function Achievements({ isPadded }) {
                   className="container-grid"
                   style={{ display: showAllWeekly ? "grid" : "grid" }}
                 >
-                  {weeklyStreaks
-                    .slice(0, showAllWeekly ? weeklyStreaks.length : 6)
+                  {allAchievements.weeklyStreaks
+                    .slice(0, showAllWeekly ? allAchievements.weeklyStreaks.length : 6)
                     .map((item, index) => (
                       <div className="container-card" key={index}>
                         <div className="container-image">
@@ -410,18 +446,18 @@ export default function Achievements({ isPadded }) {
                           />
                           {getNumber(item.text) && (
                             <span
-                              className={`number-overlay ${
-                                item.earned ? "earned" : "unearned"
-                              }`}
+                              className={`number-overlay ${item.earned ? "earned" : "unearned"}`}
                             >
                               {getNumber(item.text)}
                             </span>
                           )}
                         </div>
                         <p className="container-text">{item.text}</p>
-                        <span className="container-date">
-                          {item.earned ? "Earned" : ""}
-                        </span>
+                        {item.earned && item.dateEarned && (
+                          <span className="earned-date">
+                            Earned {new Date(item.dateEarned).toLocaleDateString()}
+                          </span>
+                        )}
                       </div>
                     ))}
                 </div>
@@ -447,8 +483,8 @@ export default function Achievements({ isPadded }) {
                   className="container-grid"
                   style={{ display: showAllSets ? "grid" : "grid" }}
                 >
-                  {setsStudied
-                    .slice(0, showAllSets ? setsStudied.length : 12)
+                  {allAchievements.setsStudied
+                    .slice(0, showAllSets ? allAchievements.setsStudied.length : 12)
                     .map((item, index) => (
                       <div className="container-card" key={index}>
                         <div className="container-image">
@@ -459,19 +495,19 @@ export default function Achievements({ isPadded }) {
                           />
                           {getNumber(item.text) && (
                             <span
-                              className={`number-overlay ${
-                                item.earned ? "earned" : "unearned"
-                              }`}
+                              className={`number-overlay ${item.earned ? "earned" : "unearned"}`}
                             >
                               {getNumber(item.text)}
                             </span>
                           )}
                         </div>
                         <p className="container-text">{item.text}</p>
-                        <span className="container-date">
-                          {item.earned ? "Earned" : ""}
-                        </span>
-                      </div>
+                        {item.earned && item.dateEarned && (
+                          <span className="earned-date">
+                            Earned {new Date(item.dateEarned).toLocaleDateString()}
+                          </span>
+                        )}
+                      </div> 
                     ))}
                 </div>
                 <div className="btn">
@@ -493,8 +529,8 @@ export default function Achievements({ isPadded }) {
                   className="container-grid"
                   style={{ display: showAllRounds ? "grid" : "grid" }}
                 >
-                  {roundsStudied
-                    .slice(0, showAllRounds ? roundsStudied.length : 6)
+                  {allAchievements.roundsStudied
+                    .slice(0, showAllRounds ? allAchievements.roundsStudied.length : 6)
                     .map((item, index) => (
                       <div className="container-card" key={index}>
                         <div className="container-image">
@@ -505,18 +541,18 @@ export default function Achievements({ isPadded }) {
                           />
                           {getNumber(item.text) && (
                             <span
-                              className={`number-overlay ${
-                                item.earned ? "earned" : "unearned"
-                              }`}
+                              className={`number-overlay ${item.earned ? "earned" : "unearned"}`}
                             >
                               {getNumber(item.text)}
                             </span>
                           )}
                         </div>
                         <p className="container-text">{item.text}</p>
-                        <span className="container-date">
-                          {item.earned ? "Earned" : ""}
-                        </span>
+                        {item.earned && item.dateEarned && (
+                          <span className="earned-date">
+                            Earned {new Date(item.dateEarned).toLocaleDateString()}
+                          </span>
+                        )}
                       </div>
                     ))}
                 </div>
