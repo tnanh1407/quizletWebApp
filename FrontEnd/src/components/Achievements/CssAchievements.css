@@ -345,7 +345,65 @@
   margin-bottom: 20px;
 }
 .streak-flame {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
+}
+
+/*css Modal*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #202040;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1001;
+  max-width: 650px;
+  width: 100%;
+  text-align: center;
+  /*border: 0.125rem solid #2e3856;*/
+  border: none;
+}
+.modal-content h3 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.modal-content .container-image {
+  margin: 0 auto 20px;
+  width: 150px;
+  height: 150px;
+}
+.modal-content .earned-date {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+.modal-content .description {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+.modal-content .close-btn {
+  background-color: #2e3856;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.modal-content .close-btn:hover {
+  background-color: #282e3e;
 }

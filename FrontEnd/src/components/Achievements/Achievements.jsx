@@ -120,6 +120,107 @@ const imgMapping = {
   "5000 rounds studied": bageRoundsStudied,
 };
 
+const descriptions = {
+  "Flashcard whiz": "Awarded for studying with Flashcards for the first time!",
+  "Active learner": "Awarded for studying with Learn for the first time!",
+  "Committed learner": "Awarded for completing your first Learn session!",
+  "Match whiz": "Awarded for studying with Match for the first time!",
+  "Night owl": "Awarded for a late-night study session!",
+  "Early bird": "Awarded for an early-morning study session!",
+  "Test acer": "Awarded for studying with Test for the first time!",
+  "Set builder": "Awarded for creating your first set!",
+  "Match marker": "Awarded for getting your first high score in Match!",
+  "Exam ready": "Awarded for creating your first practice test!",
+  
+  "3-day streak": "Awarded for studying 3 days in a row!",
+  "5-day streak": "Awarded for studying 5 days in a row!",
+  "7-day streak": "Awarded for studying 7 days in a row!",
+  "10-day streak": "Awarded for studying 10 days in a row!",
+  "20-day streak": "Awarded for studying 20 days in a row!",
+  "30-day streak": "Awarded for studying 30 days in a row!",
+  "45-day streak": "Awarded for studying 45 days in a row!",
+  "60-day streak": "Awarded for studying 60 days in a row!",
+  "70-day streak": "Awarded for studying 70 days in a row!",
+  "80-day streak": "Awarded for studying 80 days in a row!",
+
+  "3-week streak": "Awarded for studying 3 weeks in a row!",
+  "5-week streak": "Awarded for studying 5 weeks in a row!",
+  "10-week streak": "Awarded for studying 10 weeks in a row!",
+  "20-week streak": "Awarded for studying 20 weeks in a row!",
+  "30-week streak": "Awarded for studying 30 weeks in a row!",
+  "40-week streak": "Awarded for studying 40 weeks in a row!",
+  "52-week streak": "Awarded for studying 52 weeks in a row!",
+  "60-week streak": "Awarded for studying 60 weeks in a row!",
+  "70-week streak": "Awarded for studying 70 weeks in a row!",
+  "80-week streak": "Awarded for studying 80 weeks in a row!",
+  "90-week streak": "Awarded for studying 90 weeks in a row!",
+  "104-week streak": "Awarded for studying 104 weeks in a row!",
+  "125-week streak": "Awarded for studying 125 weeks in a row!",
+  "156-week streak": "Awarded for studying 156 weeks in a row!",
+  "175-week streak": "Awarded for studying 175 weeks in a row!",
+  "204-week streak": "Awarded for studying 204 weeks in a row!",
+
+  "Studied first set": "Awarded for studying your first set!",
+  "3 sets studied": "Awarded for studying 3 sets!",
+  "5 sets studied": "Awarded for studying 5 sets!",
+  "10 sets studied": "Awarded for studying 10 sets!",
+  "25 sets studied": "Awarded for studying 25 sets!",
+  "50 sets studied": "Awarded for studying 50 sets!",
+  "75 sets studied": "Awarded for studying 75 sets!",
+  "100 sets studied": "Awarded for studying 100 sets!",
+  "150 sets studied": "Awarded for studying 150 sets!",
+  "200 sets studied": "Awarded for studying 200 sets!",
+  "250 sets studied": "Awarded for studying 250 sets!",
+  "300 sets studied": "Awarded for studying 300 sets!",
+  "350 sets studied": "Awarded for studying 350 sets!",
+  "400 sets studied": "Awarded for studying 400 sets!",
+  "450 sets studied": "Awarded for studying 450 sets!",
+  "500 sets studied": "Awarded for studying 500 sets!",
+  "600 sets studied": "Awarded for studying 600 sets!",
+  "700 sets studied": "Awarded for studying 700 sets!",
+  "800 sets studied": "Awarded for studying 800 sets!",
+  "900 sets studied": "Awarded for studying 900 sets!",
+  "1000 sets studied": "Awarded for studying 1000 sets!",
+  "1500 sets studied": "Awarded for studying 1500 sets!",
+  "2000 sets studied": "Awarded for studying 2000 sets!",
+  "2500 sets studied": "Awarded for studying 2500 sets!",
+  "3000 sets studied": "Awarded for studying 3000 sets!",
+  "3500 sets studied": "Awarded for studying 3500 sets!",
+  "4000 sets studied": "Awarded for studying 4000 sets!",
+  "4500 sets studied": "Awarded for studying 4500 sets!",
+  "5000 sets studied": "Awarded for studying 5000 sets!",
+
+  "Studied first round": "Awarded for studying your first round in Learn mode!",
+  "3 rounds studied": "Awarded for studying 3 rounds!",
+  "5 rounds studied": "Awarded for studying 5 rounds!",
+  "10 rounds studied": "Awarded for studying 10 rounds!",
+  "25 rounds studied": "Awarded for studying 25 rounds!",
+  "50 rounds studied": "Awarded for studying 50 rounds!",
+  "75 rounds studied": "Awarded for studying 75 rounds!",
+  "100 rounds studied": "Awarded for studying 100 rounds!",
+  "150 rounds studied": "Awarded for studying 150 rounds!",
+  "200 rounds studied": "Awarded for studying 200 rounds!",
+  "250 rounds studied": "Awarded for studying 250 rounds!",
+  "300 rounds studied": "Awarded for studying 300 rounds!",
+  "350 rounds studied": "Awarded for studying 350 rounds!",
+  "400 rounds studied": "Awarded for studying 400 rounds!",
+  "450 rounds studied": "Awarded for studying 450 rounds!",
+  "500 rounds studied": "Awarded for studying 500 rounds!",
+  "600 rounds studied": "Awarded for studying 600 rounds!",
+  "700 rounds studied": "Awarded for studying 700 rounds!",
+  "800 rounds studied": "Awarded for studying 800 rounds!",
+  "900 rounds studied": "Awarded for studying 900 rounds!",
+  "1000 rounds studied": "Awarded for studying 1000 rounds!",
+  "1500 rounds studied": "Awarded for studying 1500 rounds!",
+  "2000 rounds studied": "Awarded for studying 2000 rounds!",
+  "2500 rounds studied": "Awarded for studying 2500 rounds!",
+  "3000 rounds studied": "Awarded for studying 3000 rounds!",
+  "3500 rounds studied": "Awarded for studying 3500 rounds!",
+  "4000 rounds studied": "Awarded for studying 4000 rounds!",
+  "4500 rounds studied": "Awarded for studying 4500 rounds!",
+  "5000 rounds studied": "Awarded for studying 5000 rounds!",
+};
+
 const fallbackImage = "../../assets/img_achievements/fallback.svg";
 
 const getNumber = (text) => {
@@ -140,6 +241,7 @@ export default function Achievements({ isPadded }) {
   const [showAllWeekly, setShowAllWeekly] = useState(false);
   const [showAllSets, setShowAllSets] = useState(false);
   const [showAllRounds, setShowAllRounds] = useState(false);
+  const [selectedAchievement, setSelectedAchievement] = useState(null);
 
   const allAchievements = {
     studying: [
@@ -263,6 +365,10 @@ export default function Achievements({ isPadded }) {
   // Kiểm tra xem có ngày nào trong lịch có streak hay không
   const hasStreak = month.getFullYear() === streakDate.getFullYear() && month.getMonth() === streakDate.getMonth();
 
+  const handleCloseModal = () => {
+    setSelectedAchievement(null);
+  };
+
   return (
     <div
       className="main flex"
@@ -278,7 +384,11 @@ export default function Achievements({ isPadded }) {
                 <div className="column column-1">
                   <h4>Recently earned</h4>
                   <span className="column-content">{recentlyEarned.text}</span>
-                  <div className="AchievementImage">
+                  <div 
+                    className="AchievementImage"
+                    onClick={() => setSelectedAchievement(recentlyEarned)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <div className="container-image">
                       <img
                         src={getImageSrc(recentlyEarned.text)}
@@ -338,7 +448,9 @@ export default function Achievements({ isPadded }) {
                   <div className="StreakBox">
                     {hasStreak && (
                       <>
-                        <p>1-week streak</p>
+                        <p>2 -day</p>
+                        <img src={streakFlame} alt="Streak Flame" className="streak-flame" />
+                        <br></br>
                         <img src={streakFlame} alt="Streak Flame" className="streak-flame" />
                       </>
                     )}
@@ -353,7 +465,12 @@ export default function Achievements({ isPadded }) {
               <div className="container-column">
                 <div className="container-grid">
                   {allAchievements.studying.map((item, index) => (
-                    <div className="container-card" key={index}>
+                    <div 
+                      className="container-card" 
+                      key={index}
+                      onClick={() =>  setSelectedAchievement(item)}
+                      style={{ cursor: 'pointer'}}
+                    >
                       <div className="container-image">
                         <img
                           src={getImageSrc(item.text)}
@@ -391,7 +508,12 @@ export default function Achievements({ isPadded }) {
                   {allAchievements.dailyStreaks
                     .slice(0, showAllDaily ? allAchievements.dailyStreaks.length : 6)
                     .map((item, index) => (
-                      <div className="container-card" key={index}>
+                      <div 
+                        className="container-card" 
+                        key={index}
+                        onClick={() => setSelectedAchievement(item)}
+                        style={{cursor: 'pointer'}}
+                      >
                         <div className="container-image">
                           <img
                             src={getImageSrc(item.text)}
@@ -437,7 +559,12 @@ export default function Achievements({ isPadded }) {
                   {allAchievements.weeklyStreaks
                     .slice(0, showAllWeekly ? allAchievements.weeklyStreaks.length : 6)
                     .map((item, index) => (
-                      <div className="container-card" key={index}>
+                      <div 
+                        className="container-card" 
+                        key={index}
+                        onClick={() =>  setSelectedAchievement(item)}
+                        style={{ cursor:'pointer'}}
+                      >
                         <div className="container-image">
                           <img
                             src={getImageSrc(item.text)}
@@ -486,7 +613,12 @@ export default function Achievements({ isPadded }) {
                   {allAchievements.setsStudied
                     .slice(0, showAllSets ? allAchievements.setsStudied.length : 12)
                     .map((item, index) => (
-                      <div className="container-card" key={index}>
+                      <div 
+                        className="container-card" 
+                        key={index}
+                        onClick={() => setSelectedAchievement(item)}
+                        style={{ cursor:'pointer'}}
+                      >
                         <div className="container-image">
                           <img
                             src={getImageSrc(item.text)}
@@ -532,7 +664,12 @@ export default function Achievements({ isPadded }) {
                   {allAchievements.roundsStudied
                     .slice(0, showAllRounds ? allAchievements.roundsStudied.length : 6)
                     .map((item, index) => (
-                      <div className="container-card" key={index}>
+                      <div 
+                        className="container-card" 
+                        key={index}
+                        onClick={() =>  setSelectedAchievement(item)}
+                        style={{ cursor: 'pointer'}}
+                      >
                         <div className="container-image">
                           <img
                             src={getImageSrc(item.text)}
@@ -573,6 +710,41 @@ export default function Achievements({ isPadded }) {
           <Footer />
         </div>
       </div>
+
+      {selectedAchievement && (
+        <>
+          <div className="modal-overlay" onClick={handleCloseModal}></div>
+          <div className="modal">
+            <div className="modal-content">
+              <h3>{selectedAchievement.text}</h3>
+              <div className="container-image">
+                <img
+                  src={getImageSrc(selectedAchievement.text)}
+                  alt={selectedAchievement.text}
+                  className={selectedAchievement.earned ? "earned" : "unearned"}
+                />
+                {getNumber(selectedAchievement.text) && (
+                  <span
+                    className={`number-overlay ${
+                      selectedAchievement.earned ? "earned" : "unearned"
+                    }`}
+                  >
+                    {getNumber(selectedAchievement.text)}
+                  </span>
+                  
+                )}
+              </div>
+              {selectedAchievement.earned && selectedAchievement.dateEarned && (
+                <p className="earned-date">
+                  Earned {new Date(selectedAchievement.dateEarned).toLocaleDateString()}
+                </p>
+              )}
+              <p className="description">{descriptions[selectedAchievement.text] || "No description available."}</p>
+              <button className="close-btn" onClick={handleCloseModal}>Close</button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
