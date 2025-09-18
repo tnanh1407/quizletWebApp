@@ -1,6 +1,8 @@
 import account from "../../assets/img/account.jpg";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { flashCardApi } from "../../api/flashCardApi.js";
 
 export default function FlashCard({ isPadded }) {
   const { id } = useParams();
@@ -14,6 +16,7 @@ export default function FlashCard({ isPadded }) {
   }, [id]);
 
   if (!flashcard) return <p>Loading...</p>;
+
   return (
     <div
       className="main flex"
@@ -37,6 +40,9 @@ export default function FlashCard({ isPadded }) {
                 <button>
                   <i className="fa-solid fa-ellipsis"></i>
                 </button>
+                <Link to={`/edit-flashcard/${id}`}>
+                  <p>Edit</p>
+                </Link>
               </div>
             </div>
             <div className="itemflashcard-header-title">

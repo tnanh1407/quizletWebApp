@@ -44,6 +44,7 @@ import Classroom from "./components/Navbar/Page/ClassRoom/SectionClass.jsx";
 import CreateClass from "./components/Navbar/Page/ClassRoom/CreateClass/CreateClass.jsx";
 import AuthContext from "./logic/AuthContext.jsx";
 import ProtectedRoute from "./logic/ProtectedRoute.jsx";
+import EditFlashCard from "./components/Navbar/Page/FlashCards/EditFlashCards/EditFlashCard.jsx";
 // Thêm Component
 
 function App() {
@@ -125,6 +126,10 @@ function App() {
           <Route
             path="/create-classroom"
             element={<CreateClass isPadded={isPadded} />}
+          />
+          <Route
+            path="/edit-flashcard/:id"
+            element={<EditFlashCard isPadded={isPadded} />}
           />
         </Routes>
       </Router>
