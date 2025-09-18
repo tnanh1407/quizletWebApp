@@ -1,6 +1,6 @@
 import account from "../../assets/img/account.jpg";
 import logo from "../../assets/img/logoQ.png";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
