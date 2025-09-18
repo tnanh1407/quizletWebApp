@@ -1,5 +1,4 @@
 import SectionFlashCards from "../../../Sections/SectionFlashCardCreate";
-import Footer from "../../../Footer/Footer.jsx";
 import { useState } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
@@ -9,7 +8,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { flashCardApi } from "../../../../api/flashCardApi.js"; // ⬅ import API client
+import { flashCardApi } from "../../../../api/flashCardApi.js";
 
 export default function FlashCards({ isPadded }) {
   const [isSettingCard, setIsSettingCard] = useState(false);

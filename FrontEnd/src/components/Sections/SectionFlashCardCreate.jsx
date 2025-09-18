@@ -38,7 +38,7 @@ export default function SectionFlashCards({
             type="text"
             placeholder="Enter term"
             value={card.front}
-            onChange={(e) => onUpdate(id, "front", e.target.value)} // 👈 update state
+            onChange={(e) => onUpdate(id, "front", e.target.value)}
           />
           <div className="option-input-term-create-flashcard-main-content-main flex">
             <p>TERM</p>
@@ -50,7 +50,7 @@ export default function SectionFlashCards({
               type="text"
               placeholder="Enter definition"
               value={card.back}
-              onChange={(e) => onUpdate(id, "back", e.target.value)} // 👈 update state
+              onChange={(e) => onUpdate(id, "back", e.target.value)}
             />
             <div className="option-input-definition-create-flashcard-main-content-main flex">
               <p>DEFINITION</p>

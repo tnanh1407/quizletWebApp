@@ -13,7 +13,12 @@ const getById = async (id) => {
 };
 
 const updateById = async (id, data) => {
-  return await flashCardModel.updateById(id, data);
+  console.log("Service: updateById called with", id, data);
+
+  const updated = await flashCardModel.updateById(id, data);
+
+  console.log("Service: update result", updated);
+  return updated;
 };
 
 const deleteById = async (id) => {

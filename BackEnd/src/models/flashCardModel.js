@@ -108,39 +108,59 @@ const getById = async (id) => {
 
 const updateById = async (id, data) => {
   try {
+    console.log("=== updateById called ===");
+    console.log("Updating ID:", id);
+
     const db = GET_DB();
 
-    const updateOps = {};
+    // Kiểm tra document có tồn tại
+    const existing = await db
+      .collection(FLASHCARD_COLLECTION_NAME)
+      .findOne({ _id: new ObjectId(id) });
 
-    // Nếu client gửi content (mảng), update cả content_count
-    if (data.content && Array.isArray(data.content)) {
-      updateOps.$set = {
-        ...(updateOps.$set || {}),
-        content: data.content,
-        content_count: data.content.length,
-      };
+    if (!existing) {
+      console.log("Model: Document not found for ID", id);
+      return null;
     }
 
-    // Các field khác ngoài content
+    const updateOps = { $set: {} };
+
+    // Update content + content_count nếu client gửi
+    if (data.content && Array.isArray(data.content)) {
+      updateOps.$set.content = data.content;
+      updateOps.$set.content_count = data.content.length;
+    }
+
+    // Update các field còn lại
     const { content, ...rest } = data;
     if (Object.keys(rest).length > 0) {
-      updateOps.$set = {
-        ...(updateOps.$set || {}),
-        ...rest,
-      };
+      Object.assign(updateOps.$set, rest);
     }
 
-    const result = await db
-      .collection(FLASHCARD_COLLECTION_NAME)
-      .findOneAndUpdate(
-        { _id: new ObjectId(id) },
-        updateOps,
-        { returnDocument: "after" } // trả về document sau khi update
-      );
+    if (Object.keys(updateOps.$set).length === 0) {
+      throw new Error("No valid fields to update");
+    }
 
-    return result.value; // document sau khi update
+    console.log("Update payload (after build):", updateOps);
+
+    // Thay findOneAndUpdate bằng updateOne + findOne
+    const updateResult = await db
+      .collection(FLASHCARD_COLLECTION_NAME)
+      .updateOne({ _id: new ObjectId(id) }, updateOps);
+
+    console.log("UpdateOne result:", updateResult);
+
+    // Lấy document mới sau khi update
+    const updatedDoc = await db
+      .collection(FLASHCARD_COLLECTION_NAME)
+      .findOne({ _id: new ObjectId(id) });
+
+    console.log("Model: Update result:", updatedDoc);
+
+    return updatedDoc;
   } catch (error) {
-    throw new Error(error);
+    console.error("Model updateById error:", error);
+    throw error;
   }
 };
 

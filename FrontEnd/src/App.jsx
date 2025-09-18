@@ -79,7 +79,7 @@ function App() {
             }
           />
           <Route
-            path="/flashcards"
+            path="/create-new/flashcard-new"
             element={
               // <ProtectedRoute>
               <FlashCards isPadded={isPadded} />

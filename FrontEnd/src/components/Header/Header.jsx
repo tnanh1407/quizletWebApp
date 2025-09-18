@@ -102,13 +102,19 @@ export default function Header() {
             <div className="folder-option">
               <Link to="/flashcards">
                 <div className="setting-item flex">
-                  <i className="fa-solid fa-trophy"></i>
-                  <p>Flashcard set</p>
+                  <i className="fa-solid fa-plus"></i>
+                  <p>Flash Card</p>
                 </div>
               </Link>
               <Link to="/create-classroom">
                 <div className="setting-item flex">
-                  <i className="fa-solid fa-trophy"></i>
+                  <i className="fa-solid fa-plus"></i>
+                  <p>Folder</p>
+                </div>
+              </Link>
+              <Link to="/create-classroom">
+                <div className="setting-item flex">
+                  <i className="fa-solid fa-plus"></i>
                   <p>Class Room</p>
                 </div>
               </Link>

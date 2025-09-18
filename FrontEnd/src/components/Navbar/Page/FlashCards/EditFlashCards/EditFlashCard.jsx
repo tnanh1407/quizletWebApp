@@ -1,6 +1,5 @@
 import SectionFlashCards from "../../../../Sections/SectionFlashCardCreate";
-import Footer from "../../../../Footer/Footer.jsx";
-import { useState, useEffect, useParams } from "react";
+import { useState, useEffect } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -9,18 +8,16 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { flashCardApi } from "../../../../../api/flashCardApi.js"; // ⬅ import API client
+import { flashCardApi } from "../../../../../api/flashCardApi.js";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import "../EditFlashCards/CssEditFlashCard.css";
 
 export default function FlashCards({ isPadded }) {
   const [isSettingCard, setIsSettingCard] = useState(false);
   const [isDeleteCard, setIsDeleteCard] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  const [cards, setCards] = useState([
-    { id: "1", front: "", back: "" },
-    { id: "2", front: "", back: "" },
-  ]);
+  const [cards, setCards] = useState([]);
 
   const toggleSettingCard = () => setIsSettingCard(!isSettingCard);
   const toggleDeleteCard = () => setIsDeleteCard(!isDeleteCard);
@@ -47,45 +44,48 @@ export default function FlashCards({ isPadded }) {
     }
   };
 
-  // gọi API create
+  const { id } = useParams();
+  const navigate = useNavigate(); // ✅ thêm useNavigate
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await flashCardApi.getById(id);
+        setTitle(data.title || "");
+        setDescription(data.description || "");
+        setCards(
+          data.content.map((c, index) => ({
+            id: c._id || index.toString(),
+            front: c.front,
+            back: c.back,
+          }))
+        );
+      } catch (err) {
+        console.error("Error fetching flashcard set:", err);
+      }
+    };
+    fetchData();
+  }, [id]);
+
   const handleSubmit = async () => {
     const payload = {
       title,
       content: cards.map((c) => ({
+        _id: c.id,
         front: c.front,
         back: c.back,
       })),
     };
-
     try {
-      const res = await flashCardApi.create(payload);
-      console.log("Created flashcard set:", res);
-      alert("Flashcard set created successfully!");
-
-      // 👉 Reset form sau khi tạo thành công
-      setTitle("");
-      setDescription("");
-      setCards([
-        { id: "1", front: "", back: "" },
-        { id: "2", front: "", back: "" },
-      ]);
+      await flashCardApi.update(id, payload);
+      // Chuyển hướng và gửi state
+      navigate(`/itemflashcard/${id}`, { state: { updated: true } });
     } catch (err) {
-      console.error("Error creating flashcard:", err);
-      alert("Failed to create flashcard set");
+      console.error("Error updating flashcard:", err);
+      alert("Failed to update flashcard set");
     }
   };
 
-  // const { id } = useParams();
-  // const [flashcard, setFlashcard] = useState(null);
-
-  // useEffect(() => {
-  //   fetch(`http://localhost:9999/v1/flashcards/${id}`)
-  //     .then((res) => res.json())
-  //     .then((data) => setFlashcard(data))
-  //     .catch((err) => console.error(err));
-  // }, [id]);
-
-  // if (!flashcard) return <p>Loading...</p>;
   return (
     <>
       {/* popup setting + delete ... giữ nguyên */}
@@ -97,13 +97,14 @@ export default function FlashCards({ isPadded }) {
         <div className="maincontent">
           <div className="main-content">
             <div className="create-flashcard-header flex">
-              {/* <Link to={`/itemflashcard/${id}`}></Link> */}
-              <p>Back to set</p>
+              <Link to={`/itemflashcard/${id}`} className="back-to-set">
+                <p>Back to set</p>
+              </Link>
               <div className="create-flashcard-title-button">
                 <button
                   type="button"
                   className="button-create-flashcard-create"
-                  onClick={handleSubmit}
+                  onClick={handleSubmit} // ✅ submit + navigate
                 >
                   <div>
                     <p>Done</p>
@@ -135,38 +136,37 @@ export default function FlashCards({ isPadded }) {
                 <div className="create-flashcard-maincontent-left flex">
                   <button className="button-import-flashcard-main">
                     <div className="flex">
-                      <i class="fa-solid fa-plus"></i>
+                      <i className="fa-solid fa-plus"></i>
                       <p>Import</p>
                     </div>
                   </button>
                   <button className="button-adddiagram-flashcard-main flex">
                     <div className="flex">
-                      <i class="fa-solid fa-plus"></i>
+                      <i className="fa-solid fa-plus"></i>
                       <p>Add diagram</p>
                     </div>
                     <div className="lock-flashcard-main">
-                      <i class="fa-solid fa-lock"></i>
+                      <i className="fa-solid fa-lock"></i>
                     </div>
                   </button>
                 </div>
                 <div className="create-flashcard-maincontent-right flex">
-                  {/* <p>Suggestions</p> */}
                   <button
                     className="button-create-flashcard-maincontent-setting"
                     onClick={toggleSettingCard}
                   >
                     <div className="create-flashcard-maincontent-setting">
-                      <i class="fa-solid fa-gear"></i>
+                      <i className="fa-solid fa-gear"></i>
                     </div>
                   </button>
                   <button className="button-create-flashcard-maincontent-swap">
                     <div className="create-flashcard-maincontent-swap">
-                      <i class="fa-solid fa-right-left"></i>
+                      <i className="fa-solid fa-right-left"></i>
                     </div>
                   </button>
                   <button className="button-create-flashcard-maincontent-keyboard">
                     <div className="create-flashcard-maincontent-keyboard">
-                      <i class="fa-solid fa-keyboard"></i>
+                      <i className="fa-solid fa-keyboard"></i>
                     </div>
                   </button>
                   <button
@@ -174,7 +174,7 @@ export default function FlashCards({ isPadded }) {
                     onClick={toggleDeleteCard}
                   >
                     <div className="create-flashcard-maincontent-delete">
-                      <i class="fa-solid fa-trash"></i>
+                      <i className="fa-solid fa-trash"></i>
                     </div>
                   </button>
                 </div>
@@ -193,8 +193,8 @@ export default function FlashCards({ isPadded }) {
                       id={card.id}
                       index={index + 1}
                       onDelete={deleteCard}
-                      onUpdate={updateCard} // 👈 truyền xuống
-                      card={card} // 👈 truyền state card
+                      onUpdate={updateCard}
+                      card={card}
                       disableDelete={cards.length < 3}
                     />
                   ))}
@@ -245,8 +245,8 @@ function SortableCard({
         id={id}
         index={index}
         onDelete={onDelete}
-        onUpdate={onUpdate} // 👈 truyền tiếp
-        card={card} // 👈 truyền tiếp
+        onUpdate={onUpdate}
+        card={card}
         listeners={{ ...listeners, ...sortableListeners }}
         disableDelete={disableDelete}
       />

@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import account from "../../assets/img/account.jpg";
 import { flashCardApi } from "../../api/flashCardApi";
+import iconFlashCard from "../../assets/icon/navbar-card.png";
 
 export default function Navbar({ togglePadding }) {
   const [isOpen, setIsOpen] = useState(false); // chỉ cho thông báo
@@ -84,26 +85,15 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
 
-          <Link to="/library" onClick={() => setActiveItem("library")}>
+          <Link to="/" onClick={() => setActiveItem("profile")}>
             <div
               className={`navbar-a flex ${
-                activeItem === "library" ? "active" : ""
+                activeItem === "profile" ? "active" : ""
               }`}
               id="navbar-one-library"
             >
-              <i className="fa-solid fa-folder-open"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
-            </div>
-          </Link>
-          <Link to="/classroom" onClick={() => setActiveItem("Classroom")}>
-            <div
-              className={`navbar-a flex ${
-                activeItem === "Classroom" ? "active" : ""
-              }`}
-              id="navbar-one-library"
-            >
-              <i className="fa-solid fa-folder-open"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Classroom</p>
+              <i class="fa-solid fa-user"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Your profile</p>
             </div>
           </Link>
 
@@ -154,7 +144,7 @@ export default function Navbar({ togglePadding }) {
         </div>
 
         {/* --- Navbar Two --- */}
-        <div className="navbar-two">
+        {/* <div className="navbar-two">
           <p className={isCollapsed ? "hidden" : "block"}>Your folders</p>
 
           <Link to="/demo" onClick={() => setActiveItem("demo")}>
@@ -203,38 +193,85 @@ export default function Navbar({ togglePadding }) {
               </div>
             </form>
           )}
-        </div>
+        </div> */}
+        <div className="navbar-two">
+          <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
 
-        {/* --- Navbar Three --- */}
-        <div className="navbar-three">
-          <p className={isCollapsed ? "hidden" : "block"}>Start here</p>
+          <Link to="/classroom" onClick={() => setActiveItem("classrooms")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "classrooms" ? "active" : ""
+              }`}
+              id="navbar-one-library"
+            >
+              <i class="fa-solid fa-people-group"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Classroom</p>
+            </div>
+          </Link>
+
+          <Link to="/demo" onClick={() => setActiveItem("folder")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "folder" ? "active" : ""
+              }`}
+              id="navbar-one-demo"
+            >
+              <i className="fa-solid fa-folder"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Folder</p>
+            </div>
+          </Link>
 
           <Link to="/flashcards" onClick={() => setActiveItem("flashcards")}>
             <div
               className={`navbar-a flex ${
                 activeItem === "flashcards" ? "active" : ""
               }`}
-              id="navbar-one-flash-cards"
+              id="navbar-one-demo"
             >
-              <i className="fa-solid fa-address-card"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Flashcards</p>
+              <img src={iconFlashCard} alt="" className="icon-flash-card" />
+              <p className={isCollapsed ? "hidden" : "block"}>Flash Card</p>
+            </div>
+          </Link>
+        </div>
+        {/* --- Navbar Three --- */}
+        <div className="navbar-three">
+          <p className={isCollapsed ? "hidden" : "block"}>Create new</p>
+
+          <Link to="/demo" onClick={() => setActiveItem("classroom-new")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "classroom-new" ? "active" : ""
+              }`}
+              id="navbar-one-demo"
+            >
+              <i className="fa-solid fa-plus"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Class Room</p>
             </div>
           </Link>
 
+          <Link to="/flashcards" onClick={() => setActiveItem("folder-new")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "folder-new" ? "active" : ""
+              }`}
+              id="navbar-one-flash-cards"
+            >
+              <i className="fa-solid fa-plus"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Folder</p>
+            </div>
+          </Link>
           <Link
-            to="/expert-solutions"
-            onClick={() => setActiveItem("expert-solutions")}
+            to="/create-new/flashcard-new"
+            onClick={() => setActiveItem("flashcard-new")}
           >
             <div
               className={`navbar-a flex ${
-                activeItem === "expert-solutions" ? "active" : ""
+                activeItem === "flashcard-new" ? "active" : ""
               }`}
-              id="navbar-one-expert-solutions"
+              id="navbar-one-flash-cards"
             >
-              <i className="fa-solid fa-book"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>
-                Expert Solutions
-              </p>
+              <i className="fa-solid fa-plus"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Flash Card</p>
             </div>
           </Link>
         </div>
