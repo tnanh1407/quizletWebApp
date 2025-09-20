@@ -1,22 +1,5 @@
 .classroom {
   padding-bottom: 40px;
-  & h1 {
-    font-size: 2rem;
-    margin-bottom: 12px;
-    padding-bottom: 20px;
-  }
-
-  & a {
-    display: block;
-  }
-
-  & h3 {
-    font-size: 1.25rem;
-    margin-top: 40px;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
-  }
 
   .create-class {
     display: flex;
@@ -26,11 +9,10 @@
     padding: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 
-    .create-class__left {
+    &__left {
       display: flex;
       flex-direction: column;
       flex: 2;
-      /* background-color: red; */
       align-items: center;
       justify-content: center;
       text-align: center;
@@ -57,7 +39,7 @@
         max-width: 350px;
       }
     }
-    .create-class__right {
+    &__right {
       display: flex;
       flex-direction: column;
       align-items: stretch;
@@ -65,7 +47,7 @@
       flex: 1;
       justify-content: center;
 
-      & .button--create {
+      & .button--gray {
         width: 100%;
       }
 
@@ -93,55 +75,55 @@
   .manage-class {
     margin-top: 24px;
 
-    .manage-class__filters {
+    &__filters {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
-      .manage-class__tabs {
-        display: flex;
-        gap: 8px;
+    }
+    &__tabs {
+      display: flex;
+      gap: 8px;
+    }
+    &__tabs_item {
+      padding: 8px 16px;
+      border: 1px solid transparent;
+      background-color: transparent;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.25s;
+      font-size: 1.2rem;
+      color: white;
+      /* color: gray; */
 
-        .manage-class__tabs_item {
-          padding: 8px 16px;
-          border: 1px solid transparent;
-          background-color: transparent;
-          font-weight: bold;
-          cursor: pointer;
-          border-radius: 4px;
-          transition: all 0.25s;
-          font-size: 1.2rem;
-          /* color: gray; */
-
-          &:hover {
-            color: blue;
-            background-color: white;
-          }
-        }
-      }
-
-      .manage-class__search {
-        position: relative;
-
-        & i {
-          position: absolute;
-          left: 12px;
-          top: 50%;
-          transform: translateY(-50%);
-          color: #888;
-        }
-
-        & input {
-          padding: 10px 10px 10px 50px;
-          width: 400px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          font-size: 1.2rem;
-        }
+      &:hover {
+        color: blue;
+        background-color: white;
       }
     }
 
-    .manage-class__list {
+    &__search {
+      position: relative;
+
+      & i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #888;
+      }
+
+      & input {
+        padding: 10px 10px 10px 50px;
+        width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1.2rem;
+      }
+    }
+
+    &__list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
       gap: 20px;
@@ -223,4 +205,10 @@
       }
     }
   }
+}
+
+.popup {
+  z-index: 3;
+  background: #00000052;
+  height: 100%;
 }

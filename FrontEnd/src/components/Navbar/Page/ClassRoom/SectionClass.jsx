@@ -1,5 +1,5 @@
-import "./main.css";
-import { useState } from "react";
+import "./main.scss";
+import { use, useState } from "react";
 import { Link } from "react-router-dom";
 import { formatDistanceToNow, parse } from "date-fns";
 import { vi } from "date-fns/locale";
@@ -7,6 +7,7 @@ import { vi } from "date-fns/locale";
 const SectionClass = ({ isPadded }) => {
   const [activeContentItem, setActiveContentItem] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleActiveContent = (item) => {
     setActiveContentItem(item);
@@ -15,19 +16,6 @@ const SectionClass = ({ isPadded }) => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
-  //   const formatTimeAgo = (dateString) => {
-  //     const [time, date] = dateString.split(" ");
-  //     const isoString = `${date}T${time}`;
-  //     const parsedDate = parseISO(isoString);
-
-  //     return formatDistanceToNow(parsedDate, { addSuffix: true, locale: vi });
-  //   };
-  //   /**
-  //  * Hàm này tính toán và định dạng thời gian đã trôi qua.
-  //  * @param {string} dateString Chuỗi thời gian (ví dụ: "14:07:30 2024-10-27")
-  //  * @returns {string} Chuỗi thời gian đã định dạng.
-  //  */
   const formatTimeAgo = (dateString) => {
     // Định nghĩa định dạng chuỗi đầu vào
     const formatString = "HH:mm:ss yyyy-MM-dd";
@@ -183,7 +171,10 @@ const SectionClass = ({ isPadded }) => {
               <h3>Tạo mới một lớp học</h3>
               <div className="create-class">
                 <div className="create-class__left">
-                  <img src="/src/assets/tudesign/closed-book.svg"></img>
+                  <img
+                    className="create-class__image"
+                    src="/src/assets/tudesign/closed-book.svg"
+                  ></img>
                   <h3>Tạo hoặc Tham Gia Lớp Học</h3>
                   <p>
                     Nhập mã lớp để tham gia hoặc tạo một lớp học mới của riêng
@@ -192,11 +183,15 @@ const SectionClass = ({ isPadded }) => {
                 </div>
                 <div className="create-class__right">
                   <div className="create-class__join_class">
-                    <input type="text" placeholder="Nhập mã lớp học" />
-                    <button className="button--join">Tìm kiếm</button>
+                    <input
+                      className="create-class__input"
+                      type="text"
+                      placeholder="Nhập mã lớp học"
+                    />
+                    <button className="button--blue">Tìm kiếm</button>
                   </div>
                   <Link to="createClassroom">
-                    <button className="button--create">Tạo lớp mới</button>
+                    <button className="button--gray">Tạo lớp mới</button>
                   </Link>
                 </div>
               </div>
@@ -269,7 +264,7 @@ const SectionClass = ({ isPadded }) => {
                           )}
                         </div>
                         <div className="manage-class__details">
-                          <div class="manage-class__item_header">
+                          <div className="manage-class__item_header">
                             <i className="fa-solid fa-users-rectangle"></i>
                             <h4>{value.name}</h4>
                           </div>

@@ -41,7 +41,7 @@ import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
 import Achievements from "./components/Achievements/Achievements.jsx";
 import SectionCreators from "./components/Sections/SectionCreators/SectionCreators.jsx";
 import Classroom from "./components/Navbar/Page/ClassRoom/SectionClass.jsx";
-import CreateClass from "./components/Navbar/Page/ClassRoom/CreateClass/CreateClass.jsx";
+import CreateClassroom from "./components/Navbar/Page/ClassRoom/PageChildren/CreateClassroom/index.jsx";
 // Thêm Component
 
 function App() {
@@ -94,9 +94,10 @@ function App() {
             path="/classroom"
             element={<Classroom isPadded={isPadded} />}
           />
+
           <Route
             path="/classroom/createClassroom"
-            element={<CreateClass isPadded={isPadded} />}
+            element={<CreateClassroom isPadded={isPadded} />}
           />
         </Routes>
       </Router>

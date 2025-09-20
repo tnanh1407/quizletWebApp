@@ -1,0 +1,78 @@
+@import url(../ClassRoom/Css/CssSectionClass.scss);
+@import url(../ClassRoom/responsive.scss);
+@import url(../ClassRoom/Css/CreateClass.scss);
+
+$color__button: #6366f1;
+$color__button-hover: #4f46e5;
+$color__button_gray: #706e6ecc;
+.button {
+  // max-width: 300px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  max-width: 280px;
+}
+
+.button--blue {
+  @extend .button;
+  background-color: $color__button;
+  &:hover {
+    background-color: $color__button-hover;
+  }
+}
+
+.button--gray {
+  @extend .button;
+  background-color: $color__button_gray;
+  &:hover {
+    background-color: $color__button-hover;
+  }
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  padding-bottom: 20px;
+}
+
+a {
+  display: block;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+// Animation
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
