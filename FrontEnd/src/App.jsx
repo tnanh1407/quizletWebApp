@@ -5,7 +5,7 @@ import "./App.css";
 
 import MainLayout from "./components/Layout/MainLayout.jsx";
 import FunctionLayout from "./components/Layout/FunctionLayout.jsx";
-import MainContent from "./components/MainContent/MainContent.jsx";
+import Home from "./components/Navbar/Page/Home/Home.jsx";
 import FlashCards from "./components/Navbar/Page/NewFlashCards/FlashCards.jsx";
 import YourProfile from "./components/Navbar/Page/YourProfile/YourProfile.jsx";
 import FlashCardItem from "./components/FlashCardItems/FlashCard.jsx";
@@ -21,83 +21,63 @@ import Folder from "./components/Navbar/Page/Folder/Folder.jsx";
 import FunctionFlashCard from "./components/FlashCardItems/FunctionFlashCard/FlashCard/FunctionFlashCard.jsx";
 import FunctionLearn from "./components/FlashCardItems/FunctionFlashCard/Learn/FunctionLearn.jsx";
 import FunctionTest from "./components/FlashCardItems/FunctionFlashCard/Test/FunctionTest.jsx";
+import SignLayOut from "./SignUp-SignIn/Sign-Layout.jsx";
+import MainContentLayout from "./components/Layout/MainContentLayOut.jsx";
+import SignIn from "./SignUp-SignIn/SignIn/SignIn.jsx";
+import SignUp from "./SignUp-SignIn/SignUp/SignUp.jsx";
+import Classes from "./components/Sections/SectionCreators/pageCreators/Classes.jsx";
+import Folders from "./components/Sections/SectionCreators/pageCreators/Folder.jsx";
+import Subjects from "./components/Sections/SectionCreators/pageCreators/Subjects.jsx";
+import Tests from "./components/Sections/SectionCreators/pageCreators/Tests.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
+  const [isAddFlashCard, setIsAddFlashCard] = useState(true);
+
   return (
     <>
       <Router>
         <Routes>
           <Route
             element={
-              <MainLayout togglePadding={() => setIsPadded(!isPadded)} />
+              <MainLayout
+                togglePadding={() => setIsPadded(!isPadded)}
+                toggleAddFlashCard={() => setIsAddFlashCard(!isAddFlashCard)}
+              />
             }
           >
-            <Route path="/" element={<MainContent isPadded={isPadded} />} />
-            <Route
-              path="/your-profile"
-              element={<YourProfile isPadded={isPadded} />}
-            />
+            <Route element={<MainContentLayout isPadded={isPadded} />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/your-profile" element={<YourProfile />} />
 
-            {/* Route Setting */}
+              {/* Route Setting */}
 
-            <Route
-              path="/settingaccount"
-              element={<SettingAccount isPadded={isPadded} />}
-            />
-            <Route
-              path="/achievements"
-              element={<Achievements isPadded={isPadded} />}
-            />
+              <Route path="/settingaccount" element={<SettingAccount />} />
+              <Route path="/achievements" element={<Achievements />} />
 
-            {/* Route Your library  */}
+              {/* Route Your library  */}
 
-            <Route
-              path="/your-flashcard"
-              element={<FlashCard isPadded={isPadded} />}
-            />
-            <Route
-              path="/your-folder"
-              element={<Folder isPadded={isPadded} />}
-            />
-            <Route
-              path="/your-classroom"
-              element={<Classroom isPadded={isPadded} />}
-            />
+              <Route path="/your-flashcard" element={<FlashCard />} />
+              <Route path="/your-folder" element={<Folder />} />
+              <Route path="/your-classroom" element={<Classroom />} />
 
-            {/* Route Create New */}
+              {/* Route Create New */}
 
-            <Route
-              path="/create/new-flashcard"
-              element={<FlashCards isPadded={isPadded} />}
-            />
-            <Route
-              path="/create/new-folder"
-              element={<NewFolder isPadded={isPadded} />}
-            />
-            <Route
-              path="/create/new-classroom"
-              element={<CreateClass isPadded={isPadded} />}
-            />
+              <Route path="/create/new-flashcard" element={<FlashCards />} />
+              <Route path="/create/new-folder/:id" element={<NewFolder />} />
+              <Route path="/create/new-classroom" element={<CreateClass />} />
 
-            {/* <Route path="/demo" element={<SeeDemo isPadded={isPadded} />} /> */}
+              <Route path="/itemflashcard/:id" element={<FlashCardItem />} />
+              <Route path="/class-item/:id" element={<Achievements />} />
+              <Route element={<SectionCreators />}>
+                <Route path="/creators/tests" element={<Tests />} />
+                <Route path="/creators/subjects" element={<Subjects />} />
+                <Route path="/creators/folders" element={<Folders />} />
+                <Route path="/creators/classes" element={<Classes />} />
+              </Route>
 
-            <Route
-              path="/itemflashcard/:id"
-              element={<FlashCardItem isPadded={isPadded} />}
-            />
-            <Route
-              path="/class-item/:id"
-              element={<Achievements isPadded={isPadded} />}
-            />
-            <Route
-              path="/creators"
-              element={<SectionCreators isPadded={isPadded} />}
-            />
-            <Route
-              path="/edit-flashcard/:id"
-              element={<EditFlashCard isPadded={isPadded} />}
-            />
+              <Route path="/edit-flashcard/:id" element={<EditFlashCard />} />
+            </Route>
           </Route>
 
           {/* Function Flash Card - Learn - Test */}
@@ -105,6 +85,10 @@ function App() {
             <Route path="/:id/flashcards" element={<FunctionFlashCard />} />
             <Route path="/:id/learn" element={<FunctionLearn />} />
             <Route path="/:id/test" element={<FunctionTest />} />
+          </Route>
+          <Route element={<SignLayOut />}>
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
           </Route>
         </Routes>
       </Router>

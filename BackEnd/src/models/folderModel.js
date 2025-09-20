@@ -6,11 +6,10 @@ const FOLDER_COLLECTION_NAME = "folders";
 
 // Schema: yêu cầu name, còn lại backend tự tạo
 const FOLDER_COLLECTION_SCHEMA = Joi.object({
-  name: Joi.string().min(3).max(100).required().trim(),
-  description: Joi.string().max(255).allow(""),
+  title: Joi.string().min(3).max(100).required().trim(),
 
   // tham chiếu classroom (nếu có)
-  classroom_id: Joi.string().allow(""),
+  classrooms: Joi.array().items(Joi.string()).default([]),
 
   // chứa flashcards (chỉ lưu id)
   flashcards: Joi.array().items(Joi.string()),
@@ -45,12 +44,9 @@ const getAll = async () => {
 const createNew = async (data, user) => {
   try {
     const autoData = {
-      name: data.name,
-      description: data.description || "",
-      classroom_id: data.classroom_id || null,
+      title: data.title,
+      classrooms: [],
       flashcards: [],
-
-      // backend tự tạo
       createAt: new Date().toISOString(),
       creator: {
         user_id: user?._id?.toString() || "unknown",
@@ -71,7 +67,12 @@ const createNew = async (data, user) => {
       .collection(FOLDER_COLLECTION_NAME)
       .insertOne(validData);
 
-    return result;
+    // Lấy document vừa tạo bằng insertedId
+    const newFolder = await db
+      .collection(FOLDER_COLLECTION_NAME)
+      .findOne({ _id: result.insertedId });
+
+    return newFolder; // 👈 trả về document đầy đủ (có _id, title...)
   } catch (error) {
     throw new Error(error);
   }

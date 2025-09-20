@@ -375,10 +375,7 @@ export default function Achievements({ isPadded }) {
   };
 
   return (
-    <div
-      className="main flex"
-      style={{ paddingLeft: isPadded ? "300px" : "60px" }}
-    >
+    <div className="main flex">
       <div className="maincontent">
         <div className="main-content">
           <div className="achievements">

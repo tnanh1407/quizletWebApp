@@ -92,7 +92,11 @@ const createNew = async (data, user) => {
       .collection(FLASHCARD_COLLECTION_NAME)
       .insertOne(validData);
 
-    return result;
+    const newFlashCard = await db
+      .collection(FLASHCARD_COLLECTION_NAME)
+      .findOne({ _id: result.insertedId });
+
+    return newFlashCard;
   } catch (error) {
     throw new Error(error);
   }

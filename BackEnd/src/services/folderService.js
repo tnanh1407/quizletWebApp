@@ -4,8 +4,8 @@ const getAll = async () => {
   return await folderModel.getAll();
 };
 
-const createNew = async (data, user) => {
-  return await folderModel.createNew(data, user);
+const createNew = async (id, data, user) => {
+  return await folderModel.createNew(id, data, user);
 };
 
 const getById = async (id) => {
@@ -13,11 +13,11 @@ const getById = async (id) => {
 };
 
 const updateById = async (id, data) => {
-  return await folderService.updateById(id, data);
+  return await folderModel.updateById(id, data);
 };
 
 const deleteById = async (id) => {
-  return await folderService.deleteById(id);
+  return await folderModel.deleteById(id);
 };
 
 export const folderService = {

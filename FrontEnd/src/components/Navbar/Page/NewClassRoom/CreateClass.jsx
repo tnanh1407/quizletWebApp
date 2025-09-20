@@ -1,20 +1,7 @@
-const CreateClass = ({ isPadded }) => {
+export default function CreateClass() {
   return (
     <>
-      <div
-        className="main flex"
-        style={{ paddingLeft: isPadded ? "200px" : "20px" }}
-      >
-        <div className="maincontent">
-          <div className="main-content">
-            {/* <div className="out-let"><Outlet /></div> */}
-            {/* <Footer /> */}
-            <h1>CreateClass</h1>
-          </div>
-        </div>
-      </div>
+      <h1>CreateClass</h1>
     </>
   );
-};
-
-export default CreateClass;
+}

@@ -2,18 +2,15 @@ const Joi = require("joi");
 
 const folderSchema = Joi.object({
   // Tên folder
-  name: Joi.string().min(3).max(100).required().messages({
+  title: Joi.string().min(3).max(100).required().messages({
     "any.required": "Folder name is required",
     "string.empty": "Folder name cannot be empty",
     "string.min": "Folder name must be at least 3 characters",
     "string.max": "Folder name must be at most 100 characters",
   }),
 
-  // Mô tả folder
-  description: Joi.string().max(255).allow(""),
-
   // Liên kết đến classroom (nếu có)
-  classroom_id: Joi.string().allow(null, ""),
+  classrooms: Joi.array().items(Joi.string()).default([]),
 
   // Danh sách flashcards (chỉ lưu id)
   flashcards: Joi.array().items(Joi.string()).default([]),
