@@ -1,4 +1,4 @@
-import SectionFlashCards from "../../../../Sections/SectionFlashCardCreate";
+import SectionFlashCards from "../../Sections/SectionFlashCardCreate.jsx";
 import { useState, useEffect } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
@@ -8,7 +8,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { flashCardApi } from "../../../../../api/flashCardApi.js";
+import { flashCardApi } from "../../../api/flashCardApi.js";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../EditFlashCards/CssEditFlashCard.css";
 
@@ -45,19 +45,19 @@ export default function FlashCards({ isPadded }) {
   };
 
   const { id } = useParams();
-  const navigate = useNavigate(); // ✅ thêm useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await flashCardApi.getById(id);
         setTitle(data.title || "");
-        setDescription(data.description || "");
+        setDescription(data.desc || "");
         setCards(
           data.content.map((c, index) => ({
             id: c._id || index.toString(),
-            front: c.front,
-            back: c.back,
+            front: c.front || "",
+            back: c.back || "",
           }))
         );
       } catch (err) {
@@ -70,6 +70,7 @@ export default function FlashCards({ isPadded }) {
   const handleSubmit = async () => {
     const payload = {
       title,
+      desc: description,
       content: cards.map((c) => ({
         _id: c.id,
         front: c.front,

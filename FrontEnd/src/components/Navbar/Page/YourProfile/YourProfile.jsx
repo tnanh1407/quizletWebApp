@@ -1,6 +1,4 @@
-import SectionFlashCards from "../../../Sections/SectionFlashCardCreate";
-
-export default function ExpertSolutions({ isPadded }) {
+export default function YourProfile({ isPadded }) {
   return (
     <>
       <div
@@ -9,7 +7,7 @@ export default function ExpertSolutions({ isPadded }) {
       >
         <div className="maincontent">
           <div className="main-content">
-            <h1>Expert Solution - Sắp Ra Mắt</h1>
+            <h1>Your Profile</h1>
           </div>
         </div>
       </div>

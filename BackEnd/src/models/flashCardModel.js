@@ -7,6 +7,7 @@ const FLASHCARD_COLLECTION_NAME = "flashcards";
 // Schema: chỉ bắt buộc title + content
 const FLASHCARD_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().min(3).max(100).required().trim(),
+  desc: Joi.string().allow("").default(""),
   content: Joi.array()
     .items(
       Joi.object({
@@ -38,6 +39,7 @@ const FLASHCARD_COLLECTION_SCHEMA = Joi.object({
     status: Joi.string().valid("public", "private"),
     version: Joi.number().integer().min(1),
   }),
+  delete_flashcard: Joi.boolean().default(false),
 });
 
 const validateBeforeCreate = (data) => {
@@ -58,6 +60,7 @@ const createNew = async (data, user) => {
   try {
     const autoData = {
       title: data.title,
+      desc: data.desc,
       content: data.content,
 
       // backend tự tạo
@@ -79,6 +82,7 @@ const createNew = async (data, user) => {
         status: "public",
         version: 1,
       },
+      delete_flashcard: false,
     };
 
     const validData = await validateBeforeCreate(autoData);

@@ -1,5 +1,5 @@
 import account from "../../../src/assets/img/account.jpg";
-// import Footer from "../Footer/Footer";
+import "./CssSettingAccount.css";
 import { userApi } from "../../api/userApi";
 import { useEffect, useState } from "react";
 

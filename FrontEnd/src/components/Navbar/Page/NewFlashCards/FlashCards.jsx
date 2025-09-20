@@ -1,4 +1,4 @@
-import SectionFlashCards from "../../../Sections/SectionFlashCardCreate";
+import SectionFlashCards from "../../../Sections/SectionFlashCardCreate.jsx";
 import { useState } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
@@ -9,6 +9,8 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { flashCardApi } from "../../../../api/flashCardApi.js";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import "./CssFlashCards.css";
 
 export default function FlashCards({ isPadded }) {
   const [isSettingCard, setIsSettingCard] = useState(false);
@@ -46,10 +48,13 @@ export default function FlashCards({ isPadded }) {
     }
   };
 
+  const navigate = useNavigate();
+
   // gọi API create
   const handleSubmit = async () => {
     const payload = {
       title,
+      desc: description,
       content: cards.map((c) => ({
         front: c.front,
         back: c.back,
@@ -59,7 +64,6 @@ export default function FlashCards({ isPadded }) {
     try {
       const res = await flashCardApi.create(payload);
       console.log("Created flashcard set:", res);
-      alert("Flashcard set created successfully!");
 
       // 👉 Reset form sau khi tạo thành công
       setTitle("");
@@ -68,6 +72,7 @@ export default function FlashCards({ isPadded }) {
         { id: "1", front: "", back: "" },
         { id: "2", front: "", back: "" },
       ]);
+      navigate(`/your-flashcard`);
     } catch (err) {
       console.error("Error creating flashcard:", err);
       alert("Failed to create flashcard set");

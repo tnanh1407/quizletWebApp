@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import account from "../../assets/img/account.jpg";
 import { flashCardApi } from "../../api/flashCardApi";
 import iconFlashCard from "../../assets/icon/navbar-card.png";
+import "./CssNavbar.css";
 
 export default function Navbar({ togglePadding }) {
-  const [isOpen, setIsOpen] = useState(false); // chỉ cho thông báo
-  const [isCollapsed, setIsCollapsed] = useState(false); // chỉ cho navbar
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
   const [isNewFolder, setIsNewFolder] = useState(false);
 
@@ -24,22 +25,18 @@ export default function Navbar({ togglePadding }) {
     fetchData();
   }, []);
 
-  // ✅ Collapse: độc lập, không phụ thuộc isOpen
   const handleCollapse = () => {
     if (navbarRef.current) {
       if (!isCollapsed) {
         navbarRef.current.style.width = "67px";
-        // notificationsRef.current.style.left = "50px";
       } else {
         navbarRef.current.style.width = "";
-        // notificationsRef.current.style.left = "";
       }
     }
     setIsCollapsed((prev) => !prev);
     togglePadding();
   };
 
-  // ✅ Đóng thông báo khi click ra ngoài (không gọi handleCollapse ở đây nữa)
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -48,7 +45,7 @@ export default function Navbar({ togglePadding }) {
         buttonRef.current &&
         !buttonRef.current.contains(event.target)
       ) {
-        setIsOpen(false); // chỉ đóng noti, không động tới collapse
+        setIsOpen(false);
       }
     }
 
@@ -85,7 +82,7 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
 
-          <Link to="/" onClick={() => setActiveItem("profile")}>
+          <Link to="/your-profile" onClick={() => setActiveItem("profile")}>
             <div
               className={`navbar-a flex ${
                 activeItem === "profile" ? "active" : ""
@@ -142,86 +139,13 @@ export default function Navbar({ togglePadding }) {
             </div>
           </button>
         </div>
-
-        {/* --- Navbar Two --- */}
-        {/* <div className="navbar-two">
-          <p className={isCollapsed ? "hidden" : "block"}>Your folders</p>
-
-          <Link to="/demo" onClick={() => setActiveItem("demo")}>
-            <div
-              className={`navbar-a flex ${
-                activeItem === "demo" ? "active" : ""
-              }`}
-              id="navbar-one-demo"
-            >
-              <i className="fa-solid fa-folder"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Demo</p>
-            </div>
-          </Link>
-
-          <button id="click-notifi" onClick={toggleNewFolder}>
-            <div className="navbar-a flex" id="navbar-one-notifi">
-              <i className="fa-solid fa-plus"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>New folder</p>
-            </div>
-          </button>
-
-          {isNewFolder && (
-            <form id="newfolder">
-              <div className="newfolder-main">
-                <p>
-                  <i className="fa-solid fa-folder"></i>
-                </p>
-                <input
-                  type="text"
-                  placeholder="Name your folder"
-                  className="input-name-new-folder"
-                />
-                <div className="newfolder-main-button flex">
-                  <button className="newfolder-create">
-                    <span>
-                      <Link to="">Create</Link>
-                    </span>
-                  </button>
-                  <button
-                    className="newfolder-cancel"
-                    onClick={toggleNewFolder}
-                  >
-                    <span>Cancel</span>
-                  </button>
-                </div>
-              </div>
-            </form>
-          )}
-        </div> */}
         <div className="navbar-two">
           <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
 
-          <Link to="/classroom" onClick={() => setActiveItem("classrooms")}>
-            <div
-              className={`navbar-a flex ${
-                activeItem === "classrooms" ? "active" : ""
-              }`}
-              id="navbar-one-library"
-            >
-              <i class="fa-solid fa-people-group"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Classroom</p>
-            </div>
-          </Link>
-
-          <Link to="/demo" onClick={() => setActiveItem("folder")}>
-            <div
-              className={`navbar-a flex ${
-                activeItem === "folder" ? "active" : ""
-              }`}
-              id="navbar-one-demo"
-            >
-              <i className="fa-solid fa-folder"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Folder</p>
-            </div>
-          </Link>
-
-          <Link to="/flashcards" onClick={() => setActiveItem("flashcards")}>
+          <Link
+            to="/your-flashcard"
+            onClick={() => setActiveItem("flashcards")}
+          >
             <div
               className={`navbar-a flex ${
                 activeItem === "flashcards" ? "active" : ""
@@ -232,24 +156,56 @@ export default function Navbar({ togglePadding }) {
               <p className={isCollapsed ? "hidden" : "block"}>Flash Card</p>
             </div>
           </Link>
+
+          <Link to="/your-folder" onClick={() => setActiveItem("folder")}>
+            <div
+              className={`navbar-a flex ${
+                activeItem === "folder" ? "active" : ""
+              }`}
+              id="navbar-one-demo"
+            >
+              <i className="fa-solid fa-folder"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Folder</p>
+            </div>
+          </Link>
+          <Link
+            to="/your-classroom"
+            onClick={() => setActiveItem("classrooms")}
+          >
+            <div
+              className={`navbar-a flex ${
+                activeItem === "classrooms" ? "active" : ""
+              }`}
+              id="navbar-one-library"
+            >
+              <i class="fa-solid fa-people-group"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Classroom</p>
+            </div>
+          </Link>
         </div>
         {/* --- Navbar Three --- */}
         <div className="navbar-three">
           <p className={isCollapsed ? "hidden" : "block"}>Create new</p>
 
-          <Link to="/demo" onClick={() => setActiveItem("classroom-new")}>
+          <Link
+            to="/create/new-flashcard"
+            onClick={() => setActiveItem("flashcard-new")}
+          >
             <div
               className={`navbar-a flex ${
-                activeItem === "classroom-new" ? "active" : ""
+                activeItem === "flashcard-new" ? "active" : ""
               }`}
-              id="navbar-one-demo"
+              id="navbar-one-flash-cards"
             >
               <i className="fa-solid fa-plus"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Class Room</p>
+              <p className={isCollapsed ? "hidden" : "block"}>Flash Card</p>
             </div>
           </Link>
 
-          <Link to="/flashcards" onClick={() => setActiveItem("folder-new")}>
+          <Link
+            to="/create/new-folder"
+            onClick={() => setActiveItem("folder-new")}
+          >
             <div
               className={`navbar-a flex ${
                 activeItem === "folder-new" ? "active" : ""
@@ -261,17 +217,17 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
           <Link
-            to="/create-new/flashcard-new"
-            onClick={() => setActiveItem("flashcard-new")}
+            to="/create/new-classroom"
+            onClick={() => setActiveItem("classroom-new")}
           >
             <div
               className={`navbar-a flex ${
-                activeItem === "flashcard-new" ? "active" : ""
+                activeItem === "classroom-new" ? "active" : ""
               }`}
-              id="navbar-one-flash-cards"
+              id="navbar-one-demo"
             >
               <i className="fa-solid fa-plus"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Flash Card</p>
+              <p className={isCollapsed ? "hidden" : "block"}>Class Room</p>
             </div>
           </Link>
         </div>

@@ -16,21 +16,24 @@ export default function SectionNextStudyItem() {
   }, []);
   return (
     <>
-      {flashCards.map((card) => (
-        <Link to={`/itemflashcard/${card._id}`} key={card._id}>
-          <div className="session all-section">
-            <h1>{card.title}</h1>
-            <div className="session-terms">
-              {/* Nếu views nằm trong metadata */}
-              <p>{card.content_count} term</p>
+      {flashCards
+        .filter((card) => card.delete_flashcard === false)
+        .slice(0, 9)
+        .map((card) => (
+          <Link to={`/itemflashcard/${card._id}`} key={card._id}>
+            <div className="session all-section">
+              <h1>{card.title}</h1>
+              <div className="session-terms">
+                {/* Nếu views nằm trong metadata */}
+                <p>{card.content_count} term</p>
+              </div>
+              <div className="session-author flex">
+                <img src={account} alt="author" />
+                <p>{card.creator.username}</p>
+              </div>
             </div>
-            <div className="session-author flex">
-              <img src={account} alt="author" />
-              <p>{card.creator.username}</p>
-            </div>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))}
     </>
   );
 }
