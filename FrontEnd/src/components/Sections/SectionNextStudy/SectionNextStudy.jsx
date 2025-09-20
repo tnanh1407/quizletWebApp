@@ -1,5 +1,6 @@
 import SectionNextStudyItem from "./SectionNextStudyItem/SectionNextStudyItem";
 import { useRef, useEffect } from "react";
+import "./CssSectionNextStudy.css";
 
 export default function SectionNextStudy() {
   const movieItemRef = useRef(null);

@@ -2,6 +2,7 @@ import account from "../../assets/img/account.jpg";
 import logo from "../../assets/img/logoQ.png";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import "./CssHeader.css";
 
 export default function Header() {
   const [addFolder, setAddFolder] = useState(false);
@@ -100,18 +101,24 @@ export default function Header() {
             ref={messageRef}
           >
             <div className="folder-option">
-              <Link to="/flashcards">
+              <Link to="/create/new-flashcard">
                 <div className="setting-item flex">
-                  <i className="fa-solid fa-trophy"></i>
-                  <p>Flashcard set</p>
+                  <i className="fa-solid fa-plus"></i>
+                  <p>Flash Card</p>
                 </div>
               </Link>
-              <button className="header-add-folder">
+              <Link to="/create/new-folder">
                 <div className="setting-item flex">
-                  <i className="fa-solid fa-gear"></i>
+                  <i className="fa-solid fa-plus"></i>
                   <p>Folder</p>
                 </div>
-              </button>
+              </Link>
+              <Link to="/create/new-classroom">
+                <div className="setting-item flex">
+                  <i className="fa-solid fa-plus"></i>
+                  <p>Class Room</p>
+                </div>
+              </Link>
             </div>
           </div>
         )}
@@ -129,7 +136,7 @@ export default function Header() {
               </div>
             </div>
             <div className="account-setting">
-              <Link to="/achievenments">
+              <Link to="/achievements">
                 <div className="setting-item flex">
                   <i className="fa-solid fa-trophy"></i>
                   <p>Achievements</p>
@@ -163,6 +170,16 @@ export default function Header() {
               </button>
             </div>
             <div className="account-setting">
+              <Link to="/" className="account-logout">
+                <div className="setting-item flex">
+                  <p>Sign Up</p>
+                </div>
+              </Link>
+              <Link to="/" className="account-logout">
+                <div className="setting-item flex">
+                  <p>Sign In</p>
+                </div>
+              </Link>
               <Link to="/" className="account-logout">
                 <div className="setting-item flex">
                   <p>Log out</p>

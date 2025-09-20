@@ -17,7 +17,11 @@ export default function SectionTopCreatorItem() {
   return (
     <>
       {users.map((user) => (
-        <Link to={`/users/${user._id}`} key={user._id}>
+        <Link
+          to="/creators"
+          // to={`/users/${user._id}`}
+          key={user._id}
+        >
           <div className="session all-section">
             <img src={account} alt="" />
             <div className="creator-in4">

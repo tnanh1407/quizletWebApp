@@ -59,3 +59,192 @@
 .creator-rule-important p {
   line-height: 20px;
 }
+
+/* Kế thừa theme */
+body.dark-mode .creator-main {
+  background: #0a092d;
+  color: #fff;
+}
+body.light-mode .creator-main {
+  background: #f8f8fc;
+  color: #222;
+}
+
+.creator-main {
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+  margin-top: 48px; /* hoặc 56px nếu header cao hơn */
+}
+
+/* Nếu muốn căn chính xác theo header, có thể dùng padding-top thay cho margin-top */
+.creator-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.creator-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.creator-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  background: #23234c;
+}
+
+.creator-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.creator-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.creator-name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.creator-role {
+  background: #23234c;
+  color: #fff;
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.creator-tabs {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #1f1fb4;
+}
+
+.creator-tab {
+  padding: 8px 0;
+  font-size: 1.1rem;
+  color: #aaa;
+  cursor: pointer;
+  position: relative;
+}
+
+.creator-tab.active {
+  background: none !important;
+}
+
+.creator-tab:hover,
+.creator-tab.active {
+  color: #f7f7f7; /* Màu vàng hoặc chọn màu bạn muốn */
+  /* background: #23234c; hoặc background khác nếu muốn */
+  border-bottom: 2px solid #3b56ee;
+}
+
+body.light-mode .creator-tab.active,
+body.light-mode .creator-tab:hover {
+  color: #d0d0da; /* màu xanh sáng hơn */
+  border-bottom: 2px solid #4f4fff;
+  /* background: transparent; */
+}
+
+body.light-mode .creator-tab.active {
+  color: #222;
+  border-bottom: 2px solid #4f4fff;
+}
+
+.creator-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.creator-search-input {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #2e3856;
+  color: #fff;
+  font-size: 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.light-mode .creator-search-input {
+  background: #eaeafc;
+  color: #222;
+}
+
+.creator-search-btn {
+  background: #23234c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.light-mode .creator-search-btn {
+  background: #eaeafc;
+  color: #222;
+}
+
+.creator-list-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.creator-card {
+  background: #2e3856;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.creator-card:hover {
+  /* background: #4f4fff; */
+  color: #fff;
+}
+
+body.light-mode .creator-card {
+  background: #eaeafc;
+  color: #222;
+}
+
+body.light-mode .creator-card:hover {
+  /* background: #bfcaff; */
+  color: #222;
+}
+
+.creator-card-count {
+  font-size: 0.95rem;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.creator-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}

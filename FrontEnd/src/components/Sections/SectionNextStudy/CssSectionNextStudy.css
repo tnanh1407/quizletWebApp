@@ -37,6 +37,7 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 10px 0;
+  gap: 15px;
 }
 
 .a-itemflashcard a {

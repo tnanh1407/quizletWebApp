@@ -1,5 +1,6 @@
 @import url(CssSectionClass.css);
-@import url(CreateClass/CssCreateClass.css);
+@import url(../NewClassRoom/CssCreateClass.css);
+
 .button--join,
 .button--create {
   padding: 12px 20px;
