@@ -10,6 +10,18 @@ export default function FlashCard({ isPadded }) {
       user: "quizlette142023311",
       avatar: "https://via.placeholder.com/40",
     },
+     {
+      title: "4.LIFESTYLES",
+      terms: 26,
+      user: "quizlette142023311",
+      avatar: "https://via.placeholder.com/40",
+    },
+    {
+      title: "từ vựng mua sắm",
+      terms: 15,
+      user: "giahan2011dh",
+      avatar: "https://via.placeholder.com/40",
+    },
     {
       title: "từ vựng mua sắm",
       terms: 15,
@@ -24,54 +36,44 @@ export default function FlashCard({ isPadded }) {
     },
   ];
 const questions = [
-    {
-      id: 1,
-      question: "chào buổi sáng, buổi sáng tốt lành",
-      options: ["good morning", "name (n)", "good afternoon", "nice (adj)"],
-      correct: "good morning",
-    },
-    {
-      id: 2,
-      question: "chào buổi chiều",
-      options: ["good night", "good afternoon", "hello", "good morning"],
-      correct: "good afternoon",
-    },
-    {
-      id: 3,
-      question: "xin chào",
-      options: ["goodbye", "hi/hello", "name", "thanks"],
-      correct: "hi/hello",
-    },
-  ];
+  {
+    question: "số điện thoại",
+    options: ["name (n)", "good afternoon", "phone number (n phrase)", "meet (v)"],
+    correct: "phone number (n phrase)",
+  },
+  {
+    question: "chào buổi sáng",
+    options: ["good morning", "good evening", "nice (adj)", "meet (v)"],
+    correct: "good morning",
+  },
+];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [showDefinitions, setShowDefinitions] = useState(true);
+const [currentIndex, setCurrentIndex] = useState(0);
+const [selected, setSelected] = useState(null);   // đáp án đã chọn
+const [showDefinitions, setShowDefinitions] = useState(true); // có hiển thị nghĩa không
+const [isLocked, setIsLocked] = useState(false);  // khóa không cho chọn lại sau khi đã chọn
 
-  const currentQuestion = questions[currentIndex];
+const currentQuestion = questions[currentIndex];
 
-  function handleAnswer(option) {
-    setSelected(option);
+// chọn đáp án
+function handleAnswer(option) {
+  if (isLocked) return; // đã chọn thì không cho chọn thêm
+  setSelected(option);
+  setIsLocked(true);
+}
+
+// sang câu tiếp theo
+function changePage(direction) {
+  if (direction === "next" && currentIndex < questions.length - 1) {
+    setCurrentIndex((prev) => prev + 1);
+    setSelected(null);
+    setIsLocked(false);
+  } else if (direction === "prev" && currentIndex > 0) {
+    setCurrentIndex((prev) => prev - 1);
+    setSelected(null);
+    setIsLocked(false);
   }
-
-  function changePage(direction) {
-    if (
-      (direction === "next" && currentIndex >= questions.length - 1) ||
-      (direction === "prev" && currentIndex <= 0)
-    ) {
-      return;
-    }
-
-    setIsFlipping(true);
-
-    setTimeout(() => {
-      setIsFlipping(false);
-      setSelected(null);
-      setCurrentIndex((prev) =>
-        direction === "next" ? prev + 1 : prev - 1
-      );
-    }, 600); // bằng thời gian animation
-  };
+}
 const cards = [
     { front: "Construction", back: "Xây dựng" },
     { front: "Practice", back: "Thực hành" },
@@ -196,7 +198,7 @@ const cards = [
                 <input
                   type="text"
                   value="https://quizlet.com/example-link"
-                  readOnly
+                  readOnly 
                 />
                 <button className="btn copy">Copy link</button>
               </div>
@@ -354,67 +356,90 @@ const cards = [
         </div>
       </div>
     </div>
-            <h2 className="text-xl font-semibold mb-4">Students also studied</h2>
-            <div className="students-list">
-              {sets.map((item, index) => (
-                <div key={index} className="student-card">
-                  <h3>{item.title}</h3>
-                  <span className="terms">{item.terms} terms</span>
-                  <div className="author">
-                    <img src={item.avatar} alt="avatar" />
-                    <p>{item.user}</p>
-                  </div>
-                  <button className="preview-btn">Preview</button>
-                </div>
-              ))}
+            <h2 className="students-title">Students also studied</h2>
+          <div className="students-list">
+            {sets.map((item, index) => (
+              <div key={index} className="student-card">
+                <h3 className="student-title">{item.title}</h3>
+              <span className="student-terms">{item.terms} terms</span>
+
+            <div className="student-author">
+              <img src={item.avatar} alt="avatar" className="student-avatar" />
+                <p className="student-username">{item.user}</p>
+            </div>
+
+              <button className="student-preview">Preview</button>
+            </div>
+            ))}
             </div>
              <div className="practice-container">
-      <h2 className="practice-title">Practice questions for this set</h2>
+  <h2 className="practice-title">Practice questions for this set</h2>
 
-      <div className={`question-card ${isFlipping ? "flip" : ""}`}>
-        <p className="question-number">
-          {currentIndex + 1} / {questions.length}
-        </p>
-        <p className="question-text">{currentQuestion.question}</p>
+  <div className="question-card">
+    {/* Header */}
+    <div className="header">
+      <span className="learn-label">Learn</span>
+      <span className="progress">
+        {currentIndex + 1} / {questions.length}
+      </span>
+    </div>
 
-        <div className="options">
-          {currentQuestion.options.map((opt, i) => {
-            const isCorrect = opt === currentQuestion.correct;
-            const isWrong = selected && opt === selected && !isCorrect;
+    {/* Câu hỏi */}
+    <div className="question-text">{currentQuestion.question}</div>
 
-            return (
-              <button
-                key={i}
-                className={`pq-option-btn
-                  ${selected === opt ? "pq-selected" : ""}
-                  ${selected && isCorrect ? "pq-correct" : ""}
-                  ${isWrong ? "pq-wrong" : ""}`}
-                onClick={() => handleAnswer(opt)}
-              >
-                {i + 1}. {opt}
-              </button>
-            );
-          })}
-        </div>
+    {/* Feedback */}
+    {selected && (
+      <div
+        className={`feedback ${
+          selected === currentQuestion.correct ? "correct-text" : "wrong-text"
+        }`}
+      >
+        {selected === currentQuestion.correct
+          ? "Brilliant work!"
+          : "No problem. You're still learning!"}
       </div>
+    )}
 
-      <div className="nav-buttons">
+    {/* Options */}
+    <div className="options">
+      {currentQuestion.options.map((opt, idx) => {
+        const isCorrect = opt === currentQuestion.correct;
+        const isSelected = selected === opt;
+
+        return (
+          <button
+            key={idx}
+            className={`option-btn
+              ${selected && isCorrect ? "correct" : ""}
+              ${selected && isSelected && !isCorrect ? "wrong" : ""}
+            `}
+            onClick={() => handleAnswer(opt)}
+            disabled={!!selected}
+          >
+            {/* Nếu chọn sai thì hiện dấu X, nếu đúng thì hiện dấu ✓ */}
+            {selected && isSelected && !isCorrect && <span>❌ </span>}
+            {selected && isCorrect && <span>✔️ </span>}
+            {opt}
+          </button>
+        );
+      })}
+    </div>
+
+    {/* Continue */}
+    {selected && (
+      <div className="continue-btn-wrap">
         <button
-          className="nav-btn"
-          onClick={() => changePage("prev")}
-          disabled={currentIndex === 0}
-        >
-          ⬅ Previous
-        </button>
-        <button
-          className="nav-btn"
+          className="continue-btn"
           onClick={() => changePage("next")}
           disabled={currentIndex === questions.length - 1}
         >
-          Next ➡
+          Continue
         </button>
-            </div>
-          </div>
+      </div>
+    )}
+  </div>
+</div>
+         
           {/* Terms in this set */}
 <div className="terms-container">
   <h2 className="terms-title">Terms in this set ({questions.length})</h2>
