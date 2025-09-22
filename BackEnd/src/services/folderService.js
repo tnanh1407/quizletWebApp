@@ -1,29 +1,21 @@
 import { folderModel } from "../models/folderModel.js";
 
-const getAll = async () => {
-  return await folderModel.getAll();
-};
-
-const createNew = async (id, data, user) => {
-  return await folderModel.createNew(id, data, user);
-};
-
-const getById = async (id) => {
-  return await folderModel.getById(id);
-};
-
-const updateById = async (id, data) => {
-  return await folderModel.updateById(id, data);
-};
-
-const deleteById = async (id) => {
-  return await folderModel.deleteById(id);
-};
+const getAll = async () => folderModel.getAll();
+const getById = async (id) => folderModel.getById(id);
+const createNew = async (data, user) => folderModel.createNew(data, user);
+const updateById = async (id, data) => folderModel.updateById(id, data);
+const deleteById = async (id) => folderModel.deleteById(id);
+const addFlashcards = async (folderId, flashcardIds) =>
+  folderModel.addFlashcards(folderId, flashcardIds);
+const removeFlashcard = async (folderId, flashcardId) =>
+  folderModel.removeFlashcard(folderId, flashcardId);
 
 export const folderService = {
   getAll,
-  createNew,
   getById,
+  createNew,
   updateById,
   deleteById,
+  addFlashcards,
+  removeFlashcard,
 };

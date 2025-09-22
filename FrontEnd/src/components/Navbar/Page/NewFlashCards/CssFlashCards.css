@@ -386,7 +386,7 @@ body.light-mode
 .button-add-a-card button {
   border: 2px solid #586380;
   background: none;
-  padding: 20px 25px;
+  padding: 20px;
   /* bỏ color ở đây */
   border-radius: 50px;
   font-size: 16px;

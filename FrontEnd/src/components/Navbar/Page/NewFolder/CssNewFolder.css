@@ -13,14 +13,13 @@
   /* bỏ color ở đây */
 }
 body.dark-mode .main-content-new-folder a {
-  color: #929bb4;
+  color: var(--text-color);
 }
 body.light-mode .main-content-new-folder a {
   color: #222;
 }
 
 .stydy-other-a p {
-  /* bỏ color, background ở đây */
   padding: 10px 20px;
   border-radius: 25px;
 }
@@ -112,6 +111,7 @@ body.light-mode .filter-add p {
   /* bỏ background ở đây */
   border-radius: 10px;
   padding: 70px;
+  margin-top: 50px;
 }
 body.dark-mode .new-folder-maincontent {
   background: #2e3856;
@@ -221,17 +221,26 @@ body.light-mode .new-folder-maincontent button {
   border-radius: 15px;
 }
 
-#add-flash-card .fa-plus {
-  width: 36px;
-  font-size: 16px;
-  /* line-height: 40px; */
-  color: #f6f7fb;
-  padding: 10px;
+#add-flash-card .fa-plus,
+#add-flash-card .fa-check {
+  width: 32px;
+  font-size: 15px;
+  color: var(--text-color);
+  padding: 8px;
+  border: 1px solid var(--text-color);
+  border-radius: 50px;
+}
+#add-flash-card .fa-check {
+  color: var(--bg-color);
+  background: var(--text-color);
 }
 
 #add-flash-card .fa-plus:hover {
   background: #0a092d;
   border-radius: 50px;
+}
+#add-flash-card .fa-check:hover {
+  background: var(--text-color);
 }
 
 .add-flash-cards-create {
@@ -274,4 +283,233 @@ body.light-mode .new-folder-maincontent button {
 
 .add-flash-cards-footer button:hover {
   background: #3044f2;
+}
+
+.see-folder-maincontent {
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.see-folder-button-recent,
+.see-folder-button-material {
+  background: none;
+  /* bỏ color, border ở đây */
+  border-radius: 20px;
+}
+body.dark-mode .see-folder-button-recent,
+body.dark-mode .see-folder-button-material {
+  color: #f6f7fb;
+  border: 2px solid #f6f7fb;
+}
+body.light-mode .see-folder-button-recent,
+body.light-mode .see-folder-button-material {
+  color: #222;
+  border: 2px solid #222;
+}
+
+.see-folder-button-material {
+  align-items: center;
+}
+
+.see-folder-button-recent {
+  align-items: center;
+}
+.see-folder-button-recent-main,
+.see-folder-button-material-main {
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+
+.see-folder-button-recent p,
+.see-folder-button-material i {
+  margin-right: 5px;
+}
+
+.see-folder-button-recent:hover .see-folder-button-recent-main,
+.see-folder-button-material:hover .see-folder-button-material-main {
+  background: #2e3856;
+}
+
+.see-folder-search input {
+  width: 350px;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  /* bỏ background, border ở đây */
+  margin-left: 10px;
+  border-radius: 5px;
+}
+body.dark-mode .see-folder-search input {
+  background: #2e3856;
+  border: 2px solid #2e3856;
+  color: #f6f7fb;
+}
+body.light-mode .see-folder-search input {
+  background: #e0e0e0;
+  border: 2px solid #e0e0e0;
+  color: #222;
+}
+
+.see-folder-search {
+  position: relative;
+}
+
+.see-folder-search i {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+
+.see-folder-search input:focus {
+  color: #929bb4;
+  border: 2px solid #d9dde8;
+  background: #0a092d;
+}
+
+#new-folder-add-tag {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.new-folder-add-tag-close {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  font-size: 20px;
+  top: 10px;
+  right: 10px;
+  /* bỏ color, background ở đây */
+  border: none;
+}
+body.dark-mode .new-folder-add-tag-close {
+  color: #f6f7fb;
+  background: none;
+}
+body.light-mode .new-folder-add-tag-close {
+  color: #222;
+  background: none;
+}
+
+.new-folder-add-tag-close:hover {
+  background: #2e3856;
+  border-radius: 50px;
+}
+
+.new-folder-add-tag-container {
+  width: 450px;
+  height: 425px;
+  /* bỏ background ở đây */
+  margin: auto;
+  margin-top: 50px;
+  padding: 32px 32px 0 32px;
+  border-radius: 20px;
+  position: relative;
+}
+body.dark-mode .new-folder-add-tag-container {
+  background: #0a092d;
+}
+body.light-mode .new-folder-add-tag-container {
+  background: #fff;
+}
+
+.new-folder-add-tag-header {
+  height: 300px;
+  /* overflow-y: scroll; */
+}
+
+.new-folder-add-tag-header h1 {
+  font-size: 32px;
+  margin: 16px 0;
+  /* bỏ color ở đây */
+}
+body.dark-mode .new-folder-add-tag-header h1 {
+  color: #f6f7fb;
+}
+body.light-mode .new-folder-add-tag-header h1 {
+  color: #222;
+}
+
+.new-folder-recommended {
+  padding: 16px 0 32px;
+}
+
+.new-folder-recommended input {
+  width: 100%;
+  height: 48px;
+  /* bỏ background, color ở đây */
+  border: none;
+  padding: 4px 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+body.dark-mode .new-folder-recommended input {
+  background: #2e3856;
+  color: #f6f7fb;
+}
+body.light-mode .new-folder-recommended input {
+  background: #e0e0e0;
+  color: #222;
+}
+
+.new-folder-recommended > p {
+  /* bỏ color ở đây */
+  font-size: 14px;
+}
+body.dark-mode .new-folder-recommended > p {
+  color: #f6f7fb;
+}
+body.light-mode .new-folder-recommended > p {
+  color: #222;
+}
+
+.new-folder-recommended-main {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.new-folder-recommended-main button {
+  /* bỏ color, background ở đây */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  margin: 0 10px 10px 0;
+}
+body.dark-mode .new-folder-recommended-main button {
+  color: #f6f7fb;
+  background: #2e3856;
+}
+body.light-mode .new-folder-recommended-main button {
+  color: #222;
+  background: #e0e0e0;
+}
+
+.new-folder-add-tag-footer {
+  display: flex;
+  float: right;
+}
+
+.new-folder-add-tag-footer button {
+  background: none;
+  /* bỏ color, border ở đây */
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 50px;
+}
+body.dark-mode .new-folder-add-tag-footer button {
+  color: #f6f7fb;
+  border: 2px solid #d9dde8;
+}
+body.light-mode .new-folder-add-tag-footer button {
+  color: #222;
+  border: 2px solid #222;
 }

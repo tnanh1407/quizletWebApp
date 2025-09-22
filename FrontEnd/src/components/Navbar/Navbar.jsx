@@ -84,7 +84,7 @@ export default function Navbar({ togglePadding }) {
       setFolderName("");
       setIsNewFolder(false);
       // điều hướng sang trang danh sách folder
-      navigate(`/create/new-folder/${newFolder._id}`);
+      navigate(`/folder/${newFolder._id}`);
     } catch (error) {
       console.error("Error creating folder:", error);
     }
@@ -193,7 +193,11 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
 
-          <Link to="/your-folder" onClick={() => setActiveItem("folder")}>
+          <Link
+            // to="/your-folder"
+            to="/folder/68d0dc1138ad9d8f1af6a4d7"
+            onClick={() => setActiveItem("folder")}
+          >
             <div
               className={`navbar-a flex ${
                 activeItem === "folder" ? "active" : ""

@@ -64,7 +64,7 @@ function App() {
               {/* Route Create New */}
 
               <Route path="/create/new-flashcard" element={<FlashCards />} />
-              <Route path="/create/new-folder/:id" element={<NewFolder />} />
+              <Route path="/folder/:id" element={<NewFolder />} />
               <Route path="/create/new-classroom" element={<CreateClass />} />
 
               <Route path="/itemflashcard/:id" element={<FlashCardItem />} />

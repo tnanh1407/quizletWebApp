@@ -95,7 +95,6 @@
   color: white;
   padding: 20px;
   border-radius: 12px;
-  width: 400px;
 }
 
 .modal-header {
@@ -268,7 +267,7 @@
 }
 .dropdown-menu {
   position: absolute;
-  top: 65px; /* hiện phía dưới nút ba chấm */
+  top: 50px; /* hiện phía dưới nút ba chấm */
   right: 0;
   background: #0d0d2b;
   color: white;
@@ -309,7 +308,9 @@
 .itemflashcard-header-title-solution {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 20px;
+  font-weight: 700;
+  margin-top: 40px;
 }
 
 .itemflashcard-header-title-solution i {
@@ -327,9 +328,8 @@
   background: #2e3856;
   color: #d9dde8;
   text-decoration: none;
-  border-radius: 5px;
-  border-bottom: 5px solid #2e3856;
-  border-top: 5px solid #2e3856;
+  border-radius: 10px;
+  border: 2px solid #23243a;
 }
 
 .itemflashcard-header-title-review {
@@ -363,6 +363,9 @@
 
 .itemflashcard-main-content-header {
   justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  padding: 0 40px 0 0;
 }
 
 .itemflashcard-main-content {
@@ -383,7 +386,6 @@
 
 .itemflashcard-main-content-option {
   justify-content: space-between;
-  padding-top: 18px;
   border-bottom: 2px solid #d9dde8;
   padding-bottom: 20px;
 }
@@ -392,6 +394,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 45px;
+  width: 170px;
 }
 
 .itemflashcard-main-content-option-move button {
@@ -405,7 +408,7 @@
   max-width: 1500px;
   height: 450px;
   perspective: 1000px;
-  margin: 30px auto;
+  margin: 20px auto;
   cursor: pointer;
   position: relative;
 }
@@ -416,7 +419,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: var(--bg-child-color); /* xanh đậm */
+  background: var(--bg-child-color);
   color: #fff;
   border-radius: 16px;
   padding: 20px;
@@ -535,6 +538,22 @@
   background: #2e3856;
 }
 
+.itemflashcard-main-content-option-option a {
+}
+
+.itemflashcard-main-content-option-option .fa-expand {
+  color: var(--text-color);
+  padding: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50px;
+  font-size: 18px;
+}
+
+.itemflashcard-main-content-option-option .fa-expand:hover {
+  background: var(--bg-child-color);
+}
+
 .itemflashcard-main-created {
   margin-top: 20px;
 }
@@ -564,7 +583,7 @@
 }
 
 .itemflashcard-header-title-solution a:hover {
-  border-bottom: 5px solid #4255ff;
+  border: 2px solid var(--button-blue-color);
 }
 
 .itemflashcard-main-content-header .fa-star {

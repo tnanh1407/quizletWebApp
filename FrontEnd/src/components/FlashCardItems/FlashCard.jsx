@@ -263,7 +263,7 @@ export default function FlashCard() {
                 <p>Test</p>
               </div>
             </Link>
-            <Link to="" className="flex">
+            {/* <Link to="" className="flex">
               <div className="title-solution title-solution-block">
                 <i class="fa-solid fa-table-cells-large"></i>
                 <p>Blocks</p>
@@ -280,7 +280,7 @@ export default function FlashCard() {
                 <i class="fa-brands fa-connectdevelop"></i>
                 <p>Match</p>
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

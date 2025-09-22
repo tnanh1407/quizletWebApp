@@ -5,74 +5,94 @@ const getAll = async (req, res, next) => {
   try {
     const folders = await folderService.getAll();
     res.status(StatusCodes.OK).json(folders);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const createNew = async (req, res, next) => {
-  try {
-    // nếu có auth thì truyền user: req.user
-    const newFolder = await folderService.createNew(req.body, req.user);
-    res.status(StatusCodes.CREATED).json(newFolder);
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 
 const getById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const folder = await folderService.getById(id);
-    if (!folder) {
+    const folder = await folderService.getById(req.params.id);
+    if (!folder)
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Folder not found" });
-    }
     res.status(StatusCodes.OK).json(folder);
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const createNew = async (req, res, next) => {
+  try {
+    const folder = await folderService.createNew(req.body, req.user);
+    res.status(StatusCodes.CREATED).json(folder);
+  } catch (err) {
+    next(err);
   }
 };
 
 const updateById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const updatedFolder = await folderService.updateById(
-      id,
-      req.body,
-      req.user
-    );
-    if (!updatedFolder) {
+    const folder = await folderService.updateById(req.params.id, req.body);
+    if (!folder)
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Folder not found" });
-    }
-    res.status(StatusCodes.OK).json(updatedFolder);
-  } catch (error) {
-    next(error);
+    res.status(StatusCodes.OK).json(folder);
+  } catch (err) {
+    next(err);
   }
 };
 
 const deleteById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const deleted = await folderService.deleteById(id, req.user);
-    if (!deleted) {
+    const success = await folderService.deleteById(req.params.id);
+    if (!success)
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Folder not found" });
-    }
     res.status(StatusCodes.NO_CONTENT).send();
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const addFlashcards = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { flashcardIds } = req.body;
+    const folder = await folderService.addFlashcards(id, flashcardIds);
+    if (!folder)
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Folder not found" });
+    res.status(StatusCodes.OK).json(folder);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const removeFlashcard = async (req, res, next) => {
+  try {
+    const { folderId, flashcardId } = req.params;
+    const folder = await folderService.removeFlashcard(folderId, flashcardId);
+    if (!folder)
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Folder not found or flashcard not in folder" });
+    res.status(StatusCodes.OK).json(folder);
+  } catch (err) {
+    next(err);
   }
 };
 
 export const folderController = {
   getAll,
-  createNew,
   getById,
+  createNew,
   updateById,
   deleteById,
+  addFlashcards,
+  removeFlashcard,
 };
