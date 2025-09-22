@@ -12,7 +12,7 @@ import { flashCardApi } from "../../../api/flashCardApi.js";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../EditFlashCards/CssEditFlashCard.css";
 
-export default function FlashCards({ isPadded }) {
+export default function FlashCards() {
   const [isSettingCard, setIsSettingCard] = useState(false);
   const [isDeleteCard, setIsDeleteCard] = useState(false);
   const [title, setTitle] = useState("");
