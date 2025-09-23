@@ -18,7 +18,7 @@ export default function SectionTopCreatorItem() {
     <>
       {users.map((user) => (
         <Link
-          to="/creators"
+          to="/creators/subjects"
           // to={`/users/${user._id}`}
           key={user._id}
         >

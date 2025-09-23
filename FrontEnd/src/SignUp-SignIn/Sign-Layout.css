@@ -1,0 +1,11 @@
+.signin-signup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.signin-signup img {
+  width: 100%;
+  height: 100%;
+}

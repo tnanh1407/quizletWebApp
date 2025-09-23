@@ -55,13 +55,13 @@ const updateById = async (req, res, next) => {
 const deleteById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deleted = await flashCardService.deleteById(id, req.user);
+    const deleted = await flashCardService.deleteById(id);
     if (!deleted) {
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Flashcard not found" });
     }
-    res.status(StatusCodes.NO_CONTENT).send();
+    res.status(StatusCodes.OK).json({ message: "Flashcard marked as deleted" });
   } catch (error) {
     next(error);
   }

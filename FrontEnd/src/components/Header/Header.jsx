@@ -170,17 +170,17 @@ export default function Header() {
               </button>
             </div>
             <div className="account-setting">
-              <Link to="/" className="account-logout">
+              <Link to="/sign-up" className="account-logout">
                 <div className="setting-item flex">
                   <p>Sign Up</p>
                 </div>
               </Link>
-              <Link to="/" className="account-logout">
+              <Link to="/sign-in" className="account-logout">
                 <div className="setting-item flex">
                   <p>Sign In</p>
                 </div>
               </Link>
-              <Link to="/" className="account-logout">
+              <Link to="/sign-in" className="account-logout">
                 <div className="setting-item flex">
                   <p>Log out</p>
                 </div>

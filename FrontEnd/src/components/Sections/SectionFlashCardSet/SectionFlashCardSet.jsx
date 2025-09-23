@@ -22,6 +22,7 @@ export default function SectionFlashCardSet() {
   return (
     <>
       {flashCards
+        .filter((card) => card.delete_flashcard === false)
         .slice()
         .reverse()
         .map((card) => (

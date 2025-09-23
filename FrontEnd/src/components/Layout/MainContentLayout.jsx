@@ -1,4 +1,6 @@
-export default function YourProfile({ isPadded }) {
+import { Outlet } from "react-router-dom";
+
+export default function MainContentLayout({ isPadded }) {
   return (
     <>
       <div
@@ -7,7 +9,7 @@ export default function YourProfile({ isPadded }) {
       >
         <div className="maincontent">
           <div className="main-content">
-            <h1>Your Profile</h1>
+            <Outlet />
           </div>
         </div>
       </div>

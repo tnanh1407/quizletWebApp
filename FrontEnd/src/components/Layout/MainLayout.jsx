@@ -7,7 +7,7 @@ export default function MainLayout({ togglePadding }) {
     <>
       <Header />
       <Navbar togglePadding={togglePadding} />
-      <Outlet /> {/* Các route con sẽ render ở đây */}
+      <Outlet />
     </>
   );
 }

@@ -1,27 +1,34 @@
 import { useRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import account from "../../assets/img/account.jpg";
 import { flashCardApi } from "../../api/flashCardApi";
+import { folderApi } from "../../api/folderApi"; // 👈 import folderApi
 import iconFlashCard from "../../assets/icon/navbar-card.png";
 import "./CssNavbar.css";
+import { useParams } from "react-router-dom";
+import SectionAddFlashCard from "../Sections/SectionAddFlashCard/SectionAddFlashCard";
 
 export default function Navbar({ togglePadding }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
   const [isNewFolder, setIsNewFolder] = useState(false);
+  const [folderName, setFolderName] = useState(""); // 👈 state cho input folder
+  const [flashCards, setFlashCards] = useState([]);
+  const [folders, setFolders] = useState([]); // 👈 lưu danh sách folder
 
   const navbarRef = useRef(null);
   const notificationsRef = useRef(null);
   const buttonRef = useRef(null);
-  const [flashCards, setFlashCards] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await flashCardApi.getAll();
       setFlashCards(data);
+      const folderData = await folderApi.getAll();
+      setFolders(folderData);
     };
-
     fetchData();
   }, []);
 
@@ -59,6 +66,30 @@ export default function Navbar({ togglePadding }) {
     setIsNewFolder((prev) => !prev);
   };
 
+  // 👇 Hàm tạo folder bằng folderApi
+  const handleCreateFolder = async () => {
+    if (!folderName.trim()) {
+      alert("Tên folder không được để trống!");
+      return;
+    }
+
+    try {
+      const newFolder = await folderApi.create({ title: folderName }); // 👈 gọi folderApi
+      console.log("Folder created:", newFolder);
+
+      // cập nhật danh sách folder trong state
+      setFolders((prev) => [...prev, newFolder]);
+
+      // reset input + đóng modal
+      setFolderName("");
+      setIsNewFolder(false);
+      // điều hướng sang trang danh sách folder
+      navigate(`/folder/${newFolder._id}`);
+    } catch (error) {
+      console.error("Error creating folder:", error);
+    }
+  };
+
   return (
     <>
       <div className="button-navbar">
@@ -82,15 +113,18 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
 
-          <Link to="/your-profile" onClick={() => setActiveItem("profile")}>
+          <Link
+            to="/your-library/flashcards"
+            onClick={() => setActiveItem("profile")}
+          >
             <div
               className={`navbar-a flex ${
                 activeItem === "profile" ? "active" : ""
               }`}
               id="navbar-one-library"
             >
-              <i class="fa-solid fa-user"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Your profile</p>
+              <i className="fa-solid fa-user"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
             </div>
           </Link>
 
@@ -139,11 +173,13 @@ export default function Navbar({ togglePadding }) {
             </div>
           </button>
         </div>
+
+        {/* --- Navbar Two --- */}
         <div className="navbar-two">
           <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
 
           <Link
-            to="/your-flashcard"
+            to="/your-library/flashcards"
             onClick={() => setActiveItem("flashcards")}
           >
             <div
@@ -157,7 +193,11 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
 
-          <Link to="/your-folder" onClick={() => setActiveItem("folder")}>
+          <Link
+            // to="/your-folder"
+            to="/your-library/folders"
+            onClick={() => setActiveItem("folder")}
+          >
             <div
               className={`navbar-a flex ${
                 activeItem === "folder" ? "active" : ""
@@ -169,7 +209,7 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
           <Link
-            to="/your-classroom"
+            to="/your-library/classes"
             onClick={() => setActiveItem("classrooms")}
           >
             <div
@@ -178,11 +218,12 @@ export default function Navbar({ togglePadding }) {
               }`}
               id="navbar-one-library"
             >
-              <i class="fa-solid fa-people-group"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Classroom</p>
+              <i className="fa-solid fa-people-group"></i>
+              <p className={isCollapsed ? "hidden" : "block"}>Classes</p>
             </div>
           </Link>
         </div>
+
         {/* --- Navbar Three --- */}
         <div className="navbar-three">
           <p className={isCollapsed ? "hidden" : "block"}>Create new</p>
@@ -202,20 +243,46 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
 
-          <Link
-            to="/create/new-folder"
-            onClick={() => setActiveItem("folder-new")}
-          >
-            <div
-              className={`navbar-a flex ${
-                activeItem === "folder-new" ? "active" : ""
-              }`}
-              id="navbar-one-flash-cards"
-            >
+          {/* Nút mở modal new folder */}
+          <button id="click-notifi" onClick={toggleNewFolder}>
+            <div className="navbar-a flex" id="navbar-one-notifi">
               <i className="fa-solid fa-plus"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Folder</p>
+              <p className={isCollapsed ? "hidden" : "block"}>New folder</p>
             </div>
-          </Link>
+          </button>
+
+          {/* Modal new folder */}
+          {isNewFolder && (
+            <div id="newfolder">
+              <div className="newfolder-main">
+                <p>
+                  <i className="fa-solid fa-folder"></i>
+                </p>
+                <input
+                  type="text"
+                  placeholder="Name your folder"
+                  className="input-name-new-folder"
+                  value={folderName}
+                  onChange={(e) => setFolderName(e.target.value)}
+                />
+                <div className="newfolder-main-button flex">
+                  <button
+                    className="newfolder-create"
+                    onClick={handleCreateFolder}
+                  >
+                    <span>Create</span>
+                  </button>
+                  <button
+                    className="newfolder-cancel"
+                    onClick={toggleNewFolder}
+                  >
+                    <span>Cancel</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           <Link
             to="/create/new-classroom"
             onClick={() => setActiveItem("classroom-new")}

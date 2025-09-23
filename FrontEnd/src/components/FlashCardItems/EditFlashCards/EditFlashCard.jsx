@@ -12,7 +12,7 @@ import { flashCardApi } from "../../../api/flashCardApi.js";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "../EditFlashCards/CssEditFlashCard.css";
 
-export default function FlashCards({ isPadded }) {
+export default function FlashCards() {
   const [isSettingCard, setIsSettingCard] = useState(false);
   const [isDeleteCard, setIsDeleteCard] = useState(false);
   const [title, setTitle] = useState("");
@@ -91,126 +91,117 @@ export default function FlashCards({ isPadded }) {
     <>
       {/* popup setting + delete ... giữ nguyên */}
 
-      <div
-        className="main flex"
-        style={{ paddingLeft: isPadded ? "200px" : "60px" }}
-      >
-        <div className="maincontent">
-          <div className="main-content">
-            <div className="create-flashcard-header flex">
-              <Link to={`/itemflashcard/${id}`} className="back-to-set">
-                <p>Back to set</p>
-              </Link>
-              <div className="create-flashcard-title-button">
-                <button
-                  type="button"
-                  className="button-create-flashcard-create"
-                  onClick={handleSubmit} // ✅ submit + navigate
-                >
-                  <div>
-                    <p>Done</p>
-                  </div>
-                </button>
-              </div>
+      <div className="create-flashcard-header flex">
+        <Link to={`/itemflashcard/${id}`} className="back-to-set">
+          <p>Back to set</p>
+        </Link>
+        <div className="create-flashcard-title-button">
+          <button
+            type="button"
+            className="button-create-flashcard-create"
+            onClick={handleSubmit} // ✅ submit + navigate
+          >
+            <div>
+              <p>Done</p>
             </div>
-            <form
-              className="create-flashcard-main"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <div className="button-create-flashcard-main-title">
-                <input
-                  type="text"
-                  placeholder="Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </div>
-              <div className="button-create-flashcard-main-desc">
-                <input
-                  type="text"
-                  placeholder="Add a description..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <div className="create-flashcard-maincontent flex">
-                <div className="create-flashcard-maincontent-left flex">
-                  <button className="button-import-flashcard-main">
-                    <div className="flex">
-                      <i className="fa-solid fa-plus"></i>
-                      <p>Import</p>
-                    </div>
-                  </button>
-                  <button className="button-adddiagram-flashcard-main flex">
-                    <div className="flex">
-                      <i className="fa-solid fa-plus"></i>
-                      <p>Add diagram</p>
-                    </div>
-                    <div className="lock-flashcard-main">
-                      <i className="fa-solid fa-lock"></i>
-                    </div>
-                  </button>
-                </div>
-                <div className="create-flashcard-maincontent-right flex">
-                  <button
-                    className="button-create-flashcard-maincontent-setting"
-                    onClick={toggleSettingCard}
-                  >
-                    <div className="create-flashcard-maincontent-setting">
-                      <i className="fa-solid fa-gear"></i>
-                    </div>
-                  </button>
-                  <button className="button-create-flashcard-maincontent-swap">
-                    <div className="create-flashcard-maincontent-swap">
-                      <i className="fa-solid fa-right-left"></i>
-                    </div>
-                  </button>
-                  <button className="button-create-flashcard-maincontent-keyboard">
-                    <div className="create-flashcard-maincontent-keyboard">
-                      <i className="fa-solid fa-keyboard"></i>
-                    </div>
-                  </button>
-                  <button
-                    className="button-create-flashcard-maincontent-delete"
-                    onClick={toggleDeleteCard}
-                  >
-                    <div className="create-flashcard-maincontent-delete">
-                      <i className="fa-solid fa-trash"></i>
-                    </div>
-                  </button>
-                </div>
-              </div>
-              <DndContext
-                collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd}
-              >
-                <SortableContext
-                  items={cards.map((c) => c.id)}
-                  strategy={verticalListSortingStrategy}
-                >
-                  {cards.map((card, index) => (
-                    <SortableCard
-                      key={card.id}
-                      id={card.id}
-                      index={index + 1}
-                      onDelete={deleteCard}
-                      onUpdate={updateCard}
-                      card={card}
-                      disableDelete={cards.length < 3}
-                    />
-                  ))}
-                </SortableContext>
-              </DndContext>
-
-              <div className="button-add-a-card">
-                <button type="button" onClick={addCard}>
-                  <p>Add a card</p>
-                </button>
-              </div>
-            </form>
-          </div>
+          </button>
         </div>
       </div>
+      <form
+        className="create-flashcard-main"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <div className="button-create-flashcard-main-title">
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className="button-create-flashcard-main-desc">
+          <input
+            type="text"
+            placeholder="Add a description..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="create-flashcard-maincontent flex">
+          <div className="create-flashcard-maincontent-left flex">
+            <button className="button-import-flashcard-main">
+              <div className="flex">
+                <i className="fa-solid fa-plus"></i>
+                <p>Import</p>
+              </div>
+            </button>
+            <button className="button-adddiagram-flashcard-main flex">
+              <div className="flex">
+                <i className="fa-solid fa-plus"></i>
+                <p>Add diagram</p>
+              </div>
+              <div className="lock-flashcard-main">
+                <i className="fa-solid fa-lock"></i>
+              </div>
+            </button>
+          </div>
+          <div className="create-flashcard-maincontent-right flex">
+            <button
+              className="button-create-flashcard-maincontent-setting"
+              onClick={toggleSettingCard}
+            >
+              <div className="create-flashcard-maincontent-setting">
+                <i className="fa-solid fa-gear"></i>
+              </div>
+            </button>
+            <button className="button-create-flashcard-maincontent-swap">
+              <div className="create-flashcard-maincontent-swap">
+                <i className="fa-solid fa-right-left"></i>
+              </div>
+            </button>
+            <button className="button-create-flashcard-maincontent-keyboard">
+              <div className="create-flashcard-maincontent-keyboard">
+                <i className="fa-solid fa-keyboard"></i>
+              </div>
+            </button>
+            <button
+              className="button-create-flashcard-maincontent-delete"
+              onClick={toggleDeleteCard}
+            >
+              <div className="create-flashcard-maincontent-delete">
+                <i className="fa-solid fa-trash"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={cards.map((c) => c.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            {cards.map((card, index) => (
+              <SortableCard
+                key={card.id}
+                id={card.id}
+                index={index + 1}
+                onDelete={deleteCard}
+                onUpdate={updateCard}
+                card={card}
+                disableDelete={cards.length < 3}
+              />
+            ))}
+          </SortableContext>
+        </DndContext>
+
+        <div className="button-add-a-card">
+          <button type="button" onClick={addCard}>
+            <p>Add a card</p>
+          </button>
+        </div>
+      </form>
     </>
   );
 }

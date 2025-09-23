@@ -1,33 +1,16 @@
 import React, { useState } from "react";
 import "./CssSectionCreators.css";
-import Classes from "./pageCreators/Classes.jsx";
-import Subjects from "./pageCreators/Subjects.jsx";
-import Tests from "./pageCreators/Tests.jsx";
-import Folder from "./pageCreators/Folder.jsx";
+import { Link, Outlet } from "react-router-dom";
 
-export default function SectionCreators({ isPadded, creator }) {
+export default function SectionCreators({ creator }) {
   const [activeTab, setActiveTab] = useState("subjects"); // mặc định là "subjects"
 
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case "classes":
-        return <Classes />;
-      case "subjects":
-        return <Subjects />;
-      case "tests":
-        return <Tests />;
-      case "folder":
-        return <Folder />;
-      default:
-        return null;
-    }
+  const handleActiveContent = (item) => {
+    setActiveTab(item);
   };
 
   return (
-    <div
-      className="creator-main"
-      style={{ paddingLeft: isPadded ? "200px" : "60px" }}
-    >
+    <div className="creator-main">
       <div className="creator-content">
         <div className="creator-header">
           <img
@@ -49,32 +32,36 @@ export default function SectionCreators({ isPadded, creator }) {
           </div>
         </div>
         <div className="creator-tabs">
-          <span
+          <Link
+            to="/creators/subjects"
             className={`creator-tab${
               activeTab === "subjects" ? " active" : ""
             }`}
             onClick={() => setActiveTab("subjects")}
           >
             Subjects
-          </span>
-          <span
+          </Link>
+          <Link
+            to="/creators/classes"
             className={`creator-tab${activeTab === "classes" ? " active" : ""}`}
             onClick={() => setActiveTab("classes")}
           >
             Classes
-          </span>
-          <span
+          </Link>
+          <Link
+            to="/creators/tests"
             className={`creator-tab${activeTab === "tests" ? " active" : ""}`}
             onClick={() => setActiveTab("tests")}
           >
             Pratice Tests
-          </span>
-          <span
+          </Link>
+          <Link
+            to="/creators/folders"
             className={`creator-tab${activeTab === "folder" ? " active" : ""}`}
             onClick={() => setActiveTab("folder")}
           >
             Folder
-          </span>
+          </Link>
         </div>
         <div className="creator-search">
           <input
@@ -86,8 +73,7 @@ export default function SectionCreators({ isPadded, creator }) {
             <i className="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
-        {/* Hiển thị nội dung tab */}
-        {renderTabContent()}
+        <Outlet />
       </div>
     </div>
   );

@@ -1,3 +1,7 @@
 .functionflashcard {
   position: relative;
 }
+.main-flex {
+  background: var(--bg-color);
+  padding-top: 50px;
+}
