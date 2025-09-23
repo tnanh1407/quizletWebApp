@@ -1,21 +1,30 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "./CssNewFolder.css";
 import Footer from "../../../Footer/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "../../../Modal/Modal";
 import { folderApi } from "../../../../api/folderApi";
 import { flashCardApi } from "../../../../api/flashCardApi";
 import iconFlashCard from "../../../../assets/icon/cards.png";
 import "../../../../other/Demo/SeeDemo/Items/CssItemsSeeDemo.css";
+import { useClickOutside } from "../../../../logic/useClickOutside";
 
 export default function NewFolder() {
   const { id } = useParams();
   const [isAddFlashCard, setIsAddFlashCard] = useState(false);
   const [folder, setFolder] = useState(null);
   const [flashCards, setFlashCards] = useState([]);
-  const [selectedFlashcards, setSelectedFlashcards] = useState([]);
+  const [selectedFlashcards, setSelectedFlashcards] = useState([]); // lưu trạng thái chọn
   const [folderFlashcards, setFolderFlashcards] = useState([]);
   const [menuOpen, setMenuOpen] = useState(null);
+  const [menuFolder, setMenuFolder] = useState(false);
+
+  const buttonRef = useRef(null);
+  const menuRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  useClickOutside([buttonRef, menuRef], () => setMenuFolder(false));
 
   // Lấy tất cả flashcards
   useEffect(() => {
@@ -36,6 +45,7 @@ export default function NewFolder() {
       try {
         const data = await folderApi.getById(id);
         setFolder(data);
+        setSelectedFlashcards(data.flashcards || []); // đồng bộ trạng thái chọn từ DB
       } catch (error) {
         console.error("Error fetching folder:", error);
       }
@@ -78,15 +88,24 @@ export default function NewFolder() {
         flashCards.filter((fc) => updatedFolder.flashcards.includes(fc._id))
       );
 
-      // Reset các trạng thái liên quan tới modal và chọn flashcard
-      setIsAddFlashCard(false);
-      setSelectedFlashcards([]);
+      // Lưu lại trạng thái đã chọn từ DB
+      setSelectedFlashcards(updatedFolder.flashcards);
 
-      // ✅ Đóng tất cả menu để tránh tự mở
+      // Đóng modal và reset menu
+      setIsAddFlashCard(false);
       setMenuOpen(null);
     } catch (error) {
       console.error("Error adding flashcards:", error);
       alert("Thêm flashcards thất bại!");
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await folderApi.delete(id); // soft delete nếu backend xử lý
+      navigate(-1, { state: { deleted: true } });
+    } catch (err) {
+      console.error("Error deleting folder:", err);
     }
   };
 
@@ -101,13 +120,13 @@ export default function NewFolder() {
         return;
       }
 
-      // Cập nhật folder và folderFlashcards
       setFolder(updatedFolder);
       setFolderFlashcards((prev) =>
         prev.filter((fc) => fc._id !== flashcardId)
       );
 
-      // ✅ Đóng menu nếu flashcard vừa xóa đang mở menu
+      setSelectedFlashcards(updatedFolder.flashcards);
+
       setMenuOpen((prevMenuOpen) =>
         prevMenuOpen === flashcardId ? null : prevMenuOpen
       );
@@ -126,8 +145,26 @@ export default function NewFolder() {
             <Link to="/" className="stydy-other-a">
               <p>Study</p>
             </Link>
-            <button className="other-new-folder">
+            <button
+              className="other-new-folder"
+              ref={buttonRef}
+              onClick={() => setMenuFolder((prev) => !prev)}
+            >
               <i className="fa-solid fa-ellipsis"></i>
+              <div
+                className="dropdown-menu"
+                ref={menuRef}
+                style={{ display: menuFolder ? "block" : "none" }}
+              >
+                <Link to={`/edit-flashcard/${id}`} className="flex">
+                  <i className="fa-solid fa-pen"></i>
+                  <p>Edit</p>
+                </Link>
+                <button onClick={handleDelete} className="flex delete">
+                  <i className="fa-solid fa-trash"></i>
+                  <p>Delete</p>
+                </button>
+              </div>
             </button>
           </div>
         </div>
@@ -185,10 +222,6 @@ export default function NewFolder() {
                   id="item-folder-button-option-menu"
                   className={menuOpen === card._id ? "block" : "hidden"}
                 >
-                  <button className="flex">
-                    <i className="fa-solid fa-tag"></i>
-                    <h3>Tag or remove tags</h3>
-                  </button>
                   <button
                     className="flex"
                     onClick={() => handleRemoveFlashcard(card._id)}
@@ -200,8 +233,12 @@ export default function NewFolder() {
 
                 <Link to={`/itemflashcard/${card._id}`} className="">
                   <div className="item-folder-main flex">
-                    <div className="item-folder-main-icon-card">
-                      <i className="fa-solid fa-plus"></i>
+                    <div className="item-folder-main-icon-card recent-icon">
+                      <img
+                        src={iconFlashCard}
+                        alt=""
+                        className="icon-flash-card icon-flash-card-recent"
+                      />
                     </div>
                     <div className="item-folder">
                       <h1>{card.title || "Untitled"}</h1>
@@ -239,7 +276,10 @@ export default function NewFolder() {
                   .filter((card) => card.delete_flashcard === false)
                   .map((card) => {
                     const cardId = card._id;
-                    const isChosen = selectedFlashcards.includes(cardId);
+                    const isChosen =
+                      selectedFlashcards.includes(cardId) ||
+                      folder?.flashcards?.includes(cardId);
+
                     return (
                       <div
                         className="recent flex"

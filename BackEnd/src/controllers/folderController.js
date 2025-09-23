@@ -47,14 +47,16 @@ const updateById = async (req, res, next) => {
 
 const deleteById = async (req, res, next) => {
   try {
-    const success = await folderService.deleteById(req.params.id);
-    if (!success)
+    const { id } = req.params;
+    const deleted = await folderService.deleteById(id);
+    if (!deleted) {
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Folder not found" });
-    res.status(StatusCodes.NO_CONTENT).send();
-  } catch (err) {
-    next(err);
+    }
+    res.status(StatusCodes.OK).json({ message: "Folder marked as deleted" });
+  } catch (error) {
+    next(error);
   }
 };
 

@@ -33,12 +33,14 @@ body.light-mode .stydy-other-a p {
 }
 
 .other-new-folder {
+  position: relative;
   width: 40px;
   height: 40px;
   /* bỏ background, border ở đây */
   border-radius: 50px;
   margin-left: 10px;
 }
+
 body.dark-mode .other-new-folder {
   background: #0a092d;
   border: 2px solid #f6f7fb;
@@ -49,11 +51,15 @@ body.light-mode .other-new-folder {
 }
 
 .other-new-folder i {
-  font-size: 20px;
+  font-size: 15px;
   /* bỏ color ở đây */
 }
 body.dark-mode .other-new-folder i {
   color: #f6f7fb;
+}
+
+body.dark-mode .other-new-folder .fa-trash {
+  color: #ff3736;
 }
 body.light-mode .other-new-folder i {
   color: #222;
@@ -223,10 +229,11 @@ body.light-mode .new-folder-maincontent button {
 
 #add-flash-card .fa-plus,
 #add-flash-card .fa-check {
-  width: 32px;
-  font-size: 15px;
+  width: 20px;
+  height: 20px;
+  font-size: 9px;
   color: var(--text-color);
-  padding: 8px;
+  padding: 4px;
   border: 1px solid var(--text-color);
   border-radius: 50px;
 }
@@ -301,8 +308,14 @@ body.light-mode .new-folder-maincontent button {
 body.dark-mode .see-folder-button-recent,
 body.dark-mode .see-folder-button-material {
   color: #f6f7fb;
-  border: 2px solid #f6f7fb;
+  border: none;
 }
+
+body.dark-mode .see-folder-button-material {
+  border: none;
+  background: #2e3856;
+}
+
 body.light-mode .see-folder-button-recent,
 body.light-mode .see-folder-button-material {
   color: #222;

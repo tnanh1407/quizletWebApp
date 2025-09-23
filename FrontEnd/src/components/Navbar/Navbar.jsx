@@ -114,7 +114,7 @@ export default function Navbar({ togglePadding }) {
           </Link>
 
           <Link
-            to="/creators/subjects"
+            to="/your-library/flashcards"
             onClick={() => setActiveItem("profile")}
           >
             <div
@@ -124,7 +124,7 @@ export default function Navbar({ togglePadding }) {
               id="navbar-one-library"
             >
               <i className="fa-solid fa-user"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Your profile</p>
+              <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
             </div>
           </Link>
 
@@ -179,7 +179,7 @@ export default function Navbar({ togglePadding }) {
           <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
 
           <Link
-            to="/your-flashcard"
+            to="/your-library/flashcards"
             onClick={() => setActiveItem("flashcards")}
           >
             <div
@@ -195,7 +195,7 @@ export default function Navbar({ togglePadding }) {
 
           <Link
             // to="/your-folder"
-            to="/folder/68d0dc1138ad9d8f1af6a4d7"
+            to="/your-library/folders"
             onClick={() => setActiveItem("folder")}
           >
             <div
@@ -209,7 +209,7 @@ export default function Navbar({ togglePadding }) {
             </div>
           </Link>
           <Link
-            to="/your-classroom"
+            to="/your-library/classes"
             onClick={() => setActiveItem("classrooms")}
           >
             <div
@@ -219,7 +219,7 @@ export default function Navbar({ togglePadding }) {
               id="navbar-one-library"
             >
               <i className="fa-solid fa-people-group"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Classroom</p>
+              <p className={isCollapsed ? "hidden" : "block"}>Classes</p>
             </div>
           </Link>
         </div>

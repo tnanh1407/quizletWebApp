@@ -5,9 +5,11 @@ import "./App.css";
 
 import MainLayout from "./components/Layout/MainLayout.jsx";
 import FunctionLayout from "./components/Layout/FunctionLayout.jsx";
+import MainContentLayout from "./components/Layout/MainContentLayOut.jsx";
 import Home from "./components/Navbar/Page/Home/Home.jsx";
 import FlashCards from "./components/Navbar/Page/NewFlashCards/FlashCards.jsx";
-import YourProfile from "./components/Navbar/Page/YourProfile/YourProfile.jsx";
+
+// import YourProfile from "./components/Navbar/Page/YourProfile/YourProfile.jsx";
 import FlashCardItem from "./components/FlashCardItems/FlashCard.jsx";
 import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
 import Achievements from "./components/SettingAccount/Achievements/Achievements.jsx";
@@ -22,13 +24,17 @@ import FunctionFlashCard from "./components/FlashCardItems/FunctionFlashCard/Fla
 import FunctionLearn from "./components/FlashCardItems/FunctionFlashCard/Learn/FunctionLearn.jsx";
 import FunctionTest from "./components/FlashCardItems/FunctionFlashCard/Test/FunctionTest.jsx";
 import SignLayOut from "./SignUp-SignIn/Sign-Layout.jsx";
-import MainContentLayout from "./components/Layout/MainContentLayOut.jsx";
 import SignIn from "./SignUp-SignIn/SignIn/SignIn.jsx";
 import SignUp from "./SignUp-SignIn/SignUp/SignUp.jsx";
 import Classes from "./components/Sections/SectionCreators/pageCreators/Classes.jsx";
 import Folders from "./components/Sections/SectionCreators/pageCreators/Folder.jsx";
 import Subjects from "./components/Sections/SectionCreators/pageCreators/Subjects.jsx";
 import Tests from "./components/Sections/SectionCreators/pageCreators/Tests.jsx";
+import YourLibrary from "./components/Navbar/Page/YourLibrary/YourLibrary.jsx";
+import YourClasses from "./components/Navbar/Page/YourLibrary/LibraryChildren/Classes/Classes.jsx";
+import YourFlashCard from "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/FlashCard.jsx";
+import YourFolders from "./components/Navbar/Page/YourLibrary/LibraryChildren/Folders/Folders.jsx";
+import YourPractiveTests from "./components/Navbar/Page/YourLibrary/LibraryChildren/PracticeTests/PracticeTests.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -48,7 +54,18 @@ function App() {
           >
             <Route element={<MainContentLayout isPadded={isPadded} />}>
               <Route path="/" element={<Home />} />
-              <Route path="/your-profile" element={<YourProfile />} />
+              <Route element={<YourLibrary />}>
+                <Route
+                  path="/your-library/flashcards"
+                  element={<YourFlashCard />}
+                />
+                <Route path="/your-library/folders" element={<YourFolders />} />
+                <Route path="/your-library/classes" element={<YourClasses />} />
+                <Route
+                  path="/your-library/test"
+                  element={<YourPractiveTests />}
+                />
+              </Route>
 
               {/* Route Setting */}
 
@@ -70,10 +87,10 @@ function App() {
               <Route path="/itemflashcard/:id" element={<FlashCardItem />} />
               <Route path="/class-item/:id" element={<Achievements />} />
               <Route element={<SectionCreators />}>
-                <Route path="/creators/tests" element={<Tests />} />
-                <Route path="/creators/subjects" element={<Subjects />} />
-                <Route path="/creators/folders" element={<Folders />} />
-                <Route path="/creators/classes" element={<Classes />} />
+                <Route path="/creator/tests" element={<Tests />} />
+                <Route path="/creator/subjects" element={<Subjects />} />
+                <Route path="/creator/folders" element={<Folders />} />
+                <Route path="/creator/classes" element={<Classes />} />
               </Route>
 
               <Route path="/edit-flashcard/:id" element={<EditFlashCard />} />

@@ -8,7 +8,6 @@ const folderSchema = Joi.object({
     "string.min": "Folder name must be at least 3 characters",
     "string.max": "Folder name must be at most 100 characters",
   }),
-  classrooms: Joi.array().items(Joi.string()).default([]),
   flashcards: Joi.array().items(Joi.string()).default([]),
   createAt: Joi.date().iso().required().messages({
     "any.required": "createAt is required",
@@ -25,7 +24,8 @@ const folderSchema = Joi.object({
     status: Joi.string().valid("public", "private").default("public"),
     version: Joi.number().integer().min(1).default(1),
   }).default(),
-  delete_flashcard: Joi.boolean().default(false),
+  flashcard_count: Joi.number().integer().min(0),
+  delete_folder: Joi.boolean().default(false),
 });
 
 export const folderValidation = {

@@ -178,9 +178,12 @@ const deleteById = async (id) => {
     const db = GET_DB();
     const result = await db
       .collection(FLASHCARD_COLLECTION_NAME)
-      .deleteOne({ _id: new ObjectId(id) });
+      .updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { delete_flashcard: true } }
+      );
 
-    return result.deletedCount > 0; // true nếu xóa thành công
+    return result.modifiedCount > 0; // true nếu update thành công
   } catch (error) {
     throw new Error(error);
   }

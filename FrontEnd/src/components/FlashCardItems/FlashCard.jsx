@@ -6,10 +6,10 @@ import { flashCardApi } from "../../api/flashCardApi";
 
 export default function FlashCard() {
   const { id } = useParams();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selected, setSelected] = useState(null); // đáp án đã chọn
-  const [showDefinitions, setShowDefinitions] = useState(true); // có hiển thị nghĩa không
-  const [isLocked, setIsLocked] = useState(false); // khóa không cho chọn lại sau khi đã chọn
+  // const [currentIndex, setCurrentIndex] = useState(0);
+  // const [selected, setSelected] = useState(null); // đáp án đã chọn
+  // const [showDefinitions, setShowDefinitions] = useState(true); // có hiển thị nghĩa không
+  // const [isLocked, setIsLocked] = useState(false); // khóa không cho chọn lại sau khi đã chọn
   const [flashcard, setFlashcard] = useState(null);
   const location = useLocation();
   const [message, setMessage] = useState("");

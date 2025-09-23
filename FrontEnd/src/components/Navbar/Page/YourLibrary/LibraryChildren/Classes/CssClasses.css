@@ -1,0 +1,38 @@
+.span {
+  width: 2px;
+  height: 20px;
+  margin: 0 10px;
+}
+
+body.dark-mode .span {
+  background-color: #1b1d28;
+}
+
+body.light-mode .span {
+  background-color: #e0e0e0;
+}
+
+.nameflashcard i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+body.dark-mode .nameflashcard i {
+  color: #f6f7fb;
+}
+
+body.light-mode .nameflashcard i {
+  color: #222;
+}
+
+.sectionclasses {
+  margin-bottom: 20px;
+}
+
+.sectionclasses a:hover .main-flashcard {
+  border-bottom: 5px solid #5070c8;
+}
+
+#classes {
+  margin-top: 50px;
+}
