@@ -35,6 +35,12 @@ import YourClasses from "./components/Navbar/Page/YourLibrary/LibraryChildren/Cl
 import YourFlashCard from "./components/Navbar/Page/YourLibrary/LibraryChildren/FlashCard/FlashCard.jsx";
 import YourFolders from "./components/Navbar/Page/YourLibrary/LibraryChildren/Folders/Folders.jsx";
 import YourPractiveTests from "./components/Navbar/Page/YourLibrary/LibraryChildren/PracticeTests/PracticeTests.jsx";
+import PrivateRoute from "./logic/PrivateRoute.jsx";
+import Search from "./components/Search/Search.jsx";
+import AllResults from "./components/Search/AllResults/AllResults.jsx";
+import SearchClasses from "./components/Search/SearchClasses/SearchClasses.jsx";
+import SearchFlashcard from "./components/Search/SearchFlashcard/SearchFlashcard.jsx";
+import SearchUsers from "./components/Search/SearchUsers/SearchUsers.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -91,6 +97,12 @@ function App() {
                 <Route path="/creator/subjects" element={<Subjects />} />
                 <Route path="/creator/folders" element={<Folders />} />
                 <Route path="/creator/classes" element={<Classes />} />
+              </Route>
+              <Route element={<Search />}>
+                <Route path="/search/allresults" element={<AllResults />} />
+                <Route path="/search/classes" element={<SearchClasses />} />
+                <Route path="/search/flashcard" element={<SearchFlashcard />} />
+                <Route path="/search/user" element={<SearchUsers />} />
               </Route>
 
               <Route path="/edit-flashcard/:id" element={<EditFlashCard />} />

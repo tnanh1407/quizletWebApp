@@ -236,7 +236,7 @@ const getImageSrc = (text) => {
   return imgMapping[text] || fallbackImage;
 };
 
-export default function Achievements({ isPadded }) {
+export default function Achievements() {
   const [month, setMonth] = useState(new Date());
   const [showAllDaily, setShowAllDaily] = useState(false);
   const [showAllWeekly, setShowAllWeekly] = useState(false);
@@ -375,379 +375,365 @@ export default function Achievements({ isPadded }) {
   };
 
   return (
-    <div className="main flex">
-      <div className="maincontent">
-        <div className="main-content">
-          <div className="achievements">
-            <h1>Achievements</h1>
-            <h2>Recent activity</h2>
-            <div className="container">
-              <div className="recent-activity-card">
-                <div className="column column-1">
-                  <h4>Recently earned</h4>
-                  <span className="column-content">{recentlyEarned.text}</span>
+    <>
+      <div className="achievements">
+        <h1>Achievements</h1>
+        <h2>Recent activity</h2>
+        <div className="container">
+          <div className="recent-activity-card">
+            <div className="column column-1">
+              <h4>Recently earned</h4>
+              <span className="column-content">{recentlyEarned.text}</span>
+              <div
+                className="AchievementImage"
+                onClick={() => setSelectedAchievement(recentlyEarned)}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="container-image">
+                  <img
+                    src={getImageSrc(recentlyEarned.text)}
+                    alt={recentlyEarned.text}
+                    className={recentlyEarned.earned ? "earned" : "unearned"}
+                  />
+                  {getNumber(recentlyEarned.text) && (
+                    <span
+                      className={`number-overlay ${
+                        recentlyEarned.earned ? "earned" : "unearned"
+                      }`}
+                    >
+                      {getNumber(recentlyEarned.text)}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="column column-2">
+              {/*<h4>Calender</h4>*/}
+              <div className="CalendarBox">
+                <DayPicker
+                  mode="single"
+                  month={month}
+                  onMonthChange={setMonth}
+                  captionLayout="dropdown-buttons"
+                  showOutsideDays
+                  modifiers={{
+                    streakDay: streakDate,
+                  }}
+                  modifiersClassNames={{
+                    streakDay: "streak-day",
+                    selected: "calendar-day-selected",
+                    today: "calendar-day-today",
+                  }}
+                  className={{
+                    root: "calendar-root",
+                    month: "calendar-month",
+                    caption: "calendar-caption",
+                    nav: "calendar-nav",
+                    nav_button_previous: "calendar-nav-button",
+                    nav_button_next: "calendar-nav-button",
+                    table: "calendar-table",
+                    head: "calendar-head",
+                    cell: "calendar-cell",
+                    day: "calendar-day",
+                    day_selected: "calendar-day-selected",
+                    day_today: "calendar-day-today",
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="column column-3">
+              <h4>Current streak</h4>
+              <div className="StreakBox">
+                {hasStreak && (
+                  <>
+                    <p>2 -day</p>
+                    <img
+                      src={streakFlame}
+                      alt="Streak Flame"
+                      className="streak-flame"
+                    />
+                    <br></br>
+                    <img
+                      src={streakFlame}
+                      alt="Streak Flame"
+                      className="streak-flame"
+                    />
+                  </>
+                )}
+                {!hasStreak && <p>NO PROGRESS YET</p>}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Studying</h2>
+        <div className="container">
+          <div className="container-column">
+            <div className="container-grid">
+              {allAchievements.studying.map((item, index) => (
+                <div
+                  className="container-card"
+                  key={index}
+                  onClick={() => setSelectedAchievement(item)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="container-image">
+                    <img
+                      src={getImageSrc(item.text)}
+                      alt={item.text}
+                      className={item.earned ? "earned" : "unearned"}
+                    />
+                    {getNumber(item.text) && (
+                      <span
+                        className={`number-overlay ${
+                          item.earned ? "earned" : "unearned"
+                        }`}
+                      >
+                        {getNumber(item.text)}
+                      </span>
+                    )}
+                  </div>
+                  <p className="container-text">{item.text}</p>
+                  {item.earned && item.dateEarned && (
+                    <span className="earned-date">
+                      Earned {new Date(item.dateEarned).toLocaleDateString()}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <h2>Streaks</h2>
+        <div className="container">
+          <div className="container-column">
+            <p className="container-title">Daily streaks</p>
+            <div
+              className="container-grid"
+              style={{ display: showAllDaily ? "grid" : "grid" }}
+            >
+              {allAchievements.dailyStreaks
+                .slice(
+                  0,
+                  showAllDaily ? allAchievements.dailyStreaks.length : 6
+                )
+                .map((item, index) => (
                   <div
-                    className="AchievementImage"
-                    onClick={() => setSelectedAchievement(recentlyEarned)}
+                    className="container-card"
+                    key={index}
+                    onClick={() => setSelectedAchievement(item)}
                     style={{ cursor: "pointer" }}
                   >
                     <div className="container-image">
                       <img
-                        src={getImageSrc(recentlyEarned.text)}
-                        alt={recentlyEarned.text}
-                        className={
-                          recentlyEarned.earned ? "earned" : "unearned"
-                        }
+                        src={getImageSrc(item.text)}
+                        alt={item.text}
+                        className={item.earned ? "earned" : "unearned"}
                       />
-                      {getNumber(recentlyEarned.text) && (
+                      {getNumber(item.text) && (
                         <span
                           className={`number-overlay ${
-                            recentlyEarned.earned ? "earned" : "unearned"
+                            item.earned ? "earned" : "unearned"
                           }`}
                         >
-                          {getNumber(recentlyEarned.text)}
+                          {getNumber(item.text)}
                         </span>
                       )}
                     </div>
-                  </div>
-                </div>
-                <div className="column column-2">
-                  {/*<h4>Calender</h4>*/}
-                  <div className="CalendarBox">
-                    <DayPicker
-                      mode="single"
-                      month={month}
-                      onMonthChange={setMonth}
-                      captionLayout="dropdown-buttons"
-                      showOutsideDays
-                      modifiers={{
-                        streakDay: streakDate,
-                      }}
-                      modifiersClassNames={{
-                        streakDay: "streak-day",
-                        selected: "calendar-day-selected",
-                        today: "calendar-day-today",
-                      }}
-                      className={{
-                        root: "calendar-root",
-                        month: "calendar-month",
-                        caption: "calendar-caption",
-                        nav: "calendar-nav",
-                        nav_button_previous: "calendar-nav-button",
-                        nav_button_next: "calendar-nav-button",
-                        table: "calendar-table",
-                        head: "calendar-head",
-                        cell: "calendar-cell",
-                        day: "calendar-day",
-                        day_selected: "calendar-day-selected",
-                        day_today: "calendar-day-today",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="column column-3">
-                  <h4>Current streak</h4>
-                  <div className="StreakBox">
-                    {hasStreak && (
-                      <>
-                        <p>2 -day</p>
-                        <img
-                          src={streakFlame}
-                          alt="Streak Flame"
-                          className="streak-flame"
-                        />
-                        <br></br>
-                        <img
-                          src={streakFlame}
-                          alt="Streak Flame"
-                          className="streak-flame"
-                        />
-                      </>
+                    <p className="container-text">{item.text}</p>
+                    {item.earned && item.dateEarned && (
+                      <span className="earned-date">
+                        Earned {new Date(item.dateEarned).toLocaleDateString()}
+                      </span>
                     )}
-                    {!hasStreak && <p>NO PROGRESS YET</p>}
                   </div>
-                </div>
-              </div>
+                ))}
             </div>
-
-            <h2>Studying</h2>
-            <div className="container">
-              <div className="container-column">
-                <div className="container-grid">
-                  {allAchievements.studying.map((item, index) => (
-                    <div
-                      className="container-card"
-                      key={index}
-                      onClick={() => setSelectedAchievement(item)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <div className="container-image">
-                        <img
-                          src={getImageSrc(item.text)}
-                          alt={item.text}
-                          className={item.earned ? "earned" : "unearned"}
-                        />
-                        {getNumber(item.text) && (
-                          <span
-                            className={`number-overlay ${
-                              item.earned ? "earned" : "unearned"
-                            }`}
-                          >
-                            {getNumber(item.text)}
-                          </span>
-                        )}
-                      </div>
-                      <p className="container-text">{item.text}</p>
-                      {item.earned && item.dateEarned && (
-                        <span className="earned-date">
-                          Earned{" "}
-                          {new Date(item.dateEarned).toLocaleDateString()}
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <h2>Streaks</h2>
-            <div className="container">
-              <div className="container-column">
-                <p className="container-title">Daily streaks</p>
-                <div
-                  className="container-grid"
-                  style={{ display: showAllDaily ? "grid" : "grid" }}
-                >
-                  {allAchievements.dailyStreaks
-                    .slice(
-                      0,
-                      showAllDaily ? allAchievements.dailyStreaks.length : 6
-                    )
-                    .map((item, index) => (
-                      <div
-                        className="container-card"
-                        key={index}
-                        onClick={() => setSelectedAchievement(item)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <div className="container-image">
-                          <img
-                            src={getImageSrc(item.text)}
-                            alt={item.text}
-                            className={item.earned ? "earned" : "unearned"}
-                          />
-                          {getNumber(item.text) && (
-                            <span
-                              className={`number-overlay ${
-                                item.earned ? "earned" : "unearned"
-                              }`}
-                            >
-                              {getNumber(item.text)}
-                            </span>
-                          )}
-                        </div>
-                        <p className="container-text">{item.text}</p>
-                        {item.earned && item.dateEarned && (
-                          <span className="earned-date">
-                            Earned{" "}
-                            {new Date(item.dateEarned).toLocaleDateString()}
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                </div>
-                <div className="btn">
-                  <button
-                    type="button"
-                    className="btn-container"
-                    onClick={() => setShowAllDaily(!showAllDaily)}
-                  >
-                    <span className="btn-container-detail">
-                      {showAllDaily ? "View fewer" : "View all"}
-                    </span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="container-column">
-                <p className="container-title">Weekly streaks</p>
-                <div
-                  className="container-grid"
-                  style={{ display: showAllWeekly ? "grid" : "grid" }}
-                >
-                  {allAchievements.weeklyStreaks
-                    .slice(
-                      0,
-                      showAllWeekly ? allAchievements.weeklyStreaks.length : 6
-                    )
-                    .map((item, index) => (
-                      <div
-                        className="container-card"
-                        key={index}
-                        onClick={() => setSelectedAchievement(item)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <div className="container-image">
-                          <img
-                            src={getImageSrc(item.text)}
-                            alt={item.text}
-                            className={item.earned ? "earned" : "unearned"}
-                          />
-                          {getNumber(item.text) && (
-                            <span
-                              className={`number-overlay ${
-                                item.earned ? "earned" : "unearned"
-                              }`}
-                            >
-                              {getNumber(item.text)}
-                            </span>
-                          )}
-                        </div>
-                        <p className="container-text">{item.text}</p>
-                        {item.earned && item.dateEarned && (
-                          <span className="earned-date">
-                            Earned{" "}
-                            {new Date(item.dateEarned).toLocaleDateString()}
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                </div>
-                <div className="btn">
-                  <button
-                    type="button"
-                    className="btn-container"
-                    onClick={() => setShowAllWeekly(!showAllWeekly)}
-                  >
-                    <span className="btn-container-detail">
-                      {showAllWeekly ? "View fewer" : "View all"}
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <h2>Lifetime</h2>
-            <div className="container">
-              <div className="container-column">
-                <p className="container-title">Sets studied</p>
-                <div
-                  className="container-grid"
-                  style={{ display: showAllSets ? "grid" : "grid" }}
-                >
-                  {allAchievements.setsStudied
-                    .slice(
-                      0,
-                      showAllSets ? allAchievements.setsStudied.length : 12
-                    )
-                    .map((item, index) => (
-                      <div
-                        className="container-card"
-                        key={index}
-                        onClick={() => setSelectedAchievement(item)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <div className="container-image">
-                          <img
-                            src={getImageSrc(item.text)}
-                            alt={item.text}
-                            className={item.earned ? "earned" : "unearned"}
-                          />
-                          {getNumber(item.text) && (
-                            <span
-                              className={`number-overlay ${
-                                item.earned ? "earned" : "unearned"
-                              }`}
-                            >
-                              {getNumber(item.text)}
-                            </span>
-                          )}
-                        </div>
-                        <p className="container-text">{item.text}</p>
-                        {item.earned && item.dateEarned && (
-                          <span className="earned-date">
-                            Earned{" "}
-                            {new Date(item.dateEarned).toLocaleDateString()}
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                </div>
-                <div className="btn">
-                  <button
-                    type="button"
-                    className="btn-container"
-                    onClick={() => setShowAllSets(!showAllSets)}
-                  >
-                    <span className="btn-container-detail">
-                      {showAllSets ? "View fewer" : "View all"}
-                    </span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="container-column">
-                <p className="container-title">Rounds studied</p>
-                <div
-                  className="container-grid"
-                  style={{ display: showAllRounds ? "grid" : "grid" }}
-                >
-                  {allAchievements.roundsStudied
-                    .slice(
-                      0,
-                      showAllRounds ? allAchievements.roundsStudied.length : 6
-                    )
-                    .map((item, index) => (
-                      <div
-                        className="container-card"
-                        key={index}
-                        onClick={() => setSelectedAchievement(item)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <div className="container-image">
-                          <img
-                            src={getImageSrc(item.text)}
-                            alt={item.text}
-                            className={item.earned ? "earned" : "unearned"}
-                          />
-                          {getNumber(item.text) && (
-                            <span
-                              className={`number-overlay ${
-                                item.earned ? "earned" : "unearned"
-                              }`}
-                            >
-                              {getNumber(item.text)}
-                            </span>
-                          )}
-                        </div>
-                        <p className="container-text">{item.text}</p>
-                        {item.earned && item.dateEarned && (
-                          <span className="earned-date">
-                            Earned{" "}
-                            {new Date(item.dateEarned).toLocaleDateString()}
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                </div>
-                <div className="btn">
-                  <button
-                    type="button"
-                    className="btn-container"
-                    onClick={() => setShowAllRounds(!showAllRounds)}
-                  >
-                    <span className="btn-container-detail">
-                      {showAllRounds ? "View fewer" : "View all"}
-                    </span>
-                  </button>
-                </div>
-              </div>
+            <div className="btn">
+              <button
+                type="button"
+                className="btn-container"
+                onClick={() => setShowAllDaily(!showAllDaily)}
+              >
+                <span className="btn-container-detail">
+                  {showAllDaily ? "View fewer" : "View all"}
+                </span>
+              </button>
             </div>
           </div>
-          <Footer />
+
+          <div className="container-column">
+            <p className="container-title">Weekly streaks</p>
+            <div
+              className="container-grid"
+              style={{ display: showAllWeekly ? "grid" : "grid" }}
+            >
+              {allAchievements.weeklyStreaks
+                .slice(
+                  0,
+                  showAllWeekly ? allAchievements.weeklyStreaks.length : 6
+                )
+                .map((item, index) => (
+                  <div
+                    className="container-card"
+                    key={index}
+                    onClick={() => setSelectedAchievement(item)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div className="container-image">
+                      <img
+                        src={getImageSrc(item.text)}
+                        alt={item.text}
+                        className={item.earned ? "earned" : "unearned"}
+                      />
+                      {getNumber(item.text) && (
+                        <span
+                          className={`number-overlay ${
+                            item.earned ? "earned" : "unearned"
+                          }`}
+                        >
+                          {getNumber(item.text)}
+                        </span>
+                      )}
+                    </div>
+                    <p className="container-text">{item.text}</p>
+                    {item.earned && item.dateEarned && (
+                      <span className="earned-date">
+                        Earned {new Date(item.dateEarned).toLocaleDateString()}
+                      </span>
+                    )}
+                  </div>
+                ))}
+            </div>
+            <div className="btn">
+              <button
+                type="button"
+                className="btn-container"
+                onClick={() => setShowAllWeekly(!showAllWeekly)}
+              >
+                <span className="btn-container-detail">
+                  {showAllWeekly ? "View fewer" : "View all"}
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <h2>Lifetime</h2>
+        <div className="container">
+          <div className="container-column">
+            <p className="container-title">Sets studied</p>
+            <div
+              className="container-grid"
+              style={{ display: showAllSets ? "grid" : "grid" }}
+            >
+              {allAchievements.setsStudied
+                .slice(0, showAllSets ? allAchievements.setsStudied.length : 12)
+                .map((item, index) => (
+                  <div
+                    className="container-card"
+                    key={index}
+                    onClick={() => setSelectedAchievement(item)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div className="container-image">
+                      <img
+                        src={getImageSrc(item.text)}
+                        alt={item.text}
+                        className={item.earned ? "earned" : "unearned"}
+                      />
+                      {getNumber(item.text) && (
+                        <span
+                          className={`number-overlay ${
+                            item.earned ? "earned" : "unearned"
+                          }`}
+                        >
+                          {getNumber(item.text)}
+                        </span>
+                      )}
+                    </div>
+                    <p className="container-text">{item.text}</p>
+                    {item.earned && item.dateEarned && (
+                      <span className="earned-date">
+                        Earned {new Date(item.dateEarned).toLocaleDateString()}
+                      </span>
+                    )}
+                  </div>
+                ))}
+            </div>
+            <div className="btn">
+              <button
+                type="button"
+                className="btn-container"
+                onClick={() => setShowAllSets(!showAllSets)}
+              >
+                <span className="btn-container-detail">
+                  {showAllSets ? "View fewer" : "View all"}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div className="container-column">
+            <p className="container-title">Rounds studied</p>
+            <div
+              className="container-grid"
+              style={{ display: showAllRounds ? "grid" : "grid" }}
+            >
+              {allAchievements.roundsStudied
+                .slice(
+                  0,
+                  showAllRounds ? allAchievements.roundsStudied.length : 6
+                )
+                .map((item, index) => (
+                  <div
+                    className="container-card"
+                    key={index}
+                    onClick={() => setSelectedAchievement(item)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div className="container-image">
+                      <img
+                        src={getImageSrc(item.text)}
+                        alt={item.text}
+                        className={item.earned ? "earned" : "unearned"}
+                      />
+                      {getNumber(item.text) && (
+                        <span
+                          className={`number-overlay ${
+                            item.earned ? "earned" : "unearned"
+                          }`}
+                        >
+                          {getNumber(item.text)}
+                        </span>
+                      )}
+                    </div>
+                    <p className="container-text">{item.text}</p>
+                    {item.earned && item.dateEarned && (
+                      <span className="earned-date">
+                        Earned {new Date(item.dateEarned).toLocaleDateString()}
+                      </span>
+                    )}
+                  </div>
+                ))}
+            </div>
+            <div className="btn">
+              <button
+                type="button"
+                className="btn-container"
+                onClick={() => setShowAllRounds(!showAllRounds)}
+              >
+                <span className="btn-container-detail">
+                  {showAllRounds ? "View fewer" : "View all"}
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+      <Footer />
 
       {selectedAchievement && (
         <>
@@ -790,6 +776,6 @@ export default function Achievements({ isPadded }) {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }

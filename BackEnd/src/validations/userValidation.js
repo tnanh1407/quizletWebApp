@@ -1,6 +1,22 @@
 import Joi from "joi";
 
-const userSchema = Joi.object({
+// ===================== FLASHCARD SCHEMA =====================
+export const userSchema = Joi.object({
+  _id: Joi.string().optional(),
+  question: Joi.string().required().messages({
+    "any.required": "Question is required",
+    "string.empty": "Question cannot be empty",
+  }),
+  answer: Joi.string().required().messages({
+    "any.required": "Answer is required",
+    "string.empty": "Answer cannot be empty",
+  }),
+  createdAt: Joi.date().optional(),
+  updatedAt: Joi.date().optional(),
+});
+
+// ===================== USER SCHEMA =====================
+export const userSchema = Joi.object({
   _id: Joi.string().optional(),
   username: Joi.string().min(3).max(30).required().messages({
     "any.required": "Username is required",
@@ -15,13 +31,16 @@ const userSchema = Joi.object({
   facebook: Joi.string().allow("").messages({
     "string.base": "Facebook must be a string",
   }),
-  flashcards: Joi.array().items(flashcardSchema).min(1).required().messages({
+  flashcards: Joi.array().items(userSchema).optional().messages({
     "array.base": "Flashcards must be an array",
-    "array.min": "Flashcards must have at least 1 item",
-    "any.required": "Flashcards are required",
   }),
+  roles: Joi.array().items(Joi.string()).optional(),
+  status: Joi.string().valid("active", "inactive").optional(),
+  createdAt: Joi.date().optional(),
+  updatedAt: Joi.date().optional(),
 });
 
-export const flashCardValidation = {
+// ===================== EXPORT =====================
+export const userValidation = {
   userSchema,
 };

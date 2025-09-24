@@ -416,8 +416,8 @@ export default function FlashCard() {
                   onClick={() => handleAnswer(opt)}
                   disabled={!!selected}
                 >
-                  {selected && isSelected && !isCorrect && <span>❌ </span>}
-                  {selected && isCorrect && <span>✔️ </span>}
+                  {selected && isSelected && !isCorrect && <span>❌</span>}
+                  {selected && isCorrect && <span>✔️</span>}
                   {opt}
                 </button>
               );

@@ -1,5 +1,6 @@
 import SectionTopCreatorItem from "./SectionTopCreatorItem/SectionTopCreatorItem";
 import { useEffect, useRef } from "react";
+import "./CssSectionTopCreator.css";
 
 export default function SectionTopCreators() {
   const movieItemRef = useRef(null);

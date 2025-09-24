@@ -20,8 +20,8 @@ export default function SignLayOut() {
               onClick={() => handleActiveContent("flashcard")}
             >
               <div
-                className={`items ${
-                  activeItem === "flashcard" ? "active-items" : ""
+                className={`itemss ${
+                  activeItem === "flashcard" ? "active-itemss" : ""
                 }`}
               >
                 <p>Sign In</p>
@@ -29,8 +29,8 @@ export default function SignLayOut() {
             </Link>
             <Link to="/sign-up" onClick={() => handleActiveContent("folders")}>
               <div
-                className={`items ${
-                  activeItem === "folders" ? "active-items" : ""
+                className={`itemss ${
+                  activeItem === "folders" ? "active-itemss" : ""
                 }`}
               >
                 <p>Sign Up</p>

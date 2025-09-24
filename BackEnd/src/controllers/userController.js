@@ -1,4 +1,5 @@
 import { StatusCodes } from "http-status-codes";
+import bcrypt from "bcryptjs";
 import { userService } from "../services/userService.js";
 
 const getAll = async (req, res, next) => {
@@ -10,10 +11,15 @@ const getAll = async (req, res, next) => {
   }
 };
 
-const createNew = async (req, res, next) => {
+const getMe = async (req, res, next) => {
   try {
-    const newuser = await userService.createNew(req.body);
-    res.status(StatusCodes.CREATED).json(newuser);
+    const user = await userService.getById(req.user.id);
+    if (!user) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "User not found" });
+    }
+    res.status(StatusCodes.OK).json(user);
   } catch (error) {
     next(error);
   }
@@ -21,10 +27,11 @@ const createNew = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await userService.getById(id);
+    const user = await userService.getById(req.params.id);
     if (!user) {
-      return res.status(StatusCodes.NOT_FOUND).json({ message: "Not found" });
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "User not found" });
     }
     res.status(StatusCodes.OK).json(user);
   } catch (error) {
@@ -34,14 +41,41 @@ const getById = async (req, res, next) => {
 
 const updateById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const updatedUser = await userService.updateById(id, req.body);
-    if (!updatedUser) {
+    const updatedUser = await userService.updateById(req.params.id, req.body);
+    res
+      .status(StatusCodes.OK)
+      .json({ message: "User updated successfully", user: updatedUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const changePassword = async (req, res, next) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+
+    const user = await userService.getById(req.params.id);
+    if (!user) {
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "User not found" });
     }
-    res.status(StatusCodes.OK).json(updatedUser);
+
+    // check mật khẩu cũ
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: "Old password is incorrect" });
+    }
+
+    // hash mật khẩu mới
+    const hashed = await bcrypt.hash(newPassword, 10);
+    await userService.updateById(req.params.id, { password: hashed });
+
+    res
+      .status(StatusCodes.OK)
+      .json({ message: "Password changed successfully" });
   } catch (error) {
     next(error);
   }
@@ -49,14 +83,8 @@ const updateById = async (req, res, next) => {
 
 const deleteById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const deleted = await userService.deleteById(id);
-    if (!deleted) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ message: "User not found" });
-    }
-    res.status(StatusCodes.NO_CONTENT).send();
+    await userService.deleteById(req.params.id);
+    res.status(StatusCodes.OK).json({ message: "User deleted successfully" });
   } catch (error) {
     next(error);
   }
@@ -64,8 +92,9 @@ const deleteById = async (req, res, next) => {
 
 export const userController = {
   getAll,
-  createNew,
+  getMe,
   getById,
   updateById,
+  changePassword,
   deleteById,
 };
