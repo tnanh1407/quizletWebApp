@@ -74,6 +74,7 @@ export default function FlashCards() {
         { id: "1", front: "", back: "" },
         { id: "2", front: "", back: "" },
       ]);
+      alert("Created successfully");
       navigate(`/itemflashcard/${newFlashCardId}`);
     } catch (err) {
       console.error("Error creating flashcard:", err);

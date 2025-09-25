@@ -91,12 +91,13 @@ export default function NewFolder() {
       // Lưu lại trạng thái đã chọn từ DB
       setSelectedFlashcards(updatedFolder.flashcards);
 
+      alert("Added successfully");
       // Đóng modal và reset menu
       setIsAddFlashCard(false);
       setMenuOpen(null);
     } catch (error) {
       console.error("Error adding flashcards:", error);
-      alert("Thêm flashcards thất bại!");
+      alert("Error adding flashcards");
     }
   };
 
@@ -113,26 +114,32 @@ export default function NewFolder() {
     try {
       const updatedFolder = await folderApi.removeFlashcard(id, flashcardId);
 
-      if (!updatedFolder) {
+      // Nếu folder hoặc flashcard không tồn tại
+      if (!updatedFolder || !updatedFolder.flashcards.includes(flashcardId)) {
         alert(
-          "Flashcard không tồn tại trong folder hoặc folder không tìm thấy!"
+          "Flashcard does not exist in the folder or the folder was not found"
         );
         return;
       }
 
+      // Cập nhật state folder và folderFlashcards
       setFolder(updatedFolder);
       setFolderFlashcards((prev) =>
         prev.filter((fc) => fc._id !== flashcardId)
       );
 
+      // Đồng bộ lại selectedFlashcards
       setSelectedFlashcards(updatedFolder.flashcards);
 
+      alert("Removed successfully");
+
+      // Đóng menu của flashcard vừa xóa
       setMenuOpen((prevMenuOpen) =>
         prevMenuOpen === flashcardId ? null : prevMenuOpen
       );
     } catch (error) {
       console.error("Error removing flashcard:", error);
-      alert("Xóa flashcard thất bại!");
+      alert("Failed to remove flashcard!");
     }
   };
 
@@ -156,10 +163,10 @@ export default function NewFolder() {
                 ref={menuRef}
                 style={{ display: menuFolder ? "block" : "none" }}
               >
-                <Link to={`/edit-flashcard/${id}`} className="flex">
+                {/* <Link to={`/edit-flashcard/${id}`} className="flex">
                   <i className="fa-solid fa-pen"></i>
                   <p>Edit</p>
-                </Link>
+                </Link> */}
                 <button onClick={handleDelete} className="flex delete">
                   <i className="fa-solid fa-trash"></i>
                   <p>Delete</p>

@@ -28,20 +28,19 @@ export default function FlashCard() {
       .then((data) => setFlashcard(data))
       .catch((err) => console.error(err));
 
-    let timer;
-    if (location.state?.updated) {
-      setMessage("Cập nhật thành công!");
-      timer = setTimeout(() => setMessage(""), 3000);
-    } else if (location.state?.deleted) {
-      setMessage("Xóa thành công!");
-      timer = setTimeout(() => setMessage(""), 3000);
-    }
-    return () => clearTimeout(timer);
+    // let timer;
+    // if (location.state?.updated) {
+    //   // alert("Cập nhật thành công!");
+    // } else if (location.state?.deleted) {
+    //   timer = setTimeout(() => setMessage(""), 3000);
+    // }
+    // return () => clearTimeout(timer);
   }, [id, location.state]);
 
   const handleDelete = async () => {
     try {
       await flashCardApi.delete(id); // dùng API service
+      alert("Deleted successfully");
       navigate(-1, { state: { deleted: true } });
     } catch (err) {
       console.error("Error deleting flashcard:", err);

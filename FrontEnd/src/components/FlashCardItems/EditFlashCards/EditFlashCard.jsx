@@ -79,7 +79,7 @@ export default function FlashCards() {
     };
     try {
       await flashCardApi.update(id, payload);
-      // Chuyển hướng và gửi state
+      alert("Updated successfully");
       navigate(`/itemflashcard/${id}`, { state: { updated: true } });
     } catch (err) {
       console.error("Error updating flashcard:", err);

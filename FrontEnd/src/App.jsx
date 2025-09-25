@@ -41,6 +41,8 @@ import AllResults from "./components/Search/AllResults/AllResults.jsx";
 import SearchClasses from "./components/Search/SearchClasses/SearchClasses.jsx";
 import SearchFlashcard from "./components/Search/SearchFlashcard/SearchFlashcard.jsx";
 import SearchUsers from "./components/Search/SearchUsers/SearchUsers.jsx";
+import DashBoardLayOut from "./components/Layout/DashBoardLayOut.jsx";
+import DashBoard from "./components/DashBoard/DashBoard.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -107,6 +109,12 @@ function App() {
 
               <Route path="/edit-flashcard/:id" element={<EditFlashCard />} />
             </Route>
+          </Route>
+
+          <Route element={<DashBoardLayOut />}>
+            <Route path="/dashboard" element={<DashBoard />} />
+            <Route path="/dashboard" element={<NewFolder />} />
+            <Route path="/dashboard" element={<CreateClass />} />
           </Route>
 
           {/* Function Flash Card - Learn - Test */}
