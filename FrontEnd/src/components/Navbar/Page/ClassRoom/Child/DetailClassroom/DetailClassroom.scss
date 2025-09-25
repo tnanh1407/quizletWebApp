@@ -1,0 +1,90 @@
+@import "../../main.scss";
+
+.classDetail {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__notice {
+    width: 100%;
+    background-color: $color__white;
+    height: 60px;
+    border-radius: 16px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 40px 20px;
+    gap: 10px;
+
+    h5 {
+      font-size: 16px;
+    }
+    span {
+      font-size: 12px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    padding: 12px 0px;
+    justify-content: space-between;
+  }
+
+  &__header--l {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    h2 {
+      font-size: 22px;
+    }
+    span {
+      font: 14px;
+    }
+  }
+  &__tabs {
+    display: flex;
+    list-style-type: none;
+    font-size: 20px;
+
+    gap: 20px;
+    padding: 12px 0;
+    border-bottom: 1px solid gray;
+
+    a {
+      background: transparent;
+      color: $color__white;
+    }
+
+    a.actice {
+    }
+  }
+
+  &__header--r {
+    display: flex;
+    gap: 10px;
+  }
+  &__header--r_icon {
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    .icon {
+      font-size: 40px;
+    }
+    &:hover {
+      background-color: gray;
+    }
+  }
+}
+.icon-helps {
+  margin-right: 10px;
+  font-size: 20px;
+}

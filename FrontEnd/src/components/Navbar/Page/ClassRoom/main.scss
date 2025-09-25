@@ -1,21 +1,22 @@
-@import url(../ClassRoom/Css/CssSectionClass.scss);
-@import url(../ClassRoom/responsive.scss);
-@import url(../ClassRoom/Css/CreateClass.scss);
-
+$color__blue-bold: #0a092d;
+$color__blue: #2e3856;
+$color__gray: #706e6ecc;
+$color__gray_hover: #a9a7a7;
+$color__white: white;
+$color__text: #929bb4;
 $color__button: #6366f1;
-$color__button-hover: #4f46e5;
-$color__button_gray: #706e6ecc;
+$color__button-hover: #5558d4;
+$color__button-outline-hover: #2e3856;
 .button {
-  // max-width: 300px;
+  display: inline;
   padding: 12px 20px;
-  border: none;
   border-radius: 8px;
   color: white;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  max-width: 280px;
+  // max-width: 280px;
 }
 
 .button--blue {
@@ -28,9 +29,19 @@ $color__button_gray: #706e6ecc;
 
 .button--gray {
   @extend .button;
-  background-color: $color__button_gray;
+  background-color: $color__gray;
   &:hover {
-    background-color: $color__button-hover;
+    background-color: $color__gray_hover;
+  }
+}
+
+.button--outline {
+  @extend .button;
+  background-color: transparent;
+  color: white;
+  border: 1px solid #ccc;
+  &:hover {
+    background-color: #1a2959;
   }
 }
 
@@ -45,7 +56,7 @@ a {
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 22px;
   margin-top: 40px;
   margin-bottom: 15px;
   padding-bottom: 10px;

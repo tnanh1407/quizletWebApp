@@ -37,11 +37,13 @@ import FlashCards from "./components/Navbar/Page/FlashCards/FlashCards.jsx";
 import ExpertSolutions from "./components/Navbar/Page/ExpertSolution/ExpertSolutions.jsx";
 import FlashCard from "./components/FlashCardItems/FlashCard.jsx";
 import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
-// import SectionClass from "./components/Navbar/Page/ClassRoomSectionClass/SectionClass.jsx";
 import Achievements from "./components/Achievements/Achievements.jsx";
 import SectionCreators from "./components/Sections/SectionCreators/SectionCreators.jsx";
-import Classroom from "./components/Navbar/Page/ClassRoom/SectionClass.jsx";
-import CreateClassroom from "./components/Navbar/Page/ClassRoom/PageChildren/CreateClassroom/index.jsx";
+import Classroom from "./components/Navbar/Page/ClassRoom/index.jsx";
+import CreateClassroom from "./components/Navbar/Page/ClassRoom/Child/CreateClassroom/index.jsx";
+import DetailClassroom from "./components/Navbar/Page/ClassRoom/Child/DetailClassroom/index.jsx";
+import LearningMaterials from "./components/Navbar/Page/ClassRoom/Child/DetailClassroom/LearningMaterials.jsx";
+import Members from "./components/Navbar/Page/ClassRoom/Child/DetailClassroom/Members.jsx";
 // Thêm Component
 
 function App() {
@@ -94,11 +96,18 @@ function App() {
             path="/classroom"
             element={<Classroom isPadded={isPadded} />}
           />
-
           <Route
             path="/classroom/createClassroom"
             element={<CreateClassroom isPadded={isPadded} />}
           />
+          <Route
+            path="/classroom/:id"
+            element={<DetailClassroom isPadded={isPadded} />}
+          >
+            <Route path="materials" element={<LearningMaterials />} />
+            <Route path="members" element={<Members />} />
+            <Route index element={<LearningMaterials />} />
+          </Route>
         </Routes>
       </Router>
     </>
