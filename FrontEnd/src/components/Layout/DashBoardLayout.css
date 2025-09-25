@@ -1,0 +1,59 @@
+:root {
+  /* Light theme */
+  --bg-color: #f8fafc;
+  --text-color: #1e293b;
+  --sidebar-bg: #e2e8f0;
+  --link-color: #334155;
+  --link-active: #0ea5e9;
+}
+
+.dark {
+  /* Dark theme */
+  --bg-color: #0f172a;
+  --text-color: #f1f5f9;
+  --sidebar-bg: #1e293b;
+  --link-color: #94a3b8;
+  --link-active: #38bdf8;
+}
+
+.dashboard-layout {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.sidebar {
+  width: 240px;
+  background: var(--sidebar-bg);
+  color: var(--text-color);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu a.active {
+  color: var(--link-active);
+  font-weight: bold;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
