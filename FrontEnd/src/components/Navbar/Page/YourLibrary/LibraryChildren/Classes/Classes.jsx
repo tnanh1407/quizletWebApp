@@ -1,14 +1,12 @@
-import SectionClasses from "../../../../../Sections/SectionClasses"
+import SectionClasses from "../../../../../Sections/SectionClasses";
+import "./CssClasses.css";
 
-export default function Classes (){
-    return(
-        <>
-            <div id="classes">
-                <SectionClasses/>
-                <SectionClasses/>
-                <SectionClasses/>
-                <SectionClasses/>
-            </div>
-        </>
-    )
+export default function YourClasses() {
+  return (
+    <>
+      <div id="classes">
+        <SectionClasses />
+      </div>
+    </>
+  );
 }

@@ -1,0 +1,31 @@
+.expert-solutions{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0px;
+}
+
+.expert-solutions a {
+    padding-bottom: 25px;
+    margin:0 !important;
+}
+
+.expertsolution{
+    width: 200px;
+    position: absolute;
+    top:45px;
+    left:0;
+    border: 1px solid #d9dde8;
+    border-radius: 10px;
+    background: #0a092d;
+    padding:8px 0;
+}
+
+.expertsolution p{
+    margin-left: 10px;
+    color: #d9dde8;
+    font-size: 16px;
+}
+
+.expertsolution a{
+    text-decoration: none;
+}

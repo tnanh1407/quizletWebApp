@@ -126,3 +126,20 @@ body.light-mode .newfolder-main-button .newfolder-create {
   top: 0;
   left: 10px;
 }
+
+.icon-flash-card {
+  width: 15px;
+  height: 15px;
+  color: #f6f7fb;
+}
+
+.recent-icon {
+  position: relative;
+}
+
+.icon-flash-card-recent {
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -20,14 +20,6 @@ const START_SERVER = () => {
   // Middlewave xu ly loi tap trung
   // app.use(errorHandlingMiddleware);
 
-  // app.get("/", (req, res) => {
-  //   res.json({ message: "Xin chào từ Backend!" });
-  // });
-
-  // app.get("/:id", (req, res) => {
-  //   res.json({ message: "Xin chào từ Backend!" });
-  // });
-
   app.listen(env.APP_PORT, env.APP_HOST, () => {
     // eslint-disable-next-line no-console
     console.log(

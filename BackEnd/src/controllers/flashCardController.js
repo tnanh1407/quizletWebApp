@@ -32,8 +32,45 @@ const getById = async (req, res, next) => {
   }
 };
 
+const updateById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    console.log("Controller: Updating ID:", id);
+    console.log("Controller: Payload:", req.body);
+
+    const updatedFlashcard = await flashCardService.updateById(id, req.body);
+
+    if (!updatedFlashcard) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Flashcard not found" });
+    }
+    res.status(StatusCodes.OK).json(updatedFlashcard);
+  } catch (error) {
+    console.error("Controller updateById error:", error);
+    next(error);
+  }
+};
+
+const deleteById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deleted = await flashCardService.deleteById(id);
+    if (!deleted) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Flashcard not found" });
+    }
+    res.status(StatusCodes.OK).json({ message: "Flashcard marked as deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const flashCardController = {
   getAll,
   createNew,
   getById,
+  updateById,
+  deleteById,
 };

@@ -1,8 +1,9 @@
 import SectionFlashCardSet from "../../../../../Sections/SectionFlashCardSet/SectionFlashCardSet";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import "./CssFlashCard.css";
 
-export default function FlashCard() {
+export default function YourFlashCard() {
   const [isFilterCard, setIsFilterCard] = useState(false);
 
   const toggleFilterCard = () => {
@@ -48,11 +49,6 @@ export default function FlashCard() {
             <i className="fa-solid fa-magnifying-glass"></i>
           </div>
         </div>
-        <SectionFlashCardSet />
-        <SectionFlashCardSet />
-        <SectionFlashCardSet />
-        <SectionFlashCardSet />
-        <SectionFlashCardSet />
         <SectionFlashCardSet />
       </div>
     </>

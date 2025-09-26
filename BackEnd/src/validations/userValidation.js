@@ -1,25 +1,22 @@
 import Joi from "joi";
 
-const flashcardSchema = Joi.object({
-  title: Joi.string().min(3).max(100).required().messages({
-    "any.required": "Flashcard title is required",
-    "string.empty": "Flashcard title cannot be empty",
-    "string.min": "Flashcard title must be at least 3 characters",
-    "string.max": "Flashcard title must be at most 100 characters",
+// ===================== FLASHCARD SCHEMA =====================
+export const userSchema = Joi.object({
+  _id: Joi.string().optional(),
+  question: Joi.string().required().messages({
+    "any.required": "Question is required",
+    "string.empty": "Question cannot be empty",
   }),
-  createAt: Joi.number().integer().min(1900).max(2100).required().messages({
-    "any.required": "createAt is required",
-    "number.base": "createAt must be a number",
-    "number.min": "createAt must be >= 1900",
-    "number.max": "createAt must be <= 2100",
+  answer: Joi.string().required().messages({
+    "any.required": "Answer is required",
+    "string.empty": "Answer cannot be empty",
   }),
-  type: Joi.string().valid("flashcard").required().messages({
-    "any.required": "Flashcard type is required",
-    "any.only": "Flashcard type must be 'flashcard'",
-  }),
+  createdAt: Joi.date().optional(),
+  updatedAt: Joi.date().optional(),
 });
 
-const userSchema = Joi.object({
+// ===================== USER SCHEMA =====================
+export const userSchema = Joi.object({
   _id: Joi.string().optional(),
   username: Joi.string().min(3).max(30).required().messages({
     "any.required": "Username is required",
@@ -34,14 +31,16 @@ const userSchema = Joi.object({
   facebook: Joi.string().allow("").messages({
     "string.base": "Facebook must be a string",
   }),
-  flashcards: Joi.array().items(flashcardSchema).min(1).required().messages({
+  flashcards: Joi.array().items(userSchema).optional().messages({
     "array.base": "Flashcards must be an array",
-    "array.min": "Flashcards must have at least 1 item",
-    "any.required": "Flashcards are required",
   }),
+  roles: Joi.array().items(Joi.string()).optional(),
+  status: Joi.string().valid("active", "inactive").optional(),
+  createdAt: Joi.date().optional(),
+  updatedAt: Joi.date().optional(),
 });
 
-export const flashCardValidation = {
+// ===================== EXPORT =====================
+export const userValidation = {
   userSchema,
-  flashcardSchema,
 };

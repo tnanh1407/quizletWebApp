@@ -12,8 +12,23 @@ const getById = async (id) => {
   return await flashCardModel.getById(id);
 };
 
+const updateById = async (id, data) => {
+  console.log("Service: updateById called with", id, data);
+
+  const updated = await flashCardModel.updateById(id, data);
+
+  console.log("Service: update result", updated);
+  return updated;
+};
+
+const deleteById = async (id) => {
+  return await flashCardModel.deleteById(id);
+};
+
 export const flashCardService = {
   getAll,
   createNew,
   getById,
+  updateById,
+  deleteById,
 };

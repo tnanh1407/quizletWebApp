@@ -1,0 +1,12 @@
+.auth-form .password {
+  position: relative;
+}
+
+.a-resetpass {
+  text-decoration: none;
+  color: #666;
+  font-size: 13px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}

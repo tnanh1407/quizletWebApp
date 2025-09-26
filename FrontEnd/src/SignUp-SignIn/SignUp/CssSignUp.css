@@ -1,0 +1,16 @@
+.checkbox label {
+  font-size: 11px;
+  margin-left: 5px;
+}
+.form-group button {
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  border: none;
+  background: none;
+  font-size: 18px;
+}
+
+.pwd-toggle {
+  border: none;
+}
