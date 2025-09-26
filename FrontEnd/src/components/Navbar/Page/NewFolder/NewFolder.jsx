@@ -8,6 +8,7 @@ import { flashCardApi } from "../../../../api/flashCardApi";
 import iconFlashCard from "../../../../assets/icon/cards.png";
 import "../../../../other/Demo/SeeDemo/Items/CssItemsSeeDemo.css";
 import { useClickOutside } from "../../../../logic/useClickOutside";
+import { getUser } from "../../../../other/storage";
 
 export default function NewFolder() {
   const { id } = useParams();
@@ -22,6 +23,7 @@ export default function NewFolder() {
   const buttonRef = useRef(null);
   const menuRef = useRef(null);
 
+  const user = getUser();
   const navigate = useNavigate();
 
   useClickOutside([buttonRef, menuRef], () => setMenuFolder(false));
@@ -280,7 +282,12 @@ export default function NewFolder() {
                 </div>
 
                 {flashCards
-                  .filter((card) => card.delete_flashcard === false)
+                  .filter(
+                    (card) =>
+                      card.delete_flashcard === false &&
+                      user &&
+                      String(card.creator.user_id) === String(user.id)
+                  )
                   .map((card) => {
                     const cardId = card._id;
                     const isChosen =

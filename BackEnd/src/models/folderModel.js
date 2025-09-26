@@ -10,9 +10,9 @@ const FOLDER_COLLECTION_SCHEMA = Joi.object({
 
   createAt: Joi.date().iso(),
   creator: Joi.object({
-    user_id: Joi.string(),
-    username: Joi.string(),
-  }),
+    user_id: Joi.string().required(),
+    username: Joi.string().required(),
+  }).required(),
   flashcard_count: Joi.number().integer().min(0),
   metadata: Joi.object({
     views: Joi.number().integer().min(0).default(0),
@@ -43,11 +43,11 @@ const createNew = async (data, user) => {
   const autoData = {
     title: data.title,
     flashcards: data.flashcards || [],
-    createAt: new Date().toISOString(),
     creator: {
-      user_id: user?._id?.toString() || "unknown",
-      username: user?.username || "guest",
+      user_id: data.creator.user_id.toString(),
+      username: data.creator.username,
     },
+    createAt: new Date().toISOString(),
     flashcard_count: Array.isArray(data.flashcards)
       ? data.flashcards.length
       : 0,
@@ -118,17 +118,15 @@ const removeFlashcard = async (folderId, flashcardId) => {
   const folder = await getById(folderId);
   if (!folder || !folder.flashcards.includes(flashcardId)) return null;
 
-  await db
-    .collection(FOLDER_COLLECTION_NAME)
-    .updateOne(
-      { _id: new ObjectId(folderId) },
-      {
-        $pull: {
-          flashcards: flashcardId,
-          flashcard_count: updatedFlashcards.length,
-        },
-      }
-    );
+  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(folderId) },
+    {
+      $pull: {
+        flashcards: flashcardId,
+        flashcard_count: updatedFlashcards.length,
+      },
+    }
+  );
 
   return await getById(folderId);
 };

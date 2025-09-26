@@ -128,8 +128,7 @@ body.light-mode .newfolder-main-button .newfolder-create {
 }
 
 .icon-flash-card {
-  width: 15px;
-  height: 15px;
+  font-size: 24px;
   color: #f6f7fb;
 }
 
@@ -139,7 +138,16 @@ body.light-mode .newfolder-main-button .newfolder-create {
 
 .icon-flash-card-recent {
   position: absolute;
-  top: 33%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
+  color: #51cefd;
+}
+
+.navbar-icon {
+  font-size: 24px;
+}
+
+.icon-regbell {
+  font-size: 20px !important;
 }

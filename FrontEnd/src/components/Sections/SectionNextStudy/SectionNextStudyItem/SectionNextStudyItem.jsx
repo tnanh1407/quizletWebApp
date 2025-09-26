@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import account from "../../../../assets/img/account.jpg";
 import { flashCardApi } from "../../../../api/flashCardApi";
 import { useEffect, useState } from "react";
+import { getUser } from "../../../../other/storage";
 
 export default function SectionNextStudyItem() {
   const [flashCards, setFlashCards] = useState([]);
 
+  const user = getUser();
   useEffect(() => {
     const fetchData = async () => {
       const data = await flashCardApi.getAll();
@@ -29,7 +31,11 @@ export default function SectionNextStudyItem() {
               </div>
               <div className="session-author flex">
                 <img src={account} alt="author" />
-                <p>{card.creator.username}</p>
+                <p>
+                  {String(card.creator.user_id) === String(user.id)
+                    ? "You"
+                    : card.creator.username}
+                </p>
               </div>
             </div>
           </Link>

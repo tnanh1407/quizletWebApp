@@ -19,18 +19,16 @@ const FLASHCARD_COLLECTION_SCHEMA = Joi.object({
     )
     .min(1)
     .required(),
-
-  // các field backend sẽ tự tạo
+  creator: Joi.object({
+    user_id: Joi.string().required(),
+    username: Joi.string().required(),
+  }).required(),
   createAt: Joi.date().iso(),
   type: Joi.string().valid("flashcard"),
   tags: Joi.array().items(Joi.string()),
   language_pair: Joi.object({
     source: Joi.string(),
     target: Joi.string(),
-  }),
-  creator: Joi.object({
-    user_id: Joi.string(),
-    username: Joi.string(),
   }),
   content_count: Joi.number().integer().min(0),
   metadata: Joi.object({
@@ -42,10 +40,12 @@ const FLASHCARD_COLLECTION_SCHEMA = Joi.object({
   delete_flashcard: Joi.boolean().default(false),
 });
 
+// Validate trước khi lưu
 const validateBeforeCreate = (data) => {
   return FLASHCARD_COLLECTION_SCHEMA.validateAsync(data, { abortEarly: false });
 };
 
+// Lấy tất cả flashcards
 const getAll = async () => {
   try {
     const db = GET_DB();
@@ -55,26 +55,26 @@ const getAll = async () => {
   }
 };
 
-// chỉ nhận title + content từ client
+// Tạo flashcard mới
+// user: object {_id, username} lấy từ token backend
 const createNew = async (data, user) => {
   try {
+    if (!data.creator || !data.creator.user_id || !data.creator.username) {
+      throw new Error("Creator info missing");
+    }
+
     const autoData = {
       title: data.title,
-      desc: data.desc,
+      desc: data.desc || "",
       content: data.content,
-
-      // backend tự tạo
+      creator: {
+        user_id: data.creator.user_id.toString(),
+        username: data.creator.username,
+      },
       createAt: new Date().toISOString(),
       type: "flashcard",
-      tags: [],
-      language_pair: {
-        source: "en",
-        target: "vi",
-      },
-      creator: {
-        user_id: user?._id?.toString() || "unknown",
-        username: user?.username || "guest",
-      },
+      tags: data.tags || [],
+      language_pair: data.language_pair || { source: "en", target: "vi" },
       content_count: Array.isArray(data.content) ? data.content.length : 0,
       metadata: {
         views: 0,
@@ -85,6 +85,7 @@ const createNew = async (data, user) => {
       delete_flashcard: false,
     };
 
+    // Validate dữ liệu
     const validData = await validateBeforeCreate(autoData);
 
     const db = GET_DB();
@@ -92,54 +93,52 @@ const createNew = async (data, user) => {
       .collection(FLASHCARD_COLLECTION_NAME)
       .insertOne(validData);
 
+    // Lấy flashcard vừa tạo
     const newFlashCard = await db
       .collection(FLASHCARD_COLLECTION_NAME)
       .findOne({ _id: result.insertedId });
 
     return newFlashCard;
   } catch (error) {
-    throw new Error(error);
+    console.error("Model createNew error:", error);
+    throw new Error(error.message);
   }
 };
 
+// Lấy flashcard theo id
 const getById = async (id) => {
   try {
     const db = GET_DB();
-    const result = await db
+    return await db
       .collection(FLASHCARD_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(id) });
-    return result;
   } catch (error) {
     throw new Error(error);
   }
 };
 
+// Cập nhật flashcard theo id
 const updateById = async (id, data) => {
   try {
-    console.log("=== updateById called ===");
-    console.log("Updating ID:", id);
-
     const db = GET_DB();
 
-    // Kiểm tra document có tồn tại
     const existing = await db
       .collection(FLASHCARD_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(id) });
 
     if (!existing) {
-      console.log("Model: Document not found for ID", id);
-      return null;
+      throw new Error("Document not found");
     }
 
     const updateOps = { $set: {} };
 
-    // Update content + content_count nếu client gửi
+    // Update content + content_count nếu có
     if (data.content && Array.isArray(data.content)) {
       updateOps.$set.content = data.content;
       updateOps.$set.content_count = data.content.length;
     }
 
-    // Update các field còn lại
+    // Các field khác
     const { content, ...rest } = data;
     if (Object.keys(rest).length > 0) {
       Object.assign(updateOps.$set, rest);
@@ -149,30 +148,20 @@ const updateById = async (id, data) => {
       throw new Error("No valid fields to update");
     }
 
-    console.log("Update payload (after build):", updateOps);
-
-    // Thay findOneAndUpdate bằng updateOne + findOne
-    const updateResult = await db
+    await db
       .collection(FLASHCARD_COLLECTION_NAME)
       .updateOne({ _id: new ObjectId(id) }, updateOps);
 
-    console.log("UpdateOne result:", updateResult);
-
-    // Lấy document mới sau khi update
-    const updatedDoc = await db
+    return await db
       .collection(FLASHCARD_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(id) });
-
-    console.log("Model: Update result:", updatedDoc);
-
-    return updatedDoc;
   } catch (error) {
     console.error("Model updateById error:", error);
-    throw error;
+    throw new Error(error.message);
   }
 };
 
-// Xóa flashcard theo id
+// Xóa flashcard theo id (soft delete)
 const deleteById = async (id) => {
   try {
     const db = GET_DB();
@@ -183,9 +172,9 @@ const deleteById = async (id) => {
         { $set: { delete_flashcard: true } }
       );
 
-    return result.modifiedCount > 0; // true nếu update thành công
+    return result.modifiedCount > 0;
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 };
 

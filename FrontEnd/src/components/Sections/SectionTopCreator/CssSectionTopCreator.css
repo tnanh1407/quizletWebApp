@@ -63,7 +63,7 @@ body.light-mode .creator-tag-2 {
 }
 body.dark-mode .creator-rule-important {
   color: #0a092d;
-  background: #d4f5fc;
+  background: #d9dde8;
 }
 body.light-mode .creator-rule-important {
   color: #fff;
@@ -71,10 +71,16 @@ body.light-mode .creator-rule-important {
 }
 
 .creator-rule-important p {
+  font-size: 13px;
   line-height: 20px;
   color: #0a092d !important;
+  margin: 0 !important;
 }
 
 .top-creators-main a {
   /* margin-right: 15px; */
+}
+
+.icon-top-creator {
+  font-size: 15px;
 }

@@ -1,11 +1,16 @@
 import account from "../../../assets/img/account.jpg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { flashCardApi } from "../../../api/flashCardApi";
 import { useEffect, useState } from "react";
+import { getUser } from "../../../other/storage";
 
 export default function SectionFlashCardSet() {
   const [flashCards, setFlashCards] = useState([]);
 
+  const { id } = useParams();
+  console.log("id", id);
+  const user = getUser();
+  console.log(user.id);
   useEffect(() => {
     const fetchData = async () => {
       const data = await flashCardApi.getAll();
@@ -22,12 +27,16 @@ export default function SectionFlashCardSet() {
   return (
     <>
       {flashCards
-        .filter((card) => card.delete_flashcard === false)
+        .filter(
+          (card) =>
+            card.delete_flashcard === false &&
+            String(card.creator.user_id) === String(id || user.id)
+        )
         .slice()
         .reverse()
         .map((card) => (
-          <section className="sectionflashcardset">
-            <div className="header-flashcash flex" key={card._id}>
+          <section className="sectionflashcardset" key={card._id}>
+            <div className="header-flashcash flex">
               <p>{formatDate(card.createAt)}</p>
               <div className="header-line"></div>
             </div>
@@ -38,7 +47,11 @@ export default function SectionFlashCardSet() {
                   <span className="span"></span>
                   <div className="creator-in4 flex">
                     <img src={account} alt="" />
-                    <p>{card.creator.username}</p>
+                    <p>
+                      {String(card.creator.user_id) === String(user.id)
+                        ? "You"
+                        : card.creator.username}
+                    </p>
                   </div>
                 </div>
                 <div className="nameflashcard">

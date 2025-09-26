@@ -1,4 +1,6 @@
-export default function PractiveTests() {
+import "./CssPracticeTests.css";
+
+export default function YourPractiveTests() {
   return (
     <div className="practivetests">
       <img src="" alt="" />

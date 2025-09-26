@@ -1,13 +1,28 @@
 import SectionFolder from "../../../../../Sections/SectionFolder.jsx";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import "./CssFolders.css";
+import { folderApi } from "../../../../../../api/folderApi.js";
+import { getUser } from "../../../../../../other/storage.js";
 
-export default function Folders() {
+export default function YourFolders() {
   const [isFilterFolders, setIsFilterFolders] = useState(false);
+  const [folders, setFolders] = useState([]);
+  const user = getUser();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await folderApi.getAll();
+      setFolders(data);
+    };
+
+    fetchData();
+  }, []);
 
   const toggleFilterFolders = () => {
     setIsFilterFolders(!isFilterFolders);
   };
+
   return (
     <>
       <div className="flashcardsearch">
@@ -42,9 +57,28 @@ export default function Folders() {
           </button>
         </div>
       </div>
-      <SectionFolder />
-      <SectionFolder />
-      <SectionFolder />
+      {folders
+        .filter(
+          (folder) =>
+            folder.delete_folder === false &&
+            user &&
+            String(folder.creator.user_id) === String(user.id)
+        )
+        .map((folder) => (
+          <section className="sectionfolder">
+            <Link to={`/folder/${folder._id}`}>
+              <div className="main-flashcard">
+                <div className="flashcard-creator flex">
+                  <p>{folder.flashcard_count} terms</p>
+                </div>
+                <div className="nameflashcard flex">
+                  <i class="fa-regular fa-folder"></i>
+                  <h1>{folder.title}</h1>
+                </div>
+              </div>
+            </Link>
+          </section>
+        ))}
     </>
   );
 }

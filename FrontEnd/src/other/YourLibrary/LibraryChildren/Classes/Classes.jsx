@@ -1,6 +1,7 @@
 import SectionClasses from "../../../../../Sections/SectionClasses";
+import "./CssClasses.css";
 
-export default function Classes() {
+export default function YourClasses() {
   return (
     <>
       <div id="classes">

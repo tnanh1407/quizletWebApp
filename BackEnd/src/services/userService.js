@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { userModel } from "../models/userModel.js";
+import { GET_DB } from "../config/mongodb.js";
 
 const getAll = async () => {
   return await userModel.getAll();
@@ -28,6 +29,7 @@ const createNew = async (data) => {
     status: "active",
     createdAt: new Date(),
     updatedAt: new Date(),
+    stats: { flashcard_count: 0, class_count: 0 },
   });
 };
 
@@ -50,6 +52,50 @@ const deleteById = async (id) => {
   return await userModel.deleteById(id);
 };
 
+const getAllPublic = async () => {
+  const db = GET_DB();
+  const users = await userModel.getAll();
+
+  return Promise.all(
+    users.map(async (u) => {
+      const flashcardsCount = await db
+        .collection("flashcards")
+        .countDocuments({
+          "creator.user_id": u._id.toString(),
+          delete_flashcard: false,
+        });
+
+      const classesCount = await db
+        .collection("classes")
+        .countDocuments({ "creator.user_id": u._id.toString() });
+
+      return {
+        _id: u._id,
+        username: u.username,
+        roles: u.roles,
+        status: u.status,
+        createdAt: u.createdAt,
+        stats: {
+          flashcards: flashcardsCount,
+          classes: classesCount,
+        },
+      };
+    })
+  );
+};
+
+const getByIdPublic = async (id) => {
+  const user = await userModel.getById(id);
+  if (!user) return null;
+
+  return {
+    _id: user._id,
+    username: user.username,
+    roles: user.roles,
+    status: user.status,
+    createdAt: user.createdAt,
+  };
+};
 export const userService = {
   getAll,
   getById,
@@ -58,4 +104,6 @@ export const userService = {
   updateById,
   changePassword,
   deleteById,
+  getAllPublic,
+  getByIdPublic,
 };

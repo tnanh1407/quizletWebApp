@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./CssFolders.css";
 import { folderApi } from "../../../../../../api/folderApi.js";
+import { getUser } from "../../../../../../other/storage.js";
 
 export default function YourFolders() {
   const [isFilterFolders, setIsFilterFolders] = useState(false);
   const [folders, setFolders] = useState([]);
+  const user = getUser();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +58,12 @@ export default function YourFolders() {
         </div>
       </div>
       {folders
-        .filter((folder) => folder.delete_folder === false)
+        .filter(
+          (folder) =>
+            folder.delete_folder === false &&
+            user &&
+            String(folder.creator.user_id) === String(user.id)
+        )
         .map((folder) => (
           <section className="sectionfolder">
             <Link to={`/folder/${folder._id}`}>

@@ -5,6 +5,11 @@ import logo from "../../assets/img/logoQ.png";
 import { userApi } from "../../api/userApi";
 import "./CssHeader.css";
 
+// icon
+import { TbCards } from "react-icons/tb";
+import { TbFolder } from "react-icons/tb";
+import { MdOutlineGroup } from "react-icons/md";
+
 export default function Header() {
   const [addFolder, setAddFolder] = useState(false);
   const [isOpenAccount, setIsOpenAccount] = useState(false);
@@ -112,19 +117,20 @@ export default function Header() {
           <div className="folder-option">
             <Link to="/create/new-flashcard">
               <div className="setting-item flex">
-                <i className="fa-solid fa-plus"></i>
+                {/* <i className="fa-solid fa-plus"></i>*/}
+                <TbCards className="icon-header" />
                 <p>Flash Card</p>
               </div>
             </Link>
             <Link to="/create/new-folder">
               <div className="setting-item flex">
-                <i className="fa-solid fa-plus"></i>
+                <TbFolder className="icon-header" />
                 <p>Folder</p>
               </div>
             </Link>
             <Link to="/create/new-classroom">
               <div className="setting-item flex">
-                <i className="fa-solid fa-plus"></i>
+                <MdOutlineGroup className="icon-header" />
                 <p>Class Room</p>
               </div>
             </Link>
@@ -175,7 +181,7 @@ export default function Header() {
               </div>
             </button>
           </div>
-          <div className="account-setting">
+          <div className="account-setting footer-setting">
             <Link
               to="/sign-in"
               className="account-logout"

@@ -25,10 +25,21 @@ const deleteById = async (id) => {
   return await flashCardModel.deleteById(id);
 };
 
+const deleteByUserId = async (userId) => {
+  const db = GET_DB();
+  await db
+    .collection("flashcards")
+    .updateMany(
+      { "creator.user_id": userId },
+      { $set: { delete_flashcard: true } }
+    );
+};
+
 export const flashCardService = {
   getAll,
   createNew,
   getById,
   updateById,
   deleteById,
+  deleteByUserId,
 };

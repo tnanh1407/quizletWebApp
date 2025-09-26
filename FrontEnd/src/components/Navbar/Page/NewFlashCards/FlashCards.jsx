@@ -9,8 +9,9 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { flashCardApi } from "../../../../api/flashCardApi.js";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./CssFlashCards.css";
+import { getUser } from "../../../../other/storage.js";
 
 export default function FlashCards() {
   const [isSettingCard, setIsSettingCard] = useState(false);
@@ -50,8 +51,20 @@ export default function FlashCards() {
 
   const navigate = useNavigate();
 
-  // gọi API create
+  // ===== Handle submit: tạo flashcard với creator info từ userService =====
   const handleSubmit = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You must be logged in!");
+      return;
+    }
+
+    const user = getUser(); // ✅ lấy user từ userService
+    if (!user || !user.id || !user.username) {
+      alert("Cannot fetch user info! Please login again.");
+      return;
+    }
+
     const payload = {
       title,
       desc: description,
@@ -59,24 +72,29 @@ export default function FlashCards() {
         front: c.front,
         back: c.back,
       })),
+      creator: {
+        user_id: user.id.toString(),
+        username: user.username,
+      },
     };
-
     try {
-      const res = await flashCardApi.create(payload);
+      const res = await flashCardApi.create(payload, token);
       console.log("Created flashcard set:", res);
 
-      const newFlashCardId = res._id;
-
-      // 👉 Reset form sau khi tạo thành công
+      // Reset form
       setTitle("");
       setDescription("");
       setCards([
         { id: "1", front: "", back: "" },
         { id: "2", front: "", back: "" },
       ]);
+
       alert("Created successfully");
-      navigate(`/itemflashcard/${newFlashCardId}`);
+      navigate(`/itemflashcard/${res._id}`);
+      console.log(payload);
     } catch (err) {
+      console.log(payload);
+
       console.error("Error creating flashcard:", err);
       alert("Failed to create flashcard set");
     }
@@ -84,7 +102,6 @@ export default function FlashCards() {
 
   return (
     <>
-      {/* popup setting + delete ... giữ nguyên */}
       <div className="create-flashcard-header flex">
         <div className="create-flashcard-title flex">
           <h1>Create a new flashcard set</h1>
@@ -125,38 +142,37 @@ export default function FlashCards() {
           <div className="create-flashcard-maincontent-left flex">
             <button className="button-import-flashcard-main">
               <div className="flex">
-                <i class="fa-solid fa-plus"></i>
+                <i className="fa-solid fa-plus"></i>
                 <p>Import</p>
               </div>
             </button>
             <button className="button-adddiagram-flashcard-main flex">
               <div className="flex">
-                <i class="fa-solid fa-plus"></i>
+                <i className="fa-solid fa-plus"></i>
                 <p>Add diagram</p>
               </div>
               <div className="lock-flashcard-main">
-                <i class="fa-solid fa-lock"></i>
+                <i className="fa-solid fa-lock"></i>
               </div>
             </button>
           </div>
           <div className="create-flashcard-maincontent-right flex">
-            {/* <p>Suggestions</p> */}
             <button
               className="button-create-flashcard-maincontent-setting"
               onClick={toggleSettingCard}
             >
               <div className="create-flashcard-maincontent-setting">
-                <i class="fa-solid fa-gear"></i>
+                <i className="fa-solid fa-gear"></i>
               </div>
             </button>
             <button className="button-create-flashcard-maincontent-swap">
               <div className="create-flashcard-maincontent-swap">
-                <i class="fa-solid fa-right-left"></i>
+                <i className="fa-solid fa-right-left"></i>
               </div>
             </button>
             <button className="button-create-flashcard-maincontent-keyboard">
               <div className="create-flashcard-maincontent-keyboard">
-                <i class="fa-solid fa-keyboard"></i>
+                <i className="fa-solid fa-keyboard"></i>
               </div>
             </button>
             <button
@@ -164,7 +180,7 @@ export default function FlashCards() {
               onClick={toggleDeleteCard}
             >
               <div className="create-flashcard-maincontent-delete">
-                <i class="fa-solid fa-trash"></i>
+                <i className="fa-solid fa-trash"></i>
               </div>
             </button>
           </div>
@@ -183,8 +199,8 @@ export default function FlashCards() {
                 id={card.id}
                 index={index + 1}
                 onDelete={deleteCard}
-                onUpdate={updateCard} // 👈 truyền xuống
-                card={card} // 👈 truyền state card
+                onUpdate={updateCard}
+                card={card}
                 disableDelete={cards.length < 3}
               />
             ))}
@@ -232,8 +248,8 @@ function SortableCard({
         id={id}
         index={index}
         onDelete={onDelete}
-        onUpdate={onUpdate} // 👈 truyền tiếp
-        card={card} // 👈 truyền tiếp
+        onUpdate={onUpdate}
+        card={card}
         listeners={{ ...listeners, ...sortableListeners }}
         disableDelete={disableDelete}
       />

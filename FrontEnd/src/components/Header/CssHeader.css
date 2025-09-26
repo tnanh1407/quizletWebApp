@@ -187,9 +187,14 @@ body.light-mode .account-in4 {
   margin-left: 10px;
 }
 
+.account-in4 h1 {
+  margin-bottom: 5px;
+}
+
 .account-in4 h1,
 .account-in4 p {
-  font-size: 13px;
+  font-size: 14px;
+  margin-left: 5px;
 }
 
 .account-other li {
@@ -198,7 +203,7 @@ body.light-mode .account-in4 {
 
 .account-setting {
   width: 100%;
-  padding: 5px 0;
+  padding: 10px 0;
   /* bỏ border ở đây */
   border-bottom: 1px solid #d9dde8;
 }
@@ -270,4 +275,14 @@ body.dark-mode #add-folder p {
 body.light-mode #add-folder i,
 body.light-mode #add-folder p {
   color: #222;
+}
+
+.footer-setting {
+  border: none !important;
+}
+
+.icon-header {
+  color: var(--text-color);
+  font-size: 20px;
+  margin-right: 10px;
 }

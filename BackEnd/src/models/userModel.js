@@ -20,6 +20,10 @@ const USER_COLLECTION_SCHEMA = Joi.object({
     birthday: Joi.date().allow(null),
     address: Joi.string().allow(""),
   }).default({}),
+  stats: Joi.object({
+    flashcard_count: Joi.number().integer().min(0),
+    class_count: Joi.number().integer().min(0),
+  }).default({ flashcard_count: 0, class_count: 0 }),
   settings: Joi.object({
     language: Joi.string().default("vi"),
     theme: Joi.string().default("light"),
@@ -42,6 +46,20 @@ const getById = async (id) => {
   return await db
     .collection(USER_COLLECTION_NAME)
     .findOne({ _id: new ObjectId(id) });
+};
+
+const getByIdPublic = async (id) => {
+  const db = GET_DB();
+  return await db.collection(USER_COLLECTION_NAME).findOne(
+    { _id: new ObjectId(id) },
+    {
+      projection: {
+        passwordHash: 0, // ẩn mật khẩu
+        email: 0, // nếu không muốn công khai email
+        settings: 0, // có thể ẩn luôn phần settings riêng tư
+      },
+    }
+  );
 };
 
 const createNew = async (data) => {
@@ -91,4 +109,5 @@ export const userModel = {
   deleteById,
   findByEmail, // dùng cho authService
   updateLastLogin, // dùng cho authService
+  getByIdPublic,
 };

@@ -14,7 +14,7 @@ import FlashCardItem from "./components/FlashCardItems/FlashCard.jsx";
 import SettingAccount from "./components/SettingAccount/SettingAccount.jsx";
 import Achievements from "./components/SettingAccount/Achievements/Achievements.jsx";
 import SectionCreators from "./components/Sections/SectionCreators/SectionCreators.jsx";
-import Classroom from "./components/Navbar/Page/ClassRoom/SectionClass.jsx";
+// import Classroom from "./components/Navbar/Page/ClassRoom/SectionClass.jsx";
 import CreateClass from "./components/Navbar/Page/NewClassRoom/CreateClass.jsx";
 import EditFlashCard from "./components/FlashCardItems/EditFlashCards/EditFlashCard.jsx";
 import NewFolder from "./components/Navbar/Page/NewFolder/NewFolder.jsx";
@@ -43,6 +43,10 @@ import SearchFlashcard from "./components/Search/SearchFlashcard/SearchFlashcard
 import SearchUsers from "./components/Search/SearchUsers/SearchUsers.jsx";
 import DashBoardLayOut from "./components/Layout/DashBoardLayOut.jsx";
 import DashBoard from "./components/DashBoard/DashBoard.jsx";
+// import ClassDetail from "./components/Layout/ClassDetail.jsx";
+import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
+import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials.jsx";
+import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -75,16 +79,38 @@ function App() {
                 />
               </Route>
 
+              {/* Creator */}
+
+              <Route element={<YourLibrary />}>
+                <Route
+                  path="/creator/:id/flashcards"
+                  element={<YourFlashCard />}
+                />
+                <Route path="/creator/:id/folders" element={<YourFolders />} />
+                <Route path="/creator/:id/classes" element={<YourClasses />} />
+                <Route
+                  path="/creator/:id/test"
+                  element={<YourPractiveTests />}
+                />
+              </Route>
+
               {/* Route Setting */}
 
               <Route path="/settingaccount" element={<SettingAccount />} />
               <Route path="/achievements" element={<Achievements />} />
 
+              {/*  */}
+              {/* <Route path="/class-detail" element={<ClassDetail />}></Route */}
+
+              <Route element={<Class />}>
+                <Route path="/class/material" element={<LearningMaterials />} />
+                <Route path="/class/member" element={<Members />} />
+              </Route>
               {/* Route Your library  */}
 
-              <Route path="/your-flashcard" element={<FlashCard />} />
+              {/* <Route path="/your-flashcard" element={<FlashCard />} />
               <Route path="/your-folder" element={<Folder />} />
-              <Route path="/your-classroom" element={<Classroom />} />
+              <Route path="/your-classroom" element={<Classroom />} /> */}
 
               {/* Route Create New */}
 

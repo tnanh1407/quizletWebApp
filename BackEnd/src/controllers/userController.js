@@ -11,6 +11,27 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getAllPublic = async (req, res, next) => {
+  try {
+    const users = await userService.getAllPublic();
+    res.status(StatusCodes.OK).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+const getByIdPublic = async (req, res, next) => {
+  try {
+    const user = await userService.getByIdPublic(req.params.id);
+    if (!user) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "User not found" });
+    }
+    res.status(StatusCodes.OK).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
 const getMe = async (req, res, next) => {
   try {
     const user = await userService.getById(req.user.id);
@@ -97,4 +118,6 @@ export const userController = {
   updateById,
   changePassword,
   deleteById,
+  getAllPublic,
+  getByIdPublic,
 };

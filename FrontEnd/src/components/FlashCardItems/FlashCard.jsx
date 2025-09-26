@@ -3,9 +3,11 @@ import account from "../../assets/img/account.jpg";
 import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 import "./CssFlashCard.css";
 import { flashCardApi } from "../../api/flashCardApi";
+import { getUser } from "../../other/storage";
 
 export default function FlashCard() {
   const { id } = useParams();
+  const user = getUser();
   // const [currentIndex, setCurrentIndex] = useState(0);
   // const [selected, setSelected] = useState(null); // đáp án đã chọn
   // const [showDefinitions, setShowDefinitions] = useState(true); // có hiển thị nghĩa không
@@ -25,7 +27,9 @@ export default function FlashCard() {
   useEffect(() => {
     flashCardApi
       .getById(id)
-      .then((data) => setFlashcard(data))
+      .then((data) => {
+        setFlashcard(data);
+      })
       .catch((err) => console.error(err));
 
     // let timer;
@@ -186,21 +190,22 @@ export default function FlashCard() {
                 </div>
               )}
             </div>
-            <div className="menu-container">
-              <button
-                className="menu-toggle"
-                onClick={() => setShowMenu((prev) => !prev)}
-              >
-                <i className="fa-solid fa-ellipsis"></i>
-              </button>
+            {flashcard.creator.user_id === user.id && (
+              <div className="menu-container">
+                <button
+                  className="menu-toggle"
+                  onClick={() => setShowMenu((prev) => !prev)}
+                >
+                  <i className="fa-solid fa-ellipsis"></i>
+                </button>
 
-              {showMenu && (
-                <div className="dropdown-menu">
-                  <Link to={`/edit-flashcard/${id}`} className="flex">
-                    <i className="fa-solid fa-pen"></i>
-                    <p>Edit</p>
-                  </Link>
-                  {/* <p>
+                {showMenu && (
+                  <div className="dropdown-menu">
+                    <Link to={`/edit-flashcard/${id}`} className="flex">
+                      <i className="fa-solid fa-pen"></i>
+                      <p>Edit</p>
+                    </Link>
+                    {/* <p>
                     <i className="fa-solid fa-plus"></i> Add to class
                   </p>
                   <p>
@@ -218,13 +223,14 @@ export default function FlashCard() {
                   <p>
                     <i className="fa-solid fa-code"></i> Embed
                   </p> */}
-                  <button onClick={handleDelete} className="flex delete">
-                    <i className="fa-solid fa-trash"></i>
-                    <p>Delete</p>
-                  </button>
-                </div>
-              )}
-            </div>
+                    <button onClick={handleDelete} className="flex delete">
+                      <i className="fa-solid fa-trash"></i>
+                      <p>Delete</p>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
