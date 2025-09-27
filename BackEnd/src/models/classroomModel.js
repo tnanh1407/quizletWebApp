@@ -4,42 +4,36 @@ import { ObjectId } from "mongodb";
 
 const CLASSROOM_COLLECTION_NAME = "classrooms";
 
-// Schema
+// Schema: chỉ bắt buộc title + content
 const CLASSROOM_COLLECTION_SCHEMA = Joi.object({
-  name: Joi.string().min(3).max(100).required().trim(),
-  description: Joi.string().max(255).allow(""),
+  title: Joi.string().min(3).max(100).required().trim(),
+  university: Joi.string().min(3).max(100).required().trim(),
+  description: Joi.string().allow("").default(""),
+  folders: Joi.array().items(Joi.string()).default([]),
+  flashcards: Joi.array().items(Joi.string()).default([]),
 
-  // chứa folder ids
-  folders: Joi.array().items(Joi.string()),
-
-  // backend tự tạo
   createAt: Joi.date().iso(),
   creator: Joi.object({
-    user_id: Joi.string(),
-    username: Joi.string(),
-  }),
-
-  // members: user tham gia classroom
-  members: Joi.array().items(
-    Joi.object({
-      user_id: Joi.string(),
-      username: Joi.string(),
-      role: Joi.string().valid("owner", "member", "guest").default("member"),
-    })
-  ),
-
+    user_id: Joi.string().required(),
+    username: Joi.string().required(),
+  }).required(),
+  flashcard_count: Joi.number().integer().min(0),
+  folder_count: Joi.number().integer().min(0),
   metadata: Joi.object({
-    views: Joi.number().integer().min(0),
-    likes: Joi.number().integer().min(0),
-    status: Joi.string().valid("public", "private"),
-    version: Joi.number().integer().min(1),
+    views: Joi.number().integer().min(0).default(0),
+    likes: Joi.number().integer().min(0).default(0),
+    status: Joi.string().valid("public", "private").default("public"),
+    version: Joi.number().integer().min(1).default(1),
   }),
+  delete_classrooms: Joi.boolean().default(false),
 });
 
+// Validate trước khi lưu
 const validateBeforeCreate = (data) => {
   return CLASSROOM_COLLECTION_SCHEMA.validateAsync(data, { abortEarly: false });
 };
 
+// Lấy tất cả flashcards
 const getAll = async () => {
   try {
     const db = GET_DB();
@@ -49,34 +43,39 @@ const getAll = async () => {
   }
 };
 
+// Tạo flashcard mới
+// user: object {_id, username} lấy từ token backend
 const createNew = async (data, user) => {
   try {
-    const autoData = {
-      name: data.name,
-      description: data.description || "",
-      folders: [],
+    if (!data.creator || !data.creator.user_id || !data.creator.username) {
+      throw new Error("Creator info missing");
+    }
 
-      // backend tự tạo
-      createAt: new Date().toISOString(),
+    const autoData = {
+      title: data.title,
+      university: data.university,
+      description: data.description,
+      flashcards: data.flashcards || [],
+      folders: data.folders || [],
       creator: {
-        user_id: user?._id?.toString() || "unknown",
-        username: user?.username || "guest",
+        user_id: data.creator.user_id.toString(),
+        username: data.creator.username,
       },
-      members: [
-        {
-          user_id: user?._id?.toString() || "unknown",
-          username: user?.username || "guest",
-          role: "owner",
-        },
-      ],
+      createAt: new Date().toISOString(),
+      flashcard_count: Array.isArray(data.flashcards)
+        ? data.flashcards.length
+        : 0,
+      folder_count: Array.isArray(data.folders) ? data.folders.length : 0,
       metadata: {
         views: 0,
         likes: 0,
         status: "public",
         version: 1,
       },
+      delete_classrooms: false,
     };
 
+    // Validate dữ liệu
     const validData = await validateBeforeCreate(autoData);
 
     const db = GET_DB();
@@ -84,37 +83,71 @@ const createNew = async (data, user) => {
       .collection(CLASSROOM_COLLECTION_NAME)
       .insertOne(validData);
 
-    return result;
+    // Lấy flashcard vừa tạo
+    const newFlashCard = await db
+      .collection(CLASSROOM_COLLECTION_NAME)
+      .findOne({ _id: result.insertedId });
+
+    return newFlashCard;
   } catch (error) {
-    throw new Error(error);
+    console.error("Model createNew error:", error);
+    throw new Error(error.message);
   }
 };
 
+// Lấy flashcard theo id
 const getById = async (id) => {
   try {
     const db = GET_DB();
-    const result = await db
+    return await db
       .collection(CLASSROOM_COLLECTION_NAME)
       .findOne({ _id: new ObjectId(id) });
-    return result;
   } catch (error) {
     throw new Error(error);
   }
 };
 
+// Cập nhật flashcard theo id
 const updateById = async (id, data) => {
   try {
     const db = GET_DB();
-    const result = await db
+
+    const existing = await db
       .collection(CLASSROOM_COLLECTION_NAME)
-      .findOneAndUpdate(
-        { _id: new ObjectId(id) },
-        { $set: data },
-        { returnDocument: "after" } // trả về document sau khi update
-      );
-    return result.value; // result chứa { ok, value, ... }
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!existing) {
+      throw new Error("Document not found");
+    }
+
+    const updateOps = { $set: {} };
+
+    // Update content + content_count nếu có
+    if (data.content && Array.isArray(data.content)) {
+      updateOps.$set.content = data.content;
+      updateOps.$set.content_count = data.content.length;
+    }
+
+    // Các field khác
+    const { content, ...rest } = data;
+    if (Object.keys(rest).length > 0) {
+      Object.assign(updateOps.$set, rest);
+    }
+
+    if (Object.keys(updateOps.$set).length === 0) {
+      throw new Error("No valid fields to update");
+    }
+
+    await db
+      .collection(CLASSROOM_COLLECTION_NAME)
+      .updateOne({ _id: new ObjectId(id) }, updateOps);
+
+    return await db
+      .collection(CLASSROOM_COLLECTION_NAME)
+      .findOne({ _id: new ObjectId(id) });
   } catch (error) {
-    throw new Error(error);
+    console.error("Model updateById error:", error);
+    throw new Error(error.message);
   }
 };
 
@@ -123,11 +156,95 @@ const deleteById = async (id) => {
     const db = GET_DB();
     const result = await db
       .collection(CLASSROOM_COLLECTION_NAME)
-      .deleteOne({ _id: new ObjectId(id) });
-    return result.deletedCount > 0;
+      .updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { delete_flashcard: true } }
+      );
+
+    return result.modifiedCount > 0;
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
+};
+
+const addFlashcards = async (folderId, flashcardIds) => {
+  const db = GET_DB();
+  const folder = await getById(folderId);
+  if (!folder) return null;
+
+  const updatedFlashcards = [
+    ...new Set([...(folder.flashcards || []), ...flashcardIds]),
+  ];
+
+  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(folderId) },
+    {
+      $set: {
+        flashcards: updatedFlashcards,
+        flashcard_count: updatedFlashcards.length,
+      },
+    }
+  );
+
+  return await getById(folderId);
+};
+
+const removeFlashcard = async (folderId, flashcardId) => {
+  const db = GET_DB();
+  const folder = await getById(folderId);
+  if (!folder || !folder.flashcards.includes(flashcardId)) return null;
+
+  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(folderId) },
+    {
+      $pull: {
+        flashcards: flashcardId,
+        flashcard_count: updatedFlashcards.length,
+      },
+    }
+  );
+
+  return await getById(folderId);
+};
+
+const addFolders = async (folderId, flashcardIds) => {
+  const db = GET_DB();
+  const folder = await getById(folderId);
+  if (!folder) return null;
+
+  const updatedFlashcards = [
+    ...new Set([...(folder.flashcards || []), ...flashcardIds]),
+  ];
+
+  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(folderId) },
+    {
+      $set: {
+        flashcards: updatedFlashcards,
+        flashcard_count: updatedFlashcards.length,
+      },
+    }
+  );
+
+  return await getById(folderId);
+};
+
+const removeFolder = async (folderId, flashcardId) => {
+  const db = GET_DB();
+  const folder = await getById(folderId);
+  if (!folder || !folder.flashcards.includes(flashcardId)) return null;
+
+  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(folderId) },
+    {
+      $pull: {
+        flashcards: flashcardId,
+        flashcard_count: updatedFlashcards.length,
+      },
+    }
+  );
+
+  return await getById(folderId);
 };
 
 export const classroomModel = {
@@ -138,4 +255,8 @@ export const classroomModel = {
   getById,
   updateById,
   deleteById,
+  addFlashcards,
+  removeFlashcard,
+  addFolders,
+  removeFolder,
 };

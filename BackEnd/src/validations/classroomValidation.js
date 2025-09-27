@@ -1,26 +1,51 @@
 const Joi = require("joi");
 
+try {
+  const validData = await CLASSROOM_COLLECTION_SCHEMA.validateAsync(autoData, {
+    abortEarly: false,
+  });
+} catch (err) {
+  console.error("Validation error:", err.details);
+  throw err;
+}
+
 const classroomSchema = Joi.object({
-  // Tên classroom
-  name: Joi.string().min(3).max(100).required().messages({
-    "any.required": "Classroom name is required",
-    "string.empty": "Classroom name cannot be empty",
-    "string.min": "Classroom name must be at least 3 characters",
-    "string.max": "Classroom name must be at most 100 characters",
+  // Tiêu đề
+  title: Joi.string().min(3).max(100).required().messages({
+    "any.required": "classroom title is required",
+    "string.empty": "classroom title cannot be empty",
+    "string.min": "classroom title must be at least 3 characters",
+    "string.max": "classroom title must be at most 100 characters",
   }),
 
-  // Mô tả classroom
-  description: Joi.string().max(255).allow(""),
+  desc: Joi.string().min(10).max(255).required().messages({
+    "any.required": "Desc title is required",
+    "string.empty": "Desc title cannot be empty",
+    "string.min": "Desc title must be at least 3 characters",
+    "string.max": "Desc title must be at most 100 characters",
+  }),
 
-  // Danh sách folders (chỉ lưu id)
-  folders: Joi.array().items(Joi.string()).default([]),
-
-  // Ngày tạo
+  // Ngày tạo (ví dụ dùng timestamp hoặc năm)
   createAt: Joi.date().iso().required().messages({
     "any.required": "createAt is required",
     "date.base": "createAt must be a valid date",
     "date.format": "createAt must be in ISO format",
   }),
+
+  // Loại classroom
+  type: Joi.string().valid("classroom").required().messages({
+    "any.required": "classroom type is required",
+    "any.only": "classroom type must be 'classroom'",
+  }),
+
+  // Tags (mảng string)
+  tags: Joi.array().items(Joi.string()).default([]),
+
+  // Ngôn ngữ (cặp source-target)
+  language_pair: Joi.object({
+    source: Joi.string().required(),
+    target: Joi.string().required(),
+  }).required(),
 
   // Người tạo
   creator: Joi.object({
@@ -28,16 +53,18 @@ const classroomSchema = Joi.object({
     username: Joi.string().required(),
   }).required(),
 
-  // Danh sách thành viên
-  members: Joi.array()
+  // Nội dung classroom (mảng các object front/back/example/audio)
+  content: Joi.array()
     .items(
       Joi.object({
-        user_id: Joi.string().required(),
-        username: Joi.string().required(),
-        role: Joi.string().valid("owner", "member", "guest").default("member"),
+        front: Joi.string().required(),
+        back: Joi.string().required(),
+        example: Joi.string().allow(""),
+        audio: Joi.string().uri().allow(""),
       })
     )
-    .default([]),
+    .min(1)
+    .required(),
 
   // Metadata
   metadata: Joi.object({
@@ -46,6 +73,11 @@ const classroomSchema = Joi.object({
     status: Joi.string().valid("public", "private").default("public"),
     version: Joi.number().integer().min(1).default(1),
   }).default(),
+
+  // Số lượng content (có thể derive tự động từ content.length)
+  content_count: Joi.number().integer().min(0),
+
+  delete_classroom: Joi.boolean().default(false),
 });
 
 export const classroomValidation = {
