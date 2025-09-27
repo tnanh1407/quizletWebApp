@@ -8,7 +8,7 @@ import { FaBell } from "react-icons/fa"; // chuông thông báo
 import { FaExclamationTriangle } from "react-icons/fa"; // cảnh báo
 import { FaTrash } from "react-icons/fa"; // thùng rác (delete)
 import { FaTimes } from "react-icons/fa"; // dấu X (close)
-import "./class.css";
+import "./CssClassDetail.css";
 import ModalEdit from "./Modal/ModalEdit";
 import ModalInvest from "./Modal/ModalInvest";
 export default function Class() {
@@ -76,10 +76,10 @@ export default function Class() {
       <div className="ClassDetail">
         {/* Thanh thông báo */}
         <div className="element-notice">
-          <h5>Mời học sinh tham gia lớp này</h5>
+          <h5>Invite students to join this class</h5>
           <p>
-            Học sinh có quyền truy cập miễn phí vào các hoạt động và tài liệu mà
-            bạn thêm vào lớp học của mình
+            Students get free access to activities and materials you add to your
+            class
           </p>
         </div>
 
@@ -144,34 +144,34 @@ export default function Class() {
                 onClick={() => setActiveModal("EDIT")}
               >
                 <FaPen className="margin-right-20px" />
-                <p>Sửa</p>
+                <p>Edit</p>
               </div>
               <div
                 className="setting-item flex"
                 onClick={() => setActiveModal("INVEST")}
               >
                 <FaUserPlus className="margin-right-20px" />
-                <p>Mới</p>
+                <p>Invite</p>
               </div>
-              <div className="setting-item flex">
+              <div className="setting-item">
                 <FaBell className="margin-right-20px" />
-                <p>Thông báo</p>
+                <p>Notifications</p>
               </div>
-              <div className="setting-item flex">
+              <div className="setting-item">
                 <FaExclamationTriangle className="margin-right-20px" />
-                <p>Bỏ ghim khỏi thanh lề</p>
+                <p>Unpin from sidebar</p>
               </div>
-              <div className="setting-item flex ">
-                <FaTrash className="margin-right-20px color-red" />
+              <div className="setting-item ">
                 onClick={() => setActiveModal("DELETE")}
-                <p>Xóa</p>
+                <i class="fa-solid fa-xmark red"></i>
+                <p> Delete</p>
               </div>
               <div
-                className="setting-item flex"
+                className="setting-item "
                 onClick={() => setActiveModal("DELETE_MEMBER_ALL")}
               >
-                <FaTimes className="margin-right-20px color-red" />
-                <p>Xóa mọi thành viên</p>
+                <i class="fa-solid fa-trash red"></i>
+                <p>Remove all members</p>
               </div>
             </div>
           </div>
@@ -201,19 +201,19 @@ export default function Class() {
           </>
         )}
         <div className="header_two">
-          <NavLink to="material">
-            <button className="tab active">Tài liệu học</button>
+          <NavLink to="/class/material">
+            <button className="tab active">Material</button>
           </NavLink>
-          <NavLink to="member">
-            <button className="tab">Thành viên</button>
+          <NavLink to="/class/member">
+            <button className="tab">Members</button>
           </NavLink>
         </div>
 
         {/* Nút mời */}
         <div className="header_three">
-          <button className="invite google">📂 Mời bằng Google</button>
-          <button className="invite email">✉️ Mời bằng email</button>
-          <button className="invite link">🔗 Chép liên kết</button>
+          <button className="invite google">📂 Invite using Google</button>
+          <button className="invite email">✉️ Invite using email</button>
+          <button className="invite link">🔗 Copy link</button>
         </div>
 
         <div className="content">
