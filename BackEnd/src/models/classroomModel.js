@@ -167,17 +167,17 @@ const deleteById = async (id) => {
   }
 };
 
-const addFlashcards = async (folderId, flashcardIds) => {
+const addFlashcards = async (classroomId, flashcardIds) => {
   const db = GET_DB();
-  const folder = await getById(folderId);
-  if (!folder) return null;
+  const classroom = await getById(classroomId);
+  if (!classroom) return null;
 
   const updatedFlashcards = [
-    ...new Set([...(folder.flashcards || []), ...flashcardIds]),
+    ...new Set([...(classroom.flashcards || []), ...flashcardIds]),
   ];
 
-  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
-    { _id: new ObjectId(folderId) },
+  await db.collection(CLASSROOM_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(classroomId) },
     {
       $set: {
         flashcards: updatedFlashcards,
@@ -186,16 +186,20 @@ const addFlashcards = async (folderId, flashcardIds) => {
     }
   );
 
-  return await getById(folderId);
+  return await getById(classroomId);
 };
 
-const removeFlashcard = async (folderId, flashcardId) => {
+const removeFlashcard = async (classroomId, flashcardId) => {
   const db = GET_DB();
-  const folder = await getById(folderId);
-  if (!folder || !folder.flashcards.includes(flashcardId)) return null;
+  const classroom = await getById(classroomId);
+  if (!classroom || !classroom.flashcards.includes(flashcardId)) return null;
 
-  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
-    { _id: new ObjectId(folderId) },
+  const updatedFlashcards = [
+    ...new Set([...(classroom.flashcards || []), ...flashcardId]),
+  ];
+
+  await db.collection(CLASSROOM_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(classroomId) },
     {
       $pull: {
         flashcards: flashcardId,
@@ -204,24 +208,24 @@ const removeFlashcard = async (folderId, flashcardId) => {
     }
   );
 
-  return await getById(folderId);
+  return await getById(classroomId);
 };
 
-const addFolders = async (folderId, flashcardIds) => {
+const addFolders = async (classroomId, folderId) => {
   const db = GET_DB();
-  const folder = await getById(folderId);
-  if (!folder) return null;
+  const classroom = await getById(classroomId);
+  if (!classroom) return null;
 
-  const updatedFlashcards = [
-    ...new Set([...(folder.flashcards || []), ...flashcardIds]),
+  const updatedFolders = [
+    ...new Set([...(classroom.folder || []), ...folderId]),
   ];
 
-  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
+  await db.collection(CLASSROOM_COLLECTION_NAME).updateOne(
     { _id: new ObjectId(folderId) },
     {
       $set: {
-        flashcards: updatedFlashcards,
-        flashcard_count: updatedFlashcards.length,
+        folder: updatedFolders,
+        folder_count: updatedFolders.length,
       },
     }
   );
@@ -229,17 +233,17 @@ const addFolders = async (folderId, flashcardIds) => {
   return await getById(folderId);
 };
 
-const removeFolder = async (folderId, flashcardId) => {
+const removeFolder = async (classroomId, folderId) => {
   const db = GET_DB();
   const folder = await getById(folderId);
-  if (!folder || !folder.flashcards.includes(flashcardId)) return null;
+  if (!folder || !folder.folder.includes(folderId)) return null;
 
-  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
+  await db.collection(CLASSROOM_COLLECTION_NAME).updateOne(
     { _id: new ObjectId(folderId) },
     {
-      $pull: {
-        flashcards: flashcardId,
-        flashcard_count: updatedFlashcards.length,
+      $set: {
+        folder: updatedFolders,
+        folder_count: updatedFolders.length,
       },
     }
   );

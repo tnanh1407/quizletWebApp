@@ -34,6 +34,14 @@ const deleteByUserId = async (userId) => {
       { $set: { delete_classroom: true } }
     );
 };
+const addFlashcards = async (classroomId, flashcardIds) =>
+  folderModel.addFlashcards(classroomId, flashcardIds);
+const removeFlashcard = async (classroomId, flashcardId) =>
+  folderModel.removeFlashcard(classroomId, flashcardId);
+const addFolders = async (classroomId, folders) =>
+  folderModel.addFlashcards(classroomId, folders);
+const removeFolder = async (classroomId, folder) =>
+  folderModel.removeFolder(classroomId, folder);
 
 export const classroomService = {
   getAll,
