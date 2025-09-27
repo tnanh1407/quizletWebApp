@@ -8,6 +8,22 @@
   padding-top: 20px;
 }
 
+.function-test-maincontent {
+  width: 100%;
+  height: 100%;
+  color: #f6f7fb;
+  padding: 20px 0 0 0;
+  /*overflow-y: auto;
+  scrollbar-width: none;*/
+}
+
+.function-test-main-content {
+  max-width: 1265px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .sidebar {
   position: fixed;
   top: 100px;
@@ -81,7 +97,7 @@
 
 .btn-nav {
   position: fixed;
-  top: 80px;
+  top: 150px;
   left: 20px;
   z-index: 1100;
   background: none;
@@ -192,21 +208,22 @@
 }
 
 /*css thông báo submit*/
-.modal {
+.test-modal {
   display: flex;
   position: fixed;
   top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100vw;
+  width: 40vw;
   height: 50vh;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
   z-index: 1300;
+  border-radius: 10px;
 }
 
-.modal-content {
+.test-modal-content {
   /*background: #2e3856;*/
   background: none;
   padding: 30px;
@@ -219,14 +236,14 @@
   overflow-y: auto;
 }
 
-.modal-buttons {
+.test-modal-buttons {
   display: flex;
   justify-content: center;
   gap: 20px;
   margin-top: 20px;
 }
 
-.modal-button {
+.test-modal-button {
   background: #4255ff;
   border: none;
   padding: 10px 20px;
@@ -236,7 +253,7 @@
   cursor: pointer;
 }
 
-.modal-button:hover {
+.test-modal-button:hover {
   background: #423ed8;
 }
 
@@ -307,7 +324,7 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: conic-gradient(#18ae79 65%, #da4543 0%);
+  /*background: conic-gradient(#18ae79 65%, #da4543 0%);*/
   display: flex;
   justify-content: center;
   align-items: center;

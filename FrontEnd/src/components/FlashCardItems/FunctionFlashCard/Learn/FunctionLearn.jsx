@@ -189,7 +189,7 @@ export default function FunctionLearn({ isPadded }) {
         className="function-learn"
         style={{ paddingLeft: isPadded ? "200px" : "60px" }}
       >
-        <div className="main-content">
+        <div className="function-learn-main-content">
           <div className="progress-container">
             <span>{correctCount}</span>
             <div className="progress-bar">
