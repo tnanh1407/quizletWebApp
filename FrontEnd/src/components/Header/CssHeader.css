@@ -1,166 +1,288 @@
-.header{
-    background: #0a092d;
-    max-width: 100%;
-    height:64px;
-    padding: 12px 16px;
-    margin:auto;
-    color:#d9dde8;
-    justify-content:space-between;
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    z-index: 1000;
+.header {
+  /* bỏ background, color ở đây */
+  max-width: 100%;
+  height: 64px;
+  padding: 12px 16px;
+  margin: auto;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
-.logo{
-    height: 25px;
-    width: auto;
-    margin: 8px 8px 8px 40px ;
+body.dark-mode .header {
+  background: #0a092d;
+  color: #d9dde8;
 }
 
-.search{
-    width: 600px;
-    height:36px;
-    border-radius: 10px;
-    background: #2e3856;
-    position: relative;
+body.light-mode .header {
+  background: #c8c4c4;
+  color: #222;
 }
 
-.input-research{
-    width:600px;
-    padding-left: 40px;
-    border-radius: 10px;
-    font-size: 14px;
-    border: none;
-    box-shadow: none;
-    outline: none;
-    background: #2e3856;
-    color:#929bb4;
+.logo {
+  height: 25px;
+  width: auto;
+  margin: 8px 8px 8px 40px;
 }
 
-.input-research:focus{
-    border: 2px solid #d9dde8;
-    background: #0a092d;
+.search {
+  width: 600px;
+  height: 36px;
+  border-radius: 10px;
+  /* bỏ background ở đây */
+  position: relative;
 }
 
-.search i{
-    position: absolute;
-    top:10px;
-    left:10px;
+body.dark-mode .search {
+  background: #2e3856;
 }
 
-.add-folder, .setting img{
-    width: 40px;
-    height:40px;
-    border-radius: 50px;
-    margin-left: 10px;
+body.light-mode .search {
+  background: #e0e0e0;
 }
 
-.add-folder{
-    background: #4255ff;
+.input-research {
+  width: 600px;
+  padding-left: 40px;
+  border-radius: 10px;
+  font-size: 14px;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  /* bỏ background, color ở đây */
 }
 
-.add-folder i{
-    line-height: 40px;
-    margin-left: 12px;
-    color: #d9dde8;
+body.dark-mode .input-research {
+  background: #2e3856;
+  color: #929bb4;
 }
 
-.setting button{
-    border: none;
-    background: rgba(0,0,0,0);
+body.light-mode .input-research {
+  background: #e0e0e0;
+  color: #222;
 }
 
-.setting img{
-    width: 40px;
-    height:40px;
-    border-radius: 50px;
+.input-research:focus {
+  border: 2px solid #d9dde8;
+  background: #0a092d;
+}
+
+body.light-mode .input-research:focus {
+  border: 2px solid #1976d2;
+  background: #fff;
+}
+
+.search i {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.add-folder,
+.setting img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  margin-left: 10px;
+}
+
+.add-folder {
+  /* bỏ background ở đây */
+}
+
+body.dark-mode .add-folder {
+  background: #4255ff;
+}
+
+body.light-mode .add-folder {
+  background: #1976d2;
+}
+
+.add-folder i {
+  line-height: 40px;
+  margin-left: 12px;
+  /* bỏ color ở đây */
+}
+
+body.dark-mode .add-folder i {
+  color: #d9dde8;
+}
+
+body.light-mode .add-folder i {
+  color: #fff;
+}
+
+.setting button {
+  border: none;
+  background: rgba(0, 0, 0, 0);
+}
+
+.setting img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
 }
 
 /* Css Setting */
 
-#account-setting{
-    width: 270px;
-    position: absolute;
-    top:64px;
-    right: 16px;
-    border: 1px solid #d9dde8;
-    border-radius: 10px;
-    background: #0a092d;
+#account-setting {
+  width: 270px;
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  border-radius: 10px;
+  /* bỏ background, border ở đây */
 }
 
-#account-setting a{
-    text-decoration: none;
-    color:#d9dde8;
+body.dark-mode #account-setting {
+  background: #0a092d;
+  border: 1px solid #d9dde8;
 }
 
-.account-in4{
-    padding: 10px 20px;
-    border-bottom: 1px solid #d9dde8;
+body.light-mode #account-setting {
+  background: #fff;
+  border: 1px solid #222;
 }
 
-.account-in4 img{
-    height: 60px;
-    width: 60px;
-    border-radius: 50px;
+.header-add-folder {
+  width: 100%;
+  background: none;
+  border: none;
+}
+#account-setting a {
+  text-decoration: none;
+  /* bỏ color ở đây */
 }
 
-.in4{
-    align-items: center;
-    margin: auto;
-    margin-left: 10px;
+body.dark-mode #account-setting a {
+  color: #d9dde8;
 }
 
-.account-in4 h1,.account-in4 p{
-    font-size: 13px;
+body.light-mode #account-setting a {
+  color: #222;
 }
 
-.account-other li{
-    list-style-type:none;
+.account-in4 {
+  padding: 10px 20px;
+  /* bỏ border ở đây */
+  border-bottom: 1px solid #d9dde8;
 }
 
-.account-setting{
-    width: 100%;
-    padding: 5px 0;
-    border-bottom: 1px solid #d9dde8;
+body.light-mode .account-in4 {
+  border-bottom: 1px solid #222;
 }
 
-.setting-item{
-    width: 100%;
-    height:40px;
-    padding:5px 20px;
-    text-decoration: none;
-    align-items: center;
+.account-in4 img {
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
 }
 
-.setting-item i{
-    margin-right: 10px;
+.in4 {
+  align-items: center;
+  margin: auto;
+  margin-left: 10px;
 }
 
-a:hover .setting-item{
-    background:#282e3e ;
+.account-in4 h1 {
+  margin-bottom: 5px;
 }
 
-.add-folder button{
-    background: none;
-    border: none;
+.account-in4 h1,
+.account-in4 p {
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.account-other li {
+  list-style-type: none;
+}
+
+.account-setting {
+  width: 100%;
+  padding: 10px 0;
+  /* bỏ border ở đây */
+  border-bottom: 1px solid #d9dde8;
+}
+
+body.light-mode .account-setting {
+  border-bottom: 1px solid #222;
+}
+
+.setting-item {
+  width: 100%;
+  height: 40px;
+  padding: 5px 20px;
+  text-decoration: none;
+  align-items: center;
+}
+
+.setting-item i {
+  margin-right: 10px;
+}
+
+a:hover .setting-item,
+.header-add-folder:hover,
+.setting-item:hover {
+  background: #282e3e;
+}
+
+body.light-mode a:hover .setting-item {
+  background: #e0e0e0;
+}
+
+.add-folder button {
+  background: none;
+  border: none;
 }
 
 #add-folder {
-    background: #0a092d;
-    position:fixed;
-    top:64px;
-    right: 70px;
-    border: 1px solid #d9dde8;
-    border-radius: 10px;
-    padding:10px 0 ;
-} 
-
-#add-folder a{
-    text-decoration: none;
+  /* bỏ background, border ở đây */
+  position: fixed;
+  top: 64px;
+  right: 70px;
+  border-radius: 10px;
+  padding: 10px 0;
 }
 
-#add-folder i, #add-folder p{
-    color: #d9dde8;
+body.dark-mode #add-folder {
+  background: #0a092d;
+  border: 1px solid #d9dde8;
+}
+
+body.light-mode #add-folder {
+  background: #fff;
+  border: 1px solid #222;
+}
+
+#add-folder a {
+  text-decoration: none;
+}
+
+#add-folder i,
+#add-folder p {
+  /* bỏ color ở đây */
+}
+
+body.dark-mode #add-folder i,
+body.dark-mode #add-folder p {
+  color: #d9dde8;
+}
+
+body.light-mode #add-folder i,
+body.light-mode #add-folder p {
+  color: #222;
+}
+
+.footer-setting {
+  border: none !important;
+}
+
+.icon-header {
+  color: var(--text-color);
+  font-size: 20px;
+  margin-right: 10px;
 }

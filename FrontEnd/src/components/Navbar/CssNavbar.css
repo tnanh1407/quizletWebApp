@@ -13,30 +13,53 @@
 
 .newfolder-main {
   margin: auto;
-  background: #0a092d;
   width: 450px;
   height: 250px;
   border-radius: 15px;
   padding: 35px 30px;
   text-align: center;
+}
+
+body.dark-mode .newfolder-main {
+  background: #0a092d;
   color: #d9dde8;
+}
+
+body.light-mode .newfolder-main {
+  background: #fff;
+  color: #222;
 }
 
 .newfolder-main p {
   font-size: 35px;
+}
+
+body.dark-mode .newfolder-main p {
   color: #d9dde8;
+}
+
+body.light-mode .newfolder-main p {
+  color: #222;
 }
 
 .newfolder-main input {
   text-align: center;
   font-size: 25px;
-  color: #d9dde8;
   width: 100%;
-  background: #2e3856;
   border: none;
   margin-top: 10px;
   padding: 10px 30px;
   border-radius: 10px;
+}
+
+body.dark-mode .newfolder-main input {
+  color: #d9dde8;
+  background: #2e3856;
+}
+
+body.light-mode .newfolder-main input {
+  color: #222;
+  background: #e0e0e0;
 }
 
 .input-name-new-folder input:focus {
@@ -50,19 +73,32 @@
 .newfolder-main-button .newfolder-cancel,
 .newfolder-main-button .newfolder-create {
   height: 40px;
-  color: #d9dde8;
   border-radius: 20px;
   margin-right: 15px;
   font-weight: 600;
 }
 
-.newfolder-main-button .newfolder-cancel {
+body.dark-mode .newfolder-main-button .newfolder-cancel {
+  color: #d9dde8;
   background: none;
   border: 2px solid #d9dde8;
 }
 
-.newfolder-main-button .newfolder-create {
+body.light-mode .newfolder-main-button .newfolder-cancel {
+  color: #222;
+  background: none;
+  border: 2px solid #222;
+}
+
+body.dark-mode .newfolder-main-button .newfolder-create {
+  color: #fff;
   background: #4255ff;
+  border: none;
+}
+
+body.light-mode .newfolder-main-button .newfolder-create {
+  color: #fff;
+  background: #1976d2;
   border: none;
 }
 
@@ -78,4 +114,40 @@
 .newfolder-create:hover span {
   background: #4352dd;
   border-radius: 20px;
+}
+
+#navbar-one-notifi {
+  width: 100%;
+}
+
+.position-notifi {
+  width: 0;
+  position: relative;
+  top: 0;
+  left: 10px;
+}
+
+.icon-flash-card {
+  font-size: 24px;
+  color: #f6f7fb;
+}
+
+.recent-icon {
+  position: relative;
+}
+
+.icon-flash-card-recent {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #51cefd;
+}
+
+.navbar-icon {
+  font-size: 24px;
+}
+
+.icon-regbell {
+  font-size: 20px !important;
 }

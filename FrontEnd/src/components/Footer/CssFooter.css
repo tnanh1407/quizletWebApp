@@ -1,0 +1,530 @@
+#click-navbar {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border: none;
+  padding: 5px;
+  border-radius: 50px;
+}
+/* Chỉ override màu cho từng mode */
+body.dark-mode #click-navbar {
+  color: #d9dde8;
+  background: #0a092d;
+}
+body.light-mode #click-navbar {
+  color: #222;
+  background: #f5f5f5;
+}
+
+.button-navbar {
+  position: fixed;
+  z-index: 9999;
+  top: 14px;
+  left: 14px;
+}
+
+.button-navbar:hover #click-navbar {
+  background: #2e3856;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+  padding-top: 64px;
+  position: relative;
+  overflow: hidden;
+  z-index: 100;
+  padding-left: 200px;
+  /* bỏ background ở đây */
+}
+/* Chỉ override màu nền cho từng mode */
+body.dark-mode .main {
+  background: #0a092d;
+}
+body.light-mode .main {
+  background: #fff;
+}
+
+/* Css Navbar */
+.navbar {
+  width: 215px;
+  height: 100vh;
+  padding: 5px 12px 0 0;
+  position: sticky;
+  top: 0;
+  position: fixed;
+  top: 64px;
+  z-index: 99999;
+  /* bỏ background ở đây */
+}
+/* Chỉ override màu nền cho từng mode */
+body.dark-mode .navbar {
+  background: #0a092d;
+}
+body.light-mode .navbar {
+  background: #fff;
+}
+
+.navbar a,
+.navbar-two > p,
+.navbar-three > p {
+  font-size: 14px;
+  text-decoration: none;
+  /* bỏ color ở đây */
+}
+body.dark-mode .navbar a,
+body.dark-mode .navbar-two > p,
+body.dark-mode .navbar-three > p {
+  color: #f6f7fb;
+}
+body.light-mode .navbar a,
+body.light-mode .navbar-two > p,
+body.light-mode .navbar-three > p {
+  color: #222;
+}
+
+.navbar #navbar-one-home {
+  font-size: 14px;
+  /* bỏ color ở đây */
+}
+body.dark-mode .navbar #navbar-one-home {
+  color: #f6f7fb;
+}
+body.light-mode .navbar #navbar-one-home {
+  color: #222;
+}
+
+.navbar a {
+  line-height: 100%;
+  /* bỏ color ở đây */
+}
+body.dark-mode .navbar a {
+  color: #f6f7fb;
+}
+body.light-mode .navbar a {
+  color: #222;
+}
+
+.navbar-a {
+  padding: 10px 10px;
+  border-radius: 8px;
+  line-height: 100%;
+  /* bỏ color ở đây */
+}
+body.dark-mode .navbar-a {
+  color: #f6f7fb;
+}
+body.light-mode .navbar-a {
+  color: #222;
+}
+
+.navbar-a {
+  margin: 5px 0;
+}
+.navbar-two > p,
+.navbar-three > p {
+  margin: 0 0 20px 10px;
+}
+
+.navbar-one {
+  padding-bottom: 15px;
+  position: relative;
+}
+
+.navbar-two,
+.navbar-three {
+  padding: 15px 0;
+}
+
+.navbar-one,
+.navbar-two {
+  margin-left: 16px;
+  border-bottom: 2px solid #282e3e;
+}
+body.light-mode .navbar-one,
+body.light-mode .navbar-two {
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.navbar-three {
+  margin-left: 16px;
+}
+
+.navbar-a i {
+  align-items: center;
+}
+
+.navbar-a p {
+  line-height: 24px;
+  margin-left: 15px;
+}
+
+a:hover .navbar-a,
+a:hover .notifi-main-children {
+  background: #2e3856;
+}
+
+#click-notifi {
+  height: 44px;
+  width: 100%;
+  position: relative;
+  background: none;
+  border: none;
+}
+
+#click-notifi .navbar-a {
+  margin: 0 !important;
+}
+
+#notifications-main img {
+  height: 45px;
+  width: 45px;
+  border-radius: 50px;
+}
+
+#notifications-main {
+  width: 400px;
+  height: 250px;
+  /* bỏ background, border ở đây */
+  border-radius: 10px;
+  position: absolute;
+  padding: 10px 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+body.dark-mode #notifications-main {
+  background: #0a092d;
+  border: 1px solid #d9dde8;
+}
+body.light-mode #notifications-main {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.notifi-main-children {
+  align-items: center;
+  padding: 7px 20px;
+}
+
+.notifi-main-children h1 {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.notifi-main-children i {
+  position: absolute;
+  right: 30px;
+  font-size: 18px;
+  padding: 10px;
+}
+
+#notifications-main:hover a,
+#click-notifi:hover .navbar-a {
+  background: #2e3856;
+}
+
+.notifi-main-content {
+  margin: 0 30px 0 15px;
+  font-size: 10px;
+}
+
+/* Css MainContent */
+.maincontent {
+  width: 100%;
+  height: 100%;
+  /* bỏ color ở đây */
+  padding: 20px 0 0 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+body.dark-mode .maincontent {
+  color: #f6f7fb;
+}
+body.light-mode .maincontent {
+  color: #222;
+}
+
+.main-content {
+  width: 73vw;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.maincontent-recent h1 {
+  font-size: 15px;
+  padding-left: 16px;
+  margin-bottom: 10px;
+}
+
+.recent-main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* gap: 10px; */
+}
+
+.recent-main a {
+  text-decoration: none;
+  /* bỏ color ở đây */
+}
+body.dark-mode .recent-main a {
+  color: #f6f7fb;
+}
+body.light-mode .recent-main a {
+  color: #222;
+}
+
+.recent {
+  padding: 16px;
+}
+
+.recent-icon {
+  width: 40px;
+  height: 40px;
+  background: #2e3856;
+  border-radius: 7px;
+  color: #4ebce9;
+}
+body.light-mode .recent-icon {
+  background: #e0e0e0;
+  color: #1976d2;
+}
+
+.recent-icon i {
+  line-height: 40px;
+  margin-left: 10px;
+  /* text-align: center; */
+}
+
+.recent-content {
+  line-height: 20px;
+  font-size: 14px;
+  margin-left: 15px;
+}
+
+a:hover .recent {
+  background: #2e3856;
+  border-radius: 10px;
+}
+
+.maincontent-recent-left,
+.maincontent-recent-right {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.maincontent-recent-left {
+  left: 0px;
+  top: 0;
+  z-index: 100;
+}
+
+.maincontent-recent-right {
+  right: 0px;
+  top: 0;
+  z-index: 100;
+}
+
+.maincontent-recent-left,
+.maincontent-recent-right {
+  height: 100%;
+  background: none;
+  border: none;
+}
+
+.maincontent-recent-left i,
+.maincontent-recent-right i {
+  font-size: 40px;
+  /* bỏ color ở đây */
+}
+body.dark-mode .maincontent-recent-left i,
+body.dark-mode .maincontent-recent-right i {
+  color: #f6f7fb;
+}
+body.light-mode .maincontent-recent-left i,
+body.light-mode .maincontent-recent-right i {
+  color: #222;
+}
+
+/* .maincontent-next-study-session:hover .btn{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.maincontent-next-study-session:hover .btn.maincontent-recent-left{
+    background: linear-gradient(to right, rgba(10,9,45,1), rgba(10,9,45,0.8))
+}
+
+.maincontent-next-study-session:hover .btn.maincontent-recent-right{
+    background: linear-gradient(to left, rgba(10,9,45,1), rgba(10,9,45,0.8))
+} */
+/* Css session */
+
+.maincontent-next-study-session {
+  padding: 0 16px;
+}
+
+.next-study-session-main {
+  /* position: relative; */
+  height: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* z-index: 1; */
+}
+
+.next-study-session-main a {
+  text-decoration: none;
+}
+
+.session {
+  /* bỏ color ở đây */
+}
+body.dark-mode .session {
+  background: #23243a;
+  color: #d4f5fc;
+}
+body.light-mode .session {
+  background: #fff; /* hoặc #f5f5f5 nếu muốn nền sáng hơn */
+  color: #1976d2;
+}
+
+.session h1 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.session-terms {
+  font-size: 10px;
+  width: 50px;
+  background: #586380;
+  padding: 2px;
+  border-radius: 20px;
+  text-align: center;
+}
+body.light-mode .session-terms {
+  background: #e0e0e0;
+  color: #1976d2;
+}
+
+a:hover .session,
+a:hover .popular-session,
+a:hover .top-creators-main-sesstion {
+  border: 2px solid #4255ff;
+}
+
+.session-author {
+  /* position: absolute; */
+  /* bottom:15px; */
+  margin-top: 50px;
+}
+
+.session-author img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+}
+
+.session-author p {
+  margin-left: 10px;
+}
+
+/* Css Popular Textbooks */
+.popular-textbooks {
+  padding: 0 16px;
+}
+
+.popular-textbooks-main a {
+  margin-right: 15px;
+}
+
+.popular-textbooks-main a {
+  text-decoration: none;
+}
+
+.popular-session {
+  /* bỏ color ở đây */
+}
+body.dark-mode .popular-session {
+  background: #23243a;
+  color: #d4f5fc;
+}
+body.light-mode .popular-session {
+  background: #fff;
+  color: #1976d2;
+}
+
+.popular-session img {
+  width: 90px;
+  height: 120px;
+  border-radius: 5px;
+}
+
+.popular-session h1 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.popular-session-content > p {
+  font-size: 13px;
+}
+
+.popular-session-content {
+  margin-left: 10px;
+  /* position: relative;
+    z-index: 1; */
+}
+
+.popular-session-solution {
+  width: 100px;
+  margin-top: 34px;
+  font-size: 10px;
+  padding: 5px 10px;
+  border-radius: 50px;
+  background: #586380;
+  /* position: absolute;
+    bottom: 0;
+    z-index: 1; */
+  align-items: center;
+}
+body.light-mode .popular-session-solution {
+  background: #e0e0e0;
+  color: #1976d2;
+}
+
+.popular-session-solution p {
+  margin-left: 5px;
+}
+
+/* Css creators */
+
+.footer {
+  width: 100%;
+  justify-content: space-between;
+  padding: 25px 0;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.footer p {
+  /* bỏ color ở đây */
+  margin-right: 10px;
+}
+body.dark-mode .footer p {
+  color: #d4f5fc;
+}
+body.light-mode .footer p {
+  color: #1976d2;
+}
+
+/* Khi hover hoặc mục đang active ở light mode, đổi màu chữ thành trắng */
+body.light-mode a:hover .navbar-a,
+body.light-mode .navbar-a.active,
+body.light-mode .navbar-a.selected {
+  color: #fff !important;
+}

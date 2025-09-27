@@ -11,15 +11,15 @@
 
 /* Css dùng chung */
 
-.margin-left{
+.margin-left {
   margin-left: 10px;
 }
 
-.margin-right{
+.margin-right {
   margin-right: 10px;
 }
 
-.border-bottom-2px{
+.border-bottom-2px {
   border-bottom: 2px solid #d9dde8;
 }
 
@@ -45,16 +45,18 @@
   font-size: 15px;
   margin-bottom: 15px;
 }
+
 .all-section {
-  width: 350px;
+  width: 352px;
   height: 150px;
   padding: 14px;
   background: #202040;
   border-radius: 10px;
   border: 2px solid #2e3856;
 }
+
 .khung-mo-ta {
-  font-size: 10px;
+  font-size: 12px;
   padding: 5px 10px;
   background: #586380;
   border-radius: 50px;
@@ -64,6 +66,7 @@
 
 .khung-mo-ta i {
   margin-right: 5px;
+  font-size: 15px;
 }
 
 .hidden {
@@ -74,6 +77,12 @@
   padding: 32px 32px 0;
 }
 
-/* Css Header  */
-
-/* Css Main  */
+:root {
+  --bg-color: #0a092d;
+  --text-color: #f6f7fb;
+  --bd-color: #586380;
+  --button-blue-color: #4255ff;
+  --bg-child-color: #2e3856;
+  --bg-term-color: #586380;
+  --bg-hover-color: #282e3e;
+}

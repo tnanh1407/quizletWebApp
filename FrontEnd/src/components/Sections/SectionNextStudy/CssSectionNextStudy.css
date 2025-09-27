@@ -1,0 +1,124 @@
+.next-study-session-main .moveNavBtn {
+  /* opacity: 0; */
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+.next-study-session-main:hover .moveNavBtn {
+  opacity: 1;
+  visibility: visible;
+}
+.a-itemflashcard:hover + .moveNavRight,
+.a-itemflashcard:hover ~ .moveNavLeft {
+  opacity: 1;
+  visibility: visible;
+}
+.maincontent-next-study-session {
+  max-width: 1265px;
+  padding: 0 16px;
+}
+
+.maincontent-next-study-session h2 {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.next-study-session-main {
+  position: relative;
+}
+
+.next-study-session-main a {
+  text-decoration: none;
+  /* margin-right: 15px; */
+}
+
+.a-itemflashcard {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+  gap: 15px;
+}
+
+.a-itemflashcard a {
+  /* width: 33%; */
+}
+
+.a-itemflashcard::-webkit-scrollbar {
+  display: none;
+}
+
+.moveNavBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 150px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.2s;
+  padding: 10px 0;
+}
+
+.moveNavBtn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.moveNavLeft {
+  left: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.moveNavRight {
+  right: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.session {
+  color: #d4f5fc;
+  /* position: relative;
+    z-index: 1; */
+}
+
+.session h1 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.session-terms {
+  font-size: 10px;
+  width: 50px;
+  background: #586380;
+  padding: 2px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+a:hover .session,
+a:hover .popular-session,
+a:hover .top-creators-main-sesstion {
+  border: 2px solid #4255ff;
+}
+
+.session-author {
+  /* position: absolute; */
+  /* bottom:15px; */
+  margin-top: 50px;
+}
+
+.session-author img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+}
+
+.session-author p {
+  margin-left: 10px;
+}

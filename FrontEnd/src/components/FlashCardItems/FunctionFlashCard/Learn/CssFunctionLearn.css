@@ -1,0 +1,269 @@
+.function-learn {
+  padding: 20px;
+  color: var(--text-color);
+  padding-top: 50px;
+  background: var(--bg-color);
+}
+
+.function-learn-main-content {
+  max-width: 1265px;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*css thanh tiến độ*/
+.progress-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.progress-title-percent {
+  margin-left: 10px;
+  color: #18ae79;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.progress-container span {
+  display: flex;
+  background-color: #586380;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.progress-container span:first-child {
+  background-color: #18ae79;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 15px;
+  background-color: #d9dde8;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  /*background-color: #59E8B5;*/
+  background: #18ae79;
+  transition: width 0.3s ease-in-out;
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-top: 10px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #586380;
+}
+
+.labels span:first-child {
+  color: #18ae79;
+}
+
+/*css chính*/
+.mode-learn-main-content {
+  height: auto;
+  background: #2e3856;
+  padding: 20px 40px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.term-section {
+  margin-bottom: 30px;
+}
+
+.term-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.term-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.answer-section {
+  margin-top: 20px;
+  gap: 12px;
+}
+
+.answer-label {
+  font-size: 16px;
+  color: #fff;
+}
+
+.answer-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.option {
+  background: none;
+  border: 2px solid #586380;
+  color: #ffffff;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 300;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.option:hover:not(:disabled) {
+  border: 2px solid #d9dde8;
+}
+
+.option.correct {
+  border: 2px dashed #18ae79;
+}
+
+.option.wrong {
+  border: 2px dashed #da4543;
+}
+
+.option:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-dont-know {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.dontKnow {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  color: #7583ff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.dontKnow:hover:not(:disabled) {
+  background: var(--bg-hover-color);
+  border-radius: 20px;
+  border: 2px solid #7583ff;
+}
+
+.dontKnow:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Responsive layout for options */
+@media screen and (min-width: 768px) {
+  .answer-options {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .option {
+    width: calc(50% - 5px); /* Two columns with gap adjustment */
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .answer-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    width: 100%; /* Full width for single column */
+  }
+}
+
+/* CSS cho bảng thống kê */
+.function-learn-main-contentmain-content h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.terms-studied {
+  margin-top: 50px;
+}
+
+.terms-studied h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.term-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: #2e3856;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #586380;
+}
+
+.term {
+  width: 200px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.separator {
+  color: #586380;
+  margin-right: 50px;
+}
+
+.definition {
+  flex: 1;
+  font-size: 16px;
+  color: #d9dde8;
+}
+
+.continue-section {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.continue-btn {
+  background: #4255ff;
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.continue-btn:hover {
+  background: #1a91db;
+}

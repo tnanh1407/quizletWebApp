@@ -1,0 +1,241 @@
+.top-creators-main {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+
+.top-creators-main::-webkit-scrollbar {
+  display: none;
+}
+
+.top-creators-main a {
+  color: #d4f5fc;
+  text-decoration: none;
+}
+
+.top-creators-main-sesstion {
+  /* position: relative; */
+}
+
+.top-creators-main img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+
+.creator-tag {
+  /* position: absolute;
+    bottom:14px; */
+  margin-top: 10px;
+}
+
+.creator-tag-1,
+.creator-tag-2 {
+  font-size: 13px;
+  padding: 2px 10px;
+  background: #586380;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.creator-rule h3 {
+  font-size: 20px;
+}
+
+.creator-rule-important {
+  height: 24px;
+  margin-left: 10px;
+  font-size: 10px;
+  padding: 2px 10px;
+  color: #0a092d;
+  background: #d4f5fc;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.creator-rule-important p {
+  line-height: 20px;
+}
+
+/* Kế thừa theme */
+body.dark-mode .creator-main {
+  background: #0a092d;
+  color: #fff;
+}
+body.light-mode .creator-main {
+  background: #f8f8fc;
+  color: #222;
+}
+
+.creator-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.creator-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  background: #23234c;
+}
+
+.creator-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.creator-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.creator-name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.creator-role {
+  background: #23234c;
+  color: #fff;
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.creator-tabs {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #2e3856;
+}
+
+.creator-tabs a {
+  text-decoration: none;
+}
+
+.creator-tab {
+  padding: 8px 0;
+  font-size: 1.1rem;
+  color: #aaa;
+  cursor: pointer;
+  position: relative;
+}
+
+.creator-tab.active {
+  background: none !important;
+}
+
+.creator-tab:hover,
+.creator-tab.active {
+  color: #f7f7f7; /* Màu vàng hoặc chọn màu bạn muốn */
+  /* background: #23234c; hoặc background khác nếu muốn */
+  border-bottom: 2px solid #3b56ee;
+}
+
+body.light-mode .creator-tab.active,
+body.light-mode .creator-tab:hover {
+  color: #d0d0da; /* màu xanh sáng hơn */
+  border-bottom: 2px solid #4f4fff;
+  /* background: transparent; */
+}
+
+body.light-mode .creator-tab.active {
+  color: #222;
+  border-bottom: 2px solid #4f4fff;
+}
+
+.creator-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.creator-search-input {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #2e3856;
+  color: #fff;
+  font-size: 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.light-mode .creator-search-input {
+  background: #eaeafc;
+  color: #222;
+}
+
+.creator-search-btn {
+  background: #23234c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.light-mode .creator-search-btn {
+  background: #eaeafc;
+  color: #222;
+}
+
+.creator-list-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.creator-card {
+  background: #2e3856;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.creator-card:hover {
+  /* background: #4f4fff; */
+  color: #fff;
+}
+
+body.light-mode .creator-card {
+  background: #eaeafc;
+  color: #222;
+}
+
+body.light-mode .creator-card:hover {
+  /* background: #bfcaff; */
+  color: #222;
+}
+
+.creator-card-count {
+  font-size: 0.95rem;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.creator-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}

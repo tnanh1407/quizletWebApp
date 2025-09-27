@@ -1,0 +1,226 @@
+.item-folder-main {
+  position: relative;
+  justify-content: space-between;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+#item-folder {
+  position: relative;
+  margin-top: 10px;
+}
+
+.item-folder {
+  width: 100%;
+  padding-left: 20px;
+  line-height: 20px;
+}
+
+.item-folder-main-icon-card {
+  width: 40px;
+  height: 40px;
+}
+
+.item-folder-main-icon-card i {
+  line-height: 37px;
+  /* bỏ color, background ở đây */
+  width: 100%;
+  font-size: 18px;
+  border-radius: 10px;
+}
+body.dark-mode .item-folder-main-icon-card i {
+  color: #51cfff;
+  background: #2e3856;
+}
+body.light-mode .item-folder-main-icon-card i {
+  color: #1976d2;
+  background: #e0e0e0;
+}
+
+.item-folder h1,
+.item-folder p {
+  font-size: 14px;
+}
+
+.item-folder h1 {
+  margin: 0;
+}
+
+.item-folder-button-option {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 99;
+  background: none;
+  border: none;
+}
+
+.button-option {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+.button-option i {
+  line-height: 40px;
+}
+
+.item-folder-button-option i {
+  /* bỏ color ở đây */
+  font-size: 18px;
+}
+body.dark-mode .item-folder-button-option i {
+  color: #f6f7fb;
+}
+body.light-mode .item-folder-button-option i {
+  color: #222;
+}
+
+#item-folder:hover .item-folder-main {
+  background: #2e3856;
+}
+
+.item-folder-button-option:hover .button-option {
+  background: #0a092d;
+}
+
+#item-folder-button-option-menu {
+  width: 250px;
+  /* bỏ background, border ở đây */
+  position: absolute;
+  top: 55px;
+  right: 0;
+  z-index: 99999;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+body.dark-mode #item-folder-button-option-menu {
+  background: #0a092d;
+  border: 2px solid #d9dde8;
+}
+body.light-mode #item-folder-button-option-menu {
+  background: #fff;
+  border: 2px solid #222;
+}
+
+#item-folder-button-option-menu button {
+  width: 100%;
+  background: none;
+  border: none;
+  /* bỏ color ở đây */
+  padding: 5px 20px;
+}
+body.dark-mode #item-folder-button-option-menu button {
+  color: #f6f7fb;
+}
+body.light-mode #item-folder-button-option-menu button {
+  color: #222;
+}
+
+#item-folder-button-option-menu button:hover {
+  background: #282e3e;
+}
+
+#item-folder-button-option-menu button i,
+#item-folder-button-option-menu button h3 {
+  font-size: 16px;
+  line-height: 30px;
+}
+
+#item-folder-button-option-menu button h3 {
+  font-weight: 400;
+}
+
+#item-folder-button-option-menu button i {
+  margin-right: 10px;
+}
+
+#add-or-remove-tags {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.add-or-remove-tags-container {
+  width: 500px;
+  height: 280px;
+  margin: auto;
+  margin-top: 60px;
+  /* bỏ color, background ở đây */
+  position: relative;
+  border-radius: 20px;
+}
+body.dark-mode .add-or-remove-tags-container {
+  color: #f6f7fb;
+  background: #0a092d;
+}
+body.light-mode .add-or-remove-tags-container {
+  color: #222;
+  background: #fff;
+}
+
+.add-or-remove-tags-container h1 {
+  font-size: 32px;
+  margin: 16px 0;
+}
+
+.add-or-remove-tags-container-main {
+  margin: 40px 0 32px;
+}
+
+.add-or-remove-tags-container-main button {
+  padding: 15px 20px;
+  /* bỏ background, color ở đây */
+  border: none;
+  border-radius: 50px;
+}
+body.dark-mode .add-or-remove-tags-container-main button {
+  background: #202040;
+  color: #f6f7fb;
+}
+body.light-mode .add-or-remove-tags-container-main button {
+  background: #e0e0e0;
+  color: #222;
+}
+
+.add-or-remove-tags-container-main button i,
+.add-or-remove-tags-container-main button p {
+  line-height: 23px;
+}
+
+.add-or-remove-tags-container-main button p {
+  margin-left: 5px;
+}
+
+.add-or-remove-tags-container-main .flex {
+  margin-right: 10px;
+}
+
+.button-add-or-remove-tags-done {
+  /* bỏ color, background, border ở đây */
+  display: flex;
+  float: right;
+  font-size: 16px;
+  padding: 15px 20px;
+  border-radius: 50px;
+}
+body.dark-mode .button-add-or-remove-tags-done {
+  color: #f6f7fb;
+  background: #2e3856;
+  border: 2px solid #2e3856;
+}
+body.light-mode .button-add-or-remove-tags-done {
+  color: #222;
+  background: #e0e0e0;
+  border: 2px solid #e0e0e0;
+}
+
+.button-add-or-remove-tags-done:hover {
+  background: none;
+  border: 2px solid #d9dde8;
+}
