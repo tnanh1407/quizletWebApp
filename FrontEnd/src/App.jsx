@@ -48,6 +48,9 @@ import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
 import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials/LearningMaterials.jsx";
 import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members/Members.jsx";
 
+import DashBoardFlashCard from "./components/DashBoard/Flashcard.jsx";
+import DashBoardUsers from "./components/DashBoard/Users.jsx";
+import DashBoardOverview from "./components/DashBoard/Overview.jsx";
 function App() {
   const [isPadded, setIsPadded] = useState(true);
   const [isAddFlashCard, setIsAddFlashCard] = useState(true);
@@ -141,9 +144,9 @@ function App() {
           </Route>
 
           <Route element={<DashBoardLayOut />}>
-            <Route path="/dashboard" element={<DashBoard />} />
-            <Route path="/dashboard" element={<NewFolder />} />
-            <Route path="/dashboard" element={<CreateClass />} />
+            <Route path="/dashboard/overview" element={<DashBoardOverview />} />
+            <Route path="/dashboard/user" element={<DashBoardUsers />} />
+            <Route path="/dashboard/dashboardflashcard" element={<DashBoardFlashCard />} />
           </Route>
 
           {/* Function Flash Card - Learn - Test */}

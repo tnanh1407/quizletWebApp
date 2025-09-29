@@ -10,17 +10,17 @@ export default function DashBoardLayOut() {
         <nav>
           <ul>
             <li>
-              <NavLink to="overview" end className={({ isActive }) => isActive ? "active" : ""}>
+              <NavLink to="/dashboard/overview" end className={({ isActive }) => isActive ? "active" : ""}>
                 Overview
               </NavLink>
             </li>
             <li>
-              <NavLink to="users" className={({ isActive }) => isActive ? "active" : ""}>
+              <NavLink to="/dashboard/user" className={({ isActive }) => isActive ? "active" : ""}>
                 Users
               </NavLink>
             </li>
             <li>
-              <NavLink to="flashcard" className={({ isActive }) => isActive ? "active" : ""}>
+              <NavLink to="/dashboard/dashboardflashcard" className={({ isActive }) => isActive ? "active" : ""}>
                 Flashcard
               </NavLink>
             </li>

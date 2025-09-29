@@ -1,4 +1,4 @@
-export default function Users() {
+export default function DashBoardUsers() {
   return (
     <div>
       <h1>Users Page</h1>
