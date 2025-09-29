@@ -1,8 +1,14 @@
 .header-container {
   background: var(--bg-color);
-  height: 100px;
   box-sizing: border-box;
   border-bottom: 2px solid #7583ff;
+  height: 80px;
+  width: 100vw;
+  /* position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99; */
 }
 .head-content {
   display: grid;
@@ -10,9 +16,6 @@
   align-items: center;
   padding: 20px;
   color: #fff;
-  max-width: 1200px;
-  margin: 0 auto;
-  /*border-bottom: 2px solid #7583ff;*/
 }
 
 .column-left {

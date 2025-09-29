@@ -139,6 +139,17 @@ const removeFlashcard = async (classroomId, flashcardId) => {
       { _id: new ObjectId(classroomId) },
       { $pull: { flashcards: flashcardId } }
     );
+  const classroom = await getById(classroomId);
+  if (!classroom) return null;
+
+  // Cập nhật lại flashcard_count
+  const updatedFlashcards = classroom.flashcards || [];
+  await db
+    .collection(CLASSROOM_COLLECTION_NAME)
+    .updateOne(
+      { _id: new ObjectId(classroomId) },
+      { $set: { flashcard_count: updatedFlashcards.length } }
+    );
   return await getById(classroomId);
 };
 

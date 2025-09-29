@@ -141,8 +141,8 @@ function App() {
           </Route>
 
           <Route element={<DashBoardLayOut />}>
-            <Route path="/dashboard" element={<DashBoard />} />
-            <Route path="/dashboard" element={<NewFolder />} />
+            {/* <Route path="/dashboard/flashcard" element={<DashBoardFlash />} /> */}
+            <Route path="/dashboard/comingsoon" element={<NewFolder />} />
             <Route path="/dashboard" element={<CreateClass />} />
           </Route>
 

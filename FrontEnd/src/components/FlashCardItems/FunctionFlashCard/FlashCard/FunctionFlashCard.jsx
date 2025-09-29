@@ -1,8 +1,15 @@
 import "./CssFunctionFlashCard.css";
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { flashCardApi } from "../../../../api/flashCardApi";
 
 export default function FunctionFlashCard({ isPadded }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [flashcard, setFlashcard] = useState(null);
+  const [currentFlashcards, setCurrentFlashcards] = useState([]);
+
   const [flipped, setFlipped] = useState(false);
   const [index, setIndex] = useState(0);
   const [stillLearning, setStillLearning] = useState(0);
@@ -10,30 +17,40 @@ export default function FunctionFlashCard({ isPadded }) {
   const [isCompleted, setIsCompleted] = useState(false);
   const [learningCards, setLearningCards] = useState([]);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  //Cập nhật state lên location
-  useEffect(() => {
-    navigate(location.pathname, { state: { isCompleted } });
-  }, [isCompleted, navigate, location.pathname]);
-
-  //Lưu trữ trạng thái của thẻ cuối cùng
   const [lastCardIndex, setLastCardIndex] = useState(null);
   const [lastFlipped, setLastFlipped] = useState(false);
 
-  const flashcards = [
-    { term: "Demo", definition: "Thử nghiệm" },
-    { term: "Test", definition: "Kiểm tra" },
-    { term: "Learn", definition: "Học" },
-    { term: "Study", definition: "Nghiên cứu" },
-  ];
+  // const [flipped, setFlipped] = useState(false);
+  // const [index, setIndex] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [direction, setDirection] = useState("next");
 
-  const [currentFlashcards, setCurrentFlashcards] = useState(flashcards);
+  // Fetch flashcards từ API
+  useEffect(() => {
+    flashCardApi
+      .getById(id)
+      .then((data) => {
+        setFlashcard(data);
+        if (data?.content?.length > 0) {
+          setCurrentFlashcards(data.content);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, [id]);
 
-  const handleFlip = () => {
-    setFlipped(!flipped);
-  };
+  // Lắng nghe phím bất kỳ để chuyển sang learn sau khi completed
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (isCompleted && event.key) {
+        navigate(`/${id}/learn`);
+      }
+    };
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [isCompleted, navigate, id]);
+
+  // --- Handlers ---
+  const handleFlip = () => setFlipped(!flipped);
 
   const handleMark = (type) => {
     if (type === "stillLearning") {
@@ -42,32 +59,21 @@ export default function FunctionFlashCard({ isPadded }) {
     } else if (type === "know") {
       setKnow((prev) => prev + 1);
     }
-    // Lưu trạng thái của thẻ cuối cùng trước khi chuyển
-    if (index + 1 < flashcards.length) {
+
+    if (index + 1 < currentFlashcards.length) {
       setLastCardIndex(index);
       setLastFlipped(flipped);
       setIndex((prev) => prev + 1);
       setFlipped(false);
     } else {
       setIsCompleted(true);
-      setLastCardIndex(index); // Lưu thẻ cuối cùng khi hoàn thành
+      setLastCardIndex(index);
       setLastFlipped(flipped);
-    }
-
-    // Chuyển sang thẻ tiếp theo nếu còn thẻ
-    {
-      /*if (index + 1 < flashcards.length) {
-      setIndex((prev) => prev + 1);
-      setFlipped(false); // Đặt lại trạng thái lật khi chuyển thẻ
-    } else {
-      {/*alert("Đã hoàn thành tất cả các thẻ!");
-      setIsCompleted(true);
-    }*/
     }
   };
 
   const reset = () => {
-    setCurrentFlashcards(flashcards);
+    setCurrentFlashcards(flashcard?.content || []);
     setIndex(0);
     setFlipped(false);
     setStillLearning(0);
@@ -76,27 +82,24 @@ export default function FunctionFlashCard({ isPadded }) {
     setLearningCards([]);
   };
 
-  const handlePractice = () => {
-    navigate("/:id/learn"); // Điều hướng đến trang /learn
-  };
+  const handlePractice = () => navigate(`/${id}/learn`);
 
   const goBackToLastQuestion = () => {
-    if (lastCardIndex !== null) {
-      setIsCompleted(false);
-      setIndex(lastCardIndex);
-      setFlipped(lastFlipped);
-    }
+    // if (lastCardIndex !== null) {
+    //   setIsCompleted(false);
+    //   setIndex(lastCardIndex);
+    //   setFlipped(lastFlipped);
+    // }
+    reset();
   };
 
   const focusOnStillLearning = () => {
     if (learningCards.length > 0) {
       const filtered = learningCards.map((i) => currentFlashcards[i]);
-
       if (filtered.length === 0) {
         setIsCompleted(true);
         return;
       }
-
       setCurrentFlashcards(filtered);
       setIndex(0);
       setFlipped(false);
@@ -109,25 +112,7 @@ export default function FunctionFlashCard({ isPadded }) {
     }
   };
 
-  if (
-    !isCompleted &&
-    (currentFlashcards.length === 0 || index >= currentFlashcards.length)
-  ) {
-    setIsCompleted(true);
-    return null;
-  }
-
-  // Lắng nghe phím bất kỳ để điều hướng đến /learn khi hoàn thành
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (isCompleted && event.key) {
-        navigate("/:id/learn");
-      }
-    };
-    window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [isCompleted, navigate]);
-
+  // --- Render ---
   if (isCompleted) {
     const total = know + stillLearning;
     const knowPercentage = total > 0 ? Math.round((know / total) * 100) : 0;
@@ -195,6 +180,10 @@ export default function FunctionFlashCard({ isPadded }) {
     );
   }
 
+  if (currentFlashcards.length === 0) {
+    return <div>Loading flashcards...</div>;
+  }
+
   return (
     <div
       className="main-flex"
@@ -212,31 +201,32 @@ export default function FunctionFlashCard({ isPadded }) {
                   <span className="count">{know}</span> Know
                 </span>
               </div>
-              <div className="function-flashcard-main-content">
-                <div className="function-flashcard-main-content-header flex">
-                  <div className="function-flashcard-main-content-header-hint flex">
-                    <i className="fa-solid fa-lightbulb"></i>
-                    <p>Get a hint</p>
+              <div
+                className={`flashcard-container ${flipped ? "flipped" : ""} ${
+                  isFlipping
+                    ? direction === "next"
+                      ? "slide-right"
+                      : "slide-left"
+                    : ""
+                }`}
+                onClick={() => setFlipped(!flipped)}
+              >
+                <div className="flashcard-side front">
+                  {/* Header */}
+                  <div className="itemflashcard-main-content-header flex">
+                    <div className="itemflashcard-main-content-header-hint flex">
+                      <i className="fa-solid fa-lightbulb"></i>
+                      <p>Get a hint</p>
+                    </div>
+                    <i className="fa-regular fa-star"></i>
                   </div>
-                  {/*<i class="fa-regular fa-star"></i>*/}
+                  <div className="itemflashcard-main-content-contruction">
+                    <h1>{flashcard.content[index].front}</h1>
+                  </div>
                 </div>
-                <div
-                  className={`function-flashcard-container ${
-                    flipped ? "flipped" : ""
-                  }`}
-                  onClick={handleFlip}
-                >
-                  {/*<div className="flashcard-inner"></div>*/}
-                  <div className="function-flashcard-side front">
-                    <div className="function-flashcard-main-content-contruction">
-                      <h1>{flashcards[index].term}</h1>
-                    </div>
-                  </div>
-                  <div className="function-flashcard-side back">
-                    <div className="function-flashcard-main-content-contruction">
-                      <h1>{flashcards[index].definition}</h1>
-                    </div>
-                  </div>
+
+                <div className="flashcard-side back">
+                  <h1>{flashcard.content[index].back}</h1>
                 </div>
               </div>
             </div>
@@ -245,13 +235,6 @@ export default function FunctionFlashCard({ isPadded }) {
           <div className="function-flashcard-main-content-option flex">
             <h1>Track progress</h1>
             <div className="function-flashcard-main-content-option-move flex">
-              {/*<button style={{marginRight:"22px"}}>
-                  <i class="fa-solid fa-arrow-left"></i>
-                </button>
-                
-                <button>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button> */}
               <button
                 style={{ marginRight: "22px", color: "#f28c38" }}
                 onClick={() => handleMark("stillLearning")}

@@ -1,9 +1,13 @@
 import "./CssFunctionTest.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { flashCardApi } from "../../../../api/flashCardApi";
 
 export default function FunctionTest({ isPadded }) {
   const { id } = useParams();
+  const [flashcard, setFlashcard] = useState(null);
+  const [currentFlashcards, setCurrentFlashcards] = useState([]);
+
   const cards = [
     {
       term: "have one's hands full",
@@ -37,6 +41,39 @@ export default function FunctionTest({ isPadded }) {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Hàm shuffle
+  function shuffle(arr) {
+    return [...arr].sort(() => Math.random() - 0.5);
+  }
+
+  // Sinh options cho toàn bộ flashcards
+  function generateCards(content) {
+    const allBacks = content.map((c) => c.back);
+    return content.map((c) => {
+      const wrongs = shuffle(allBacks.filter((b) => b !== c.back)).slice(0, 3);
+      return {
+        term: c.back,
+        definition: c.front,
+        options: shuffle([...wrongs, c.front]),
+      };
+    });
+  }
+
+  // Fetch flashcards từ API
+  useEffect(() => {
+    flashCardApi
+      .getById(id)
+      .then((data) => {
+        setFlashcard(data);
+        if (data?.content?.length > 0) {
+          const cardsWithOptions = generateCards(data.content);
+          setCurrentFlashcards(cardsWithOptions);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, [id]);
+  console.log(currentFlashcards);
 
   //Cập nhật state lên location
   useEffect(() => {

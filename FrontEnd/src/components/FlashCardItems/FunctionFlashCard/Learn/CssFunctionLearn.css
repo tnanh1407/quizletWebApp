@@ -1,13 +1,12 @@
 .function-learn {
-  padding: 20px;
+  padding-top: 80px;
   color: var(--text-color);
-  padding-top: 50px;
   background: var(--bg-color);
 }
 
 .function-learn-main-content {
-  max-width: 1265px;
-  height: 100vh;
+  max-width: 850px;
+  height: 85vh;
   margin-left: auto;
   margin-right: auto;
 }

@@ -3,6 +3,7 @@ import account from "../../../../assets/img/account.jpg";
 import { flashCardApi } from "../../../../api/flashCardApi";
 import { useEffect, useState } from "react";
 import { getUser } from "../../../../other/storage";
+import { classroomApi } from "../../../../api/classroomApi";
 
 export default function SectionPopularItem() {
   const [flashCards, setFlashCards] = useState([]);
@@ -10,7 +11,7 @@ export default function SectionPopularItem() {
   const user = getUser();
   useEffect(() => {
     const fetchData = async () => {
-      const data = await flashCardApi.getAll();
+      const data = await classroomApi.getAll();
       setFlashCards(data);
     };
 
@@ -19,10 +20,10 @@ export default function SectionPopularItem() {
   return (
     <>
       {flashCards
-        .filter((card) => card.delete_flashcard === false)
+        .filter((card) => card.delete_classroom === false)
         .slice(0, 9)
         .map((card) => (
-          <Link to={`/itemflashcard/${card._id}`} key={card._id}>
+          <Link to={`/class/${card._id}/material`} key={card._id}>
             <div className="session all-section">
               <h1>{card.title}</h1>
               <div className="session-terms">

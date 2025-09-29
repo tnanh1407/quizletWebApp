@@ -116,15 +116,31 @@ const addFlashcards = async (folderId, flashcardIds) => {
 
 const removeFlashcard = async (folderId, flashcardId) => {
   const db = GET_DB();
+
+  // Gỡ flashcard khỏi folder
   await db
     .collection(FOLDER_COLLECTION_NAME)
     .updateOne(
       { _id: new ObjectId(folderId) },
       { $pull: { flashcards: flashcardId } }
     );
+
+  // Lấy lại folder sau khi update
+  const folder = await getById(folderId);
+  if (!folder) return null;
+
+  // Cập nhật lại flashcard_count
+  const updatedFlashcards = folder.flashcards || [];
+  await db
+    .collection(FOLDER_COLLECTION_NAME)
+    .updateOne(
+      { _id: new ObjectId(folderId) },
+      { $set: { flashcard_count: updatedFlashcards.length } }
+    );
+
+  // Trả về folder mới nhất
   return await getById(folderId);
 };
-
 export const folderModel = {
   getAll,
   getById,
