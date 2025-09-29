@@ -166,6 +166,22 @@
   padding-top: 30px;
 }
 
+.function-flashcard-maincontent {
+  width: 100%;
+  height: 100%;
+  color: #f6f7fb;
+  padding: 20px 0 0 0;
+  /*overflow-y: auto;
+  scrollbar-width: none;*/
+}
+
+.function-flashcard-content {
+  max-width: 1265px;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .progress-tracker {
   display: flex;
   justify-content: space-between;
@@ -308,7 +324,7 @@
 }
 
 /* Flashcard Container and Flip Effect */
-.flashcard-container {
+.function-flashcard-container {
   position: relative;
   width: 100%;
   height: 300px; /* Đặt chiều cao cố định cho thẻ */
@@ -330,7 +346,7 @@
   transform: rotateX(180deg); 
 }*/
 
-.flashcard-side {
+.function-flashcard-side {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -401,12 +417,12 @@
   }
 } */
 
-.flashcard-container .flipped .front {
+.function-flashcard-container .flipped .front {
   transform: rotateY(-180deg);
   z-index: 1;
 }
 
-.flashcard-container .flipped .back {
+.function-flashcard-container .flipped .back {
   transform: rotateY(0deg);
   z-index: 2;
 }

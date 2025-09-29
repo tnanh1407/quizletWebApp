@@ -1,7 +1,6 @@
 import { flashCardApi } from "../../../../api/flashCardApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import iconFlashCard from "../../../../assets/icon/cards.png";
 import { getUser } from "../../../../other/storage";
 
 // icon

@@ -14,7 +14,6 @@ export default function FlashCard() {
   // const [isLocked, setIsLocked] = useState(false); // khóa không cho chọn lại sau khi đã chọn
   const [flashcard, setFlashcard] = useState(null);
   const location = useLocation();
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const [flipped, setFlipped] = useState(false);
   const [index, setIndex] = useState(0);
@@ -31,14 +30,6 @@ export default function FlashCard() {
         setFlashcard(data);
       })
       .catch((err) => console.error(err));
-
-    // let timer;
-    // if (location.state?.updated) {
-    //   // alert("Cập nhật thành công!");
-    // } else if (location.state?.deleted) {
-    //   timer = setTimeout(() => setMessage(""), 3000);
-    // }
-    // return () => clearTimeout(timer);
   }, [id, location.state]);
 
   const handleDelete = async () => {
@@ -252,13 +243,13 @@ export default function FlashCard() {
           <div className="itemflashcard-header-title-solution">
             <Link to={`/${id}/flashcards`} className="flex">
               <div className="title-solution title-solution-flashcard">
-                <i class="fa-solid fa-id-card"></i>
+                <i class="fa fa-clone"></i>
                 <p>Flashcards</p>
               </div>
             </Link>
             <Link to={`/${id}/learn`} className="flex">
               <div className="title-solution title-solution-learn">
-                <i class="fa-solid fa-graduation-cap"></i>
+                <i class="fa-solid fa-spinner"></i>
                 <p>Learn</p>
               </div>
             </Link>

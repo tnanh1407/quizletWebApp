@@ -5,7 +5,6 @@ const BASE_URL = "http://localhost:9999/v1";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
-  console.log("Token dùng cho request user:", token);
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 

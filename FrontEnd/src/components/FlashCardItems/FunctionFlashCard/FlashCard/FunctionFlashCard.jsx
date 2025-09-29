@@ -8,6 +8,8 @@ export default function FunctionFlashCard({ isPadded }) {
   const [stillLearning, setStillLearning] = useState(0);
   const [know, setKnow] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [learningCards, setLearningCards] = useState([]);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,6 +29,8 @@ export default function FunctionFlashCard({ isPadded }) {
     { term: "Study", definition: "Nghiên cứu" },
   ];
 
+  const [currentFlashcards, setCurrentFlashcards] = useState(flashcards);
+
   const handleFlip = () => {
     setFlipped(!flipped);
   };
@@ -34,6 +38,7 @@ export default function FunctionFlashCard({ isPadded }) {
   const handleMark = (type) => {
     if (type === "stillLearning") {
       setStillLearning((prev) => prev + 1);
+      setLearningCards((prev) => [...prev, index]);
     } else if (type === "know") {
       setKnow((prev) => prev + 1);
     }
@@ -62,11 +67,13 @@ export default function FunctionFlashCard({ isPadded }) {
   };
 
   const reset = () => {
+    setCurrentFlashcards(flashcards);
     setIndex(0);
     setFlipped(false);
     setStillLearning(0);
     setKnow(0);
     setIsCompleted(false);
+    setLearningCards([]);
   };
 
   const handlePractice = () => {
@@ -80,6 +87,35 @@ export default function FunctionFlashCard({ isPadded }) {
       setFlipped(lastFlipped);
     }
   };
+
+  const focusOnStillLearning = () => {
+    if (learningCards.length > 0) {
+      const filtered = learningCards.map((i) => currentFlashcards[i]);
+
+      if (filtered.length === 0) {
+        setIsCompleted(true);
+        return;
+      }
+
+      setCurrentFlashcards(filtered);
+      setIndex(0);
+      setFlipped(false);
+      setKnow(0);
+      setStillLearning(0);
+      setIsCompleted(false);
+      setLearningCards([]);
+    } else {
+      setIsCompleted(true);
+    }
+  };
+
+  if (
+    !isCompleted &&
+    (currentFlashcards.length === 0 || index >= currentFlashcards.length)
+  ) {
+    setIsCompleted(true);
+    return null;
+  }
 
   // Lắng nghe phím bất kỳ để điều hướng đến /learn khi hoàn thành
   useEffect(() => {
@@ -139,7 +175,7 @@ export default function FunctionFlashCard({ isPadded }) {
             <button className="practice-btn" onClick={handlePractice}>
               Practice with questions
             </button>
-            <button className="focus-btn">
+            <button className="focus-btn" onClick={focusOnStillLearning}>
               Focus on {stillLearning} Still learning cards
             </button>
             <button className="reset-btn" onClick={reset}>
@@ -164,8 +200,8 @@ export default function FunctionFlashCard({ isPadded }) {
       className="main-flex"
       style={{ paddingLeft: isPadded ? "200px" : "60px" }}
     >
-      <div className="maincontent">
-        <div className="main-content">
+      <div className="function-flashcard-maincontent">
+        <div className="function-flashcard-content">
           <div className="itemflashcard-main">
             <div className="function-flashcard-main">
               <div className="progress-tracker">
@@ -185,16 +221,18 @@ export default function FunctionFlashCard({ isPadded }) {
                   {/*<i class="fa-regular fa-star"></i>*/}
                 </div>
                 <div
-                  className={`flashcard-container ${flipped ? "flipped" : ""}`}
+                  className={`function-flashcard-container ${
+                    flipped ? "flipped" : ""
+                  }`}
                   onClick={handleFlip}
                 >
                   {/*<div className="flashcard-inner"></div>*/}
-                  <div className="flashcard-side front">
+                  <div className="function-flashcard-side front">
                     <div className="function-flashcard-main-content-contruction">
                       <h1>{flashcards[index].term}</h1>
                     </div>
                   </div>
-                  <div className="flashcard-side back">
+                  <div className="function-flashcard-side back">
                     <div className="function-flashcard-main-content-contruction">
                       <h1>{flashcards[index].definition}</h1>
                     </div>

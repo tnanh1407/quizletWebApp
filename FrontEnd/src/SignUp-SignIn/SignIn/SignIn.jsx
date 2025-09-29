@@ -14,7 +14,6 @@ export default function SignIn() {
     e.preventDefault();
     try {
       const res = await authApi.login({ email, password });
-      console.log(res);
       if (res.user) {
         saveUser({ id: res.user.id, username: res.user.username });
       }
@@ -28,7 +27,6 @@ export default function SignIn() {
       }
 
       alert("Login success!");
-      console.log("Token lưu vào localStorage:", localStorage.getItem("token"));
       navigate("/"); // chuyển hướng sau khi login thành công
     } catch (err) {
       console.error(err);

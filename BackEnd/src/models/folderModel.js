@@ -1,12 +1,12 @@
+import Joi from "joi";
 import { GET_DB } from "../config/mongodb.js";
 import { ObjectId } from "mongodb";
-import Joi from "joi";
 
 const FOLDER_COLLECTION_NAME = "folders";
 
 const FOLDER_COLLECTION_SCHEMA = Joi.object({
-  title: Joi.string().min(3).max(100).required().trim(),
   flashcards: Joi.array().items(Joi.string()).default([]),
+  title: Joi.string().min(3).max(100).required().trim(),
 
   createAt: Joi.date().iso(),
   creator: Joi.object({
@@ -61,6 +61,7 @@ const createNew = async (data, user) => {
   };
 
   const validData = await validateFolder(autoData);
+
   const db = GET_DB();
   const result = await db
     .collection(FOLDER_COLLECTION_NAME)
@@ -115,19 +116,12 @@ const addFlashcards = async (folderId, flashcardIds) => {
 
 const removeFlashcard = async (folderId, flashcardId) => {
   const db = GET_DB();
-  const folder = await getById(folderId);
-  if (!folder || !folder.flashcards.includes(flashcardId)) return null;
-
-  await db.collection(FOLDER_COLLECTION_NAME).updateOne(
-    { _id: new ObjectId(folderId) },
-    {
-      $pull: {
-        flashcards: flashcardId,
-        flashcard_count: updatedFlashcards.length,
-      },
-    }
-  );
-
+  await db
+    .collection(FOLDER_COLLECTION_NAME)
+    .updateOne(
+      { _id: new ObjectId(folderId) },
+      { $pull: { flashcards: flashcardId } }
+    );
   return await getById(folderId);
 };
 

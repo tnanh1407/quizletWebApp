@@ -16,7 +16,6 @@ export default function SectionTopCreatorItem() {
     const fetchData = async () => {
       try {
         const data = await userApi.getAllPublic();
-        console.log("All users:", data);
         setUsers(data);
       } catch (err) {
         console.error("Error fetching users:", err);

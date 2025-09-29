@@ -45,8 +45,8 @@ import DashBoardLayOut from "./components/Layout/DashBoardLayOut.jsx";
 import DashBoard from "./components/DashBoard/DashBoard.jsx";
 // import ClassDetail from "./components/Layout/ClassDetail.jsx";
 import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
-import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials.jsx";
-import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members.jsx";
+import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials/LearningMaterials.jsx";
+import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members/Members.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -103,8 +103,11 @@ function App() {
               {/* <Route path="/class-detail" element={<ClassDetail />}></Route */}
 
               <Route element={<Class />}>
-                <Route path="/class/material" element={<LearningMaterials />} />
-                <Route path="/class/member" element={<Members />} />
+                <Route
+                  path="/class/:id/material"
+                  element={<LearningMaterials />}
+                />
+                <Route path="/class/:id/member" element={<Members />} />
               </Route>
               {/* Route Your library  */}
 

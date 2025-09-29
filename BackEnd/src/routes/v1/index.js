@@ -10,7 +10,7 @@ const router = express.Router();
 router.use("/flashCards", flashCardRoutes);
 router.use("/users", userRoutes);
 router.use("/folders", folderRoutes);
-router.use("/class", classroomRoutes);
+router.use("/classrooms", classroomRoutes);
 router.use("/auth", authRoutes);
 
 export const APIs_V1 = router;

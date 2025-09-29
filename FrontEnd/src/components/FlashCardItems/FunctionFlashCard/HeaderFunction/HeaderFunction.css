@@ -1,8 +1,8 @@
 .header-container {
-  /*background: #202040; */
   background: var(--bg-color);
   height: 100px;
   box-sizing: border-box;
+  border-bottom: 2px solid #7583ff;
 }
 .head-content {
   display: grid;
@@ -12,7 +12,7 @@
   color: #fff;
   max-width: 1200px;
   margin: 0 auto;
-  border-bottom: 2px solid #7583ff;
+  /*border-bottom: 2px solid #7583ff;*/
 }
 
 .column-left {
@@ -156,13 +156,13 @@
 }
 
 /* Style cho item active*/
-.mode-item.active {
+.mode-item .active {
   background: #1a1a2e;
   border-left: 4px solid #4b6aff;
   color: #fff;
 }
 
-.mode-item.active i {
+.mode-item .active i {
   color: #4b6aff;
 }
 

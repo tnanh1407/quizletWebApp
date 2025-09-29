@@ -148,7 +148,12 @@ export default function FunctionTest({ isPadded }) {
           <div className="stats-left">
             <p>{calculateTime()}</p>
             <div className="stats-circle">
-              <div className="circle">
+              <div
+                className="circle"
+                style={{
+                  background: `conic-gradient(#18ae79 ${percentage}%, #da4543 0)`,
+                }}
+              >
                 <span>{percentage}%</span>
               </div>
               <div>
@@ -256,8 +261,8 @@ export default function FunctionTest({ isPadded }) {
           </ul>
         </div>
 
-        <div className="maincontent">
-          <div className="main-content">
+        <div className="function-test-maincontent">
+          <div className="function-test-main-content">
             <div className="itemflashcard-main">
               {questions.map((question, index) => (
                 <div
@@ -316,21 +321,24 @@ export default function FunctionTest({ isPadded }) {
               </div>
             </div>
             {showModal && (
-              <div className="modal">
-                <div className="modal-content">
+              <div className="test-modal">
+                <div className="test-modal-content">
                   <p>You haven't answered all the questions.</p>
                   <p>
                     Would you like to review the skipped questions or submit the
                     test now?
                   </p>
-                  <div className="modal-buttons">
+                  <div className="test-modal-buttons">
                     <button
-                      className="modal-button"
+                      className="test-modal-button"
                       onClick={handleReviewSkipped}
                     >
                       Review Skipped Questions
                     </button>
-                    <button className="modal-button" onClick={handleSubmitNow}>
+                    <button
+                      className="test-modal-button"
+                      onClick={handleSubmitNow}
+                    >
                       Submit Now
                     </button>
                   </div>
