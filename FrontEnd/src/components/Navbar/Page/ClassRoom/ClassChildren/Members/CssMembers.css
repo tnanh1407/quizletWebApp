@@ -1,0 +1,86 @@
+.member-container {
+  padding: 16px 0 24px 0;
+  border-bottom: 1px solid #333;
+}
+
+.member-container > p {
+  text-align: none !important;
+  padding-bottom: 16px;
+  font-size: 16px;
+}
+.member {
+  height: 64px;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: var(--text-color);
+}
+
+.member-left img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50px;
+}
+
+.member-left,
+.member-right {
+  align-items: center;
+}
+
+.member-left p {
+  font-size: 16px;
+  margin-left: 16px;
+}
+
+.member-right p {
+  margin-right: 30px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.member-right i {
+  width: 30px;
+  padding: 8px 5px;
+}
+
+.member-right i:hover {
+  background: #282e3e;
+  border-radius: 50px;
+}
+
+.member-menu {
+  color: var(--text-color);
+  background: none;
+  border: none;
+  position: relative;
+}
+
+#option-member-menu {
+  position: absolute;
+  border-radius: 10px;
+  right: 0;
+  border: 2px solid var(--text-color);
+  width: 200px;
+  background: var(--bg-color);
+}
+
+.option-menu {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.option-menu p {
+  color: var(--text-color);
+  font-size: 15px;
+}
+
+.option-menu button {
+  width: 100%;
+  background: none;
+  border: none;
+}
+
+.icon-member-option {
+  color: var(--text-color);
+  font-size: 20px;
+  margin-right: 10px;
+}

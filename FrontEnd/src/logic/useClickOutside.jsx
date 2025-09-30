@@ -1,17 +1,13 @@
 import { useEffect } from "react";
 
-export function useClickOutside(targetRefs, toggleButtonRef, handler) {
+export function useClickOutside(refs, handler) {
   useEffect(() => {
     function handleClick(event) {
-      const clickedOutside = targetRefs.every((ref) => {
-        if (!ref.current) return true; // nếu ref chưa gán thì coi như "bên ngoài"
-        return !ref.current.contains(event.target);
+      const clickedOutside = refs.every((ref) => {
+        return !ref.current || !ref.current.contains(event.target);
       });
-      const clickedToggle =
-        toggleButtonRef.current &&
-        toggleButtonRef.current.contains(event.target);
 
-      if (clickedOutside || clickedToggle) {
+      if (clickedOutside) {
         handler(event);
       }
     }
@@ -20,5 +16,5 @@ export function useClickOutside(targetRefs, toggleButtonRef, handler) {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, [targetRefs, toggleButtonRef, handler]);
+  }, [refs, handler]);
 }

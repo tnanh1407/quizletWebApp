@@ -1,5 +1,14 @@
 const Joi = require("joi");
 
+try {
+  const validData = await FOLDER_COLLECTION_SCHEMA.validateAsync(autoData, {
+    abortEarly: false,
+  });
+} catch (err) {
+  console.error("Validation error:", err.details);
+  throw err;
+}
+
 const folderSchema = Joi.object({
   // Tên folder
   title: Joi.string().min(3).max(100).required().messages({

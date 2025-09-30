@@ -4,6 +4,7 @@ import account from "../../assets/img/account.jpg";
 import { flashCardApi } from "../../api/flashCardApi";
 import { folderApi } from "../../api/folderApi";
 import "./CssNavbar.css";
+import "../../App.css";
 import { getUser } from "../../other/storage";
 import SectionAddFlashCard from "../Sections/SectionAddFlashCard/SectionAddFlashCard";
 

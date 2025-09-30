@@ -12,7 +12,7 @@ const getAll = async (req, res, next) => {
 
 const createNew = async (req, res, next) => {
   try {
-    const { title, desc, content, creator } = req.body;
+    const { title, university, description, creator } = req.body;
 
     if (!creator || !creator.user_id || !creator.username) {
       return res
@@ -22,9 +22,16 @@ const createNew = async (req, res, next) => {
 
     const newclassroom = await classroomService.createNew({
       title,
-      desc,
-      content,
+      university,
+      description,
       creator,
+      members: [
+        {
+          user_id: creator.user_id,
+          username: creator.username,
+          role: "Owner",
+        },
+      ],
     });
 
     res.status(StatusCodes.CREATED).json(newclassroom);
@@ -84,12 +91,12 @@ const addFlashcards = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { flashcardIds } = req.body;
-    const folder = await folderService.addFlashcards(id, flashcardIds);
-    if (!folder)
+    const classroom = await classroomService.addFlashcards(id, flashcardIds);
+    if (!classroom)
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Folder not found" });
-    res.status(StatusCodes.OK).json(folder);
+    res.status(StatusCodes.OK).json(classroom);
   } catch (err) {
     next(err);
   }
@@ -97,13 +104,16 @@ const addFlashcards = async (req, res, next) => {
 
 const removeFlashcard = async (req, res, next) => {
   try {
-    const { folderId, flashcardId } = req.params;
-    const folder = await folderService.removeFlashcard(folderId, flashcardId);
-    if (!folder)
+    const { classroomId, flashcardId } = req.params;
+    const classroom = await classroomService.removeFlashcard(
+      classroomId,
+      flashcardId
+    );
+    if (!classroom)
       return res
         .status(StatusCodes.NOT_FOUND)
-        .json({ message: "Folder not found or flashcard not in folder" });
-    res.status(StatusCodes.OK).json(folder);
+        .json({ message: "Folder not found or flashcard not in classroom" });
+    res.status(StatusCodes.OK).json(classroom);
   } catch (err) {
     next(err);
   }
@@ -111,13 +121,13 @@ const removeFlashcard = async (req, res, next) => {
 const addFolders = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { flashcardIds } = req.body;
-    const folder = await folderService.addFlashcards(id, flashcardIds);
-    if (!folder)
+    const { folderId } = req.body;
+    const classroom = await classroomService.addFlashcards(id, folderId);
+    if (!classroom)
       return res
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Folder not found" });
-    res.status(StatusCodes.OK).json(folder);
+    res.status(StatusCodes.OK).json(classroom);
   } catch (err) {
     next(err);
   }
@@ -125,13 +135,16 @@ const addFolders = async (req, res, next) => {
 
 const removeFolder = async (req, res, next) => {
   try {
-    const { folderId, flashcardId } = req.params;
-    const folder = await folderService.removeFlashcard(folderId, flashcardId);
-    if (!folder)
+    const { classroomId, folderId } = req.params;
+    const classroom = await classroomService.removeFlashcard(
+      classroomId,
+      folderId
+    );
+    if (!classroom)
       return res
         .status(StatusCodes.NOT_FOUND)
-        .json({ message: "Folder not found or flashcard not in folder" });
-    res.status(StatusCodes.OK).json(folder);
+        .json({ message: "Folder not found or flashcard not in classroom" });
+    res.status(StatusCodes.OK).json(classroom);
   } catch (err) {
     next(err);
   }

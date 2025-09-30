@@ -1,225 +1,310 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useParams,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+import { classroomApi } from "../../../../api/classroomApi";
+import { flashCardApi } from "../../../../api/flashCardApi";
+import { getUser } from "../../../../other/storage";
+import Footer from "../../../Footer/Footer";
+import Modal from "../../../Modal/Modal";
 
-// ICON
-import { FaPen } from "react-icons/fa"; // icon bút (edit)
-import { FaUserPlus } from "react-icons/fa"; // thêm người dùng
-import { FaBell } from "react-icons/fa"; // chuông thông báo
-import { FaExclamationTriangle } from "react-icons/fa"; // cảnh báo
-import { FaTrash } from "react-icons/fa"; // thùng rác (delete)
-import { FaTimes } from "react-icons/fa"; // dấu X (close)
+// ICONS
+import { LuUniversity } from "react-icons/lu";
+import { TbCards } from "react-icons/tb";
+
 import "./CssClassDetail.css";
-import ModalEdit from "./Modal/ModalEdit";
-import ModalInvest from "./Modal/ModalInvest";
-export default function Class() {
-  const [activeModal, setActiveModal] = useState();
-  const [iconAdd, setIconAdd] = useState(false);
-  const [iconMenu, setIconMenu] = useState(false);
 
-  // pupup ICON
-  const iconAddRef = useRef();
-  const iconMenuRef = useRef();
-  const popupAddRef = useRef();
-  const popupMenuRef = useRef();
+export default function ClassDetail() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const user = getUser();
 
-  const [classData, setClassData] = useState({
-    className: "",
-    description: "",
-    allowSection: false,
-    allowInvite: false,
-    schoolName: "",
-  });
+  const [flashCards, setFlashCards] = useState([]);
+  const [selectedFlashcards, setSelectedFlashcards] = useState([]);
+  const [classRoom, setClassRoom] = useState(null);
+  const [classFlashcards, setClassFlashcards] = useState([]);
+  const [isAddFlashCard, setIsAddFlashCard] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
-  // Popup Menu chức năng mời
-  const [investMember, setInvestMember] = useState("");
-
+  // Get all flashcards
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (
-        iconAddRef.current &&
-        !iconAddRef.current.contains(e.target) &&
-        popupAddRef.current &&
-        !popupAddRef.current.contains(e.target)
-      ) {
-        setIconAdd(false);
+    const fetchFlashcards = async () => {
+      try {
+        const data = await flashCardApi.getAll();
+        setFlashCards(data);
+      } catch (error) {
+        console.log("Error fetching flashcards:", error);
       }
-    }
-
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
     };
+    fetchFlashcards();
   }, []);
 
+  // Get class by Id
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (
-        iconMenuRef.current &&
-        !iconMenuRef.current.contains(e.target) &&
-        popupMenuRef.current &&
-        !popupMenuRef.current.contains(e.target)
-      ) {
-        setIconMenu(false);
-      }
-    }
-
-    document.addEventListener("click", handleClickOutside);
+    let isMounted = true;
+    classroomApi
+      .getById(id)
+      .then((data) => {
+        if (!isMounted) return;
+        setClassRoom(data);
+        if (data.flashCards) {
+          setClassFlashcards(
+            flashCards.filter((fc) => data.flashcards.includes(fc._id))
+          );
+        }
+      })
+      .catch((err) => console.error(err));
 
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      isMounted = false;
     };
-  }, []);
+  }, [id, location.state, flashCards]);
+
+  // Toggle add flashcard modal
+  const toggleAddFlashCard = () => {
+    setIsAddFlashCard((prev) => !prev);
+  };
+
+  // Toggle choose flashcard
+  const toggleChoose = (flashcardId) => {
+    setSelectedFlashcards((prev) =>
+      prev.includes(flashcardId)
+        ? prev.filter((id) => id !== flashcardId)
+        : [...prev, flashcardId]
+    );
+  };
+
+  // Delete class
+  const handleDelete = async () => {
+    try {
+      await classroomApi.delete(id);
+      alert("Deleted successfully");
+      navigate(-1, { state: { deleted: true } });
+    } catch (err) {
+      console.error("Error deleting class:", err);
+    }
+  };
+
+  // Add flashcards to class
+  const handleDone = async () => {
+    try {
+      const updatedClass = await classroomApi.addFlashcards(
+        id,
+        selectedFlashcards
+      );
+      setClassRoom(updatedClass);
+
+      const classFlashcardsIds = updatedClass.flashcards || [];
+      const updatedClassFlashcards = flashCards.filter((fc) =>
+        classFlashcardsIds.includes(fc._id)
+      );
+      setClassFlashcards(updatedClassFlashcards);
+
+      alert("Added successfully");
+      setIsAddFlashCard(false);
+    } catch (error) {
+      console.log("id flash card:", classRoom.flashcards.id);
+      console.error("Error adding flashcards:", error);
+      alert("Error adding flashcards");
+    }
+  };
+
+  // Remove flashcard from class
+  const handleRemoveFlashcard = async (flashcardId) => {
+    try {
+      const updatedClass = await classroomApi.removeFlashcard(id, flashcardId);
+      setClassRoom(updatedClass);
+      const classFlashcardsIds = updatedClass.flashcards || [];
+      setClassFlashcards(
+        flashCards.filter((fc) => classFlashcardsIds.includes(fc._id))
+      );
+      alert("Removed successfully");
+    } catch (err) {
+      console.error("Error removing flashcard:", err);
+      alert("Error removing flashcard");
+    }
+  };
+
+  //
+  useEffect(() => {
+    if (classRoom && flashCards.length > 0) {
+      const cardsInClass = flashCards.filter((fc) =>
+        classRoom.flashcards?.includes(fc._id)
+      );
+      setClassFlashcards(cardsInClass);
+    }
+  }, [classRoom, flashCards]);
 
   return (
     <>
       <div className="ClassDetail">
-        {/* Thanh thông báo */}
+        {/* Notice bar */}
         <div className="element-notice">
-          <h5>Mời học sinh tham gia lớp này</h5>
+          <h5>Invite students to join this class</h5>
           <p>
-            Học sinh có quyền truy cập miễn phí vào các hoạt động và tài liệu mà
-            bạn thêm vào lớp học của mình
+            Students get free access to activities and materials you add to your
+            class
           </p>
         </div>
 
+        {/* Header */}
         <div className="header_classDetail">
           <div className="header_one">
             <div className="header_one_l">
-              <h2>Toán</h2>
-              <span className="l_school">HUMG - F</span>
+              <h1>{classRoom?.title}</h1>
+              <span className="l_school flex">
+                <LuUniversity className="icon-univer" />
+                {classRoom?.university}
+              </span>
             </div>
             <div className="header_one_r">
-              <div
-                className="r_icon"
-                ref={iconAddRef}
-                onClick={(e) => {
-                  setIconAdd(!iconAdd);
-                  setIconMenu(false);
-                  e.stopPropagation();
-                  console.log("đã click");
-                }}
-              >
-                +
-              </div>
+              <button className="share-btn" onClick={toggleAddFlashCard}>
+                <i className="fa-solid fa-plus"></i>
+              </button>
 
-              <div
-                className="r_icon"
-                ref={iconMenuRef}
-                onClick={(e) => {
-                  setIconMenu(!iconMenu);
-                  setIconAdd(false);
-                  e.stopPropagation();
-                }}
-              >
-                ...
-              </div>
+              {classRoom?.creator.user_id === user.id && (
+                <div className="menu-container">
+                  <button
+                    className="menu-toggle"
+                    onClick={() => setShowMenu((prev) => !prev)}
+                  >
+                    <i className="fa-solid fa-ellipsis"></i>
+                  </button>
+
+                  {showMenu && (
+                    <div className="dropdown-menu">
+                      <Link to={`/edit-flashcard/${id}`} className="flex">
+                        <i className="fa-solid fa-pen"></i>
+                        <p>Edit</p>
+                      </Link>
+                      <button onClick={handleDelete} className="flex delete">
+                        <i className="fa-solid fa-trash"></i>
+                        <p>Delete</p>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
-        {iconAdd && (
-          <div id="icon-add" ref={popupAddRef} className="popup-dropdown">
-            <div className="folder-option">
-              <Link to="/create/new-classroom">
-                <div className="setting-item flex">
+
+        {/* Modal add flashcards */}
+        {isAddFlashCard && (
+          <Modal onClose={toggleAddFlashCard} className="add-flash-card">
+            <div className="add-flash-cards">
+              <div className="add-flash-cards-header">
+                <h1>Add Flash Cards</h1>
+                <button onClick={toggleAddFlashCard}>
+                  <i className="fa-solid fa-xmark add-flash-cards-icon"></i>
+                </button>
+              </div>
+
+              <div className="add-flash-cards-create flex">
+                <p>Your Flash Clash</p>
+                <Link to="/create/new-flashcard" className="flex">
                   <i className="fa-solid fa-plus"></i>
-                  <p>Flash Card</p>
-                </div>
-              </Link>
-              <Link to="/create/new-classroom">
-                <div className="setting-item flex">
-                  <i className="fa-solid fa-plus"></i>
-                  <p>Class Room</p>
-                </div>
-              </Link>
+                  <p>Create new</p>
+                </Link>
+              </div>
+
+              {flashCards
+                .filter(
+                  (card) =>
+                    card.delete_flashcard === false &&
+                    user &&
+                    String(card.creator.user_id) === String(user.id)
+                )
+                .map((card) => {
+                  const cardId = card._id;
+                  const isChosen =
+                    selectedFlashcards.includes(cardId) ||
+                    classRoom?.flashcards?.includes(cardId);
+
+                  return (
+                    <div
+                      className="recent flex"
+                      id="add-flash-card"
+                      key={cardId}
+                    >
+                      <div className="flash-card-left flex">
+                        <div className="recent-icon">
+                          <TbCards className="icon-flash-card icon-flash-card-recent" />
+                        </div>
+                        <div className="recent-content">
+                          <p>{card.title || "Untitled"}</p>
+                          <p>
+                            Flashcard set • {card.content_count || 0} terms • by{" "}
+                            {card.creator?.username || "Unknown"}
+                          </p>
+                        </div>
+                      </div>
+                      <button onClick={() => toggleChoose(cardId)}>
+                        {isChosen ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-plus"></i>
+                        )}
+                      </button>
+                    </div>
+                  );
+                })}
             </div>
-          </div>
-        )}
 
-        {iconMenu && (
-          <div id="icon-menu" className="popup-dropdown" ref={popupMenuRef}>
-            <div className="folder-option">
-              <div
-                className="setting-item flex"
-                onClick={() => setActiveModal("EDIT")}
-              >
-                <FaPen className="margin-right-20px" />
-                <p>Sửa</p>
-              </div>
-              <div
-                className="setting-item flex"
-                onClick={() => setActiveModal("INVEST")}
-              >
-                <FaUserPlus className="margin-right-20px" />
-                <p>Mới</p>
-              </div>
-              <div className="setting-item flex">
-                <FaBell className="margin-right-20px" />
-                <p>Thông báo</p>
-              </div>
-              <div className="setting-item flex">
-                <FaExclamationTriangle className="margin-right-20px" />
-                <p>Bỏ ghim khỏi thanh lề</p>
-              </div>
-              <div className="setting-item flex ">
-                <FaTrash className="margin-right-20px color-red" />
-                onClick={() => setActiveModal("DELETE")}
-                <p>Xóa</p>
-              </div>
-              <div
-                className="setting-item flex"
-                onClick={() => setActiveModal("DELETE_MEMBER_ALL")}
-              >
-                <FaTimes className="margin-right-20px color-red" />
-                <p>Xóa mọi thành viên</p>
-              </div>
+            <div className="add-flash-cards-footer flex">
+              <button onClick={handleDone}>
+                <p>Done</p>
+              </button>
             </div>
-          </div>
+          </Modal>
         )}
 
-        {activeModal === "EDIT" && (
-          <>
-            <ModalEdit
-              onClose={() => setActiveModal(null)}
-              initialData={classData}
-              onSave={(data) => {
-                setClassData(data);
-                console.log(data);
-              }}
-            />
-          </>
-        )}
-
-        {activeModal === "INVEST" && (
-          <>
-            <ModalInvest
-              onClose={() => setActiveModal(null)}
-              onSave={(data) => {
-                console.log(data);
-              }}
-            />
-          </>
-        )}
+        {/* Tabs */}
         <div className="header_two">
-          <NavLink to="/class/material">
-            <button className="tab active">Tài liệu học</button>
+          <NavLink to={`/class/${classRoom?._id}/material`}>
+            <button
+              className={`tab ${
+                location.pathname.includes("material") ? "active" : ""
+              }`}
+            >
+              Materials
+            </button>
           </NavLink>
-          <NavLink to="/class/member">
-            <button className="tab">Thành viên</button>
+          <NavLink to={`/class/${classRoom?._id}/member`}>
+            <button
+              className={`tab ${
+                location.pathname.includes("member") ? "active" : ""
+              }`}
+            >
+              Members
+            </button>
           </NavLink>
         </div>
 
-        {/* Nút mời */}
+        {/* Invite buttons */}
         <div className="header_three">
-          <button className="invite google">📂 Mời bằng Google</button>
-          <button className="invite email">✉️ Mời bằng email</button>
-          <button className="invite link">🔗 Chép liên kết</button>
+          <button className="invite google">📂 Invite with Google</button>
+          <button className="invite email">✉️ Invite by email</button>
+          <button className="invite link">🔗 Copy link</button>
         </div>
 
+        {/* Content */}
         <div className="content">
-          <Outlet />
+          <Outlet
+            context={{
+              flashcards: classFlashcards,
+              onRemoveFlashcard: handleRemoveFlashcard,
+            }}
+          />
         </div>
       </div>
+      <Footer className="footer" />
     </>
   );
 }

@@ -1,70 +1,101 @@
 import { useState } from "react";
 import "./CssCreateClass.css";
-import { FaAddressCard } from "react-icons/fa";
+import { classroomApi } from "../../../../api/classroomApi";
+import { getUser } from "../../../../other/storage";
+import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 
 export default function CreateClassroom() {
-  const [inputPassword, showInputPassword] = useState(true);
-  function handleShowInputPassword() {
-    showInputPassword(true);
+  const user = getUser(); // { id, username }
+  const navigate = useNavigate();
+  const [classname, setClassname] = useState("");
+  const [school, setSchool] = useState("");
+  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit() {
+    if (!classname || !school) {
+      alert("Vui lòng nhập đầy đủ tên lớp và tên trường!");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const payload = {
+        title: classname,
+        university: school,
+        description,
+        creator: {
+          user_id: user?.id,
+          username: user?.username,
+        },
+      };
+
+      const newClassroom = await classroomApi.create(payload);
+
+      alert("Created successfully");
+      const classroomId = newClassroom._id || newClassroom.id;
+      navigate(`/class/${classroomId}/material`);
+
+      // reset form
+      setClassname("");
+      setSchool("");
+      setDescription("");
+    } catch (error) {
+      console.error("Lỗi tạo lớp học:", error);
+      alert("Tạo lớp học thất bại!");
+    } finally {
+      setLoading(false);
+    }
   }
 
-  function handleCloseInputPassword() {
-    showInputPassword(false);
-  }
   return (
-    <>
-      <div className="createClassPage">
-        {/* Header */}
-        <div className="createClassPage__header">
-          <h1>Tạo lớp học</h1>
-          <button className="button button--primary">Tạo lớp</button>
+    <div className="createClassPage">
+      <div className="createClassPage__header">
+        <h1>Create a new class</h1>
+        <button
+          className="button button--primary"
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          {loading ? "Đang tạo..." : "Tạo lớp"}
+        </button>
+      </div>
+
+      <div className="createClassPage__form">
+        <div className="form__group">
+          <label htmlFor="classname">Your new class</label>
+          <input
+            id="classname"
+            type="text"
+            value={classname}
+            onChange={(e) => setClassname(e.target.value)}
+            placeholder="Ví dụ: Công Nghệ Phần Mềm"
+          />
         </div>
 
-        {/* Form Inputs */}
-        <div className="createClassPage__form">
-          <div className="form__group">
-            <label htmlFor="classname">Tên lớp học</label>
-            <input
-              id="classname"
-              name="classname"
-              type="text"
-              placeholder="Ví dụ: Công Nghệ Phần Mềm"
-            />
-          </div>
-
-          <div className="form__group">
-            <label htmlFor="school">Tên trường học</label>
-            <input
-              id="school"
-              name="school"
-              type="text"
-              placeholder="Ví dụ: Đại học CNTT"
-            />
-          </div>
-
-          <div className="form__group">
-            <label htmlFor="description">Mô tả</label>
-            <textarea
-              id="description"
-              name="description"
-              rows="3"
-              placeholder="Ví dụ: Học vào thứ 6 hàng tuần"
-            />
-          </div>
+        <div className="form__group">
+          <label htmlFor="school">School name</label>
+          <input
+            id="school"
+            type="text"
+            value={school}
+            onChange={(e) => setSchool(e.target.value)}
+            placeholder="Ví dụ: Đại học CNTT"
+          />
         </div>
 
-        {/* Manage Access */}
-        <h3 className="section__title">Quản lí truy cập</h3>
-        <div className="manageAccess">
-          <div className="manageAccess__content">
-            <FaAddressCard className="manageAccess__icon" />
-            <p>Bạn chưa thêm thành viên nào vào lớp</p>
-            <button className="button button--secondary">
-              + Thêm thành viên
-            </button>
-          </div>
+        <div className="form__group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            rows="3"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Ví dụ: Học vào thứ 6 hàng tuần"
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 }
