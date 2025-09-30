@@ -58,16 +58,15 @@ const getAllPublic = async () => {
 
   return Promise.all(
     users.map(async (u) => {
-      const flashcardsCount = await db
-        .collection("flashcards")
-        .countDocuments({
-          "creator.user_id": u._id.toString(),
-          delete_flashcard: false,
-        });
+      const flashcardsCount = await db.collection("flashcards").countDocuments({
+        "creator.user_id": u._id.toString(),
+        delete_flashcard: false,
+      });
 
-      const classesCount = await db
-        .collection("classes")
-        .countDocuments({ "creator.user_id": u._id.toString() });
+      const classesCount = await db.collection("classrooms").countDocuments({
+        "creator.user_id": u._id.toString(),
+        delete_classroom: false,
+      });
 
       return {
         _id: u._id,

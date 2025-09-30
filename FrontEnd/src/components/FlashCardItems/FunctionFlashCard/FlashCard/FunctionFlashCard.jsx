@@ -233,7 +233,7 @@ export default function FunctionFlashCard({ isPadded }) {
           </div>
 
           <div className="function-flashcard-main-content-option flex">
-            <h1>Track progress</h1>
+            <h1></h1>
             <div className="function-flashcard-main-content-option-move flex">
               <button
                 style={{ marginRight: "22px", color: "#f28c38" }}
@@ -249,12 +249,12 @@ export default function FunctionFlashCard({ isPadded }) {
               </button>
             </div>
             <div className="function-flashcard-main-content-option-option">
-              <button>
+              {/* <button>
                 <i className="fa-solid fa-play"></i>
               </button>
               <button>
                 <i className="fa-solid fa-shuffle"></i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

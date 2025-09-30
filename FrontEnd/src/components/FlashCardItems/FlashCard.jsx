@@ -314,7 +314,7 @@ export default function FlashCard() {
 
         {/* Options */}
         <div className="itemflashcard-main-content-option flex">
-          <h1>Track progress</h1>
+          <h1></h1>
           <div className="itemflashcard-main-content-option-move flex">
             <button onClick={() => changeCard("prev")} disabled={index === 0}>
               <i className="fa-solid fa-arrow-left"></i>
