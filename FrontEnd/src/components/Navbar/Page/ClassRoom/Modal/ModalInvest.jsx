@@ -1,4 +1,4 @@
-import "../class.css";
+import "../CssClassDetail.css";
 import Modal from "../../../../Modal/Modal";
 import { useState } from "react";
 export default function ModalInvest({ onClose, onSave }) {

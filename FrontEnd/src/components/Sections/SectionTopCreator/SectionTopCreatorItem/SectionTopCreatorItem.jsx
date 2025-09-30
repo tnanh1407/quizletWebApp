@@ -2,14 +2,24 @@ import { Link } from "react-router-dom";
 import account from "../../../../assets/img/account.jpg";
 import { useState, useEffect } from "react";
 import { userApi } from "../../../../api/userApi.js";
+import { getUser } from "../../../../other/storage.js";
+
+// icon
+import { TbCards } from "react-icons/tb";
+import { MdOutlineGroup } from "react-icons/md";
 
 export default function SectionTopCreatorItem() {
   const [users, setUsers] = useState([]);
 
+  const userId = getUser();
   useEffect(() => {
     const fetchData = async () => {
-      const data = await userApi.getAll();
-      setUsers(data);
+      try {
+        const data = await userApi.getAllPublic();
+        setUsers(data);
+      } catch (err) {
+        console.error("Error fetching users:", err);
+      }
     };
 
     fetchData();
@@ -18,27 +28,34 @@ export default function SectionTopCreatorItem() {
     <>
       {users.map((user) => (
         <Link
-          to="/creators/subjects"
-          // to={`/users/${user._id}`}
+          to={
+            String(user._id) === String(userId.id)
+              ? "/your-library/flashcards"
+              : `/creator/${user._id}/flashcards`
+          }
           key={user._id}
         >
           <div className="session all-section">
             <img src={account} alt="" />
             <div className="creator-in4">
               <div className="creator-rule flex">
-                <h3>{user.username}</h3>
+                <h3>
+                  {String(user._id) === String(userId.id)
+                    ? "You"
+                    : user.username}
+                </h3>
                 <div className="creator-rule-important">
                   <p>Teacher</p>
                 </div>
               </div>
               <div className="creator-tag flex">
                 <div className="flex khung-mo-ta">
-                  <i className="fa-solid fa-thumbs-up"></i>
-                  <p>flashcard sets</p>
+                  <TbCards className="icon-top-creator" />
+                  <p> {user.stats.flashcards} flashcard sets</p>
                 </div>
                 <div className="flex khung-mo-ta">
-                  <i className="fa-solid fa-thumbs-up"></i>
-                  <p>0 class</p>
+                  <MdOutlineGroup className="icon-top-creator" />
+                  <p>{user.stats.classes} class</p>
                 </div>
               </div>
             </div>

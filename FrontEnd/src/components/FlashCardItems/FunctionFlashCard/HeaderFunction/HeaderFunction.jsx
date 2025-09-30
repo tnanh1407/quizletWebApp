@@ -1,29 +1,83 @@
 import "./HeaderFunction.css";
 import { useState, useRef, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { flashCardApi } from "../../../../api/flashCardApi";
 
 export default function HeaderFunction() {
   const { id } = useParams();
-  console.log(id);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedMode, setSelectedMode] = useState("Flashcards");
+  const [selectedMode, setSelectedMode] = useState();
+  const [previousMode, setPreviousMode] = useState(null);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+  const [flashcard, setFlashcard] = useState({});
+  const location = useLocation();
+
+  useEffect(() => {
+    flashCardApi
+      .getById(id)
+      .then((data) => {
+        setFlashcard(data);
+      })
+      .catch((err) => console.error(err));
+  }, [id]);
 
   const modes = [
-    // { name: " FlashCards", icon: "fa fa-clone", path: `/${id}/flashcards` },
+    { name: "Flashcards", icon: "fa fa-clone", path: `/${id}/flashcards` },
     { name: "Learn", icon: "fa-solid fa-spinner", path: `/${id}/learn` },
-    { name: "Test", icon: "fa-regular fa-file-lines", path: `/${id}/learn` },
-    { name: "Home", icon: null, path: `/` },
-    { name: "Search", icon: null, path: `/` },
+    { name: "Test", icon: "fa-regular fa-file-lines", path: `/${id}/test` },
+    /*{ name: "Blocks", icon: "fa-solid fa-table-cells-large", path: null },
+    { name: "Blast", icon: "fa fa-rocket", path: null },
+    { name: "Match", icon: "fa-brands fa-connectdevelop", path: null },*/
+    { name: "Home", icon: null, path: "/" },
+    { name: "Search", icon: null, path: "/search/allresults" },
   ];
+
+  const availableModes = modes.filter((mode) => mode.name !== selectedMode);
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const currentMode = modes.find((mode) => {
+      if (mode.path) {
+        const basePath = currentPath.split("/")[1];
+        return (
+          currentPath === `/${basePath}${mode.path}` ||
+          currentPath === mode.path.replace(":id", basePath)
+        );
+      }
+      return false;
+    });
+    if (currentMode) {
+      setPreviousMode(selectedMode);
+      setSelectedMode(currentMode.name);
+    }
+  }, [location.pathname]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const selectMode = (mode) => {
-    setSelectedMode(mode);
-    setIsDropdownOpen(false);
+  const selectMode = (mode, path) => {
+    if (mode !== selectedMode) {
+      setPreviousMode(selectedMode);
+      setSelectedMode(mode);
+      setIsDropdownOpen(false);
+      if (path) {
+        navigate(path);
+      }
+    }
+  };
+
+  const handleTurnToQuestions = () => {
+    if (selectedMode === "Flashcards") {
+      const basePath = location.pathname.split("/")[1];
+      navigate(`/${basePath}/learn`);
+    }
+  };
+
+  const handleClose = () => {
+    const basePath = location.pathname.split("/")[1];
+    navigate(`/itemflashcard/${basePath}`);
   };
 
   useEffect(() => {
@@ -47,82 +101,85 @@ export default function HeaderFunction() {
       <div className="header-container">
         <div className="head-content">
           <div className="column-left">
-            {isDropdownOpen && (
-              <div
-                id="account-setting"
-                className="option-function"
-                ref={dropdownRef}
-              >
-                <div className="account-setting option-container">
-                  <Link to={`/${id}/flashcards`}>
-                    <div className="setting-item flex">
-                      <i className="fa-solid fa-clone"></i>
-                      <p>Flashcards</p>
-                    </div>
-                  </Link>
-
-                  <Link to={`/${id}/learn`}>
-                    <div className="setting-item flex">
-                      <i className="fa-solid fa-spinner"></i>
-                      <p>Learn</p>
-                    </div>
-                  </Link>
-                  <Link to={`/${id}/test`}>
-                    <div className="setting-item flex">
-                      <i className="fa-solid fa-file-lines"></i>
-                      <p>Test</p>
-                    </div>
-                  </Link>
-                </div>
-                <div className="account-setting last option-container">
-                  <Link to="/">
-                    <div className="setting-item flex">
-                      <p>Home</p>
-                    </div>
-                  </Link>
-                  <Link to="/">
-                    <div className="setting-item flex">
-                      <p>Search</p>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            )}
             <div className="data-olay-container">
               <button
                 className="btn-mode"
                 onClick={toggleDropdown}
                 ref={dropdownRef}
               >
-                <i
-                  class="fa fa-clone"
-                  style={{ fontSize: "16px", color: "#4b6aff" }}
-                ></i>
+                {modes.find((m) => m.name === selectedMode)?.icon && (
+                  <i
+                    class={modes.find((m) => m.name === selectedMode).icon}
+                    style={{ fontSize: "20px", color: "#4b6aff" }}
+                  ></i>
+                )}
                 <span>{selectedMode}</span>
                 <i class="fa fa-chevron-down"></i>
+                {isDropdownOpen && (
+                  <ul className="mode-dropdown">
+                    {availableModes.map((mode, index) => (
+                      <li
+                        key={index}
+                        className={`mode-item ${
+                          selectedMode === mode.name ? "active" : ""
+                        }`}
+                        onClick={() =>
+                          selectMode(mode.name, mode.path, mode.icon)
+                        }
+                      >
+                        {mode.icon && (
+                          <i
+                            className={mode.icon}
+                            style={{
+                              marginRight: "20px",
+                              fontSize: "16px",
+                              color: "#4b6aff",
+                            }}
+                          ></i>
+                        )}
+                        {mode.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </button>
             </div>
           </div>
           <div className="column-center">
-            <span>1 / 22</span>
-            <h2>Demo 1</h2>
+            {/* {(selectedMode === "Flashcards" || selectedMode === "Test" ) && (
+              <> */}
+            {/* <span>1 /22</span> */}
+            <h2>{flashcard.title || "..."}</h2>
+            {/* </>
+            )} */}
           </div>
           <div className="column-right">
-            <button className="btn-turn-questions">
-              <i
-                class="fa-solid fa-spinner"
-                style={{ color: "#4b6aff", marginRight: "5px" }}
-              ></i>
+            {selectedMode === "Flashcards" && (
+              <button
+                className="btn-turn-questions"
+                onClick={handleTurnToQuestions}
+              >
+                <i
+                  class="fa-solid fa-spinner"
+                  style={{ color: "#4b6aff", marginRight: "5px" }}
+                ></i>
+                Turn these into questions
+              </button>
+            )}
+            {/*<button className="btn-turn-questions">
+              <i class="fa-solid fa-spinner" style={{color: "#4b6aff", marginRight:"5px"}}></i>
               Turn these into questions
-            </button>
+            </button>*/}
             <button className="btn-settings">
               <i class="fa fa-cog" aria-hidden="true"></i>
             </button>
-            <Link to={`/itemflashcard/${id}`} className="btn-close">
+            <button className="btn-close" onClick={handleClose}>
               <i class="fa fa-times" aria-hidden="true"></i>
-            </Link>
+            </button>
           </div>
         </div>
+
+        <div className="main-content"></div>
       </div>
     </>
   );

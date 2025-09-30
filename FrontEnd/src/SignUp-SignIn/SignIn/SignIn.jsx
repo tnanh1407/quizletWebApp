@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authApi } from "../../api/authApi";
 import "./CssSignIn.css";
+import { saveUser } from "../../other/storage";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,9 @@ export default function SignIn() {
     e.preventDefault();
     try {
       const res = await authApi.login({ email, password });
-      console.log(res);
+      if (res.user) {
+        saveUser({ id: res.user.id, username: res.user.username });
+      }
 
       // Lưu accessToken và refreshToken từ backend
       if (res.tokens?.accessToken) {
@@ -24,7 +27,6 @@ export default function SignIn() {
       }
 
       alert("Login success!");
-      console.log("Token lưu vào localStorage:", localStorage.getItem("token"));
       navigate("/"); // chuyển hướng sau khi login thành công
     } catch (err) {
       console.error(err);

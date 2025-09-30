@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "../class.css";
+import "../CssClassDetail.css";
 import Modal from "../../../../Modal/Modal";
 
 export default function ModalEdit({ onClose, onSave, initialData }) {

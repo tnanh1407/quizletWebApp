@@ -2,11 +2,20 @@ import { useRef, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import account from "../../assets/img/account.jpg";
 import { flashCardApi } from "../../api/flashCardApi";
-import { folderApi } from "../../api/folderApi"; // 👈 import folderApi
-import iconFlashCard from "../../assets/icon/navbar-card.png";
+import { folderApi } from "../../api/folderApi";
 import "./CssNavbar.css";
-import { useParams } from "react-router-dom";
+import "../../App.css";
+import { getUser } from "../../other/storage";
 import SectionAddFlashCard from "../Sections/SectionAddFlashCard/SectionAddFlashCard";
+
+// icon
+import { GoHome } from "react-icons/go";
+import { IoFolderOpenOutline } from "react-icons/io5";
+import { FaRegBell } from "react-icons/fa";
+import { TbCards } from "react-icons/tb";
+import { TbFolder } from "react-icons/tb";
+import { MdOutlineGroup } from "react-icons/md";
+import { IoAddOutline } from "react-icons/io5";
 
 export default function Navbar({ togglePadding }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +30,7 @@ export default function Navbar({ togglePadding }) {
   const notificationsRef = useRef(null);
   const buttonRef = useRef(null);
   const navigate = useNavigate();
+  const user = getUser();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +84,13 @@ export default function Navbar({ togglePadding }) {
     }
 
     try {
-      const newFolder = await folderApi.create({ title: folderName }); // 👈 gọi folderApi
+      const newFolder = await folderApi.create({
+        title: folderName,
+        creator: {
+          user_id: user.id.toString(),
+          username: user.username,
+        },
+      }); // 👈 gọi folderApi
       console.log("Folder created:", newFolder);
 
       // cập nhật danh sách folder trong state
@@ -108,7 +124,7 @@ export default function Navbar({ togglePadding }) {
               }`}
               id="navbar-one-home"
             >
-              <i className="fa-solid fa-house"></i>
+              <GoHome className="navbar-icon" />
               <p className={isCollapsed ? "hidden" : "block"}>Home</p>
             </div>
           </Link>
@@ -123,8 +139,8 @@ export default function Navbar({ togglePadding }) {
               }`}
               id="navbar-one-library"
             >
-              <i className="fa-solid fa-user"></i>
-              <p className={isCollapsed ? "hidden" : "block"}>Your library</p>
+              <IoFolderOpenOutline className="navbar-icon icon-library" />
+              <p className={isCollapsed ? "hidden" : "block"}>Library</p>
             </div>
           </Link>
 
@@ -142,7 +158,7 @@ export default function Navbar({ togglePadding }) {
               className={`navbar-a flex ${isOpen ? "active" : ""}`}
               id="navbar-one-notifi"
             >
-              <i className="fa-solid fa-bell"></i>
+              <FaRegBell className="navbar-icon icon-regbell" />
               <p className={isCollapsed ? "hidden" : "block"}>Notifications</p>
             </div>
             <div className="position-notifi">
@@ -188,7 +204,7 @@ export default function Navbar({ togglePadding }) {
               }`}
               id="navbar-one-demo"
             >
-              <img src={iconFlashCard} alt="" className="icon-flash-card" />
+              <TbCards className="navbar-icon" />
               <p className={isCollapsed ? "hidden" : "block"}>Flash Card</p>
             </div>
           </Link>
@@ -204,7 +220,7 @@ export default function Navbar({ togglePadding }) {
               }`}
               id="navbar-one-demo"
             >
-              <i className="fa-solid fa-folder"></i>
+              <TbFolder className="navbar-icon" />
               <p className={isCollapsed ? "hidden" : "block"}>Folder</p>
             </div>
           </Link>
@@ -218,7 +234,7 @@ export default function Navbar({ togglePadding }) {
               }`}
               id="navbar-one-library"
             >
-              <i className="fa-solid fa-people-group"></i>
+              <MdOutlineGroup className="navbar-icon" />
               <p className={isCollapsed ? "hidden" : "block"}>Classes</p>
             </div>
           </Link>
@@ -238,7 +254,7 @@ export default function Navbar({ togglePadding }) {
               }`}
               id="navbar-one-flash-cards"
             >
-              <i className="fa-solid fa-plus"></i>
+              <IoAddOutline className="navbar-icon" />
               <p className={isCollapsed ? "hidden" : "block"}>Flash Card</p>
             </div>
           </Link>
@@ -246,7 +262,7 @@ export default function Navbar({ togglePadding }) {
           {/* Nút mở modal new folder */}
           <button id="click-notifi" onClick={toggleNewFolder}>
             <div className="navbar-a flex" id="navbar-one-notifi">
-              <i className="fa-solid fa-plus"></i>
+              <IoAddOutline className="navbar-icon" />
               <p className={isCollapsed ? "hidden" : "block"}>New folder</p>
             </div>
           </button>
@@ -293,7 +309,7 @@ export default function Navbar({ togglePadding }) {
               }`}
               id="navbar-one-demo"
             >
-              <i className="fa-solid fa-plus"></i>
+              <IoAddOutline className="navbar-icon" />
               <p className={isCollapsed ? "hidden" : "block"}>Class Room</p>
             </div>
           </Link>

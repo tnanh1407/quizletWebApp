@@ -5,7 +5,6 @@ const BASE_URL = "http://localhost:9999/v1";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
-  console.log("Token dùng cho request user:", token);
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
@@ -40,6 +39,12 @@ export const userApi = {
         .then((res) => res.data)
     ),
 
+  getAllPublic: async () =>
+    axios.get(`${BASE_URL}/users/public`).then((res) => res.data),
+
+  getByIdPublic: async (id) =>
+    axios.get(`${BASE_URL}/users/public/${id}`).then((res) => res.data),
+
   getAll: async () =>
     fetchWithRefresh(() =>
       axios
@@ -49,9 +54,7 @@ export const userApi = {
 
   getById: async (id) =>
     fetchWithRefresh(() =>
-      axios
-        .get(`${BASE_URL}/users/${id}`, { headers: getAuthHeaders() })
-        .then((res) => res.data)
+      axios.get(`${BASE_URL}/users/${id}`).then((res) => res.data)
     ),
 
   updateById: async (id, data) =>
