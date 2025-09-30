@@ -179,7 +179,7 @@ export default function HeaderFunction() {
           </div>
         </div>
 
-        <div className="main-content"></div>
+        
       </div>
     </>
   );
