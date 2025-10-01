@@ -29,8 +29,15 @@ export default function ClassDetail() {
   const [selectedFlashcards, setSelectedFlashcards] = useState([]);
   const [classRoom, setClassRoom] = useState(null);
   const [classFlashcards, setClassFlashcards] = useState([]);
+
   const [isAddFlashCard, setIsAddFlashCard] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const [className, setClassName] = useState("");
+  const [schoolName, setSchoolName] = useState("");
+  const [description, setDescription] = useState("");
 
   // Get all flashcards
   useEffect(() => {
@@ -65,6 +72,27 @@ export default function ClassDetail() {
       isMounted = false;
     };
   }, [id, location.state, flashCards]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await classroomApi.getById(id);
+        setClassName(data.title || "");
+        setSchoolName(data.university || "");
+        setDescription(data.description || "");
+      } catch (err) {
+        console.error("Error fetching flashcard set:", err);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  const toggleEditClass = () => {
+    setShowEdit((prev) => !prev);
+  };
+
+  const toggleConfirmDelete = () => {
+    setConfirmDelete((prev) => !prev);
+  };
 
   // Toggle add flashcard modal
   const toggleAddFlashCard = () => {
@@ -85,7 +113,7 @@ export default function ClassDetail() {
     try {
       await classroomApi.delete(id);
       alert("Deleted successfully");
-      navigate(-1, { state: { deleted: true } });
+      navigate(`/your-library/classes`, { state: { deleted: true } });
     } catch (err) {
       console.error("Error deleting class:", err);
     }
@@ -141,6 +169,23 @@ export default function ClassDetail() {
     }
   }, [classRoom, flashCards]);
 
+  const handleSubmit = async () => {
+    const payload = {
+      title: className,
+      university: schoolName,
+      description: description,
+    };
+    try {
+      await classroomApi.update(id, payload);
+      alert("Updated successfully");
+      setShowEdit(!showEdit);
+      navigate(`/class/${id}/material`, { state: { updated: true } });
+    } catch (err) {
+      console.error("Error updating class:", err);
+      alert("Failed to update class");
+    }
+  };
+
   return (
     <>
       <div className="ClassDetail">
@@ -179,11 +224,14 @@ export default function ClassDetail() {
 
                   {showMenu && (
                     <div className="dropdown-menu">
-                      <Link to={`/edit-flashcard/${id}`} className="flex">
+                      <button onClick={toggleEditClass} className="flex">
                         <i className="fa-solid fa-pen"></i>
                         <p>Edit</p>
-                      </Link>
-                      <button onClick={handleDelete} className="flex delete">
+                      </button>
+                      <button
+                        onClick={toggleConfirmDelete}
+                        className="flex delete"
+                      >
                         <i className="fa-solid fa-trash"></i>
                         <p>Delete</p>
                       </button>
@@ -194,6 +242,90 @@ export default function ClassDetail() {
             </div>
           </div>
         </div>
+        {confirmDelete && (
+          <Modal onClose={toggleConfirmDelete}>
+            <div className="delete-class">
+              <div className="edit-class-header">
+                <h1>Delete this class?</h1>
+                <button onClick={toggleConfirmDelete}>
+                  <i className="fa-solid fa-xmark add-flash-cards-icon"></i>
+                </button>
+              </div>
+              <div className="delete-class-main">
+                <p>
+                  You are about to delete <strong>{classRoom?.title}</strong>
+                </p>
+                <p>
+                  All members will be removed and all content and progress will
+                  be deleted. This is a permanent action and cannot be undone.
+                </p>
+              </div>
+            </div>
+            <div className="delete-class-footer">
+              <button
+                type="button"
+                onClick={toggleConfirmDelete}
+                className="button-cancel"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="button-confirm"
+              >
+                Yes, delete class
+              </button>
+            </div>
+          </Modal>
+        )}
+
+        {showEdit && (
+          <Modal onClose={toggleEditClass}>
+            <div className="edit-class">
+              <div className="edit-class-header">
+                <h1>Edit Class</h1>
+                <button onClick={toggleEditClass}>
+                  <i className="fa-solid fa-xmark add-flash-cards-icon"></i>
+                </button>
+              </div>
+              <div className="edit-class-input">
+                <div className="edit-input-item">
+                  <p>Class name</p>
+                  <input
+                    type="text"
+                    placeholder="Example: Software Technology"
+                    value={className}
+                    onChange={(e) => setClassName(e.target.value)}
+                  />
+                </div>
+                <div className="edit-input-item">
+                  <p>School name</p>
+                  <input
+                    type="text"
+                    placeholder="Example: University of Information Technology"
+                    value={schoolName}
+                    onChange={(e) => setSchoolName(e.target.value)}
+                  />
+                </div>
+                <div className="edit-input-item">
+                  <p>Description</p>
+                  <input
+                    type="text"
+                    placeholder="Example: Classes are held every Friday"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="edit-class-footer">
+              <button type="button" onClick={handleSubmit}>
+                Save
+              </button>
+            </div>
+          </Modal>
+        )}
 
         {/* Modal add flashcards */}
         {isAddFlashCard && (

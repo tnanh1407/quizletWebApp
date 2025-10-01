@@ -54,7 +54,7 @@ body.light-mode .main {
   top: 0;
   position: fixed;
   top: 64px;
-  z-index: 99999;
+  z-index: 1000;
   /* bỏ background ở đây */
 }
 /* Chỉ override màu nền cho từng mode */

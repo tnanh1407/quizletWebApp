@@ -36,10 +36,10 @@ export default function SectionFlashCardSet() {
         .reverse()
         .map((card) => (
           <section className="sectionflashcardset" key={card._id}>
-            <div className="header-flashcash flex">
+            {/* <div className="header-flashcash flex">
               <p>{formatDate(card.createAt)}</p>
               <div className="header-line"></div>
-            </div>
+            </div> */}
             <Link to={`/itemflashcard/${card._id}`}>
               <div className="main-flashcard">
                 <div className="flashcard-creator flex">

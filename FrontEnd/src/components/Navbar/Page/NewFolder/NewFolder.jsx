@@ -11,6 +11,7 @@ import Modal from "../../../Modal/Modal";
 import { TbCards } from "react-icons/tb";
 import { getUser } from "../../../../other/storage";
 import Footer from "../../../Footer/Footer";
+import { TbFolder } from "react-icons/tb";
 
 export default function NewFolder() {
   const { id } = useParams();
@@ -20,7 +21,12 @@ export default function NewFolder() {
   const [selectedFlashcards, setSelectedFlashcards] = useState([]);
   const [folderFlashcards, setFolderFlashcards] = useState([]);
   const [menuOpen, setMenuOpen] = useState(null);
+
   const [menuFolder, setMenuFolder] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [editFolder, setEditFolder] = useState(false);
+
+  const [folderName, setFolderName] = useState("");
 
   const user = getUser();
   const navigate = useNavigate();
@@ -57,6 +63,7 @@ export default function NewFolder() {
       try {
         const data = await folderApi.getById(id);
         setFolder(data);
+        setFolderName(data.title);
         setSelectedFlashcards(data.flashcards || []);
       } catch (error) {
         console.error("Error fetching folder:", error);
@@ -75,6 +82,14 @@ export default function NewFolder() {
     }
   }, [folder, flashCards]);
 
+  const toggleConfirmDelete = () => {
+    setConfirmDelete((prev) => !prev);
+  };
+
+  const toggleEditFolder = () => {
+    setEditFolder((prev) => !prev);
+  };
+  setEditFolder;
   const toggleAddFlashCard = () => setIsAddFlashCard(!isAddFlashCard);
 
   const toggleChoose = (flashcardId) => {
@@ -130,8 +145,20 @@ export default function NewFolder() {
       alert("Error removing flashcard");
     }
   };
-  console.log("id tu folder", folder?.creator.user_id);
-  console.log("id tu login", user.id);
+  const handleDoneUpdate = async () => {
+    const payload = {
+      title: folderName,
+    };
+    try {
+      await folderApi.update(id, payload);
+      setEditFolder(!editFolder);
+      alert("Updated successfully");
+      navigate(`/folder/${id}`, { state: { updated: true } });
+    } catch (err) {
+      console.error("Error updating folder:", err);
+      alert("Failed to update folder");
+    }
+  };
 
   return (
     <>
@@ -156,7 +183,11 @@ export default function NewFolder() {
               <i className="fa-solid fa-ellipsis"></i>
               {menuFolder && (
                 <div className="dropdown-menu">
-                  <button onClick={handleDelete} className="flex delete">
+                  <button className="flex " onClick={toggleEditFolder}>
+                    <i className="fa-solid fa-pen"></i>
+                    <p>Edit</p>
+                  </button>
+                  <button onClick={toggleConfirmDelete} className="flex delete">
                     <i className="fa-solid fa-trash"></i>
                     <p>Delete</p>
                   </button>
@@ -165,6 +196,61 @@ export default function NewFolder() {
             </button>
           </div>
         </div>
+        {confirmDelete && (
+          <Modal onClose={toggleConfirmDelete}>
+            <div className="delete-class">
+              <div className="edit-class-header">
+                <h1>Delete this folder?</h1>
+                <button onClick={toggleConfirmDelete}>
+                  <i className="fa-solid fa-xmark add-flash-cards-icon"></i>
+                </button>
+              </div>
+              <div className="delete-class-main">
+                <p>
+                  The folder will be permanently deleted, but you'll be able to
+                  find the items from it in your library.
+                </p>
+              </div>
+            </div>
+            <div className="delete-class-footer">
+              <button
+                type="button"
+                onClick={toggleConfirmDelete}
+                className="button-cancel"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="button-confirm"
+              >
+                Yes, delete class
+              </button>
+            </div>
+          </Modal>
+        )}
+        {editFolder && (
+          <Modal id="newfolder">
+            <div className="newfolder-main">
+              <p>
+                <TbFolder />
+              </p>
+              <input
+                type="text"
+                placeholder="Name your folder"
+                className="input-name-new-folder"
+                value={folderName}
+                onChange={(e) => setFolderName(e.target.value)}
+              />
+              <div className="newfolder-main-button flex">
+                <button className="newfolder-create" onClick={handleDoneUpdate}>
+                  <span>Done</span>
+                </button>
+              </div>
+            </div>
+          </Modal>
+        )}
 
         <div className="new-folder-main">
           <div className="new-folder-main-filter">

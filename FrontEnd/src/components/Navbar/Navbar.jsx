@@ -261,10 +261,14 @@ export default function Navbar({ togglePadding }) {
           </Link>
 
           {/* Nút mở modal new folder */}
-          <button id="click-notifi" onClick={toggleNewFolder}>
+          <button
+            id="click-notifi"
+            onClick={toggleNewFolder}
+            // className={`${activeItem === "flashcard-new" ? "active" : ""}`}
+          >
             <div className="navbar-a flex" id="navbar-one-notifi">
               <IoAddOutline className="navbar-icon" />
-              <p className={isCollapsed ? "hidden" : "block"}>New folder</p>
+              <p className={isCollapsed ? "hidden" : "block"}>Folder</p>
             </div>
           </button>
 

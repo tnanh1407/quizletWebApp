@@ -30,6 +30,7 @@ const USER_COLLECTION_SCHEMA = Joi.object({
     theme: Joi.string().default("light"),
     notifications: Joi.boolean().default(true),
   }).default({}),
+  delete_user: Joi.boolean().default(false),
 });
 
 const validateBeforeCreate = (data) => {
@@ -75,7 +76,7 @@ const updateById = async (id, data) => {
   const db = GET_DB();
   await db
     .collection(USER_COLLECTION_NAME)
-    .updateOne({ _id: new ObjectId(id) }, { $set: data });
+    .updateOne({ _id: new ObjectId(id) }, { delete_user: true });
   return await getById(id);
 };
 

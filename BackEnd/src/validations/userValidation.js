@@ -25,6 +25,7 @@ export const userSchema = Joi.object({
   updatedAt: Joi.date().optional(),
   flashcard_count: Joi.number().integer().min(0),
   class_count: Joi.number().integer().min(0),
+  delete_user: Joi.boolean().default(false),
 });
 
 // ===================== EXPORT =====================

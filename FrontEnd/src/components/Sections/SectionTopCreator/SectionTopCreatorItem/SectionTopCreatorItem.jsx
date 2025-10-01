@@ -45,9 +45,9 @@ export default function SectionTopCreatorItem() {
                     ? "You"
                     : user.username}
                 </h3>
-                <div className="creator-rule-important">
+                {/* <div className="creator-rule-important">
                   <p>Teacher</p>
-                </div>
+                </div> */}
               </div>
               <div className="creator-tag flex">
                 <div className="flex khung-mo-ta">

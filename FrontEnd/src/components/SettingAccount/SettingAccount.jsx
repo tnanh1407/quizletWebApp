@@ -1,16 +1,18 @@
-import account from "../../../src/assets/img/account.jpg";
 import "./CssSettingAccount.css";
 import { userApi } from "../../api/userApi";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../Footer/Footer";
+import Modal from "../Modal/Modal";
 
 export default function SettingAccount() {
+  const { id } = useParams();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
+  const [confirmDeleteAccount, setConfirmDeleteAccount] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,6 +33,10 @@ export default function SettingAccount() {
     fetchUser();
   }, [navigate]);
 
+  const toggleConfirmDeleteAccount = () => {
+    setConfirmDeleteAccount((prev) => !prev);
+  };
+
   const handleChangeAvatar = async (avatarUrl) => {
     if (!user) return;
 
@@ -47,6 +53,15 @@ export default function SettingAccount() {
       setUser((prev) => ({ ...prev, avatar: oldAvatar })); // rollback
     } finally {
       setUpdating(false);
+    }
+  };
+  const handleDelete = async () => {
+    try {
+      await userApi.deleteById(id); // dùng API service
+      alert("Deleted successfully");
+      navigate(`/sign-up`, { state: { deleted: true } });
+    } catch (err) {
+      console.error("Error deleting user:", err);
     }
   };
 
@@ -177,11 +192,49 @@ export default function SettingAccount() {
                   <h3>Delete your account</h3>
                   <p>This will delete all your data and cannot be undone.</p>
                 </div>
-                <button className="button-edit button-delete-setting-account">
+                <button
+                  className="button-edit button-delete-setting-account"
+                  onClick={toggleConfirmDeleteAccount}
+                >
                   <p>Delete Account</p>
                 </button>
               </div>
             </div>
+            {confirmDeleteAccount && (
+              <Modal onClose={toggleConfirmDeleteAccount}>
+                <div className="delete-class">
+                  <div className="edit-class-header">
+                    <h1>Delete account?</h1>
+                    <button onClick={toggleConfirmDeleteAccount}>
+                      <i className="fa-solid fa-xmark add-flash-cards-icon"></i>
+                    </button>
+                  </div>
+                  <div className="delete-class-main">
+                    <p>
+                      This action will permanently delete your Quizlet account
+                      and all the data associated with it. This cannot be
+                      undone.
+                    </p>
+                  </div>
+                </div>
+                <div className="delete-class-footer">
+                  <button
+                    type="button"
+                    onClick={toggleConfirmDeleteAccount}
+                    className="button-cancel"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="button-confirm"
+                  >
+                    Yes, delete class
+                  </button>
+                </div>
+              </Modal>
+            )}
           </div>
         </div>
       </div>
