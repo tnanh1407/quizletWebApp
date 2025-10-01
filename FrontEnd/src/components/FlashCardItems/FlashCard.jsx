@@ -347,10 +347,14 @@ export default function FlashCard() {
 
         {/* Created by */}
         <div className="itemflashcard-main-created flex">
-          <img src={account} alt="avatar" />
+          <img src={flashcard.creator.avatar} alt="avatar" />
           <div className="itemflashcard-main-created-in4">
             <p>Created by</p>
-            <h2>thien2805</h2>
+            <h2>
+              {String(flashcard.creator.user_id) === String(user.id)
+                ? "You"
+                : flashcard.creator.username}
+            </h2>
           </div>
         </div>
       </div>
@@ -490,7 +494,7 @@ export default function FlashCard() {
           </div>
         </div>
       </div> */}
-      {/* <div className="bottom-section">
+      <div className="bottom-section">
         <div className="columns">
           <div className="col">
             <h4>About us</h4>
@@ -541,7 +545,7 @@ export default function FlashCard() {
           </div>
           <p>© 2025 Quizlet, Inc.</p>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

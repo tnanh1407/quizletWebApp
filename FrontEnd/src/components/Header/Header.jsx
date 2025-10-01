@@ -107,7 +107,7 @@ export default function Header() {
               setIsOpenAccount(true);
             }}
           >
-            <img src={account} alt="" />
+            <img src={user?.avatar} alt="" />
           </button>
         </div>
       </div>
@@ -141,7 +141,7 @@ export default function Header() {
       {isOpenAccount && (
         <div id="account-setting" ref={settingRef}>
           <div className="account-in4 flex">
-            <img src={account} alt="" />
+            <img src={user?.avatar} alt="" />
             <div className="in4">
               <h1>{user?.username || "User"}</h1>
               <p>{user?.email || "user@example.com"}</p>

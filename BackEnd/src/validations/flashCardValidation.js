@@ -51,6 +51,7 @@ const flashcardSchema = Joi.object({
   creator: Joi.object({
     user_id: Joi.string().required(),
     username: Joi.string().required(),
+    avatar: Joi.string().required(),
   }).required(),
 
   // Nội dung flashcard (mảng các object front/back/example/audio)

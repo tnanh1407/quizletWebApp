@@ -46,7 +46,7 @@ export default function SectionFlashCardSet() {
                   <p>{card.content_count} term</p>
                   <span className="span"></span>
                   <div className="creator-in4 flex">
-                    <img src={account} alt="" />
+                    <img src={card.creator.avatar} alt="" />
                     <p>
                       {String(card.creator.user_id) === String(user.id)
                         ? "You"

@@ -12,6 +12,7 @@ const FOLDER_COLLECTION_SCHEMA = Joi.object({
   creator: Joi.object({
     user_id: Joi.string().required(),
     username: Joi.string().required(),
+    avatar: Joi.string().required(),
   }).required(),
   flashcard_count: Joi.number().integer().min(0),
   metadata: Joi.object({
@@ -46,6 +47,7 @@ const createNew = async (data, user) => {
     creator: {
       user_id: data.creator.user_id.toString(),
       username: data.creator.username,
+      avatar: data.creator.avatar,
     },
     createAt: new Date().toISOString(),
     flashcard_count: Array.isArray(data.flashcards)

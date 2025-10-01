@@ -1,22 +1,25 @@
 /**
  * Lưu thông tin user vào localStorage khi login
- * @param {Object} user - object { id, username }
+ * @param {Object} user - object { id, username, avatar }
  */
 export const saveUser = (user) => {
   if (user) {
     localStorage.setItem("user", JSON.stringify(user));
+    console.log("Saved user:", user);
   }
 };
 
 /**
  * Lấy thông tin user từ localStorage
- * @returns {Object|null} user object { id, username } hoặc null nếu không tồn tại
+ * @returns {Object|null} user object { id, username, avatar } hoặc null nếu không tồn tại
  */
 export const getUser = () => {
   const userStr = localStorage.getItem("user");
   if (!userStr) return null;
   try {
-    return JSON.parse(userStr);
+    const user = JSON.parse(userStr);
+    console.log("Loaded user:", user);
+    return user;
   } catch (err) {
     console.error("Failed to parse user from localStorage:", err);
     return null;

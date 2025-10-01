@@ -60,7 +60,8 @@ export default function FlashCards() {
     }
 
     const user = getUser(); // ✅ lấy user từ userService
-    if (!user || !user.id || !user.username) {
+    console.log(user);
+    if (!user || !user.id || !user.username || !user.avatar) {
       alert("Cannot fetch user info! Please login again.");
       return;
     }
@@ -75,6 +76,7 @@ export default function FlashCards() {
       creator: {
         user_id: user.id.toString(),
         username: user.username,
+        avatar: user.avatar,
       },
     };
     try {

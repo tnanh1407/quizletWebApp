@@ -89,6 +89,7 @@ export default function Navbar({ togglePadding }) {
         creator: {
           user_id: user.id.toString(),
           username: user.username,
+          avatar: user.avatar,
         },
       }); // 👈 gọi folderApi
       console.log("Folder created:", newFolder);
@@ -272,7 +273,7 @@ export default function Navbar({ togglePadding }) {
             <div id="newfolder">
               <div className="newfolder-main">
                 <p>
-                  <i className="fa-solid fa-folder"></i>
+                  <TbFolder />
                 </p>
                 <input
                   type="text"
@@ -310,7 +311,7 @@ export default function Navbar({ togglePadding }) {
               id="navbar-one-demo"
             >
               <IoAddOutline className="navbar-icon" />
-              <p className={isCollapsed ? "hidden" : "block"}>Class Room</p>
+              <p className={isCollapsed ? "hidden" : "block"}>Class</p>
             </div>
           </Link>
         </div>

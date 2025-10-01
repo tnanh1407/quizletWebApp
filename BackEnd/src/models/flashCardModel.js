@@ -22,6 +22,7 @@ const FLASHCARD_COLLECTION_SCHEMA = Joi.object({
   creator: Joi.object({
     user_id: Joi.string().required(),
     username: Joi.string().required(),
+    avatar: Joi.string().required(),
   }).required(),
   createAt: Joi.date().iso(),
   type: Joi.string().valid("flashcard"),
@@ -70,6 +71,7 @@ const createNew = async (data, user) => {
       creator: {
         user_id: data.creator.user_id.toString(),
         username: data.creator.username,
+        avatar: data.creator.avatar,
       },
       createAt: new Date().toISOString(),
       type: "flashcard",

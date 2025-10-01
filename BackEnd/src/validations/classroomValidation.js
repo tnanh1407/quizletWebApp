@@ -42,6 +42,7 @@ const classroomSchema = Joi.object({
   creator: Joi.object({
     user_id: Joi.string().required(),
     username: Joi.string().required(),
+    avatar: Joi.string().required(),
   }).required(),
   metadata: Joi.object({
     views: Joi.number().integer().min(0).default(0),

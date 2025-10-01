@@ -79,4 +79,14 @@ export const userApi = {
         .delete(`${BASE_URL}/users/${id}`, { headers: getAuthHeaders() })
         .then((res) => res.data)
     ),
+  updateAvatar: async (avatarUrl) =>
+    fetchWithRefresh(() =>
+      axios
+        .put(
+          `${BASE_URL}/users/avatar`,
+          { avatar: avatarUrl },
+          { headers: getAuthHeaders() }
+        )
+        .then((res) => res.data)
+    ),
 };

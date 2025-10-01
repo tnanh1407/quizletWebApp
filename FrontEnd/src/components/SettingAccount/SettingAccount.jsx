@@ -3,11 +3,13 @@ import "./CssSettingAccount.css";
 import { userApi } from "../../api/userApi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../Footer/Footer";
 
 export default function SettingAccount() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,9 +31,55 @@ export default function SettingAccount() {
     fetchUser();
   }, [navigate]);
 
+  const handleChangeAvatar = async (avatarUrl) => {
+    if (!user) return;
+
+    const oldAvatar = user.avatar; // lưu avatar cũ để rollback
+    setUser((prev) => ({ ...prev, avatar: avatarUrl })); // update UI ngay lập tức
+    setUpdating(true);
+
+    try {
+      await userApi.updateAvatar(avatarUrl);
+      // không cần setUser nữa vì UI đã update sẵn
+    } catch (err) {
+      console.error("Lỗi đổi avatar:", err);
+      alert("Đổi avatar thất bại, vui lòng thử lại.");
+      setUser((prev) => ({ ...prev, avatar: oldAvatar })); // rollback
+    } finally {
+      setUpdating(false);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!user) return <p>Không tìm thấy thông tin user</p>;
+
+  const avatarList = [
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/107.c3e123902d831a9.jpg?alt=media&token=399a586d-0990-4d9f-af42-93569a8c2b83",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/108.3b3090077134db3.jpg?alt=media&token=d605c423-37e8-4070-987d-c0cbdbfffdcb",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/109.5b75ca8158c771c.jpg?alt=media&token=1e1a794f-5b74-4e59-9122-5fa2cc9cacc5",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/110.36d90f6882d4593.jpg?alt=media&token=f96470f8-0cde-4de5-99d9-f892defcdf76",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/111.f9dd73353feb908.jpg?alt=media&token=e031c439-6d9f-41db-b712-dc1406de1f60",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/112.c90135dfc341a90.jpg?alt=media&token=c15e5280-f025-4c97-9559-22761bdd6067",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/113.e4b7e1c4ed27afa.jpg?alt=media&token=bff3c816-3ffd-4cc9-aa63-0770373b1b61",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/114.0adc064c9a6d1eb.jpg?alt=media&token=1787f076-7f1d-43c1-a956-e52399f55244",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/115.70946d9217589e8.jpg?alt=media&token=8f2f6f3f-8bc0-4e07-a233-72e72503d0f6",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/116.9aaedd4f4495837.jpg?alt=media&token=4bc3a1ce-4a59-4f59-8741-bc1f1b467045",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/117.3cd40b021ac604f.jpg?alt=media&token=e949dcee-0a5d-4057-a213-7c815ca11fa7",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/118.17bed2945aa1600.jpg?alt=media&token=14ec2cb5-8327-47ae-b033-39560479dab8",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/119.ed0b39ac3915639.jpg?alt=media&token=a2c469e5-b4d5-4656-bfbf-3977c0f7e6cb",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/120.bd14e2049ea1628.jpg?alt=media&token=fdfb18b2-e4db-4120-8eda-6f9fa037166f",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/121.86d7c15a5a6be0f.jpg?alt=media&token=a73c14fc-8ad6-4e3f-a971-b702be2a1785",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/122.c263b6b48ca2b1a.jpg?alt=media&token=0b9024c0-415f-4882-9420-53017129eb97",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/123.e5f0bd4b49e7c12.jpg?alt=media&token=52564515-d3d7-4c93-b12d-cb69f02ce112",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/124.e99fa024b6881c1.jpg?alt=media&token=fba33273-2771-4c3a-a6a0-47a00a5393fd",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/125.a46eeeaa1617163.jpg?alt=media&token=0bb02f3d-a8a2-43ae-ab93-0742574cb5fb",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/112.c90135dfc341a90.jpg?alt=media&token=c15e5280-f025-4c97-9559-22761bdd6067",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/119.ed0b39ac3915639.jpg?alt=media&token=a2c469e5-b4d5-4656-bfbf-3977c0f7e6cb",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/110.36d90f6882d4593.jpg?alt=media&token=f96470f8-0cde-4de5-99d9-f892defcdf76",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/122.c263b6b48ca2b1a.jpg?alt=media&token=0b9024c0-415f-4882-9420-53017129eb97",
+    "https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/126.70ed6cbb19b8447.jpg?alt=media&token=ab67d56d-3df4-4b88-a5a0-327e94854066",
+  ];
 
   return (
     <>
@@ -43,43 +91,20 @@ export default function SettingAccount() {
             <div className="setting-account-personal-information-picture padding-24px border-bottom-2px">
               <h3>Profile picture</h3>
               <div className="setting-account-personal-information-setting-picture flex">
-                <img src={account} alt="" className="account-defalt" />
+                <img src={user?.avatar} alt="" className="account-defalt" />
                 <div className="set-picture">
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  <img src={account} alt="" />
-                  {/* <button className="add-picture">
-                        <i class="fa-solid fa-plus"></i>
-                      </button> */}
+                  {avatarList.map((url, i) => (
+                    <button
+                      key={i}
+                      className={`button-img ${
+                        user.avatar === url ? "active" : ""
+                      }`}
+                      disabled={updating}
+                      onClick={() => handleChangeAvatar(url)}
+                    >
+                      <img src={url} alt={`avatar-${i}`} />
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -88,28 +113,26 @@ export default function SettingAccount() {
                 <h3>Username</h3>
                 <p>{user.username}</p>
               </div>
-              <button>
+              {/* <button className="button-edit">
                 <p>Edit</p>
-              </button>
+              </button> */}
             </div>
 
-            <div className="setting-account-personal-information-email padding-24px flex border-bottom-2px">
+            <div className="setting-account-personal-information-email padding-24px flex ">
               <div className="setting-account-personal-information-username-title">
                 <h3>Email</h3>
                 <p>{user.email}</p>
               </div>
-              <button>
-                <p>Edit</p>
-              </button>
+              {/* <button className="button-edit"><p>Edit</p></button> */}
             </div>
 
-            <div className="setting-account-personal-information-account-type padding-24px flex">
+            {/* <div className="setting-account-personal-information-account-type padding-24px flex">
               <h3>Account type</h3>
-              <button className="flex">
+              <button className="button-edit flex">
                 <p>{user.role || "Student"}</p>
                 <i className="fa-solid fa-plus margin-left"></i>
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="setting-account-personal-information">
@@ -117,14 +140,14 @@ export default function SettingAccount() {
           <div className="setting-account-personal-block">
             <div className="setting-account-personal-information-theme padding-24px flex border-bottom-2px">
               <h3>Theme</h3>
-              <button className="flex">
+              <button className="button-edit flex">
                 <p>Dark</p>
                 <i class="fa-solid fa-plus margin-left"></i>
               </button>
             </div>
             <div className="setting-account-personal-information-language padding-24px flex ">
               <h3>Language</h3>
-              <button className="flex">
+              <button className="button-edit flex">
                 <p>English (USA)</p>
                 <i class="fa-solid fa-plus margin-left"></i>
               </button>
@@ -136,33 +159,33 @@ export default function SettingAccount() {
           <div className="setting-account-personal-block">
             <div className="setting-account-personal-information-create padding-24px flex border-bottom-2px">
               <h3>Create a Quizlet password</h3>
-              <button className="flex">
+              <button className="button-edit flex">
                 <p>Create</p>
                 <i class="fa-solid fa-plus margin-left"></i>
               </button>
             </div>
-            <div className="setting-account-personal-information-connect-facebook padding-24px flex border-bottom-2px">
+            {/* <div className="setting-account-personal-information-connect-facebook padding-24px flex border-bottom-2px">
               <h3>Connect your Facebook account</h3>
-              <button className="flex">
+              <button className="button-edit flex">
                 <i class="fa-brands fa-facebook margin-right"></i>
                 <p>Link Facebook</p>
               </button>
-            </div>
+            </div> */}
             <div className="setting-account-personal-information-delete padding-24px">
               <div className="delete-setting-account flex">
                 <div className="delete-setting-account-title">
                   <h3>Delete your account</h3>
                   <p>This will delete all your data and cannot be undone.</p>
                 </div>
-                <button className="button-delete-setting-account">
-                  <p>Delete</p>
+                <button className="button-edit button-delete-setting-account">
+                  <p>Delete Account</p>
                 </button>
               </div>
             </div>
           </div>
         </div>
-        {/* <Footer /> */}
       </div>
+      <Footer />
     </>
   );
 }

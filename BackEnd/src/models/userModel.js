@@ -11,6 +11,7 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   passwordHash: Joi.string().required(),
   roles: Joi.array().items(Joi.string()).default(["user"]),
   status: Joi.string().default("active"),
+  avatar: Joi.string().required(),
   createdAt: Joi.date().default(new Date()),
   updatedAt: Joi.date().default(new Date()),
   lastLogin: Joi.date().allow(null),
@@ -66,7 +67,7 @@ const createNew = async (data) => {
   const validData = await validateBeforeCreate(data);
   const db = GET_DB();
   const result = await db.collection(USER_COLLECTION_NAME).insertOne(validData);
-  return result.ops ? result.ops[0] : validData;
+  return { ...validData, _id: result.insertedId };
 };
 
 const updateById = async (id, data) => {
@@ -99,6 +100,20 @@ const updateLastLogin = async (id) => {
     .updateOne({ _id: new ObjectId(id) }, { $set: { lastLogin: new Date() } });
 };
 
+const updateAvatar = async (id, avatarUrl) => {
+  const db = GET_DB();
+  await db.collection(USER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: {
+        avatar: avatarUrl,
+        updatedAt: new Date(),
+      },
+    }
+  );
+  return await getById(id);
+};
+
 export const userModel = {
   USER_COLLECTION_NAME,
   USER_COLLECTION_SCHEMA,
@@ -110,4 +125,5 @@ export const userModel = {
   findByEmail, // dùng cho authService
   updateLastLogin, // dùng cho authService
   getByIdPublic,
+  updateAvatar,
 };

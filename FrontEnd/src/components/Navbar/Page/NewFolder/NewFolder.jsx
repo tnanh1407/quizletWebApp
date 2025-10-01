@@ -130,12 +130,21 @@ export default function NewFolder() {
       alert("Error removing flashcard");
     }
   };
+  console.log("id tu folder", folder?.creator.user_id);
+  console.log("id tu login", user.id);
 
   return (
     <>
       <div className="main-content-new-folder">
         <div className="new-folder-header flex">
-          <h1>{folder?.title || "Loading..."}</h1>
+          <div className="new-folder-title">
+            <h1>{folder?.title || "Loading..."}</h1>
+            {user &&
+            folder?.creator?.user_id &&
+            String(folder?.creator.user_id) === String(user.id) ? null : (
+              <p>Created by {folder?.creator.username}</p>
+            )}
+          </div>
           <div className="study-other flex">
             <Link to="/" className="stydy-other-a">
               <p>Study</p>
