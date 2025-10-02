@@ -189,14 +189,15 @@ export default function ClassDetail() {
   return (
     <>
       <div className="ClassDetail">
-        {/* Notice bar */}
-        <div className="element-notice">
-          <h5>Invite students to join this class</h5>
-          <p>
-            Students get free access to activities and materials you add to your
-            class
-          </p>
-        </div>
+        {classRoom?.creator.user_id === user.id && (
+          <div className="element-notice">
+            <h5>Invite students to join this class</h5>
+            <p>
+              Students get free access to activities and materials you add to
+              your class
+            </p>
+          </div>
+        )}
 
         {/* Header */}
         <div className="header_classDetail">
@@ -208,12 +209,12 @@ export default function ClassDetail() {
                 {classRoom?.university}
               </span>
             </div>
-            <div className="header_one_r">
-              <button className="share-btn" onClick={toggleAddFlashCard}>
-                <i className="fa-solid fa-plus"></i>
-              </button>
+            {classRoom?.creator.user_id === user.id && (
+              <div className="header_one_r">
+                <button className="share-btn" onClick={toggleAddFlashCard}>
+                  <i className="fa-solid fa-plus"></i>
+                </button>
 
-              {classRoom?.creator.user_id === user.id && (
                 <div className="menu-container">
                   <button
                     className="menu-toggle"
@@ -238,8 +239,8 @@ export default function ClassDetail() {
                     </div>
                   )}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
         {confirmDelete && (
@@ -408,23 +409,29 @@ export default function ClassDetail() {
               Materials
             </button>
           </NavLink>
-          <NavLink to={`/class/${classRoom?._id}/member`}>
-            <button
-              className={`tab ${
-                location.pathname.includes("member") ? "active" : ""
-              }`}
-            >
-              Members
-            </button>
-          </NavLink>
+          {classRoom?.creator.user_id === user.id ? (
+            <NavLink to={`/class/${classRoom?._id}/member`}>
+              <button
+                className={`tab ${
+                  location.pathname.includes("member") ? "active" : ""
+                }`}
+              >
+                Members
+              </button>
+            </NavLink>
+          ) : null}
         </div>
 
+        {user &&
+        classRoom?.creator?.user_id &&
+        String(classRoom?.creator.user_id) === String(user.id) ? (
+          <div className="header_three">
+            <button className="invite google">📂 Invite with Google</button>
+            <button className="invite email">✉️ Invite by email</button>
+            <button className="invite link">🔗 Copy link</button>
+          </div>
+        ) : null}
         {/* Invite buttons */}
-        <div className="header_three">
-          <button className="invite google">📂 Invite with Google</button>
-          <button className="invite email">✉️ Invite by email</button>
-          <button className="invite link">🔗 Copy link</button>
-        </div>
 
         {/* Content */}
         <div className="content">

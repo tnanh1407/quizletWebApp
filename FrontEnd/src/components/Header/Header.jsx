@@ -163,6 +163,7 @@ export default function Header() {
             <button
               onClick={toggleTheme}
               style={{
+                fontSize: "16px",
                 background: "none",
                 border: "none",
                 color: "inherit",

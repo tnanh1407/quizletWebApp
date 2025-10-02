@@ -3,6 +3,7 @@ import imgAccount from "../../../../../../assets/img/account.jpg";
 import "./CssMembers.css";
 import { Link, useParams } from "react-router-dom";
 import { classroomApi } from "../../../../../../api/classroomApi";
+import { getUser } from "../../../../../../other/storage";
 
 // icon
 import { MdOutlineSwapHoriz } from "react-icons/md";
@@ -10,6 +11,7 @@ import { IoMdTrash } from "react-icons/io";
 
 const Members = () => {
   const { id } = useParams();
+  const user = getUser();
   console.log("id class", id);
   const [classRoom, setClassRoom] = useState({
     member_count: 0,
@@ -57,7 +59,7 @@ const Members = () => {
         {classRoom.members.map((member) => (
           <div className="member flex">
             <div className="member-left flex">
-              <img src={imgAccount} alt="" />
+              <img src={classRoom.creator.avatar} alt="" />
               <p>{member.username}</p>
             </div>
             <div className="member-right flex">
