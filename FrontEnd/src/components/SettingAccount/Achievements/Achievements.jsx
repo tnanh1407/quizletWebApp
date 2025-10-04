@@ -4,6 +4,7 @@ import { DayPicker } from "react-day-picker";
 import { addMonths, subMonths } from "date-fns";
 import "react-day-picker/style.css";
 import "./CssAchievements.css";
+import Modal from "../../Modal/Modal.jsx";
 
 import bageCreatedFirstSet from "../../../assets/img_achievements/badge-CreatedFirstSet.svg";
 import bageDay from "../../../assets/img_achievements/badge-Day.svg";
@@ -738,42 +739,47 @@ export default function Achievements() {
       {selectedAchievement && (
         <>
           <div className="modal-overlay" onClick={handleCloseModal}></div>
-          <div className="modal">
-            <div className="modal-content">
-              <h3>{selectedAchievement.text}</h3>
-              <div className="container-image">
-                <img
-                  src={getImageSrc(selectedAchievement.text)}
-                  alt={selectedAchievement.text}
-                  className={selectedAchievement.earned ? "earned" : "unearned"}
-                />
-                {getNumber(selectedAchievement.text) && (
-                  <span
-                    className={`number-overlay ${
+          <Modal>
+            <div className="modal">
+              <div className="modal-content">
+                <h3>{selectedAchievement.text}</h3>
+                <div className="container-image">
+                  <img
+                    src={getImageSrc(selectedAchievement.text)}
+                    alt={selectedAchievement.text}
+                    className={
                       selectedAchievement.earned ? "earned" : "unearned"
-                    }`}
-                  >
-                    {getNumber(selectedAchievement.text)}
-                  </span>
-                )}
-              </div>
-              {selectedAchievement.earned && selectedAchievement.dateEarned && (
-                <p className="earned-date">
-                  Earned{" "}
-                  {new Date(
-                    selectedAchievement.dateEarned
-                  ).toLocaleDateString()}
+                    }
+                  />
+                  {getNumber(selectedAchievement.text) && (
+                    <span
+                      className={`number-overlay ${
+                        selectedAchievement.earned ? "earned" : "unearned"
+                      }`}
+                    >
+                      {getNumber(selectedAchievement.text)}
+                    </span>
+                  )}
+                </div>
+                {selectedAchievement.earned &&
+                  selectedAchievement.dateEarned && (
+                    <p className="earned-date">
+                      Earned{" "}
+                      {new Date(
+                        selectedAchievement.dateEarned
+                      ).toLocaleDateString()}
+                    </p>
+                  )}
+                <p className="description">
+                  {descriptions[selectedAchievement.text] ||
+                    "No description available."}
                 </p>
-              )}
-              <p className="description">
-                {descriptions[selectedAchievement.text] ||
-                  "No description available."}
-              </p>
-              <button className="close-btn" onClick={handleCloseModal}>
-                Close
-              </button>
+                <button className="close-btn" onClick={handleCloseModal}>
+                  Close
+                </button>
+              </div>
             </div>
-          </div>
+          </Modal>
         </>
       )}
     </>

@@ -15,6 +15,7 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   createdAt: Joi.date().default(new Date()),
   updatedAt: Joi.date().default(new Date()),
   lastLogin: Joi.date().allow(null),
+  loginHistory: Joi.array().items(Joi.date()),
   facebook: Joi.string().allow(""),
   profile: Joi.object({
     gender: Joi.string().allow(""),
