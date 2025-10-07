@@ -250,7 +250,7 @@ export default function FunctionTest({ isPadded }) {
   return (
     <div
       className="function-test"
-      style={{ paddingLeft: isPadded ? "200px" : "60px" }}
+      style={{ paddingLeft: isPadded ? "200px" : "0px" }}
     >
       {!isNavOpen && (
         <button className="btn-nav" onClick={toggleNav}>
@@ -363,33 +363,7 @@ export default function FunctionTest({ isPadded }) {
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-            {showModal && (
-              <div className="test-modal">
-                <div className="test-modal-content">
-                  <p>You haven't answered all the questions.</p>
-                  <p>
-                    Would you like to review the skipped questions or submit the
-                    test now?
-                  </p>
-                  <div className="test-modal-buttons">
-                    <button
-                      className="test-modal-button"
-                      onClick={handleReviewSkipped}
-                    >
-                      Review Skipped Questions
-                    </button>
-                    <button className="test-modal-button" onClick={handleSubmitNow}>
-                      Submit Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-=======
           )}
->>>>>>> origin/main
         </div>
       </div>
     </div>

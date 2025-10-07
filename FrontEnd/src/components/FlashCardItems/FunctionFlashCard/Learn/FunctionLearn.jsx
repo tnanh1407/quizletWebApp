@@ -204,7 +204,7 @@ export default function FunctionLearn({ isPadded }) {
   return (
     <div
       className="function-learn"
-      style={{ paddingLeft: isPadded ? "200px" : "60px" }}
+      style={{ paddingLeft: isPadded ? "200px" : "0px" }}
     >
       <div className="function-learn-main-content">
         <div className="progress-container">

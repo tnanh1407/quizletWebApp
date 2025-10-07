@@ -84,30 +84,6 @@ export default function FunctionFlashCard({ isPadded }) {
 
   const handlePractice = () => navigate(`/${id}/learn`);
 
-  const focusOnStillLearning = () => {
-  if (learningCards.length > 0) {
-    const filtered = learningCards.map((i) => currentFlashcards[i]);
-
-    if (filtered.length === 0) {
-      //Nếu không còn thẻ nào thì coi như hoàn thành
-      setIsCompleted(true);
-      return;
-    }
-
-    setCurrentFlashcards(filtered);
-    setIndex(0);
-    setFlipped(false);
-    setKnow(0);
-    setStillLearning(0);
-    setIsCompleted(false);
-    setLearningCards([]);
-  } else {
-    //Nếu nhấn mà không có thẻ stillLearning  hiển thị stats 
-    setIsCompleted(true);
-  }
-};
-
-
   const goBackToLastQuestion = () => {
     // if (lastCardIndex !== null) {
     //   setIsCompleted(false);
