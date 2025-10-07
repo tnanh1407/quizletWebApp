@@ -10,7 +10,7 @@ import { TbCards } from "react-icons/tb";
 import { TbFolder } from "react-icons/tb";
 import { MdOutlineGroup } from "react-icons/md";
 
-export default function Header() {
+export default function Header({ toggleNewFolder, isNewFolder }) {
   const [addFolder, setAddFolder] = useState(false);
   const [isOpenAccount, setIsOpenAccount] = useState(false);
   const [user, setUser] = useState(null);
@@ -122,7 +122,7 @@ export default function Header() {
                 <p>Flash Card</p>
               </div>
             </Link>
-            <Link to="/create/new-folder">
+            <Link to="">
               <div className="setting-item flex">
                 <TbFolder className="icon-header" />
                 <p>Folder</p>

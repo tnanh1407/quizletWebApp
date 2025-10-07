@@ -76,6 +76,8 @@ const login = async (data) => {
   const isMatch = await bcrypt.compare(password, user.passwordHash);
   if (!isMatch) throw new Error("Invalid email or password");
 
+  await userModel.updateLoginHistory(user._id);
+
   await userModel.updateLastLogin(user._id);
 
   const tokens = generateTokens(user);

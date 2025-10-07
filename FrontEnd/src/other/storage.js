@@ -5,7 +5,7 @@
 export const saveUser = (user) => {
   if (user) {
     localStorage.setItem("user", JSON.stringify(user));
-    console.log("Saved user:", user);
+    // console.log("Saved user:", user);
   }
 };
 
@@ -18,7 +18,7 @@ export const getUser = () => {
   if (!userStr) return null;
   try {
     const user = JSON.parse(userStr);
-    console.log("Loaded user:", user);
+    // console.log("Loaded user:", user);
     return user;
   } catch (err) {
     console.error("Failed to parse user from localStorage:", err);

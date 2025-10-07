@@ -116,6 +116,20 @@ const updateAvatar = async (id, avatarUrl) => {
   return await getById(id);
 };
 
+const updateLoginHistory = async (id) => {
+  const db = GET_DB();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // chỉ lấy phần ngày
+
+  await db.collection(USER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: { lastLogin: new Date() },
+      $addToSet: { loginHistory: today }, // tránh trùng ngày
+    }
+  );
+};
+
 export const userModel = {
   USER_COLLECTION_NAME,
   USER_COLLECTION_SCHEMA,
@@ -128,4 +142,5 @@ export const userModel = {
   updateLastLogin, // dùng cho authService
   getByIdPublic,
   updateAvatar,
+  updateLoginHistory,
 };

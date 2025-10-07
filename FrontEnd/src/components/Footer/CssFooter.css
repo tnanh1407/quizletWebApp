@@ -106,6 +106,7 @@ body.light-mode .navbar a {
 }
 
 .navbar-a {
+  min-width: 44px;
   padding: 10px 10px;
   border-radius: 8px;
   line-height: 100%;
