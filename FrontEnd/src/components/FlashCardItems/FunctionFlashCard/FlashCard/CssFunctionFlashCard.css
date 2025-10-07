@@ -170,14 +170,14 @@
   width: 100%;
   height: 100%;
   color: #f6f7fb;
-  padding: 20px 0 0 0;
+  padding: 100px 0 0 0;
   overflow: hidden;
   scrollbar-width: none;
 }
 
 .function-flashcard-content {
   max-width: 850px;
-  height: 100vh;
+  height: 85vh;
   margin-left: auto;
   margin-right: auto;
 }

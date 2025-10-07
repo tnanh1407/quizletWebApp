@@ -399,28 +399,36 @@ export default function ClassDetail() {
         )}
 
         {/* Tabs */}
-        <div className="header_two">
-          <NavLink to={`/class/${classRoom?._id}/material`}>
-            <button
-              className={`tab ${
-                location.pathname.includes("material") ? "active" : ""
-              }`}
-            >
-              Materials
+        {classRoom?.creator.user_id === user.id ? (
+          <div className="header_two">
+            <>
+              <NavLink to={`/class/${classRoom?._id}/material`}>
+                <button
+                  className={`tab ${
+                    location.pathname.includes("material") ? "active" : ""
+                  }`}
+                >
+                  Materials
+                </button>
+              </NavLink>
+              <NavLink to={`/class/${classRoom?._id}/member`}>
+                <button
+                  className={`tab ${
+                    location.pathname.includes("member") ? "active" : ""
+                  }`}
+                >
+                  Members
+                </button>
+              </NavLink>
+            </>
+          </div>
+        ) : (
+          <>
+            <button className="button-join-class">
+              <p>Request to join class</p>
             </button>
-          </NavLink>
-          {classRoom?.creator.user_id === user.id ? (
-            <NavLink to={`/class/${classRoom?._id}/member`}>
-              <button
-                className={`tab ${
-                  location.pathname.includes("member") ? "active" : ""
-                }`}
-              >
-                Members
-              </button>
-            </NavLink>
-          ) : null}
-        </div>
+          </>
+        )}
 
         {user &&
         classRoom?.creator?.user_id &&
@@ -430,18 +438,28 @@ export default function ClassDetail() {
             <button className="invite email">✉️ Invite by email</button>
             <button className="invite link">🔗 Copy link</button>
           </div>
-        ) : null}
+        ) : (
+          <>
+            <div className="main-nothing">
+              <p className="nothing-to-see">Nothing to see here</p>
+            </div>
+          </>
+        )}
         {/* Invite buttons */}
 
         {/* Content */}
-        <div className="content">
-          <Outlet
-            context={{
-              flashcards: classFlashcards,
-              onRemoveFlashcard: handleRemoveFlashcard,
-            }}
-          />
-        </div>
+        {user &&
+        classRoom?.creator?.user_id &&
+        String(classRoom?.creator.user_id) === String(user.id) ? (
+          <div className="content">
+            <Outlet
+              context={{
+                flashcards: classFlashcards,
+                onRemoveFlashcard: handleRemoveFlashcard,
+              }}
+            />
+          </div>
+        ) : null}
       </div>
       <Footer className="footer" />
     </>

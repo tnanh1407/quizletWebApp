@@ -462,3 +462,19 @@
 .delete-class-main {
   margin-bottom: 100px;
 }
+
+.button-join-class {
+  width: 100%;
+  height: 40px;
+  border-radius: 50px;
+  margin: 40px 0 100px;
+  color: var(--text-color);
+  border: none;
+  background: var(--button-blue-color);
+}
+
+.nothing-to-see {
+  font-size: 24px;
+  width: 100%;
+  text-align: center;
+}

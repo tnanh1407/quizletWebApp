@@ -148,7 +148,7 @@ export default function FunctionLearn({ isPadded }) {
     return (
       <div
         className="function-learn"
-        style={{ paddingLeft: isPadded ? "200px" : "60px" }}
+        style={{ paddingLeft: isPadded ? "200px" : "0px" }}
       >
         <button className="btnClose" onClick={handleClose}>
           <i className="fa fa-times"></i>
