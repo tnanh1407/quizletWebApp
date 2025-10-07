@@ -94,9 +94,9 @@
 
 .session-terms {
   font-size: 10px;
-  width: 50px;
+  width: 80px !important;
   background: #586380;
-  padding: 2px;
+  padding: 5px;
   border-radius: 20px;
   text-align: center;
 }

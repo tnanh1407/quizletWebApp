@@ -5,7 +5,23 @@
   color: #fff;
   position: relative;
   min-height: 100vh;
-  padding-top: 20px;
+  /* padding-top: 80px; */
+}
+
+.function-test-maincontent {
+  width: 100%;
+  height: 100%;
+  color: #f6f7fb;
+  padding: 20px 0 0 0;
+  /*overflow-y: auto;
+  scrollbar-width: none;*/
+}
+
+.function-test-main-content {
+  max-width: 850px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .function-test-maincontent {
@@ -33,7 +49,7 @@
   /*background: #2e3856;*/
   background: var(--bg-color);
   transition: left 0.3s ease;
-  z-index: 1000;
+  z-index: 10;
   overflow-y: auto;
 }
 
@@ -45,8 +61,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid #fff;
+  padding: 0 20px;
+  /* border-bottom: 1px solid #fff; */
+  color: #a8b1ff;
+}
+.question-list li button {
+  color: #a8b1ff;
 }
 
 .sidebar-header h3 {
@@ -84,27 +104,34 @@
 }
 
 .question-link:hover {
-  color: #4255ff;
+  color: #939bb4;
 }
 
 .question-link.answered {
-  color: #6a5cff;
+  color: #939bb4;
 }
 
 .question-link.skipped {
   color: #ffa500;
 }
 
-.btn-nav {
+.function-test .btn-nav {
   position: fixed;
-  top: 150px;
+  top: 100px;
   left: 20px;
-  z-index: 1100;
-  background: none;
-  border: none;
-  padding: 10px;
+  z-index: 100;
   cursor: pointer;
   transition: opacity 0.3s ease;
+  background: none;
+  border: none;
+}
+
+.function-test .btn-nav i {
+  color: var(--text-color);
+  width: 35px;
+  border-radius: 50px;
+  padding: 10px;
+  background: var(--bg-hover-color);
 }
 
 .btn-nav.hidden {
@@ -113,9 +140,9 @@
 }
 
 .mode-test-main-content {
-  height: auto;
+  height: 450px;
   background: #2e3856;
-  padding: 20px 40px;
+  padding: 40px 40px;
   border-radius: 20px;
   margin: 40px 0;
 }
@@ -151,7 +178,7 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  padding-top: 10px;
+  /* padding-top: 10px; */
 }
 
 .dont-know {
@@ -214,12 +241,13 @@
   top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100vw;
+  width: 40vw;
   height: 50vh;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
   z-index: 1300;
+  border-radius: 10px;
 }
 
 .test-modal-content {

@@ -1,9 +1,10 @@
 import Footer from "../../Footer/Footer.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DayPicker } from "react-day-picker";
 import { addMonths, subMonths } from "date-fns";
 import "react-day-picker/style.css";
 import "./CssAchievements.css";
+import Modal from "../../Modal/Modal.jsx";
 
 import bageCreatedFirstSet from "../../../assets/img_achievements/badge-CreatedFirstSet.svg";
 import bageDay from "../../../assets/img_achievements/badge-Day.svg";
@@ -19,6 +20,8 @@ import badgeStudiedWithTest from "../../../assets/img_achievements/badge-Studied
 import badgeWeek from "../../../assets/img_achievements/badge-Week.svg";
 import lockedbadgeCreatedFirstPracticeTest from "../../../assets/img_achievements/locked-badge-CreatedFirstPracticeTest.svg";
 import streakFlame from "../../../assets/img_achievements/streak-flame.svg";
+
+import { userApi } from "../../../api/userApi.js";
 
 const imgMapping = {
   "Flashcard whiz": badgeStudiedWithFlashcards,
@@ -243,6 +246,64 @@ export default function Achievements() {
   const [showAllSets, setShowAllSets] = useState(false);
   const [showAllRounds, setShowAllRounds] = useState(false);
   const [selectedAchievement, setSelectedAchievement] = useState(null);
+  const [loginHistory, setLoginHistory] = useState([]);
+  const [currentStreak, setCurrentStreak] = useState(0);
+
+  // --- Fetch loginHistory từ API ---
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await userApi.getMe();
+        console.log("Kết quả từ userApi.getMe():", res);
+
+        if (res && Array.isArray(res.loginHistory)) {
+          // Chuyển các timestamp thành định dạng YYYY-MM-DD
+          const formattedHistory = res.loginHistory.map((dateStr) => {
+            const local = new Date(dateStr);
+            local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+            return local.toISOString().split("T")[0];
+          });
+          console.log("formattedHistory:", formattedHistory);
+
+          setLoginHistory(formattedHistory);
+
+          // Tính streak hiện tại
+          const streak = calculateCurrentStreak(formattedHistory);
+          setCurrentStreak(streak);
+        }
+      } catch (err) {
+        console.error("Lỗi khi lấy loginHistory:", err);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const calculateCurrentStreak = (dates) => {
+    if (!dates || dates.length === 0) return 0;
+
+    // Loại trùng và sắp xếp
+    const uniqueDates = [...new Set(dates)];
+    const sorted = uniqueDates.sort((a, b) => new Date(a) - new Date(b));
+
+    let streak = 1;
+    for (let i = sorted.length - 1; i > 0; i--) {
+      const prev = new Date(sorted[i - 1]);
+      const curr = new Date(sorted[i]);
+      const diff = (curr - prev) / (1000 * 60 * 60 * 24);
+      if (diff === 1) streak++;
+      else if (diff > 1) break;
+    }
+
+    // Chỉ hiển thị streak nếu hôm nay hoặc hôm qua có login
+    const today = new Date().toISOString().split("T")[0];
+    const yesterday = new Date(Date.now() - 86400000)
+      .toISOString()
+      .split("T")[0];
+
+    if (!dates.includes(today) && !dates.includes(yesterday)) return 0;
+
+    return streak;
+  };
 
   const allAchievements = {
     studying: [
@@ -373,7 +434,7 @@ export default function Achievements() {
   const handleCloseModal = () => {
     setSelectedAchievement(null);
   };
-
+  console.log("Render Achievements, loginHistory:", loginHistory);
   return (
     <>
       <div className="achievements">
@@ -411,58 +472,63 @@ export default function Achievements() {
               {/*<h4>Calender</h4>*/}
               <div className="CalendarBox">
                 <DayPicker
-                  mode="single"
+                  className="streak-calendar"
                   month={month}
                   onMonthChange={setMonth}
-                  captionLayout="dropdown-buttons"
                   showOutsideDays
+                  fixedWeeks
+                  captionLayout="dropdown-buttons"
+                  fromYear={2025}
+                  toYear={2025}
+                  // ✅ đánh dấu những ngày có login streak
                   modifiers={{
-                    streakDay: streakDate,
+                    streak: loginHistory.map((d) => new Date(d)),
                   }}
-                  modifiersClassNames={{
-                    streakDay: "streak-day",
-                    selected: "calendar-day-selected",
-                    today: "calendar-day-today",
+                  modifiersStyles={{
+                    streak: {
+                      position: "relative",
+                      color: "var(--bg-color)",
+                      backgroundImage:
+                        "url('/src/assets/img_achievements/streak-flame.svg')",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center center",
+                      backgroundSize: "30px 30px",
+                    },
                   }}
-                  className={{
-                    root: "calendar-root",
-                    month: "calendar-month",
-                    caption: "calendar-caption",
-                    nav: "calendar-nav",
-                    nav_button_previous: "calendar-nav-button",
-                    nav_button_next: "calendar-nav-button",
-                    table: "calendar-table",
-                    head: "calendar-head",
-                    cell: "calendar-cell",
-                    day: "calendar-day",
-                    day_selected: "calendar-day-selected",
-                    day_today: "calendar-day-today",
+                  modifiers={{
+                    streak: loginHistory
+                      .filter((d) => {
+                        const date = new Date(d);
+                        return (
+                          date.getMonth() === month.getMonth() &&
+                          date.getFullYear() === month.getFullYear()
+                        );
+                      })
+                      .map((d) => new Date(d)),
                   }}
                 />
               </div>
             </div>
 
-            <div className="column column-3">
-              <h4>Current streak</h4>
-              <div className="StreakBox">
-                {hasStreak && (
-                  <>
-                    <p>2 -day</p>
-                    <img
-                      src={streakFlame}
-                      alt="Streak Flame"
-                      className="streak-flame"
-                    />
-                    <br></br>
-                    <img
-                      src={streakFlame}
-                      alt="Streak Flame"
-                      className="streak-flame"
-                    />
-                  </>
-                )}
-                {!hasStreak && <p>NO PROGRESS YET</p>}
-              </div>
+            <div className="streak-info">
+              {currentStreak > 0 ? (
+                <>
+                  <h3>Current streak</h3>
+                  <p className="streak-text">{currentStreak}-day </p>
+                  <div className="streak-icons">
+                    {[...Array(currentStreak)].map((_, i) => (
+                      <img
+                        key={i}
+                        src="/src/assets/img_achievements/streak-flame.svg"
+                        alt="🔥"
+                        className="streak-flame"
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <p className="no-streak">NO PROGRESS YET</p>
+              )}
             </div>
           </div>
         </div>
@@ -737,9 +803,10 @@ export default function Achievements() {
 
       {selectedAchievement && (
         <>
-          <div className="modal-overlay" onClick={handleCloseModal}></div>
-          <div className="modal">
-            <div className="modal-content">
+          {/* <div className="modal-overlay" onClick={handleCloseModal}></div> */}
+          <Modal>
+            <div className="modal">
+              {/* <div className="modal-content"> */}
               <h3>{selectedAchievement.text}</h3>
               <div className="container-image">
                 <img
@@ -773,7 +840,8 @@ export default function Achievements() {
                 Close
               </button>
             </div>
-          </div>
+            {/* </div> */}
+          </Modal>
         </>
       )}
     </>

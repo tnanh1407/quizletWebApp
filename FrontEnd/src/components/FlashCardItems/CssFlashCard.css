@@ -80,7 +80,7 @@
   border-radius: inherit;
 } */
 
-.modal-overlay {
+.itemflashcard-header .modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
@@ -389,6 +389,7 @@
   justify-content: space-between;
   border-bottom: 2px solid #d9dde8;
   padding-bottom: 20px;
+  height: 70px;
 }
 
 .itemflashcard-main-content-option h1 {
@@ -429,7 +430,7 @@
   flex-direction: column;
   justify-content: space-between;
   backface-visibility: hidden;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
 /* Mặt trước */
@@ -452,7 +453,7 @@
 }
 
 .flashcard-container.flipped .back {
-  transform: rotateX(360deg);
+  transform: rotateX(0deg);
 }
 
 .front {
@@ -464,7 +465,7 @@
 }
 
 .flipped .front {
-  transform: rotateY(-180deg);
+  transform: rotateY(360deg);
 }
 
 .flipped .back {

@@ -14,7 +14,6 @@ export default function FlashCard() {
   // const [isLocked, setIsLocked] = useState(false); // khóa không cho chọn lại sau khi đã chọn
   const [flashcard, setFlashcard] = useState(null);
   const location = useLocation();
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const [flipped, setFlipped] = useState(false);
   const [index, setIndex] = useState(0);
@@ -31,14 +30,6 @@ export default function FlashCard() {
         setFlashcard(data);
       })
       .catch((err) => console.error(err));
-
-    // let timer;
-    // if (location.state?.updated) {
-    //   // alert("Cập nhật thành công!");
-    // } else if (location.state?.deleted) {
-    //   timer = setTimeout(() => setMessage(""), 3000);
-    // }
-    // return () => clearTimeout(timer);
   }, [id, location.state]);
 
   const handleDelete = async () => {
@@ -252,13 +243,13 @@ export default function FlashCard() {
           <div className="itemflashcard-header-title-solution">
             <Link to={`/${id}/flashcards`} className="flex">
               <div className="title-solution title-solution-flashcard">
-                <i class="fa-solid fa-id-card"></i>
+                <i class="fa fa-clone"></i>
                 <p>Flashcards</p>
               </div>
             </Link>
             <Link to={`/${id}/learn`} className="flex">
               <div className="title-solution title-solution-learn">
-                <i class="fa-solid fa-graduation-cap"></i>
+                <i class="fa-solid fa-spinner"></i>
                 <p>Learn</p>
               </div>
             </Link>
@@ -323,7 +314,7 @@ export default function FlashCard() {
 
         {/* Options */}
         <div className="itemflashcard-main-content-option flex">
-          <h1>Track progress</h1>
+          <h1></h1>
           <div className="itemflashcard-main-content-option-move flex">
             <button onClick={() => changeCard("prev")} disabled={index === 0}>
               <i className="fa-solid fa-arrow-left"></i>
@@ -356,10 +347,14 @@ export default function FlashCard() {
 
         {/* Created by */}
         <div className="itemflashcard-main-created flex">
-          <img src={account} alt="avatar" />
+          <img src={flashcard.creator.avatar} alt="avatar" />
           <div className="itemflashcard-main-created-in4">
             <p>Created by</p>
-            <h2>thien2805</h2>
+            <h2>
+              {String(flashcard.creator.user_id) === String(user.id)
+                ? "You"
+                : flashcard.creator.username}
+            </h2>
           </div>
         </div>
       </div>
@@ -499,7 +494,7 @@ export default function FlashCard() {
           </div>
         </div>
       </div> */}
-      {/* <div className="bottom-section">
+      <div className="bottom-section">
         <div className="columns">
           <div className="col">
             <h4>About us</h4>
@@ -550,7 +545,7 @@ export default function FlashCard() {
           </div>
           <p>© 2025 Quizlet, Inc.</p>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

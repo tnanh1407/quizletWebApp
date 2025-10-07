@@ -8,9 +8,9 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   username: Joi.string().required(),
   email: Joi.string().email().required(),
   passwordHash: Joi.string().required(),
+  avatar: Joi.string().uri().allow(""),
   fullName: Joi.string().allow(""),
   phone: Joi.string().allow(""),
-  avatarUrl: Joi.string().uri().allow(""),
   roles: Joi.array().items(Joi.string()).default(["user"]),
   status: Joi.string().valid("active", "inactive", "banned").default("active"),
   lastLogin: Joi.date().default(null),
@@ -26,6 +26,7 @@ const USER_COLLECTION_SCHEMA = Joi.object({
     theme: Joi.string().default("light"),
     notifications: Joi.boolean().default(true),
   }).default({}),
+  delete_user: Joi.boolean().default(false),
 });
 
 const validateBeforeCreate = (data) => {

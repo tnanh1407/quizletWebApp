@@ -10,7 +10,7 @@ import { TbCards } from "react-icons/tb";
 import { TbFolder } from "react-icons/tb";
 import { MdOutlineGroup } from "react-icons/md";
 
-export default function Header() {
+export default function Header({ toggleNewFolder, isNewFolder }) {
   const [addFolder, setAddFolder] = useState(false);
   const [isOpenAccount, setIsOpenAccount] = useState(false);
   const [user, setUser] = useState(null);
@@ -107,7 +107,7 @@ export default function Header() {
               setIsOpenAccount(true);
             }}
           >
-            <img src={account} alt="" />
+            <img src={user?.avatar} alt="" />
           </button>
         </div>
       </div>
@@ -122,7 +122,7 @@ export default function Header() {
                 <p>Flash Card</p>
               </div>
             </Link>
-            <Link to="/create/new-folder">
+            <Link to="">
               <div className="setting-item flex">
                 <TbFolder className="icon-header" />
                 <p>Folder</p>
@@ -141,7 +141,7 @@ export default function Header() {
       {isOpenAccount && (
         <div id="account-setting" ref={settingRef}>
           <div className="account-in4 flex">
-            <img src={account} alt="" />
+            <img src={user?.avatar} alt="" />
             <div className="in4">
               <h1>{user?.username || "User"}</h1>
               <p>{user?.email || "user@example.com"}</p>
@@ -163,6 +163,7 @@ export default function Header() {
             <button
               onClick={toggleTheme}
               style={{
+                fontSize: "16px",
                 background: "none",
                 border: "none",
                 color: "inherit",

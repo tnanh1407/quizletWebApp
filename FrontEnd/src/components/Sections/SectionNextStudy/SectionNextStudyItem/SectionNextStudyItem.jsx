@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import account from "../../../../assets/img/account.jpg";
 import { flashCardApi } from "../../../../api/flashCardApi";
+import { folderApi } from "../../../../api/folderApi";
 import { useEffect, useState } from "react";
 import { getUser } from "../../../../other/storage";
 
@@ -10,7 +11,7 @@ export default function SectionNextStudyItem() {
   const user = getUser();
   useEffect(() => {
     const fetchData = async () => {
-      const data = await flashCardApi.getAll();
+      const data = await folderApi.getAll();
       setFlashCards(data);
     };
 
@@ -19,18 +20,18 @@ export default function SectionNextStudyItem() {
   return (
     <>
       {flashCards
-        .filter((card) => card.delete_flashcard === false)
+        .filter((card) => card.delete_folder === false)
         .slice(0, 9)
         .map((card) => (
-          <Link to={`/itemflashcard/${card._id}`} key={card._id}>
+          <Link to={`/folder/${card._id}`} key={card._id}>
             <div className="session all-section">
               <h1>{card.title}</h1>
               <div className="session-terms">
                 {/* Nếu views nằm trong metadata */}
-                <p>{card.content_count} term</p>
+                <p>{card.flashcard_count} flashcard</p>
               </div>
               <div className="session-author flex">
-                <img src={account} alt="author" />
+                <img src={card.creator.avatar} alt="author" />
                 <p>
                   {String(card.creator.user_id) === String(user.id)
                     ? "You"

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:9999/v1";
 
-export const folderApi = {
+export const classroomApi = {
   getAll: async () => {
     const res = await axios.get(`${BASE_URL}/classrooms`);
     return res.data;
@@ -44,7 +44,7 @@ export const folderApi = {
   },
   addFolders: async (classroomId, folderIds) => {
     const res = await axios.patch(
-      `${BASE_URL}/classrooms/${classroomId}/flashcards`,
+      `${BASE_URL}/classrooms/${classroomId}/folders`,
       { folderIds }
     );
     return res.data;
@@ -52,7 +52,7 @@ export const folderApi = {
 
   removeFolder: async (classroomId, folderId) => {
     const res = await axios.delete(
-      `${BASE_URL}/classrooms/${classroomId}/flashcards/${folderId}`
+      `${BASE_URL}/classrooms/${classroomId}/folders/${folderId}`
     );
     return res.data;
   },

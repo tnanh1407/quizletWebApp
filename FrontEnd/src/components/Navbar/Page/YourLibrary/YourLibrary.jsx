@@ -36,7 +36,7 @@ export default function YourLibrary() {
           <h1>Your library</h1>
         ) : (
           <div id="main-content-creator" className="flex">
-            <img src={imgCreator} alt="" />
+            <img src={creator?.avatar} alt="" />
             <h2>{creator?.username || "Loading..."}</h2>
           </div>
         )}

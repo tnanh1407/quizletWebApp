@@ -6,6 +6,7 @@ import { getUser } from "../../../../other/storage.js";
 
 // icon
 import { TbCards } from "react-icons/tb";
+import { TbFolder } from "react-icons/tb";
 import { MdOutlineGroup } from "react-icons/md";
 
 export default function SectionTopCreatorItem() {
@@ -16,7 +17,6 @@ export default function SectionTopCreatorItem() {
     const fetchData = async () => {
       try {
         const data = await userApi.getAllPublic();
-        console.log("All users:", data);
         setUsers(data);
       } catch (err) {
         console.error("Error fetching users:", err);
@@ -37,7 +37,7 @@ export default function SectionTopCreatorItem() {
           key={user._id}
         >
           <div className="session all-section">
-            <img src={account} alt="" />
+            <img src={user.avatar} alt="" />
             <div className="creator-in4">
               <div className="creator-rule flex">
                 <h3>
@@ -45,15 +45,19 @@ export default function SectionTopCreatorItem() {
                     ? "You"
                     : user.username}
                 </h3>
-                <div className="creator-rule-important">
+                {/* <div className="creator-rule-important">
                   <p>Teacher</p>
-                </div>
+                </div> */}
               </div>
               <div className="creator-tag flex">
                 <div className="flex khung-mo-ta">
                   <TbCards className="icon-top-creator" />
                   <p> {user.stats.flashcards} flashcard sets</p>
                 </div>
+                {/* <div className="flex khung-mo-ta">
+                  <TbFolder className="icon-top-creator" />
+                  <p>{user.stats.folder} folder</p>
+                </div> */}
                 <div className="flex khung-mo-ta">
                   <MdOutlineGroup className="icon-top-creator" />
                   <p>{user.stats.classes} class</p>

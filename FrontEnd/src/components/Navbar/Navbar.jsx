@@ -4,6 +4,7 @@ import account from "../../assets/img/account.jpg";
 import { flashCardApi } from "../../api/flashCardApi";
 import { folderApi } from "../../api/folderApi";
 import "./CssNavbar.css";
+import "../../App.css";
 import { getUser } from "../../other/storage";
 import SectionAddFlashCard from "../Sections/SectionAddFlashCard/SectionAddFlashCard";
 
@@ -88,6 +89,7 @@ export default function Navbar({ togglePadding }) {
         creator: {
           user_id: user.id.toString(),
           username: user.username,
+          avatar: user.avatar,
         },
       }); // 👈 gọi folderApi
       console.log("Folder created:", newFolder);
@@ -259,10 +261,14 @@ export default function Navbar({ togglePadding }) {
           </Link>
 
           {/* Nút mở modal new folder */}
-          <button id="click-notifi" onClick={toggleNewFolder}>
+          <button
+            id="click-notifi"
+            onClick={toggleNewFolder}
+            // className={`${activeItem === "flashcard-new" ? "active" : ""}`}
+          >
             <div className="navbar-a flex" id="navbar-one-notifi">
               <IoAddOutline className="navbar-icon" />
-              <p className={isCollapsed ? "hidden" : "block"}>New folder</p>
+              <p className={isCollapsed ? "hidden" : "block"}>Folder</p>
             </div>
           </button>
 
@@ -271,7 +277,7 @@ export default function Navbar({ togglePadding }) {
             <div id="newfolder">
               <div className="newfolder-main">
                 <p>
-                  <i className="fa-solid fa-folder"></i>
+                  <TbFolder />
                 </p>
                 <input
                   type="text"
@@ -309,7 +315,7 @@ export default function Navbar({ togglePadding }) {
               id="navbar-one-demo"
             >
               <IoAddOutline className="navbar-icon" />
-              <p className={isCollapsed ? "hidden" : "block"}>Class Room</p>
+              <p className={isCollapsed ? "hidden" : "block"}>Class</p>
             </div>
           </Link>
         </div>

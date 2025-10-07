@@ -11,9 +11,11 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   passwordHash: Joi.string().required(),
   roles: Joi.array().items(Joi.string()).default(["user"]),
   status: Joi.string().default("active"),
+  avatar: Joi.string().required(),
   createdAt: Joi.date().default(new Date()),
   updatedAt: Joi.date().default(new Date()),
   lastLogin: Joi.date().allow(null),
+  loginHistory: Joi.array().items(Joi.date()),
   facebook: Joi.string().allow(""),
   profile: Joi.object({
     gender: Joi.string().allow(""),
@@ -29,6 +31,7 @@ const USER_COLLECTION_SCHEMA = Joi.object({
     theme: Joi.string().default("light"),
     notifications: Joi.boolean().default(true),
   }).default({}),
+  delete_user: Joi.boolean().default(false),
 });
 
 const validateBeforeCreate = (data) => {
@@ -66,7 +69,7 @@ const createNew = async (data) => {
   const validData = await validateBeforeCreate(data);
   const db = GET_DB();
   const result = await db.collection(USER_COLLECTION_NAME).insertOne(validData);
-  return result.ops ? result.ops[0] : validData;
+  return { ...validData, _id: result.insertedId };
 };
 
 const updateById = async (id, data) => {
@@ -74,7 +77,7 @@ const updateById = async (id, data) => {
   const db = GET_DB();
   await db
     .collection(USER_COLLECTION_NAME)
-    .updateOne({ _id: new ObjectId(id) }, { $set: data });
+    .updateOne({ _id: new ObjectId(id) }, { delete_user: true });
   return await getById(id);
 };
 
@@ -99,6 +102,34 @@ const updateLastLogin = async (id) => {
     .updateOne({ _id: new ObjectId(id) }, { $set: { lastLogin: new Date() } });
 };
 
+const updateAvatar = async (id, avatarUrl) => {
+  const db = GET_DB();
+  await db.collection(USER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: {
+        avatar: avatarUrl,
+        updatedAt: new Date(),
+      },
+    }
+  );
+  return await getById(id);
+};
+
+const updateLoginHistory = async (id) => {
+  const db = GET_DB();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // chỉ lấy phần ngày
+
+  await db.collection(USER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: { lastLogin: new Date() },
+      $addToSet: { loginHistory: today }, // tránh trùng ngày
+    }
+  );
+};
+
 export const userModel = {
   USER_COLLECTION_NAME,
   USER_COLLECTION_SCHEMA,
@@ -110,4 +141,6 @@ export const userModel = {
   findByEmail, // dùng cho authService
   updateLastLogin, // dùng cho authService
   getByIdPublic,
+  updateAvatar,
+  updateLoginHistory,
 };

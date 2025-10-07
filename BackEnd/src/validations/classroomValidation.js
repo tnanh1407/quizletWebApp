@@ -23,6 +23,15 @@ const classroomSchema = Joi.object({
     "string.max": "university name must be at most 100 characters",
   }),
   description: Joi.string().allow("").default(""),
+  members: Joi.array()
+    .items(
+      Joi.object({
+        user_id: Joi.string().required(),
+        username: Joi.string().required(),
+        role: Joi.string().valid("Owner", "Admin", "Member").default("Member"),
+      })
+    )
+    .default([]),
   folders: Joi.array().items(Joi.string()).default([]),
   flashcards: Joi.array().items(Joi.string()).default([]),
   createAt: Joi.date().iso().required().messages({
@@ -33,6 +42,7 @@ const classroomSchema = Joi.object({
   creator: Joi.object({
     user_id: Joi.string().required(),
     username: Joi.string().required(),
+    avatar: Joi.string().required(),
   }).required(),
   metadata: Joi.object({
     views: Joi.number().integer().min(0).default(0),

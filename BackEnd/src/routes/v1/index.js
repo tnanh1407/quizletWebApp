@@ -4,13 +4,15 @@ import { userRoutes } from "../v1/userRouter.js";
 import { classroomRoutes } from "../v1/classroomRouter.js";
 import { folderRoutes } from "../v1/folderRouter.js";
 import { authRoutes } from "../v1/authRouter.js";
+// import { inviteRouter } from "../v1/inviteRouter.js";
 
 const router = express.Router();
 
 router.use("/flashCards", flashCardRoutes);
 router.use("/users", userRoutes);
 router.use("/folders", folderRoutes);
-router.use("/class", classroomRoutes);
+router.use("/classrooms", classroomRoutes);
 router.use("/auth", authRoutes);
+// router.use("/invite", inviteRouter);
 
 export const APIs_V1 = router;

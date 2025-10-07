@@ -1,6 +1,7 @@
 import "./HeaderFunction.css";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { flashCardApi } from "../../../../api/flashCardApi";
 
 export default function HeaderFunction() {
   const { id } = useParams();
@@ -9,7 +10,17 @@ export default function HeaderFunction() {
   const [previousMode, setPreviousMode] = useState(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const [flashcard, setFlashcard] = useState({});
   const location = useLocation();
+
+  useEffect(() => {
+    flashCardApi
+      .getById(id)
+      .then((data) => {
+        setFlashcard(data);
+      })
+      .catch((err) => console.error(err));
+  }, [id]);
 
   const modes = [
     { name: "Flashcards", icon: "fa fa-clone", path: `/${id}/flashcards` },
@@ -19,20 +30,10 @@ export default function HeaderFunction() {
     { name: "Blast", icon: "fa fa-rocket", path: null },
     { name: "Match", icon: "fa-brands fa-connectdevelop", path: null },*/
     { name: "Home", icon: null, path: "/" },
-    { name: "Search", icon: null, path: null },
+    { name: "Search", icon: null, path: "/search/allresults" },
   ];
 
   const availableModes = modes.filter((mode) => mode.name !== selectedMode);
-
-  {
-    /*useEffect(() => {
-    const currentMode = modes.find(mode => mode.path === location.pathname);
-    if (currentMode) {
-      setPreviousMode(selectedMode); 
-      setSelectedMode(currentMode.name);
-    }
-  }, [location.pathname]); */
-  }
 
   useEffect(() => {
     const currentPath = location.pathname;
@@ -145,12 +146,12 @@ export default function HeaderFunction() {
             </div>
           </div>
           <div className="column-center">
-            {(selectedMode === "Flashcards" || selectedMode === "Test") && (
-              <>
-                <span>1 /22</span>
-                <h2>Demo 1</h2>
-              </>
-            )}
+            {/* {(selectedMode === "Flashcards" || selectedMode === "Test" ) && (
+              <> */}
+            {/* <span>1 /22</span> */}
+            <h2>{flashcard.title || "..."}</h2>
+            {/* </>
+            )} */}
           </div>
           <div className="column-right">
             {selectedMode === "Flashcards" && (
@@ -177,8 +178,6 @@ export default function HeaderFunction() {
             </button>
           </div>
         </div>
-
-        
       </div>
     </>
   );
