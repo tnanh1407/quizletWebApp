@@ -1,0 +1,62 @@
+/* Practice Card */
+.practice-card {
+  background: #202040;           /* nền tím đậm */
+  border-radius: 12px;
+  padding: 16px;
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.practice-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+  background: #24274a;           /* hover sáng hơn */
+}
+
+/* Question Card */
+.question-card {
+  background: #202040;           /* nền đồng bộ với practice */
+  border-radius: 12px;
+  padding: 16px;
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.question-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+  background: #24274a;
+}
+
+
+.question-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+  background: #24274a;
+}
+
+.verified-btn {
+  background: #202040;       /* nền tím đậm hơn card */
+  color: #4ade80;            /* xanh lá nhạt */
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.verified-btn::before {
+  content: "✔";              /* icon dấu tích */
+  font-size: 12px;
+  color: #4ade80;
+}
+
+.verified-btn:hover {
+  background: #262b4a;       /* hover sáng hơn */
+  transform: scale(1.05);
+}
