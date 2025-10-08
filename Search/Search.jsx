@@ -8,11 +8,17 @@ export default function Search() {
         <Link to="/search/allresults">
           <p>All result</p>
         </Link>
-        <Link to="/search/textbox">
-          <p>Textbox</p>
-        </Link>
         <Link to="/search/flashcard">
           <p>Flashcard</p>
+        </Link>
+        <Link to="/search/Textbox">
+          <p>Textbox</p>
+        </Link>
+        <Link to="/search/PracticeCard">
+          <p>Practice Card</p>
+        </Link>
+        <Link to="/search/Question">
+          <p>Question</p>
         </Link>
         <Link to="/search/user">
           <p>Users</p>

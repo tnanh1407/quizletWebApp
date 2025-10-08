@@ -8,8 +8,10 @@ export default function SearchUsers() {
        <h2 className="section-title">
         Users <a href="#" className="view-all">View all</a>
       </h2>
+      <div className="card-grid">
       <SectionUser />
       <SectionUser />
+      </div>
     </>
   );
 }

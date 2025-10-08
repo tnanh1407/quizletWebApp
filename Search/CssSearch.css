@@ -1,3 +1,53 @@
+.list-result {
+  display: flex;
+  gap: 25px;
+  margin: 20px 0 30px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Tab bình thường */
+.list-result a {
+  position: relative;
+  text-decoration: none;
+  color: #a8a8c5;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.3s ease;
+  padding-bottom: 8px;
+}
+
+/* Khi hover chữ sáng lên */
+.list-result a:hover p {
+  color: #ffffff;
+}
+
+/* Gạch chân của tab đang active */
+.list-result a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Gạch trắng di chuyển mượt giữa các tab */
+.list-result::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  width: var(--underline-width, 0);
+  left: var(--underline-left, 0);
+  transition: all 0.3s ease;
+}
+
 
 /* Section Title */
 .section-title {
@@ -42,3 +92,4 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
+
