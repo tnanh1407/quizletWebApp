@@ -244,7 +244,7 @@ export default function ClassDetail() {
                   </button>
 
                   {showMenu && (
-                    <div className="dropdown-menu">
+                    <div className="class-detail-menu">
                       <button onClick={toggleEditClass} className="flex">
                         <i className="fa-solid fa-pen"></i>
                         <p>Edit</p>
@@ -427,8 +427,11 @@ export default function ClassDetail() {
             <div className="invite-email">
               <div className="invite-email-header">
                 <h1>Invite Member by Email</h1>
-                <button onClick={() => setIsInviteEmail(false)}>
-                  <i className="fa-solid fa-xmark add-flash-cards-icon"></i>
+                <button
+                  className="button-close"
+                  onClick={() => setIsInviteEmail(false)}
+                >
+                  <i className="fa-solid fa-xmark add-flash-c ards-icon"></i>
                 </button>
               </div>
 
@@ -493,14 +496,18 @@ export default function ClassDetail() {
         classRoom?.creator?.user_id &&
         String(classRoom?.creator.user_id) === String(user.id) ? (
           <div className="header_three">
-            <button className="invite google">📂 Invite with Google</button>
+            <button className="invite google">
+              <i class="fa-solid fa-folder"></i> Invite with Google
+            </button>
             <button
               className="invite email"
               onClick={() => setIsInviteEmail(true)}
             >
-              ✉️ Invite by email
+              <i class="fa-solid fa-envelope"></i> Invite by email
             </button>
-            <button className="invite link">🔗 Copy link</button>
+            <button className="invite link">
+              <i class="fa-solid fa-link"></i> Copy link
+            </button>
           </div>
         ) : (
           <>
