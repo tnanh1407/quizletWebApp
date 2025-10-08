@@ -54,7 +54,7 @@ body.light-mode .main {
   top: 0;
   position: fixed;
   top: 64px;
-  z-index: 99999;
+  z-index: 1000;
   /* bỏ background ở đây */
 }
 /* Chỉ override màu nền cho từng mode */
@@ -106,6 +106,7 @@ body.light-mode .navbar a {
 }
 
 .navbar-a {
+  min-width: 44px;
   padding: 10px 10px;
   border-radius: 8px;
   line-height: 100%;

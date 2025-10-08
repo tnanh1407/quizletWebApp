@@ -49,7 +49,7 @@ export default function SectionNextStudy() {
 
   return (
     <section className="maincontent-next-study-session margin-bottom-50 padding-16">
-      <h2>Class</h2>
+      <h2>All Class</h2>
       <div className="next-study-session-main">
         <button className="moveNavBtn moveNavLeft" ref={btnLeftRef}>
           &#10094;

@@ -4,21 +4,34 @@ const getAll = async () => {
   return await classroomModel.getAll();
 };
 
-const createNew = async (data, user) => {
-  return await classroomModel.createNew(data, user);
-};
+const createNew = async (data) => classroomModel.createNew(data);
 
-const getById = async (id) => {
-  return await classroomModel.getById(id);
-};
+const getById = async (id) => classroomModel.getById(id);
 
-const updateById = async (id, data) => {
-  return await classroomModel.updateById(id, data);
-};
+const updateById = async (id, data) => classroomModel.updateById(id, data);
 
-const deleteById = async (id) => {
-  return await classroomModel.deleteById(id);
-};
+const deleteById = async (id) => classroomModel.deleteById(id);
+
+const addFlashcards = async (classroomId, flashcardIds) =>
+  classroomModel.addFlashcards(classroomId, flashcardIds);
+
+const removeFlashcard = async (classroomId, flashcardId) =>
+  classroomModel.removeFlashcard(classroomId, flashcardId);
+
+const addFolders = async (classroomId, folderIds) =>
+  classroomModel.addFolders(classroomId, folderIds);
+
+const removeFolder = async (classroomId, folderId) =>
+  classroomModel.removeFolder(classroomId, folderId);
+
+const addMember = async (classroomId, member) =>
+  classroomModel.addMember(classroomId, member);
+
+const removeMember = async (classroomId, userId) =>
+  classroomModel.removeMember(classroomId, userId);
+
+const addMemberByEmail = async (classroomId, email) =>
+  classroomModel.addMemberByEmail(classroomId, email);
 
 export const classroomService = {
   getAll,
@@ -26,4 +39,11 @@ export const classroomService = {
   getById,
   updateById,
   deleteById,
+  addFlashcards,
+  removeFlashcard,
+  addFolders,
+  removeFolder,
+  addMember,
+  removeMember,
+  addMemberByEmail,
 };

@@ -12,9 +12,24 @@ const getAll = async (req, res, next) => {
 
 const createNew = async (req, res, next) => {
   try {
-    const newFlashCard = await flashCardService.createNew(req.body);
+    const { title, desc, content, creator } = req.body;
+
+    if (!creator || !creator.user_id || !creator.username) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: "Creator info missing" });
+    }
+
+    const newFlashCard = await flashCardService.createNew({
+      title,
+      desc,
+      content,
+      creator,
+    });
+
     res.status(StatusCodes.CREATED).json(newFlashCard);
   } catch (error) {
+    console.error("Controller createNew error:", error);
     next(error);
   }
 };
@@ -35,8 +50,6 @@ const getById = async (req, res, next) => {
 const updateById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log("Controller: Updating ID:", id);
-    console.log("Controller: Payload:", req.body);
 
     const updatedFlashcard = await flashCardService.updateById(id, req.body);
 

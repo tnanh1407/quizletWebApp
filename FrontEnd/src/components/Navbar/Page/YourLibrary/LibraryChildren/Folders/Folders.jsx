@@ -1,11 +1,12 @@
 import SectionFolder from "../../../../../Sections/SectionFolder.jsx";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./CssFolders.css";
 import { folderApi } from "../../../../../../api/folderApi.js";
 import { getUser } from "../../../../../../other/storage.js";
 
 export default function YourFolders() {
+  const { id } = useParams();
   const [isFilterFolders, setIsFilterFolders] = useState(false);
   const [folders, setFolders] = useState([]);
   const user = getUser();
@@ -26,43 +27,44 @@ export default function YourFolders() {
   return (
     <>
       <div className="flashcardsearch">
-        <div className="flashcard-option">
-          <button className="flex" onClick={toggleFilterFolders}>
-            <p>Created</p>
-            <i className="fa-solid fa-magnifying-glass"></i>
-            <div className={`folder ${isFilterFolders ? "block" : "hidden"}`}>
-              <div className="folder-option">
-                <Link href="">
-                  <div className="setting-item flex">
-                    <p>Created</p>
-                  </div>
-                </Link>
-                <Link href="">
-                  <div className="setting-item flex">
-                    <p>Bookmarked</p>
-                  </div>
-                </Link>
-                <Link href="">
-                  <div className="setting-item flex">
-                    <p>Recent</p>
-                  </div>
-                </Link>
-                <Link href="">
-                  <div className="setting-item flex">
-                    <p>Studied</p>
-                  </div>
-                </Link>
+        {String(id || user.id) === String(user.id) ? (
+          <div className="flashcard-option">
+            <button className="flex" onClick={toggleFilterFolders}>
+              <p>Created</p>
+              <i className="fa-solid fa-magnifying-glass"></i>
+              <div className={`folder ${isFilterFolders ? "block" : "hidden"}`}>
+                <div className="folder-option">
+                  <Link href="">
+                    <div className="setting-item flex">
+                      <p>Created</p>
+                    </div>
+                  </Link>
+                  <Link href="">
+                    <div className="setting-item flex">
+                      <p>Bookmarked</p>
+                    </div>
+                  </Link>
+                  <Link href="">
+                    <div className="setting-item flex">
+                      <p>Recent</p>
+                    </div>
+                  </Link>
+                  <Link href="">
+                    <div className="setting-item flex">
+                      <p>Studied</p>
+                    </div>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </button>
-        </div>
+            </button>
+          </div>
+        ) : null}
       </div>
       {folders
         .filter(
           (folder) =>
             folder.delete_folder === false &&
-            user &&
-            String(folder.creator.user_id) === String(user.id)
+            String(folder.creator.user_id) === String(id || user.id)
         )
         .map((folder) => (
           <section className="sectionfolder">

@@ -9,4 +9,22 @@ router.put("/:id", classroomController.updateById);
 router.delete("/:id", classroomController.deleteById);
 router.get("/:id", classroomController.getById);
 
+router.patch("/:id/flashcards", classroomController.addFlashcards);
+router.delete(
+  "/:classroomId/flashcards/:flashcardId",
+  classroomController.removeFlashcard
+);
+router.patch("/:id/folders", classroomController.addFolders);
+router.delete(
+  "/:classroomId/folders/:folderId",
+  classroomController.removeFlashcard
+);
+
+router.patch("/:id/members", classroomController.addMember); // body: { user_id, username, role }
+router.delete(
+  "/:classroomId/members/:userId",
+  classroomController.removeMember
+);
+router.post("/:id/members", classroomController.addMemberByEmail);
+
 export const classroomRoutes = router;

@@ -1,5 +1,14 @@
 const Joi = require("joi");
 
+try {
+  const validData = await FLASHCARD_COLLECTION_SCHEMA.validateAsync(autoData, {
+    abortEarly: false,
+  });
+} catch (err) {
+  console.error("Validation error:", err.details);
+  throw err;
+}
+
 const flashcardSchema = Joi.object({
   // Tiêu đề
   title: Joi.string().min(3).max(100).required().messages({
@@ -42,6 +51,7 @@ const flashcardSchema = Joi.object({
   creator: Joi.object({
     user_id: Joi.string().required(),
     username: Joi.string().required(),
+    avatar: Joi.string().required(),
   }).required(),
 
   // Nội dung flashcard (mảng các object front/back/example/audio)

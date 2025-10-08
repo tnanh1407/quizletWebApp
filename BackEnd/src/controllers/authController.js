@@ -27,6 +27,7 @@ const login = async (req, res, next) => {
       abortEarly: false,
     });
     const { user, tokens } = await authService.login(validated);
+    console.log(user);
     res.status(StatusCodes.OK).json({
       message: "Login success",
       user,

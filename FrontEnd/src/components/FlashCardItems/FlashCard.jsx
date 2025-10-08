@@ -92,111 +92,116 @@ export default function FlashCard() {
 
   return (
     <>
-      {/* Header */}
-      <div className="itemflashcard-header">
-        <div className="itemflashcard-header-option flex">
-          <div className="itemflashcard-header-option-left">
-            <p>Social Science</p>
-          </div>
-          <div className="itemflashcard-header-option-right flex">
-            <>
-              {/* Nút Save */}
-              <button
-                onClick={() => setShowModal(true)}
-                className="save-btn-custom"
-              >
-                <i className="fa-regular fa-bookmark"></i>
-                <span>Save</span>
-              </button>
-
-              {/* Modal Add to folder */}
-              {showModal && (
-                <div className="modal-overlay">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h2>Add to folder</h2>
-                      <button
-                        className="close-btn"
-                        onClick={() => setShowModal(false)}
-                      >
-                        ✕
-                      </button>
-                    </div>
-
-                    <div className="new-folder">
-                      <i className="fa-solid fa-plus"></i>
-                      <span>New folder</span>
-                    </div>
-
-                    <p className="no-folder">You do not yet have any folders</p>
-
-                    <button className="save-btn disabled" disabled>
-                      Save
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
-            <div>
-              {/* Nút Share */}
-              <button className="share-btn" onClick={handleToggle}>
-                <i className="fa-solid fa-arrow-up-from-bracket"></i>
-              </button>
-
-              {/* Overlay + Modal */}
-              {isOpen && (
-                <div className="overlay" onClick={handleClose}>
-                  <div
-                    className="share-modal"
-                    onClick={(e) => e.stopPropagation()} // chặn đóng khi bấm bên trong
+      <div className="flash-card-container flex">
+        <div className="flash-card-container-left">
+          {/* Header */}
+          <div className="itemflashcard-header">
+            <div className="itemflashcard-header-option flex">
+              <div className="itemflashcard-header-option-left">
+                <h1>{flashcard.title}</h1>
+                {/* <p>Social Science</p> */}
+              </div>
+              <div className="itemflashcard-header-option-right flex">
+                <>
+                  {/* Nút Save */}
+                  {/* <button
+                    onClick={() => setShowModal(true)}
+                    className="save-btn-custom"
                   >
-                    <div className="modal-header">
-                      <h3>Share this set</h3>
-                      <button className="close-btn" onClick={handleClose}>
-                        ✕
-                      </button>
-                    </div>
+                    <i className="fa-regular fa-bookmark"></i>
+                    <span>Save</span>
+                  </button> */}
 
-                    <div className="share-content">
-                      <input
-                        type="text"
-                        placeholder="Share link via email"
-                        className="share-input"
-                      />
-                      <button className="btn send">Send email</button>
+                  {/* Modal Add to folder */}
+                  {showModal && (
+                    <div className="modal-overlay">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h2>Add to folder</h2>
+                          <button
+                            className="close-btn"
+                            onClick={() => setShowModal(false)}
+                          >
+                            ✕
+                          </button>
+                        </div>
 
-                      <div className="link-box">
-                        <input
-                          type="text"
-                          value="https://quizlet.com/example-link"
-                          readOnly
-                        />
-                        <button className="btn copy">Copy link</button>
+                        <div className="new-folder">
+                          <i className="fa-solid fa-plus"></i>
+                          <span>New folder</span>
+                        </div>
+
+                        <p className="no-folder">
+                          You do not yet have any folders
+                        </p>
+
+                        <button className="save-btn disabled" disabled>
+                          Save
+                        </button>
                       </div>
-
-                      <button className="btn fb">Share on Facebook</button>
-                      <button className="btn x">Share on X</button>
                     </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            {flashcard.creator.user_id === user.id && (
-              <div className="menu-container">
-                <button
-                  className="menu-toggle"
-                  onClick={() => setShowMenu((prev) => !prev)}
-                >
-                  <i className="fa-solid fa-ellipsis"></i>
-                </button>
+                  )}
+                </>
+                <div>
+                  {/* Nút Share */}
+                  <button className="share-btn" onClick={handleToggle}>
+                    <i className="fa-solid fa-arrow-up-from-bracket"></i>
+                  </button>
 
-                {showMenu && (
-                  <div className="dropdown-menu">
-                    <Link to={`/edit-flashcard/${id}`} className="flex">
-                      <i className="fa-solid fa-pen"></i>
-                      <p>Edit</p>
-                    </Link>
-                    {/* <p>
+                  {/* Overlay + Modal */}
+                  {isOpen && (
+                    <div className="overlay" onClick={handleClose}>
+                      <div
+                        className="share-modal"
+                        onClick={(e) => e.stopPropagation()} // chặn đóng khi bấm bên trong
+                      >
+                        <div className="modal-header">
+                          <h3>Share this set</h3>
+                          <button className="close-btn" onClick={handleClose}>
+                            ✕
+                          </button>
+                        </div>
+
+                        <div className="share-content">
+                          <input
+                            type="text"
+                            placeholder="Share link via email"
+                            className="share-input"
+                          />
+                          <button className="btn send">Send email</button>
+
+                          <div className="link-box">
+                            <input
+                              type="text"
+                              value="https://quizlet.com/example-link"
+                              readOnly
+                            />
+                            <button className="btn copy">Copy link</button>
+                          </div>
+
+                          <button className="btn fb">Share on Facebook</button>
+                          <button className="btn x">Share on X</button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {flashcard.creator.user_id === user.id && (
+                  <div className="menu-container">
+                    <button
+                      className="menu-toggle"
+                      onClick={() => setShowMenu((prev) => !prev)}
+                    >
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </button>
+
+                    {showMenu && (
+                      <div className="dropdown-menu">
+                        <Link to={`/edit-flashcard/${id}`} className="flex">
+                          <i className="fa-solid fa-pen"></i>
+                          <p>Edit</p>
+                        </Link>
+                        {/* <p>
                     <i className="fa-solid fa-plus"></i> Add to class
                   </p>
                   <p>
@@ -214,52 +219,51 @@ export default function FlashCard() {
                   <p>
                     <i className="fa-solid fa-code"></i> Embed
                   </p> */}
-                    <button onClick={handleDelete} className="flex delete">
-                      <i className="fa-solid fa-trash"></i>
-                      <p>Delete</p>
-                    </button>
+                        <button onClick={handleDelete} className="flex delete">
+                          <i className="fa-solid fa-trash"></i>
+                          <p>Delete</p>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-            )}
-          </div>
-        </div>
-
-        {/* Title */}
-        <div className="itemflashcard-header-title">
-          <h1>{flashcard.title}</h1>
-          <div className="itemflashcard-header-title-review flex">
-            <div className="title-review-study-day flex">
-              <i className="fa-regular fa-star"></i>
-              <p>10 studiers today</p>
             </div>
-            <div className="title-review-growth flex">
-              <i className="fa-regular fa-star"></i>
-              <p>4.9 (18 reviews)</p>
-            </div>
-          </div>
 
-          {/* Solutions */}
-          <div className="itemflashcard-header-title-solution">
-            <Link to={`/${id}/flashcards`} className="flex">
-              <div className="title-solution title-solution-flashcard">
-                <i class="fa fa-clone"></i>
-                <p>Flashcards</p>
+            {/* Title */}
+            <div className="itemflashcard-header-title">
+              <div className="itemflashcard-header-title-review flex">
+                <div className="title-review-study-day flex">
+                  <i className="fa-regular fa-star"></i>
+                  <p>10 studiers today</p>
+                </div>
+                <div className="title-review-growth flex">
+                  <i className="fa-regular fa-star"></i>
+                  <p>4.9 (18 reviews)</p>
+                </div>
               </div>
-            </Link>
-            <Link to={`/${id}/learn`} className="flex">
-              <div className="title-solution title-solution-learn">
-                <i class="fa-solid fa-spinner"></i>
-                <p>Learn</p>
-              </div>
-            </Link>
-            <Link to={`/${id}/test`} className="flex">
-              <div className="title-solution title-solution-test">
-                <i class="fa-solid fa-file-lines"></i>
-                <p>Test</p>
-              </div>
-            </Link>
-            {/* <Link to="" className="flex">
+
+              {/* Solutions */}
+              <div className="itemflashcard-header-title-solution">
+                <Link to={`/${id}/flashcards`} className="flex">
+                  <div className="title-solution title-solution-flashcard">
+                    <i class="fa fa-clone"></i>
+                    <p>Flashcards</p>
+                  </div>
+                </Link>
+                <Link to={`/${id}/learn`} className="flex">
+                  <div className="title-solution title-solution-learn">
+                    <i class="fa-solid fa-spinner"></i>
+                    <p>Learn</p>
+                  </div>
+                </Link>
+                <Link to={`/${id}/test`} className="flex">
+                  <div className="title-solution title-solution-test">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <p>Test</p>
+                  </div>
+                </Link>
+                {/* <Link to="" className="flex">
               <div className="title-solution title-solution-block">
                 <i class="fa-solid fa-table-cells-large"></i>
                 <p>Blocks</p>
@@ -277,84 +281,91 @@ export default function FlashCard() {
                 <p>Match</p>
               </div>
             </Link> */}
-          </div>
-        </div>
-      </div>
-
-      <div className="itemflashcard-main">
-        {/* Flip toàn bộ thẻ */}
-        <div
-          className={`flashcard-container ${flipped ? "flipped" : ""} ${
-            isFlipping
-              ? direction === "next"
-                ? "slide-right"
-                : "slide-left"
-              : ""
-          }`}
-          onClick={() => setFlipped(!flipped)}
-        >
-          <div className="flashcard-side front">
-            {/* Header */}
-            <div className="itemflashcard-main-content-header flex">
-              <div className="itemflashcard-main-content-header-hint flex">
-                <i className="fa-solid fa-lightbulb"></i>
-                <p>Get a hint</p>
               </div>
-              <i className="fa-regular fa-star"></i>
-            </div>
-            <div className="itemflashcard-main-content-contruction">
-              <h1>{flashcard.content[index].front}</h1>
             </div>
           </div>
 
-          <div className="flashcard-side back">
-            <h1>{flashcard.content[index].back}</h1>
-          </div>
-        </div>
-
-        {/* Options */}
-        <div className="itemflashcard-main-content-option flex">
-          <h1></h1>
-          <div className="itemflashcard-main-content-option-move flex">
-            <button onClick={() => changeCard("prev")} disabled={index === 0}>
-              <i className="fa-solid fa-arrow-left"></i>
-            </button>
-            <p>
-              {index + 1}/{flashcard.content_count}
-            </p>
-            <button
-              onClick={() => changeCard("next")}
-              disabled={index + 1 >= flashcard.content_count}
+          <div className="itemflashcard-main">
+            {/* Flip toàn bộ thẻ */}
+            <div
+              className={`flashcard-container ${flipped ? "flipped" : ""} ${
+                isFlipping
+                  ? direction === "next"
+                    ? "slide-right"
+                    : "slide-left"
+                  : ""
+              }`}
+              onClick={() => setFlipped(!flipped)}
             >
-              <i className="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
-          <div className="itemflashcard-main-content-option-option">
-            <button>
-              <i className="fa-solid fa-play"></i>
-            </button>
-            <button>
-              <i className="fa-solid fa-shuffle"></i>
-            </button>
-            <button>
-              <i className="fa-solid fa-gear"></i>
-            </button>
-            <Link to={`/${id}/flashcards`}>
-              <i className="fa-solid fa-expand"></i>
-            </Link>
-          </div>
-        </div>
+              <div className="flashcard-side front">
+                {/* Header */}
+                <div className="itemflashcard-main-content-header flex">
+                  <div className="itemflashcard-main-content-header-hint flex">
+                    <i className="fa-solid fa-lightbulb"></i>
+                    <p>Get a hint</p>
+                  </div>
+                  <i className="fa-regular fa-star"></i>
+                </div>
+                <div className="itemflashcard-main-content-contruction">
+                  <h1>{flashcard.content[index].front}</h1>
+                </div>
+              </div>
 
-        {/* Created by */}
-        <div className="itemflashcard-main-created flex">
-          <img src={account} alt="avatar" />
-          <div className="itemflashcard-main-created-in4">
-            <p>Created by</p>
-            <h2>thien2805</h2>
+              <div className="flashcard-side back">
+                <h1>{flashcard.content[index].back}</h1>
+              </div>
+            </div>
+
+            {/* Options */}
+            <div className="itemflashcard-main-content-option flex">
+              <h1></h1>
+              <div className="itemflashcard-main-content-option-move flex">
+                <button
+                  onClick={() => changeCard("prev")}
+                  disabled={index === 0}
+                >
+                  <i className="fa-solid fa-arrow-left"></i>
+                </button>
+                <p>
+                  {index + 1}/{flashcard.content_count}
+                </p>
+                <button
+                  onClick={() => changeCard("next")}
+                  disabled={index + 1 >= flashcard.content_count}
+                >
+                  <i className="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+              <div className="itemflashcard-main-content-option-option">
+                {/* <button>
+                  <i className="fa-solid fa-play"></i>
+                </button>
+                <button>
+                  <i className="fa-solid fa-shuffle"></i>
+                </button>
+                <button>
+                  <i className="fa-solid fa-gear"></i>
+                </button> */}
+                <Link to={`/${id}/flashcards`}>
+                  <i className="fa-solid fa-expand"></i>
+                </Link>
+              </div>
+            </div>
+
+            {/* Created by */}
+            <div className="itemflashcard-main-created flex">
+              <img src={flashcard.creator.avatar} alt="avatar" />
+              <div className="itemflashcard-main-created-in4">
+                <p>Created by</p>
+                <h2>
+                  {String(flashcard.creator.user_id) === String(user.id)
+                    ? "You"
+                    : flashcard.creator.username}
+                </h2>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      {/* <h2 className="students-title">Students also studied</h2>
+          {/* <h2 className="students-title">Students also studied</h2>
       <div className="students-list">
         {sets.map((item, index) => (
           <div key={index} className="student-card">
@@ -370,7 +381,7 @@ export default function FlashCard() {
           </div>
         ))}
       </div> */}
-      {/* <div className="practice-container">
+          {/* <div className="practice-container">
         <h2 className="practice-title">Practice questions for this set</h2>
 
         <div className="question-card">
@@ -434,8 +445,8 @@ export default function FlashCard() {
         </div>
       </div> */}
 
-      {/* Terms in this set */}
-      {/* <div className="terms-container">
+          {/* Terms in this set */}
+          {/* <div className="terms-container">
         <h2 className="terms-title">Terms in this set ({questions.length})</h2>
 
         <div className="terms-list">
@@ -468,7 +479,7 @@ export default function FlashCard() {
           ))}
         </div>
       </div> */}
-      {/* <div className="controls">
+          {/* <div className="controls">
         
         <button
           className="btn-outline"
@@ -490,7 +501,22 @@ export default function FlashCard() {
           </div>
         </div>
       </div> */}
-      {/* <div className="bottom-section">
+          <div className="terms-studied terms-review">
+            <h3>Terms in this set ({flashcard.content.length})</h3>
+            {flashcard.content.map((s, idx) => (
+              <div key={idx} className="term-item">
+                <span className="term">{s.front}</span>
+                <span className="separator">|</span>
+                <span className="definition">{s.back}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flash-card-container-right">
+          <h1>ADS</h1>
+        </div>
+      </div>
+      <div className="bottom-section">
         <div className="columns">
           <div className="col">
             <h4>About us</h4>
@@ -531,17 +557,9 @@ export default function FlashCard() {
         </div>
 
         <div className="bottom-bar">
-          <div className="socials">
-            <span>🎵</span>
-            <span>🐦</span>
-            <span>📘</span>
-            <span>📸</span>
-            <span>▶️</span>
-            <span>💼</span>
-          </div>
           <p>© 2025 Quizlet, Inc.</p>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

@@ -1,12 +1,13 @@
 .account-defalt {
-  width: 60px;
-  height: 60px;
+  /* width: 90px; */
+  height: 90px;
   border-radius: 50px;
+  margin: 0 25px 0 6px;
 }
 
 .set-picture img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
   margin: 2.5px 5px;
 }
@@ -16,7 +17,7 @@
   margin-bottom: 50px;
 }
 
-#setting-account button {
+#setting-account .button-edit {
   padding: 10px 15px;
   border-radius: 50px;
   background: none;
@@ -25,7 +26,12 @@
   color: #d9dde8;
 }
 
-#setting-account button:hover {
+.button-img {
+  background: none;
+  border: none;
+}
+
+#setting-account .button-edit:hover {
   background: #2e3856;
 }
 
@@ -64,6 +70,7 @@
 
 #setting-account h3 {
   align-content: center;
+  margin-bottom: 5px;
   font-size: 16px;
 }
 #setting-account p {
@@ -92,12 +99,8 @@
   padding: 10px 30px;
 }
 
-.account-defalt {
-  margin-right: 10px;
-}
-
 .setting-account-personal-information-picture h3 {
-  margin-bottom: 10px;
+  margin-bottom: 15px !important;
 }
 
 .setting-account-personal-information-account-privacy {

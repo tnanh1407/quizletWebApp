@@ -1,18 +1,19 @@
+import Joi from "joi";
 import { GET_DB } from "../config/mongodb.js";
 import { ObjectId } from "mongodb";
-import Joi from "joi";
 
 const FOLDER_COLLECTION_NAME = "folders";
 
 const FOLDER_COLLECTION_SCHEMA = Joi.object({
-  title: Joi.string().min(3).max(100).required().trim(),
   flashcards: Joi.array().items(Joi.string()).default([]),
+  title: Joi.string().min(3).max(100).required().trim(),
 
   createAt: Joi.date().iso(),
   creator: Joi.object({
-    user_id: Joi.string(),
-    username: Joi.string(),
-  }),
+    user_id: Joi.string().required(),
+    username: Joi.string().required(),
+    avatar: Joi.string().required(),
+  }).required(),
   flashcard_count: Joi.number().integer().min(0),
   metadata: Joi.object({
     views: Joi.number().integer().min(0).default(0),
@@ -43,11 +44,12 @@ const createNew = async (data, user) => {
   const autoData = {
     title: data.title,
     flashcards: data.flashcards || [],
-    createAt: new Date().toISOString(),
     creator: {
-      user_id: user?._id?.toString() || "unknown",
-      username: user?.username || "guest",
+      user_id: data.creator.user_id.toString(),
+      username: data.creator.username,
+      avatar: data.creator.avatar,
     },
+    createAt: new Date().toISOString(),
     flashcard_count: Array.isArray(data.flashcards)
       ? data.flashcards.length
       : 0,
@@ -61,6 +63,7 @@ const createNew = async (data, user) => {
   };
 
   const validData = await validateFolder(autoData);
+
   const db = GET_DB();
   const result = await db
     .collection(FOLDER_COLLECTION_NAME)
@@ -115,24 +118,31 @@ const addFlashcards = async (folderId, flashcardIds) => {
 
 const removeFlashcard = async (folderId, flashcardId) => {
   const db = GET_DB();
-  const folder = await getById(folderId);
-  if (!folder || !folder.flashcards.includes(flashcardId)) return null;
 
+  // Gỡ flashcard khỏi folder
   await db
     .collection(FOLDER_COLLECTION_NAME)
     .updateOne(
       { _id: new ObjectId(folderId) },
-      {
-        $pull: {
-          flashcards: flashcardId,
-          flashcard_count: updatedFlashcards.length,
-        },
-      }
+      { $pull: { flashcards: flashcardId } }
     );
 
+  // Lấy lại folder sau khi update
+  const folder = await getById(folderId);
+  if (!folder) return null;
+
+  // Cập nhật lại flashcard_count
+  const updatedFlashcards = folder.flashcards || [];
+  await db
+    .collection(FOLDER_COLLECTION_NAME)
+    .updateOne(
+      { _id: new ObjectId(folderId) },
+      { $set: { flashcard_count: updatedFlashcards.length } }
+    );
+
+  // Trả về folder mới nhất
   return await getById(folderId);
 };
-
 export const folderModel = {
   getAll,
   getById,

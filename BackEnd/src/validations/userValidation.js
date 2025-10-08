@@ -1,20 +1,5 @@
 import Joi from "joi";
 
-// ===================== FLASHCARD SCHEMA =====================
-export const userSchema = Joi.object({
-  _id: Joi.string().optional(),
-  question: Joi.string().required().messages({
-    "any.required": "Question is required",
-    "string.empty": "Question cannot be empty",
-  }),
-  answer: Joi.string().required().messages({
-    "any.required": "Answer is required",
-    "string.empty": "Answer cannot be empty",
-  }),
-  createdAt: Joi.date().optional(),
-  updatedAt: Joi.date().optional(),
-});
-
 // ===================== USER SCHEMA =====================
 export const userSchema = Joi.object({
   _id: Joi.string().optional(),
@@ -38,6 +23,9 @@ export const userSchema = Joi.object({
   status: Joi.string().valid("active", "inactive").optional(),
   createdAt: Joi.date().optional(),
   updatedAt: Joi.date().optional(),
+  flashcard_count: Joi.number().integer().min(0),
+  class_count: Joi.number().integer().min(0),
+  delete_user: Joi.boolean().default(false),
 });
 
 // ===================== EXPORT =====================

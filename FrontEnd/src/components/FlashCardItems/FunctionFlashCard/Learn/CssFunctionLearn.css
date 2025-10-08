@@ -1,12 +1,12 @@
 .function-learn {
-  padding-top: 20px;
+  padding-top: 100px;
   color: var(--text-color);
   background: var(--bg-color);
 }
 
 .function-learn-main-content {
   max-width: 850px;
-  height: 85vh;
+  height: 82vh;
   margin-left: auto;
   margin-right: auto;
 }
@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 15px;
+  margin: 20px;
 }
 
 .progress-container span {

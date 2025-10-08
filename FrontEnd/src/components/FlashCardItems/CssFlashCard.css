@@ -1,3 +1,29 @@
+.flash-card-container {
+  height: auto;
+  gap: 40px;
+  position: relative;
+  margin-bottom: 200px;
+}
+
+.flash-card-container-left {
+  width: 800px;
+}
+
+.flash-card-container-right {
+  position: sticky;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 580px;
+  background: var(--bg-child-color);
+  border-radius: 10px;
+}
+
+.flash-card-container-right h1 {
+  text-align: center;
+  line-height: 580px;
+}
+
 .itemflashcard-header-option {
   justify-content: space-between;
 }
@@ -80,7 +106,7 @@
   border-radius: inherit;
 } */
 
-.modal-overlay {
+.itemflashcard-header .modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
@@ -144,8 +170,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid #f6f7fb;
-  background: transparent;
+  border: none;
+  background: var(--bg-child-color);
   color: white;
   font-size: 20px;
   cursor: pointer;
@@ -257,7 +283,8 @@
 .menu-toggle {
   text-align: center;
   background: none;
-  border: 2px solid var(--text-color);
+  border: none;
+  background: var(--bg-child-color);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -333,6 +360,10 @@
   border: 2px solid #23243a;
 }
 
+.itemflashcard-header-title-solution a i {
+  font-size: 22px;
+}
+
 .itemflashcard-header-title-review {
   height: 40px;
   margin: 4px 0 15px;
@@ -389,26 +420,20 @@
   justify-content: space-between;
   border-bottom: 2px solid #d9dde8;
   padding-bottom: 20px;
-  height: 70px;
+  height: 65px;
 }
 
 .itemflashcard-main-content-option h1 {
   font-size: 16px;
   font-weight: 500;
   line-height: 45px;
-  width: 170px;
+  width: 42px;
 }
 
-.itemflashcard-main-content-option-move button {
-  padding: 10px 20px;
-  background: none;
-  border: none;
-  color: #d9dde8;
-}
 .flashcard-container {
   width: 100%;
   max-width: 1500px;
-  height: 450px;
+  height: 400px;
   perspective: 1000px;
   margin: 20px auto;
   cursor: pointer;
@@ -518,13 +543,20 @@
 }
 
 .itemflashcard-main-content-option-move button {
-  border: 2px solid #d9dde8;
+  border: none;
   border-radius: 50px;
   font-size: 18px;
+  padding: 0px 10px;
+  background: var(--bg-child-color);
+  color: #d9dde8;
 }
 
 .itemflashcard-main-content-option-move button:hover {
   background: #2e3856;
+}
+
+.itemflashcard-main-content-option-option {
+  /* width: 170px; */
 }
 
 .itemflashcard-main-content-option-option button {
@@ -973,9 +1005,9 @@
   display: block;
 }
 .bottom-section {
-  background: #0f172a;
+  background: var(--bg-color);
   color: #f1f5f9;
-  padding: 40px;
+  padding-top: 40px;
   font-size: 14px;
 }
 
@@ -1007,9 +1039,13 @@
 .bottom-bar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #334155;
+  /* border-top: 1px solid var(--text-color); */
   padding-top: 20px;
+}
+
+.bottom-bar p {
+  margin: auto;
+  padding-bottom: 30px;
 }
 
 .socials span {

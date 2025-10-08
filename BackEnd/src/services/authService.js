@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { userModel } from "../models/userModel.js";
+import { defaultAvatars } from "../utils/avatarList.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 const JWT_REFRESH_SECRET =
@@ -34,12 +35,16 @@ const register = async (data) => {
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
+  const randomAvatar =
+    defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
+
   const newUser = {
     username,
     email,
     passwordHash,
     roles: ["user"],
     status: "active",
+    avatar: randomAvatar,
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -47,6 +52,8 @@ const register = async (data) => {
   const createdUser = await userModel.createNew(newUser);
 
   const tokens = generateTokens(createdUser);
+  // console.log(newUser);
+  // console.log(createdUser);
 
   return {
     user: {
@@ -54,6 +61,7 @@ const register = async (data) => {
       username: createdUser.username,
       email: createdUser.email,
       roles: createdUser.roles,
+      avatar: createdUser.avatar,
     },
     tokens,
   };
@@ -68,9 +76,12 @@ const login = async (data) => {
   const isMatch = await bcrypt.compare(password, user.passwordHash);
   if (!isMatch) throw new Error("Invalid email or password");
 
+  await userModel.updateLoginHistory(user._id);
+
   await userModel.updateLastLogin(user._id);
 
   const tokens = generateTokens(user);
+  console.log(userModel);
 
   return {
     user: {
@@ -78,6 +89,7 @@ const login = async (data) => {
       username: user.username,
       email: user.email,
       roles: user.roles,
+      avatar: user.avatar,
     },
     tokens,
   };
@@ -111,6 +123,7 @@ const getProfile = async (userId) => {
     email: user.email,
     roles: user.roles,
     status: user.status,
+    avatar: user.avatar,
   };
 };
 

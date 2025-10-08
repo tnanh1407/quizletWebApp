@@ -11,6 +11,29 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getAllPublic = async (req, res, next) => {
+  try {
+    const users = await userService.getAllPublic();
+    res.status(StatusCodes.OK).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getByIdPublic = async (req, res, next) => {
+  try {
+    const user = await userService.getByIdPublic(req.params.id);
+    if (!user) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "User not found" });
+    }
+    res.status(StatusCodes.OK).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getMe = async (req, res, next) => {
   try {
     const user = await userService.getById(req.user.id);
@@ -42,9 +65,10 @@ const getById = async (req, res, next) => {
 const updateById = async (req, res, next) => {
   try {
     const updatedUser = await userService.updateById(req.params.id, req.body);
-    res
-      .status(StatusCodes.OK)
-      .json({ message: "User updated successfully", user: updatedUser });
+    res.status(StatusCodes.OK).json({
+      message: "User updated successfully",
+      user: updatedUser,
+    });
   } catch (error) {
     next(error);
   }
@@ -53,7 +77,6 @@ const updateById = async (req, res, next) => {
 const changePassword = async (req, res, next) => {
   try {
     const { oldPassword, newPassword } = req.body;
-
     const user = await userService.getById(req.params.id);
     if (!user) {
       return res
@@ -61,18 +84,14 @@ const changePassword = async (req, res, next) => {
         .json({ message: "User not found" });
     }
 
-    // check mật khẩu cũ
-    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    const isMatch = await bcrypt.compare(oldPassword, user.passwordHash);
     if (!isMatch) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: "Old password is incorrect" });
     }
 
-    // hash mật khẩu mới
-    const hashed = await bcrypt.hash(newPassword, 10);
-    await userService.updateById(req.params.id, { password: hashed });
-
+    await userService.changePassword(req.params.id, newPassword);
     res
       .status(StatusCodes.OK)
       .json({ message: "Password changed successfully" });
@@ -90,11 +109,33 @@ const deleteById = async (req, res, next) => {
   }
 };
 
+const updateAvatar = async (req, res, next) => {
+  try {
+    const { avatar } = req.body;
+    if (!avatar) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: "Avatar URL is required" });
+    }
+
+    const updatedUser = await userService.updateAvatar(req.user.id, avatar);
+    res.status(StatusCodes.OK).json({
+      message: "Avatar updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const userController = {
   getAll,
+  getAllPublic,
+  getByIdPublic,
   getMe,
   getById,
   updateById,
   changePassword,
   deleteById,
+  updateAvatar, // ✅ controller update avatar
 };

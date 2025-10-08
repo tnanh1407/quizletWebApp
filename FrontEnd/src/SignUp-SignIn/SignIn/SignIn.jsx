@@ -15,7 +15,11 @@ export default function SignIn() {
     try {
       const res = await authApi.login({ email, password });
       if (res.user) {
-        saveUser({ id: res.user.id, username: res.user.username });
+        saveUser({
+          id: res.user.id,
+          username: res.user.username,
+          avatar: res.user.avatar,
+        });
       }
 
       // Lưu accessToken và refreshToken từ backend

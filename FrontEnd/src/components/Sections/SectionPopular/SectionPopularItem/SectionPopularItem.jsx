@@ -28,10 +28,10 @@ export default function SectionPopularItem() {
               <h1>{card.title}</h1>
               <div className="session-terms">
                 {/* Nếu views nằm trong metadata */}
-                <p>{card.content_count} term</p>
+                <p>{card.flashcard_count} flashcard</p>
               </div>
               <div className="session-author flex">
-                <img src={account} alt="author" />
+                <img src={card.creator.avatar} alt="author" />
                 <p>
                   {String(card.creator.user_id) === String(user.id)
                     ? "You"

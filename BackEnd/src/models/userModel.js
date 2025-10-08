@@ -11,20 +11,27 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   passwordHash: Joi.string().required(),
   roles: Joi.array().items(Joi.string()).default(["user"]),
   status: Joi.string().default("active"),
+  avatar: Joi.string().required(),
   createdAt: Joi.date().default(new Date()),
   updatedAt: Joi.date().default(new Date()),
   lastLogin: Joi.date().allow(null),
+  loginHistory: Joi.array().items(Joi.date()),
   facebook: Joi.string().allow(""),
   profile: Joi.object({
     gender: Joi.string().allow(""),
     birthday: Joi.date().allow(null),
     address: Joi.string().allow(""),
   }).default({}),
+  stats: Joi.object({
+    flashcard_count: Joi.number().integer().min(0),
+    class_count: Joi.number().integer().min(0),
+  }).default({ flashcard_count: 0, class_count: 0 }),
   settings: Joi.object({
     language: Joi.string().default("vi"),
     theme: Joi.string().default("light"),
     notifications: Joi.boolean().default(true),
   }).default({}),
+  delete_user: Joi.boolean().default(false),
 });
 
 const validateBeforeCreate = (data) => {
@@ -44,11 +51,25 @@ const getById = async (id) => {
     .findOne({ _id: new ObjectId(id) });
 };
 
+const getByIdPublic = async (id) => {
+  const db = GET_DB();
+  return await db.collection(USER_COLLECTION_NAME).findOne(
+    { _id: new ObjectId(id) },
+    {
+      projection: {
+        passwordHash: 0, // ẩn mật khẩu
+        email: 0, // nếu không muốn công khai email
+        settings: 0, // có thể ẩn luôn phần settings riêng tư
+      },
+    }
+  );
+};
+
 const createNew = async (data) => {
   const validData = await validateBeforeCreate(data);
   const db = GET_DB();
   const result = await db.collection(USER_COLLECTION_NAME).insertOne(validData);
-  return result.ops ? result.ops[0] : validData;
+  return { ...validData, _id: result.insertedId };
 };
 
 const updateById = async (id, data) => {
@@ -56,7 +77,7 @@ const updateById = async (id, data) => {
   const db = GET_DB();
   await db
     .collection(USER_COLLECTION_NAME)
-    .updateOne({ _id: new ObjectId(id) }, { $set: data });
+    .updateOne({ _id: new ObjectId(id) }, { delete_user: true });
   return await getById(id);
 };
 
@@ -81,6 +102,34 @@ const updateLastLogin = async (id) => {
     .updateOne({ _id: new ObjectId(id) }, { $set: { lastLogin: new Date() } });
 };
 
+const updateAvatar = async (id, avatarUrl) => {
+  const db = GET_DB();
+  await db.collection(USER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: {
+        avatar: avatarUrl,
+        updatedAt: new Date(),
+      },
+    }
+  );
+  return await getById(id);
+};
+
+const updateLoginHistory = async (id) => {
+  const db = GET_DB();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // chỉ lấy phần ngày
+
+  await db.collection(USER_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(id) },
+    {
+      $set: { lastLogin: new Date() },
+      $addToSet: { loginHistory: today }, // tránh trùng ngày
+    }
+  );
+};
+
 export const userModel = {
   USER_COLLECTION_NAME,
   USER_COLLECTION_SCHEMA,
@@ -91,4 +140,7 @@ export const userModel = {
   deleteById,
   findByEmail, // dùng cho authService
   updateLastLogin, // dùng cho authService
+  getByIdPublic,
+  updateAvatar,
+  updateLoginHistory,
 };

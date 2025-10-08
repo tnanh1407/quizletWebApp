@@ -14,7 +14,7 @@ export default function CreateClassroom() {
 
   async function handleSubmit() {
     if (!classname || !school) {
-      alert("Vui lòng nhập đầy đủ tên lớp và tên trường!");
+      alert("Please enter the full class name and school name!");
       return;
     }
 
@@ -28,6 +28,7 @@ export default function CreateClassroom() {
         creator: {
           user_id: user?.id,
           username: user?.username,
+          avatar: user?.avatar,
         },
       };
 
@@ -42,8 +43,8 @@ export default function CreateClassroom() {
       setSchool("");
       setDescription("");
     } catch (error) {
-      console.error("Lỗi tạo lớp học:", error);
-      alert("Tạo lớp học thất bại!");
+      console.error("Class creation error:", error);
+      alert("Failed to create class!");
     } finally {
       setLoading(false);
     }
@@ -58,7 +59,7 @@ export default function CreateClassroom() {
           onClick={handleSubmit}
           disabled={loading}
         >
-          {loading ? "Đang tạo..." : "Tạo lớp"}
+          {loading ? "Creating..." : "Create"}
         </button>
       </div>
 
@@ -70,7 +71,7 @@ export default function CreateClassroom() {
             type="text"
             value={classname}
             onChange={(e) => setClassname(e.target.value)}
-            placeholder="Ví dụ: Công Nghệ Phần Mềm"
+            placeholder="Example: Software Technology"
           />
         </div>
 
@@ -81,7 +82,7 @@ export default function CreateClassroom() {
             type="text"
             value={school}
             onChange={(e) => setSchool(e.target.value)}
-            placeholder="Ví dụ: Đại học CNTT"
+            placeholder="Example: University of Information Technology"
           />
         </div>
 
@@ -89,10 +90,10 @@ export default function CreateClassroom() {
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
-            rows="3"
+            rows="8"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Ví dụ: Học vào thứ 6 hàng tuần"
+            placeholder="Example: Classes are held every Friday"
           />
         </div>
       </div>

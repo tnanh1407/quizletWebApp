@@ -1,4 +1,25 @@
 import { StatusCodes } from "http-status-codes";
+const createNew = async (req, res, next) => {
+  try {
+    const { title, creator } = req.body;
+
+    if (!creator || !creator.user_id || !creator.username) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: "Creator info missing" });
+    }
+
+    const newFolder = await folderService.createNew({
+      title,
+      creator,
+    });
+
+    res.status(StatusCodes.CREATED).json(newFolder);
+  } catch (error) {
+    console.error("Controller createNew error:", error);
+    next(error);
+  }
+};
 import { folderService } from "../services/folderService.js";
 
 const getAll = async (req, res, next) => {
@@ -18,15 +39,6 @@ const getById = async (req, res, next) => {
         .status(StatusCodes.NOT_FOUND)
         .json({ message: "Folder not found" });
     res.status(StatusCodes.OK).json(folder);
-  } catch (err) {
-    next(err);
-  }
-};
-
-const createNew = async (req, res, next) => {
-  try {
-    const folder = await folderService.createNew(req.body, req.user);
-    res.status(StatusCodes.CREATED).json(folder);
   } catch (err) {
     next(err);
   }

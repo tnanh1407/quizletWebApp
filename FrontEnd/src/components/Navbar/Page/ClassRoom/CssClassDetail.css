@@ -385,3 +385,96 @@
   margin-top: 200px;
   padding: 40px 0 !important;
 }
+
+/* Css Edit Folder  */
+.edit-class-header button {
+  background: none;
+  border: none;
+}
+
+.edit-class,
+.delete-class {
+  padding: 20px;
+  width: 840px;
+  border-radius: 12px;
+}
+
+.edit-class-input p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.edit-class-input input {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  background: none;
+  border: none;
+  background: #2e3856;
+  margin-bottom: 20px;
+  padding: 12px;
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.edit-class-input input:focus {
+  color: var(--text-color);
+}
+
+.delete-class-footer,
+.edit-class-footer {
+  border-top: 2px solid #2e3856;
+  padding: 30px 20px;
+  position: relative;
+}
+
+.delete-class-footer .button-confirm,
+.edit-class-footer button {
+  color: var(--text-color);
+  padding: 10px 16px;
+  border-radius: 50px;
+  background: var(--button-blue-color);
+  border: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.delete-class-footer .button-cancel {
+  color: var(--text-color);
+  padding: 10px 16px;
+  border-radius: 50px;
+  background: var(--bg-hover-color);
+  border: none;
+  position: absolute;
+  top: 20px;
+  right: 170px;
+}
+
+.delete-class-footer .button-confirm {
+  background: #b00020 !important;
+}
+
+.delete-class p {
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.delete-class-main {
+  margin-bottom: 100px;
+}
+
+.button-join-class {
+  width: 100%;
+  height: 40px;
+  border-radius: 50px;
+  margin: 40px 0 100px;
+  color: var(--text-color);
+  border: none;
+  background: var(--button-blue-color);
+}
+
+.nothing-to-see {
+  font-size: 24px;
+  width: 100%;
+  text-align: center;
+}

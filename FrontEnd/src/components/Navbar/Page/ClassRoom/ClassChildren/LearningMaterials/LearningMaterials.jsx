@@ -1,11 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TbCards } from "react-icons/tb";
-import { Link, useOutletContext } from "react-router-dom"; // 👈 thêm useOutletContext
+import { Link, useOutletContext, useParams } from "react-router-dom"; // 👈 thêm useOutletContext
 import "./CssLearningMaterials.css";
+import { getUser } from "../../../../../../other/storage";
+import { classroomApi } from "../../../../../../api/classroomApi";
 
 const LearningMaterials = () => {
+  const user = getUser();
+  const { id } = useParams();
   const { flashcards = [], onRemoveFlashcard } = useOutletContext(); // 👈 lấy từ Outlet context
   const [menuOpen, setMenuOpen] = useState(null);
+  const [classRoom, setClassRoom] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    classroomApi
+      .getById(id)
+      .then((data) => {
+        if (!isMounted) return;
+        setClassRoom(data);
+      })
+      .catch((err) => console.error(err));
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id, location.state]);
 
   return (
     <div className="see-folder-main-items">
@@ -20,11 +40,12 @@ const LearningMaterials = () => {
                 setMenuOpen(menuOpen === card._id ? null : card._id)
               }
             >
-              <div className="button-option">
-                <i className="fa-solid fa-ellipsis"></i>
-              </div>
+              {classRoom?.creator.user_id === user.id && (
+                <div className="button-option">
+                  <i className="fa-solid fa-ellipsis"></i>
+                </div>
+              )}
             </button>
-
             <div
               id="item-folder-button-option-menu"
               className={menuOpen === card._id ? "block" : "hidden"}

@@ -11,6 +11,7 @@ const getAuthHeaders = () => {
 export const authApi = {
   register: async (data) => {
     const res = await axios.post(`${BASE_URL}/auth/register`, data);
+
     return res.data;
   },
 

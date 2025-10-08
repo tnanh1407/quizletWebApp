@@ -22,6 +22,10 @@ export const registerValidation = Joi.object({
       "string.pattern.base":
         "Password must contain uppercase, lowercase, number, and special character",
     }),
+  avatar: Joi.string().messages({
+    "any.required": "Avatar is required",
+    "string.empty": "Avatar cannot be empty",
+  }),
 });
 
 // ===================== LOGIN =====================
