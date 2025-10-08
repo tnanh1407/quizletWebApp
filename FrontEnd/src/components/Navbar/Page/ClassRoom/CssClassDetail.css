@@ -478,3 +478,43 @@
   width: 100%;
   text-align: center;
 }
+
+.invite-email {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.invite-email-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.invite-email-body input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.invite-email-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.invite-email-footer button.send {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.invite-email-footer button.cancel {
+  background-color: #ddd;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 6px;
+}

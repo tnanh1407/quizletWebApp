@@ -15,6 +15,7 @@ const CLASSROOM_COLLECTION_SCHEMA = Joi.object({
         user_id: Joi.string().required(),
         username: Joi.string().required(),
         role: Joi.string().valid("Owner", "Admin", "Member").default("Member"),
+        avatar: Joi.string().allow(""),
       })
     )
     .default([]),
@@ -79,6 +80,7 @@ const createNew = async (data) => {
       {
         user_id: data.creator.user_id,
         username: data.creator.username,
+        avatar: data.creator.avatar,
         role: "Owner",
       },
     ],
@@ -207,6 +209,7 @@ const addMember = async (classroomId, member) => {
   const newMember = {
     user_id: member.user_id,
     username: member.username,
+    avatar: member.avatar,
     role: member.role || "Member",
   };
 
@@ -283,6 +286,7 @@ const addMemberByEmail = async (classroomId, email) => {
   const newMember = {
     user_id: user._id.toString(),
     username: user.username,
+    avatar: user.avatar,
     role: "Member",
   };
 

@@ -39,6 +39,9 @@ export default function ClassDetail() {
   const [schoolName, setSchoolName] = useState("");
   const [description, setDescription] = useState("");
 
+  const [isInviteEmail, setIsInviteEmail] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+
   // Get all flashcards
   useEffect(() => {
     const fetchFlashcards = async () => {
@@ -106,6 +109,23 @@ export default function ClassDetail() {
         ? prev.filter((id) => id !== flashcardId)
         : [...prev, flashcardId]
     );
+  };
+
+  // Handle invite by email
+  const handleInviteByEmail = async () => {
+    if (!inviteEmail) {
+      alert("Please enter an email address");
+      return;
+    }
+    try {
+      await classroomApi.addMemberByEmail(id, inviteEmail);
+      alert(`Invitation sent to ${inviteEmail}`);
+      setInviteEmail("");
+      setIsInviteEmail(false);
+    } catch (error) {
+      console.error("Error inviting user:", error);
+      alert("Failed to invite user. Please check the email again.");
+    }
   };
 
   // Delete class
@@ -398,6 +418,45 @@ export default function ClassDetail() {
           </Modal>
         )}
 
+        {/* Modal invite by email */}
+        {isInviteEmail && (
+          <Modal
+            onClose={() => setIsInviteEmail(false)}
+            className="invite-email-modal"
+          >
+            <div className="invite-email">
+              <div className="invite-email-header">
+                <h1>Invite Member by Email</h1>
+                <button onClick={() => setIsInviteEmail(false)}>
+                  <i className="fa-solid fa-xmark add-flash-cards-icon"></i>
+                </button>
+              </div>
+
+              <div className="invite-email-body">
+                <p>Enter the email of the student you want to invite:</p>
+                <input
+                  type="email"
+                  placeholder="example@gmail.com"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="invite-email-footer flex">
+                <button
+                  className="cancel"
+                  onClick={() => setIsInviteEmail(false)}
+                >
+                  Cancel
+                </button>
+                <button className="send" onClick={handleInviteByEmail}>
+                  Send Invite
+                </button>
+              </div>
+            </div>
+          </Modal>
+        )}
+
         {/* Tabs */}
         {classRoom?.creator.user_id === user.id ? (
           <div className="header_two">
@@ -435,7 +494,12 @@ export default function ClassDetail() {
         String(classRoom?.creator.user_id) === String(user.id) ? (
           <div className="header_three">
             <button className="invite google">📂 Invite with Google</button>
-            <button className="invite email">✉️ Invite by email</button>
+            <button
+              className="invite email"
+              onClick={() => setIsInviteEmail(true)}
+            >
+              ✉️ Invite by email
+            </button>
             <button className="invite link">🔗 Copy link</button>
           </div>
         ) : (

@@ -56,4 +56,23 @@ export const classroomApi = {
     );
     return res.data;
   },
+
+  //  Thêm người dùng vào lớp bằng email
+  addMemberByEmail: async (classroomId, email) => {
+    const res = await axios.post(
+      `${BASE_URL}/classrooms/${classroomId}/members`,
+      {
+        email,
+      }
+    );
+    return res.data;
+  },
+
+  //  Xóa người dùng khỏi lớp
+  removeMember: async (classroomId, userId) => {
+    const res = await axios.delete(
+      `${BASE_URL}/classrooms/${classroomId}/members/${userId}`
+    );
+    return res.data;
+  },
 };
