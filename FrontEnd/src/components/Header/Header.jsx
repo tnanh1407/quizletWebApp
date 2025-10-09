@@ -99,7 +99,7 @@ export default function Header() {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-        <Link to="/annually" className="class-upgrand">
+        <Link to="/monthly" className="class-upgrand">
           <p>Try free upgrade</p>
         </Link>
         <div className="setting">
