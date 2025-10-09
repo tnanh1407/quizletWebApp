@@ -47,7 +47,9 @@ import DashBoard from "./components/DashBoard/DashBoard.jsx";
 import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
 import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials/LearningMaterials.jsx";
 import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members/Members.jsx";
-
+import UpgradeLayout from "./components/Layout/UpgradeLayOut.jsx";
+import Annually from "./components/Header/Upgrade/ChildrenUpgrand/Annually.jsx";
+import Monthly from "./components/Header/Upgrade/ChildrenUpgrand/Monthly.jsx";
 function App() {
   const [isPadded, setIsPadded] = useState(true);
   const [isAddFlashCard, setIsAddFlashCard] = useState(true);
@@ -151,6 +153,10 @@ function App() {
             <Route path="/:id/flashcards" element={<FunctionFlashCard />} />
             <Route path="/:id/learn" element={<FunctionLearn />} />
             <Route path="/:id/test" element={<FunctionTest />} />
+          </Route>
+          <Route element={<UpgradeLayout />}>
+            <Route path="/annually" element={<Annually />} />
+            <Route path="/monthly" element={<Monthly />} />
           </Route>
           <Route element={<SignLayOut />}>
             <Route path="/sign-in" element={<SignIn />} />

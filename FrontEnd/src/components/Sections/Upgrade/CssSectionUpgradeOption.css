@@ -1,0 +1,55 @@
+.upgrade-option {
+  background: rgba(42, 45, 97, 0.5);
+  padding: 30px;
+  border-radius: 10px;
+  color: var(--text-color);
+}
+
+.upgrade-option-header {
+  margin-bottom: 20px;
+}
+
+.upgrade-option-header h1 {
+  font-size: 24px;
+  margin: 0 !important;
+}
+
+.upgrade-option-header p {
+  font-size: 16px;
+}
+
+.upgrade-option-main-header h2 {
+  font-size: 35px;
+}
+
+.upgrade-option-main-header p {
+  margin-left: 5px;
+  padding-top: 20px;
+}
+
+.upgrade-option-main > p {
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+.button-upgrade {
+  width: 100%;
+  border-radius: 50px;
+  background: #ffcd1f;
+  border: none;
+  margin: 15px 0 25px 0;
+}
+
+.button-upgrade p {
+  font-size: 16px;
+  color: var(--bg-color);
+  padding: 20px;
+}
+
+.upgrade-benefit-list {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+.upgrade-benefit-list i {
+  margin-right: 15px;
+}
