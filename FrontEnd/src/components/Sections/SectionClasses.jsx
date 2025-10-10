@@ -10,6 +10,7 @@ export default function SectionClasses() {
   const [searchTerm, setSearchTerm] = useState("");
   const { id } = useParams();
   const user = getUser();
+  const [pendingClasses, setPendingClasses] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +26,12 @@ export default function SectionClasses() {
       String(cls.creator.user_id) === String(id || user.id)
   );
 
+  const exploreClasses = classes.filter(
+    (cls) =>
+      cls.delete_classroom === false &&
+      !cls.members?.some((m) => String(m.user_id) === String(user.id))
+  );
+
   const joinedClasses = classes.filter(
     (cls) =>
       cls.delete_classroom === false &&
@@ -34,7 +41,12 @@ export default function SectionClasses() {
       String(cls.creator.user_id) !== String(id || user.id)
   );
 
-  const listToShow = activeTab === "created" ? createdClasses : joinedClasses;
+  const listToShow =
+    activeTab === "created"
+      ? createdClasses
+      : activeTab === "joined"
+      ? joinedClasses
+      : exploreClasses;
 
   const filteredList = listToShow.filter((cls) =>
     cls.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -67,6 +79,15 @@ export default function SectionClasses() {
             >
               Lớp đã tham gia
             </p>
+
+            <p
+              className={`dropdown-item ${
+                activeTab === "explore" ? "active" : ""
+              }`}
+              onClick={() => setActiveTab("explore")}
+            >
+              Tất cả lớp học
+            </p>
           </div>
         </div>
 
@@ -84,23 +105,77 @@ export default function SectionClasses() {
       </div>
 
       {/* List view */}
+      {/* List view */}
       <div className="sectionclasses-list">
         {filteredList.length > 0 ? (
           filteredList.map((cls) => (
-            <Link
-              to={`/class/${cls._id}/material`}
-              key={cls._id}
-              className="class-item"
-            >
-              <div className="class-title">
-                {cls.title} <span style={{ color: "black" }}>|</span>{" "}
-                {cls.university}
+            <div key={cls._id} className="class-item">
+              <div
+                className="class-main"
+                onClick={() =>
+                  (window.location.href = `/class/${cls._id}/material`)
+                }
+                style={{ cursor: "pointer" }}
+              >
+                <div className="class-title">
+                  {cls.title} <span style={{ color: "black" }}>|</span>{" "}
+                  {cls.university}
+                </div>
+                <div className="class-info">
+                  <span>{cls.flashcard_count || 0} sets</span>
+                  <span> {cls.member_count || 0} thành viên</span>
+                </div>
               </div>
-              <div className="class-info">
-                <span>{cls.flashcard_count || 0} sets</span>
-                <span> {cls.member_count || 0} thành viên</span>
-              </div>
-            </Link>
+
+              {/* Nếu user chưa tham gia, hiển thị nút "Tham gia" */}
+              {!cls.members?.some(
+                (m) => String(m.user_id) === String(user.id)
+              ) && (
+                <>
+                  {/* Nếu người dùng đang trong danh sách chờ */}
+                  {cls.pending_users?.some(
+                    (p) => String(p.user_id) === String(user.id)
+                  ) ? (
+                    <button className="join-btn disabled" disabled>
+                      Đợi xác nhận
+                    </button>
+                  ) : (
+                    <button
+                      className="join-btn"
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        try {
+                          await classroomApi.requestJoin(cls._id, {
+                            user_id: user.id,
+                            username: user.fullName || user.username,
+                            avatar: user.avatar || "",
+                          });
+
+                          // ✅ Cập nhật lại UI ngay (thêm user vào pending_users)
+                          setClasses((prev) =>
+                            prev.map((item) =>
+                              item._id === cls._id
+                                ? {
+                                    ...item,
+                                    pending_users: [
+                                      ...(item.pending_users || []),
+                                      { user_id: user.id },
+                                    ],
+                                  }
+                                : item
+                            )
+                          );
+                        } catch (err) {
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      Tham gia
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
           ))
         ) : (
           <p className="empty-text">Không có lớp học nào</p>

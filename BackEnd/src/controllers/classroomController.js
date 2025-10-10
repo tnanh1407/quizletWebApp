@@ -215,6 +215,82 @@ const removeMember = async (req, res, next) => {
   }
 };
 
+// Gửi yêu cầu tham gia lớp
+const requestJoin = async (req, res, next) => {
+  try {
+    const { id } = req.params; // classroomId
+    const { user_id, username, avatar } = req.body;
+
+    if (!user_id || !username) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: "Missing user info" });
+    }
+
+    const classroom = await classroomService.requestJoin(id, {
+      user_id,
+      username,
+      avatar,
+    });
+    res.status(StatusCodes.OK).json(classroom);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Duyệt hoặc từ chối yêu cầu tham gia
+const handleJoinRequest = async (req, res, next) => {
+  try {
+    const { id } = req.params; // classroomId
+    const { user_id, action } = req.body; // action = "accept" | "reject"
+
+    const classroom = await classroomService.handleJoinRequest(
+      id,
+      user_id,
+      action
+    );
+    res.status(StatusCodes.OK).json(classroom);
+  } catch (error) {
+    next(error);
+  }
+};
+// Hủy yêu cầu tham gia lớp
+const cancelJoinRequest = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { user_id } = req.body;
+
+    const db = await GET_DB();
+    const classroom = await db
+      .collection("classrooms")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!classroom) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "Class not found" });
+    }
+
+    await db
+      .collection("classrooms")
+      .updateOne(
+        { _id: new ObjectId(id) },
+        { $pull: { pendingMembers: { user_id } } }
+      );
+
+    const updated = await db
+      .collection("classrooms")
+      .findOne({ _id: new ObjectId(id) });
+
+    res.status(StatusCodes.OK).json(updated);
+  } catch (err) {
+    console.error("Cancel join error:", err);
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Error canceling join request" });
+  }
+};
+
 export const classroomController = {
   getAll,
   createNew,
@@ -228,4 +304,7 @@ export const classroomController = {
   addMember,
   removeMember,
   addMemberByEmail,
+  requestJoin,
+  handleJoinRequest,
+  cancelJoinRequest,
 };

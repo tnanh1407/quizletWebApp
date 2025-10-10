@@ -75,4 +75,21 @@ export const classroomApi = {
     );
     return res.data;
   },
+
+  // Tham gia lớp học
+  requestJoin: async (classroomId, userData) => {
+    const res = await axios.post(
+      `${BASE_URL}/classrooms/${classroomId}/join-request`,
+      userData
+    );
+    return res.data;
+  },
+
+  cancelJoinRequest: async (classroomId, userData) => {
+    const res = await axios.post(
+      `${BASE_URL}/classrooms/${classroomId}/cancel-request`,
+      userData
+    );
+    return res.data;
+  },
 };

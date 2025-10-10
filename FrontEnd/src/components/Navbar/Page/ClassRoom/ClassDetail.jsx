@@ -209,16 +209,15 @@ export default function ClassDetail() {
   return (
     <>
       <div className="ClassDetail">
-        {classRoom?.creator.user_id === user.id && (
+        {(String(classRoom?.creator.user_id) === String(user.id) ||
+          classRoom?.members?.some(
+            (m) => String(m.user_id) === String(user.id)
+          )) && (
           <div className="element-notice">
-            <h5>Invite students to join this class</h5>
-            <p>
-              Students get free access to activities and materials you add to
-              your class
-            </p>
+            <h5>Welcome to the class!</h5>
+            <p>You can view activities and materials shared by the teacher.</p>
           </div>
         )}
-
         {/* Header */}
         <div className="header_classDetail">
           <div className="header_one">
@@ -300,7 +299,6 @@ export default function ClassDetail() {
             </div>
           </Modal>
         )}
-
         {showEdit && (
           <Modal onClose={toggleEditClass}>
             <div className="edit-class">
@@ -347,7 +345,6 @@ export default function ClassDetail() {
             </div>
           </Modal>
         )}
-
         {/* Modal add flashcards */}
         {isAddFlashCard && (
           <Modal onClose={toggleAddFlashCard} className="add-flash-card">
@@ -417,7 +414,6 @@ export default function ClassDetail() {
             </div>
           </Modal>
         )}
-
         {/* Modal invite by email */}
         {isInviteEmail && (
           <Modal
@@ -459,9 +455,12 @@ export default function ClassDetail() {
             </div>
           </Modal>
         )}
-
         {/* Tabs */}
-        {classRoom?.creator.user_id === user.id ? (
+        {classRoom &&
+        (String(classRoom.creator.user_id) === String(user.id) ||
+          classRoom.members?.some(
+            (member) => String(member.user_id) === String(user.id)
+          )) ? (
           <div className="header_two">
             <>
               <NavLink to={`/class/${classRoom?._id}/material`}>
@@ -486,28 +485,77 @@ export default function ClassDetail() {
           </div>
         ) : (
           <>
-            <button className="button-join-class">
-              <p>Request to join class</p>
-            </button>
+            <>
+              {classRoom?.pendingMembers?.some(
+                (member) => String(member.user_id) === String(user.id)
+              ) ? (
+                <button
+                  className="button-join-class waiting"
+                  onClick={async () => {
+                    try {
+                      await classroomApi.cancelJoinRequest(id, user.id);
+                      alert("Canceled join request");
+                      // Cập nhật lại dữ liệu lớp
+                      const updated = await classroomApi.getById(id);
+                      setClassRoom(updated);
+                    } catch (error) {
+                      console.error("Error canceling join request:", error);
+                      alert("Failed to cancel request");
+                    }
+                  }}
+                >
+                  <p>Waiting for approval (Cancel request)</p>
+                </button>
+              ) : classRoom?.members?.some(
+                  (member) => String(member.user_id) === String(user.id)
+                ) ? (
+                <p className="already-joined-text">
+                  You have already joined this class
+                </p>
+              ) : (
+                <button
+                  className="button-join-class"
+                  onClick={async () => {
+                    try {
+                      await classroomApi.requestJoin(id, user.id);
+                      alert("Join request sent");
+                      const updated = await classroomApi.getById(id);
+                      setClassRoom(updated);
+                    } catch (error) {
+                      console.error("Error sending join request:", error);
+                      alert("Failed to send join request");
+                    }
+                  }}
+                >
+                  <p>Request to join class</p>
+                </button>
+              )}
+            </>
           </>
         )}
 
-        {user &&
-        classRoom?.creator?.user_id &&
-        String(classRoom?.creator.user_id) === String(user.id) ? (
+        {classRoom &&
+        (String(classRoom.creator.user_id) === String(user.id) ||
+          classRoom.members?.some(
+            (member) => String(member.user_id) === String(user.id)
+          )) ? (
           <div className="header_three">
-            <button className="invite google">
-              <i class="fa-solid fa-folder"></i> Invite with Google
-            </button>
-            <button
-              className="invite email"
-              onClick={() => setIsInviteEmail(true)}
-            >
-              <i class="fa-solid fa-envelope"></i> Invite by email
-            </button>
-            <button className="invite link">
-              <i class="fa-solid fa-link"></i> Copy link
-            </button>
+            {String(classRoom.creator.user_id) === String(user.id) && (
+              <>
+                <button className="invite google">
+                  <i className="fa-solid fa-folder"></i> Invite with Google
+                </button>
+                <button
+                  className="invite email"
+                  onClick={() => setIsInviteEmail(true)}
+                >
+                  <i className="fa-solid fa-envelope"></i> Invite by email
+                </button>
+                <button className="invite link">
+                  <i className="fa-solid fa-link"></i> Copy link
+                </button>
+              </>
+            )}
           </div>
         ) : (
           <>
@@ -516,21 +564,22 @@ export default function ClassDetail() {
             </div>
           </>
         )}
-        {/* Invite buttons */}
 
         {/* Content */}
-        {user &&
-        classRoom?.creator?.user_id &&
-        String(classRoom?.creator.user_id) === String(user.id) ? (
-          <div className="content">
-            <Outlet
-              context={{
-                flashcards: classFlashcards,
-                onRemoveFlashcard: handleRemoveFlashcard,
-              }}
-            />
-          </div>
-        ) : null}
+        {classRoom &&
+          (String(classRoom.creator.user_id) === String(user.id) ||
+            classRoom.members?.some(
+              (member) => String(member.user_id) === String(user.id)
+            )) && (
+            <div className="content">
+              <Outlet
+                context={{
+                  flashcards: classFlashcards,
+                  onRemoveFlashcard: handleRemoveFlashcard,
+                }}
+              />
+            </div>
+          )}
       </div>
       <Footer className="footer" />
     </>

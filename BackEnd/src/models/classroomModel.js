@@ -19,6 +19,13 @@ const CLASSROOM_COLLECTION_SCHEMA = Joi.object({
       })
     )
     .default([]),
+  pending_users: Joi.array().items(
+    Joi.object({
+      user_id: Joi.string().required(),
+      username: Joi.string().required(),
+      avatar: Joi.string().allow(""),
+    })
+  ),
   folders: Joi.array().items(Joi.string()).default([]),
   flashcards: Joi.array().items(Joi.string()).default([]),
   createAt: Joi.date().iso().required(),
@@ -84,6 +91,7 @@ const createNew = async (data) => {
         role: "Owner",
       },
     ],
+    pending_users: [{}],
   };
 
   const validData = await validateClassroom(autoData);
@@ -302,6 +310,73 @@ const addMemberByEmail = async (classroomId, email) => {
   //  Trả classroom sau cập nhật
   return await getById(classroomId);
 };
+
+//  Gửi yêu cầu tham gia (pending)
+const requestJoin = async (classroomId, user) => {
+  const db = GET_DB();
+  const classroom = await getById(classroomId);
+  if (!classroom) throw new Error("Classroom not found");
+
+  // Kiểm tra nếu đã là thành viên
+  const isMember = classroom.members.some((m) => m.user_id === user.user_id);
+  if (isMember) throw new Error("Already a member");
+
+  // Kiểm tra nếu đã gửi yêu cầu trước đó
+  const isPending = (classroom.pending_users || []).some(
+    (p) => p.user_id === user.user_id
+  );
+  if (isPending) throw new Error("Already requested");
+
+  await db
+    .collection(CLASSROOM_COLLECTION_NAME)
+    .updateOne(
+      { _id: new ObjectId(classroomId) },
+      { $push: { pending_users: user } }
+    );
+
+  return await getById(classroomId);
+};
+
+// Duyệt hoặc từ chối yêu cầu tham gia
+const handleJoinRequest = async (classroomId, userId, action) => {
+  const db = GET_DB();
+  const classroom = await getById(classroomId);
+  if (!classroom) throw new Error("Classroom not found");
+
+  const pendingUser = (classroom.pending_users || []).find(
+    (u) => u.user_id === userId
+  );
+  if (!pendingUser) throw new Error("User not in pending list");
+
+  // Xóa khỏi pending list
+  await db
+    .collection(CLASSROOM_COLLECTION_NAME)
+    .updateOne(
+      { _id: new ObjectId(classroomId) },
+      { $pull: { pending_users: { user_id: userId } } }
+    );
+
+  if (action === "accept") {
+    // Thêm vào members
+    await db.collection(CLASSROOM_COLLECTION_NAME).updateOne(
+      { _id: new ObjectId(classroomId) },
+      {
+        $push: {
+          members: {
+            user_id: pendingUser.user_id,
+            username: pendingUser.username,
+            avatar: pendingUser.avatar,
+            role: "Member",
+          },
+        },
+        $inc: { member_count: 1 },
+      }
+    );
+  }
+
+  return await getById(classroomId);
+};
+
 export const classroomModel = {
   CLASSROOM_COLLECTION_NAME,
   CLASSROOM_COLLECTION_SCHEMA,
@@ -317,4 +392,6 @@ export const classroomModel = {
   addMember,
   removeMember,
   addMemberByEmail,
+  requestJoin,
+  handleJoinRequest,
 };
