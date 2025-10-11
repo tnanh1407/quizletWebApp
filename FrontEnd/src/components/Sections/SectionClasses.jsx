@@ -181,7 +181,7 @@ export default function SectionClasses() {
                         }
                       }}
                     >
-                      Join
+                      Join Class
                     </button>
                   )}
                 </>
