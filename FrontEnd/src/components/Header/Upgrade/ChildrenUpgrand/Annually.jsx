@@ -8,38 +8,49 @@ export default function Annually() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await upgradeApi.getAll();
+        // Nếu chỉ có 1 document duy nhất thì chỉ cần getById() với ID cố định hoặc getFixed()
+        const data = await upgradeApi.getById("68e8ad357674e980fe20a234");
         setUpgradeAnnually(data);
       } catch (err) {
-        console.error("Error ", err);
+        console.error("Error fetching upgrade data:", err);
       }
     };
 
     fetchData();
   }, []);
 
-  return (
-    <>
-      <div className="upgrade-grip">
-        {upgradeAnnually &&
-          upgradeAnnually?.map((section) => {
-            const price = parseFloat(section.priceMonthly) || 0;
-            const discount = parseFloat(section.discount) || 0;
+  if (!upgradeAnnually) {
+    return <p>Loading upgrade options...</p>;
+  }
 
-            const discountedMonthly = (price * (1 - discount)).toFixed(2);
-            const priceAnnually = (price * 12 * (1 - discount)).toFixed(2);
-            return (
-              <SectionUpgradeOptionAnnually
-                key={section.id}
-                upgradeAnnually={{
-                  ...section,
-                  discountedMonthly,
-                  priceAnnually,
-                }}
-              />
-            );
-          })}
-      </div>
-    </>
+  return (
+    <div className="upgrade-grip">
+      {upgradeAnnually.option?.map((section) => {
+        // Giá gốc theo tháng
+        const price = parseFloat(section.priceMonthly) || 0;
+
+        // Ưu tiên discount riêng của option, nếu không có thì lấy discount tổng của document
+        const discount =
+          parseFloat(section.discount) ||
+          parseFloat(upgradeAnnually.discount) ||
+          0;
+
+        // Tính giá sau giảm
+        const discountedMonthly = (price * (1 - discount)).toFixed(2);
+        const priceAnnually = (price * 12 * (1 - discount)).toFixed(2);
+
+        return (
+          <SectionUpgradeOptionAnnually
+            key={section._id}
+            upgradeAnnually={{
+              ...section,
+              discountedMonthly,
+              priceAnnually,
+              discount,
+            }}
+          />
+        );
+      })}
+    </div>
   );
 }

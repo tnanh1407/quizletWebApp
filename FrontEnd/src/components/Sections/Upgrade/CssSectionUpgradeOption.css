@@ -32,16 +32,21 @@
   font-size: 16px;
 }
 
+.upgrade-option a {
+  text-decoration: none;
+}
+
 .button-upgrade {
   width: 100%;
   border-radius: 50px;
   background: #ffcd1f;
   border: none;
-  margin: 15px 0 25px 0;
+  margin: 35px 0;
 }
 
 .button-upgrade p {
   font-size: 16px;
+  text-align: center;
   color: var(--bg-color);
   padding: 20px;
 }

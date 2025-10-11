@@ -1,16 +1,17 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:9999/v1";
+const FIXED_ID = "68e8ad357674e980fe20a234";
 
 export const upgradeApi = {
   // Lấy tất cả upgrade
-  getAll: async () => {
+  getFixed: async () => {
     const res = await axios.get(`${BASE_URL}/upgrade`);
     return res.data; // chỉ trả về dữ liệu
   },
 
   // Lấy flashcard theo id
-  getById: async (id) => {
+  getById: async (id = FIXED_ID) => {
     const res = await axios.get(`${BASE_URL}/upgrade/${id}`);
     return res.data;
   },

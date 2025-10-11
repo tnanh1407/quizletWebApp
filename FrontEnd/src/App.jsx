@@ -50,6 +50,8 @@ import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members/Me
 import UpgradeLayout from "./components/Layout/UpgradeLayOut.jsx";
 import Annually from "./components/Header/Upgrade/ChildrenUpgrand/Annually.jsx";
 import Monthly from "./components/Header/Upgrade/ChildrenUpgrand/Monthly.jsx";
+import CheckOut from "./components/Header/Upgrade/ChildrenUpgrand/CheckOut/CheckOut.jsx";
+
 function App() {
   const [isPadded, setIsPadded] = useState(true);
   const [isAddFlashCard, setIsAddFlashCard] = useState(true);
@@ -158,6 +160,7 @@ function App() {
             <Route path="/annually" element={<Annually />} />
             <Route path="/monthly" element={<Monthly />} />
           </Route>
+          <Route path="/checkout" element={<CheckOut />} />
           <Route element={<SignLayOut />}>
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
