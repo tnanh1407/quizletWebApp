@@ -92,4 +92,18 @@ export const classroomApi = {
     );
     return res.data;
   },
+
+  // // Xử lý yêu cầu tham gia (accept/reject)
+  // handleJoinRequest: async (classroomId, data) => {
+  //   const res = await axios.post(
+  //     `${BASE_URL}/classrooms/${classroomId}/handle-join`,
+  //     data
+  //   );
+  //   return res.data;
+  // },
+
+  handleJoinRequest: async (id, data) =>
+    axios
+      .post(`http://localhost:9999/v1/classrooms/${id}/handle-join`, data)
+      .then((res) => res.data),
 };

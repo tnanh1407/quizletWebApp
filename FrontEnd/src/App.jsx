@@ -47,6 +47,8 @@ import DashBoard from "./components/DashBoard/DashBoard.jsx";
 import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
 import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials/LearningMaterials.jsx";
 import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members/Members.jsx";
+import Pending from "./components/Navbar/Page/ClassRoom/ClassChildren/PendingUser/PendingUser.jsx";
+import Progress from "./components/Navbar/Page/ClassRoom/ClassChildren/Progress/ProcessClass.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -108,6 +110,8 @@ function App() {
                   element={<LearningMaterials />}
                 />
                 <Route path="/class/:id/member" element={<Members />} />
+                <Route path="/class/:id/pending" element={<Pending />} />
+                <Route path="/class/:id/progress" element={<Progress />} />
               </Route>
               {/* Route Your library  */}
 

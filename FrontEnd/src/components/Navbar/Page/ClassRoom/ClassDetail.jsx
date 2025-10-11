@@ -12,6 +12,7 @@ import { flashCardApi } from "../../../../api/flashCardApi";
 import { getUser } from "../../../../other/storage";
 import Footer from "../../../Footer/Footer";
 import Modal from "../../../Modal/Modal";
+import { userApi } from "../../../../api/userApi";
 
 // ICONS
 import { LuUniversity } from "react-icons/lu";
@@ -41,13 +42,19 @@ export default function ClassDetail() {
 
   const [isInviteEmail, setIsInviteEmail] = useState(false);
   const [inviteEmail, setInviteEmail] = useState("");
-
+  const [dataUser, setDataUser] = useState(null);
   // Get all flashcards
   useEffect(() => {
     const fetchFlashcards = async () => {
       try {
         const data = await flashCardApi.getAll();
         setFlashCards(data);
+
+        const userData = await userApi.getById(user.id);
+        setDataUser({
+          email: userData.email,
+          username: userData.username,
+        });
       } catch (error) {
         console.log("Error fetching flashcards:", error);
       }
@@ -481,23 +488,54 @@ export default function ClassDetail() {
                   Members
                 </button>
               </NavLink>
+
+              {/*  Chỉ hiển thị nếu user là chủ lớp */}
+              {String(classRoom.creator.user_id) === String(user.id) && (
+                <>
+                  <NavLink to={`/class/${classRoom?._id}/pending`}>
+                    <button
+                      className={`tab ${
+                        location.pathname.includes("pending") ? "active" : ""
+                      }`}
+                    >
+                      Pending user
+                    </button>
+                  </NavLink>
+                  <NavLink to={`/class/${classRoom?._id}/progress`}>
+                    <button
+                      className={`tab ${
+                        location.pathname.includes("progress") ? "active" : ""
+                      }`}
+                    >
+                      Progress
+                    </button>
+                  </NavLink>
+                </>
+              )}
             </>
           </div>
         ) : (
           <>
             <>
-              {classRoom?.pendingMembers?.some(
+              {classRoom?.pending_users?.some(
                 (member) => String(member.user_id) === String(user.id)
               ) ? (
                 <button
                   className="button-join-class waiting"
                   onClick={async () => {
                     try {
-                      await classroomApi.cancelJoinRequest(id, user.id);
+                      await classroomApi.cancelJoinRequest(classRoom._id, {
+                        user_id: user.id,
+                      });
+
+                      setClassRoom((prev) => ({
+                        ...prev,
+                        pending_users: prev.pending_users.filter(
+                          (m) => String(m.user_id) !== String(user.id)
+                        ),
+                      }));
+
                       alert("Canceled join request");
-                      // Cập nhật lại dữ liệu lớp
-                      const updated = await classroomApi.getById(id);
-                      setClassRoom(updated);
                     } catch (error) {
                       console.error("Error canceling join request:", error);
                       alert("Failed to cancel request");
@@ -517,12 +555,23 @@ export default function ClassDetail() {
                   className="button-join-class"
                   onClick={async () => {
                     try {
-                      await classroomApi.requestJoin(id, user.id);
-                      alert("Join request sent");
-                      const updated = await classroomApi.getById(id);
-                      setClassRoom(updated);
-                    } catch (error) {
-                      console.error("Error sending join request:", error);
+                      await classroomApi.requestJoin(classRoom._id, {
+                        user_id: user.id,
+                        username: dataUser?.username || user.username,
+                        avatar: user.avatar,
+                        email: dataUser?.email || user.email,
+                      });
+
+                      // ✅ Cập nhật UI ngay lập tức (không cần fetch lại)
+                      setClassRoom((prev) => ({
+                        ...prev,
+                        pending_users: [
+                          ...(prev.pending_users || []),
+                          { user_id: user.id },
+                        ],
+                      }));
+                    } catch (err) {
+                      console.error("Error sending join request:", err);
                       alert("Failed to send join request");
                     }
                   }}

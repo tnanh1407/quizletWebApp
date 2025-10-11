@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { classroomService } from "../services/classroomService.js";
+import { ObjectId } from "mongodb";
 
 const getAll = async (req, res, next) => {
   try {
@@ -219,7 +220,7 @@ const removeMember = async (req, res, next) => {
 const requestJoin = async (req, res, next) => {
   try {
     const { id } = req.params; // classroomId
-    const { user_id, username, avatar } = req.body;
+    const { user_id, username, avatar, email } = req.body;
 
     if (!user_id || !username) {
       return res
@@ -231,6 +232,7 @@ const requestJoin = async (req, res, next) => {
       user_id,
       username,
       avatar,
+      email,
     });
     res.status(StatusCodes.OK).json(classroom);
   } catch (error) {
@@ -258,36 +260,13 @@ const handleJoinRequest = async (req, res, next) => {
 const cancelJoinRequest = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { user_id } = req.body;
+    const { user_id } = req.body; // Lấy user_id từ body
 
-    const db = await GET_DB();
-    const classroom = await db
-      .collection("classrooms")
-      .findOne({ _id: new ObjectId(id) });
-
-    if (!classroom) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ message: "Class not found" });
-    }
-
-    await db
-      .collection("classrooms")
-      .updateOne(
-        { _id: new ObjectId(id) },
-        { $pull: { pendingMembers: { user_id } } }
-      );
-
-    const updated = await db
-      .collection("classrooms")
-      .findOne({ _id: new ObjectId(id) });
-
-    res.status(StatusCodes.OK).json(updated);
+    const classroom = await classroomService.cancelJoinRequest(id, user_id);
+    res.status(StatusCodes.OK).json(classroom);
   } catch (err) {
-    console.error("Cancel join error:", err);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Error canceling join request" });
+    // Chuyển lỗi cho middleware xử lý
+    next(err);
   }
 };
 

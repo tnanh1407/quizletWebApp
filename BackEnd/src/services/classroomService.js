@@ -39,6 +39,9 @@ const requestJoin = async (classroomId, user) =>
 const handleJoinRequest = async (classroomId, userId, action) =>
   classroomModel.handleJoinRequest(classroomId, userId, action);
 
+const cancelJoinRequest = async (classroomId, userId) =>
+  classroomModel.cancelJoinRequest(classroomId, userId);
+
 export const classroomService = {
   getAll,
   createNew,
@@ -54,4 +57,5 @@ export const classroomService = {
   addMemberByEmail,
   requestJoin,
   handleJoinRequest,
+  cancelJoinRequest,
 };

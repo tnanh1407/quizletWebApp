@@ -24,6 +24,7 @@ const CLASSROOM_COLLECTION_SCHEMA = Joi.object({
       user_id: Joi.string().required(),
       username: Joi.string().required(),
       avatar: Joi.string().allow(""),
+      email: Joi.string().email().allow(""),
     })
   ),
   folders: Joi.array().items(Joi.string()).default([]),
@@ -91,7 +92,7 @@ const createNew = async (data) => {
         role: "Owner",
       },
     ],
-    pending_users: [{}],
+    pending_users: [],
   };
 
   const validData = await validateClassroom(autoData);
@@ -366,6 +367,7 @@ const handleJoinRequest = async (classroomId, userId, action) => {
             user_id: pendingUser.user_id,
             username: pendingUser.username,
             avatar: pendingUser.avatar,
+            email: pendingUser.email,
             role: "Member",
           },
         },
@@ -374,6 +376,22 @@ const handleJoinRequest = async (classroomId, userId, action) => {
     );
   }
 
+  return await getById(classroomId);
+};
+
+// Hủy yêu cầu tham gia
+const cancelJoinRequest = async (classroomId, userId) => {
+  const db = GET_DB();
+  const classroom = await getById(classroomId);
+  if (!classroom) throw new Error("Classroom not found");
+
+  await db.collection(CLASSROOM_COLLECTION_NAME).updateOne(
+    { _id: new ObjectId(classroomId) },
+    // Sửa đúng tên trường là "pending_users"
+    { $pull: { pending_users: { user_id: userId } } }
+  );
+
+  // Trả về classroom đã cập nhật
   return await getById(classroomId);
 };
 
@@ -394,4 +412,5 @@ export const classroomModel = {
   addMemberByEmail,
   requestJoin,
   handleJoinRequest,
+  cancelJoinRequest, //  Thêm hàm mới
 };

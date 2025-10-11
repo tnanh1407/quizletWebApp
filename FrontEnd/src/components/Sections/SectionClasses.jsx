@@ -2,20 +2,29 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { classroomApi } from "../../api/classroomApi";
 import { getUser } from "../../other/storage";
+import { userApi } from "../../api/userApi";
 import "./SectionClasses.css";
 
 export default function SectionClasses() {
   const [classes, setClasses] = useState([]);
-  const [activeTab, setActiveTab] = useState("created"); // "created" | "joined"
+  const [activeTab, setActiveTab] = useState("explore"); // "created" | "joined"
   const [searchTerm, setSearchTerm] = useState("");
   const { id } = useParams();
   const user = getUser();
-  const [pendingClasses, setPendingClasses] = useState([]);
+  const [dataUser, setDataUser] = useState(null);
 
+  console.log(user);
+  // useEffect(async () => {}, []);
   useEffect(() => {
     const fetchData = async () => {
       const data = await classroomApi.getAll();
       setClasses(data);
+
+      const userData = await userApi.getById(user.id);
+      setDataUser({
+        email: userData.email,
+        username: userData.username,
+      });
     };
     fetchData();
   }, []);
@@ -59,17 +68,29 @@ export default function SectionClasses() {
         {/* Dropdown */}
         <div className="dropdown">
           <button className="dropdown-btn">
-            {activeTab === "created" ? "Lớp đã tạo" : "Lớp đã tham gia"}
+            {activeTab === "created"
+              ? "Created class"
+              : activeTab === "joined"
+              ? "Created class"
+              : "All classes"}
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
           <div className="dropdown-menu">
+            <p
+              className={`dropdown-item ${
+                activeTab === "explore" ? "active" : ""
+              }`}
+              onClick={() => setActiveTab("explore")}
+            >
+              All classes
+            </p>
             <p
               className={`dropdown-item ${
                 activeTab === "created" ? "active" : ""
               }`}
               onClick={() => setActiveTab("created")}
             >
-              Lớp đã tạo
+              Created class
             </p>
             <p
               className={`dropdown-item ${
@@ -77,16 +98,7 @@ export default function SectionClasses() {
               }`}
               onClick={() => setActiveTab("joined")}
             >
-              Lớp đã tham gia
-            </p>
-
-            <p
-              className={`dropdown-item ${
-                activeTab === "explore" ? "active" : ""
-              }`}
-              onClick={() => setActiveTab("explore")}
-            >
-              Tất cả lớp học
+              Created class
             </p>
           </div>
         </div>
@@ -95,7 +107,7 @@ export default function SectionClasses() {
         <div className="search-box">
           <input
             type="text"
-            placeholder="Tìm kiếm lớp học..."
+            placeholder="Search for classes..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -123,7 +135,7 @@ export default function SectionClasses() {
                 </div>
                 <div className="class-info">
                   <span>{cls.flashcard_count || 0} sets</span>
-                  <span> {cls.member_count || 0} thành viên</span>
+                  <span> {cls.member_count || 0} member</span>
                 </div>
               </div>
 
@@ -137,7 +149,7 @@ export default function SectionClasses() {
                     (p) => String(p.user_id) === String(user.id)
                   ) ? (
                     <button className="join-btn disabled" disabled>
-                      Đợi xác nhận
+                      Waiting for confirmation
                     </button>
                   ) : (
                     <button
@@ -147,11 +159,10 @@ export default function SectionClasses() {
                         try {
                           await classroomApi.requestJoin(cls._id, {
                             user_id: user.id,
-                            username: user.fullName || user.username,
-                            avatar: user.avatar || "",
+                            username: dataUser.username,
+                            avatar: user.avatar,
+                            email: dataUser.email,
                           });
-
-                          // ✅ Cập nhật lại UI ngay (thêm user vào pending_users)
                           setClasses((prev) =>
                             prev.map((item) =>
                               item._id === cls._id
@@ -170,7 +181,7 @@ export default function SectionClasses() {
                         }
                       }}
                     >
-                      Tham gia
+                      Join
                     </button>
                   )}
                 </>
@@ -178,7 +189,7 @@ export default function SectionClasses() {
             </div>
           ))
         ) : (
-          <p className="empty-text">Không có lớp học nào</p>
+          <p className="empty-text">There are no classes</p>
         )}
       </div>
     </div>

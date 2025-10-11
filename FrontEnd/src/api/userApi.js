@@ -54,7 +54,9 @@ export const userApi = {
 
   getById: async (id) =>
     fetchWithRefresh(() =>
-      axios.get(`${BASE_URL}/users/${id}`).then((res) => res.data)
+      axios
+        .get(`${BASE_URL}/users/${id}`, { headers: getAuthHeaders() })
+        .then((res) => res.data)
     ),
 
   updateById: async (id, data) =>

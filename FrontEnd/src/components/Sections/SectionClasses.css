@@ -64,7 +64,7 @@
 
 .dropdown-item:hover,
 .dropdown-item.active {
-  background: rgb(39, 39, 39);
+  background: #2e3856;
 }
 
 /* Search box */
@@ -131,7 +131,15 @@
   margin-top: 40px;
 }
 
-.join-btn.disabled {
+.join-btn {
+  background-color: rgb(68, 68, 211);
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  margin-top: 10px;
+}
+.join-btn .disabled {
   background-color: #ccc;
   color: #666;
   cursor: not-allowed;
