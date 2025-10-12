@@ -42,7 +42,7 @@ import SearchClasses from "./components/Search/SearchClasses/SearchClasses.jsx";
 import SearchFlashcard from "./components/Search/SearchFlashcard/SearchFlashcard.jsx";
 import SearchUsers from "./components/Search/SearchUsers/SearchUsers.jsx";
 import DashBoardLayOut from "./components/Layout/DashBoardLayOut.jsx";
-import DashBoard from "./components/DashBoard/DashBoard.jsx";
+
 // import ClassDetail from "./components/Layout/ClassDetail.jsx";
 import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
 import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials/LearningMaterials.jsx";
@@ -51,6 +51,8 @@ import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members/Me
 import DashBoardFlashCard from "./components/DashBoard/Flashcard.jsx";
 import DashBoardUsers from "./components/DashBoard/Users.jsx";
 import DashBoardOverview from "./components/DashBoard/Overview.jsx";
+import DashBoardComingSoon from "./components/DashBoard/ComingSoon.jsx";
+
 function App() {
   const [isPadded, setIsPadded] = useState(true);
   const [isAddFlashCard, setIsAddFlashCard] = useState(true);
@@ -146,6 +148,7 @@ function App() {
           <Route element={<DashBoardLayOut />}>
             <Route path="/dashboard/overview" element={<DashBoardOverview />} />
             <Route path="/dashboard/user" element={<DashBoardUsers />} />
+            <Route path="/dashboard/comingsoon" element={<DashBoardComingSoon />} />
             <Route path="/dashboard/dashboardflashcard" element={<DashBoardFlashCard />} />
           </Route>
 

@@ -25,7 +25,7 @@ export default function DashBoardLayOut() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="comingsoon" className={({ isActive }) => isActive ? "active" : ""}>
+              <NavLink to="/dashboard/comingsoon" className={({ isActive }) => isActive ? "active" : ""}>
                 Coming Soon
               </NavLink>
             </li>
