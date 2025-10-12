@@ -1,25 +1,26 @@
-// src/components/Dashboard/Overview.jsx
-export default function Overview() {
-  // dữ liệu demo
-  const stats = [
-    { title: "Người dùng", value: 120 },
-    { title: "Bộ thẻ", value: 45 },
-    { title: "Thẻ", value: 320 },
-  ];
+import { useEffect, useState } from "react";
 
-  const recentActivities = [
-    { id: 1, user: "Nguyễn Văn A", action: "tạo bộ thẻ", target: "English Basics", time: "2 phút trước" },
-    { id: 2, user: "Trần Thị B", action: "học bộ thẻ", target: "JavaScript", time: "10 phút trước" },
-    { id: 3, user: "Lê Văn C", action: "xem lại bộ thẻ", target: "Math Formulas", time: "30 phút trước" },
-  ];
+export default function DashBoardOverview() {
+  const [data, setData] = useState({ totals: {}, activities: [] });
+
+  useEffect(() => {
+    fetch("http://localhost:9999/api/v1/admin/overview")
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .catch((err) => console.error("Lỗi lấy dữ liệu overview:", err));
+  }, []);
 
   return (
     <div style={{ padding: "20px" }}>
       <h1>📊 Tổng quan hệ thống</h1>
 
-      {/* Thẻ thống kê */}
+      {/* --- THỐNG KÊ --- */}
       <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-        {stats.map((item) => (
+        {[
+          { title: "Tổng người dùng", value: data.totals.users || 0 },
+          { title: "Tổng bộ thẻ", value: data.totals.flashcards || 0 },
+          { title: "Tổng lớp học", value: data.totals.classrooms || 0 },
+        ].map((item) => (
           <div
             key={item.title}
             style={{
@@ -32,14 +33,16 @@ export default function Overview() {
             }}
           >
             <h3>{item.title}</h3>
-            <p style={{ fontSize: "24px", fontWeight: "bold", marginTop: "10px" }}>{item.value}</p>
+            <p style={{ fontSize: "24px", fontWeight: "bold", marginTop: "10px" }}>
+              {item.value}
+            </p>
           </div>
         ))}
       </div>
 
-      {/* Hoạt động gần đây */}
+      {/* --- HOẠT ĐỘNG GẦN ĐÂY --- */}
       <div style={{ marginTop: "40px" }}>
-        <h2>📝 Hoạt động gần đây</h2>
+        <h2>🕓 Hoạt động gần đây</h2>
         <table
           style={{
             width: "100%",
@@ -50,19 +53,21 @@ export default function Overview() {
         >
           <thead>
             <tr style={{ background: "#e2e8f0" }}>
-              <th style={{ padding: "10px", border: "1px solid #ccc" }}>Người dùng</th>
-              <th style={{ padding: "10px", border: "1px solid #ccc" }}>Hoạt động</th>
-              <th style={{ padding: "10px", border: "1px solid #ccc" }}>Bộ thẻ</th>
+              <th style={{ padding: "10px", border: "1px solid #ccc" }}>Loại</th>
+              <th style={{ padding: "10px", border: "1px solid #ccc" }}>Tên</th>
+              <th style={{ padding: "10px", border: "1px solid #ccc" }}>Người tạo</th>
               <th style={{ padding: "10px", border: "1px solid #ccc" }}>Thời gian</th>
             </tr>
           </thead>
           <tbody>
-            {recentActivities.map((activity) => (
-              <tr key={activity.id}>
-                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{activity.user}</td>
-                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{activity.action}</td>
-                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{activity.target}</td>
-                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{activity.time}</td>
+            {data.activities.map((a, i) => (
+              <tr key={i}>
+                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{a.type}</td>
+                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{a.name}</td>
+                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{a.creator}</td>
+                <td style={{ padding: "10px", border: "1px solid #ccc" }}>
+                  {a.createdAt ? new Date(a.createdAt).toLocaleString() : "—"}
+                </td>
               </tr>
             ))}
           </tbody>

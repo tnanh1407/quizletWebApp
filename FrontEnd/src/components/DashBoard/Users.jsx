@@ -1,19 +1,46 @@
 // src/components/Dashboard/DashBoardUsers.jsx
-export default function DashBoardUsers() {
-  // demo thống kê
-  const stats = [
-    { title: "Tổng số User", value: 350 },
-    { title: "User mới trong tuần", value: 25 },
-    { title: "User hoạt động hôm nay", value: 10 },
-  ];
+import { useEffect, useState } from "react";
 
-  // demo hoạt động gần đây
-  const recentActivities = [
-    { id: 1, user: "Nguyễn Văn A", action: "đăng ký tài khoản", time: "2 phút trước" },
-    { id: 2, user: "Trần Thị B", action: "tạo bộ thẻ TOEIC Vocabulary", time: "10 phút trước" },
-    { id: 3, user: "Lê Văn C", action: "đăng nhập", time: "1 giờ trước" },
-    { id: 4, user: "Nguyễn Thị D", action: "tạo bộ thẻ JLPT N3 Kanji", time: "2 giờ trước" },
-  ];
+export default function DashBoardUsers() {
+  const [users, setUsers] = useState([]);
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    newUsersThisWeek: 0,
+    activeToday: 0,
+  });
+
+  useEffect(() => {
+    // Gọi API lấy toàn bộ users
+    fetch("http://localhost:9999/api/v1/admin/users")
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
+
+        // Tính toán thống kê từ dữ liệu user
+        const total = data.length;
+        const now = new Date();
+
+        const newUsers = data.filter((u) => {
+          const created = new Date(u.createdAt);
+          return now - created < 7 * 24 * 60 * 60 * 1000; // trong 7 ngày
+        }).length;
+
+        const activeToday = data.filter((u) => {
+          if (!u.lastLogin) return false;
+          const last = new Date(u.lastLogin);
+          return (
+            last.toDateString() === now.toDateString()
+          ); // cùng ngày hôm nay
+        }).length;
+
+        setStats({
+          totalUsers: total,
+          newUsersThisWeek: newUsers,
+          activeToday: activeToday,
+        });
+      })
+      .catch((err) => console.error("Lỗi fetch users:", err));
+  }, []);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -21,50 +48,47 @@ export default function DashBoardUsers() {
 
       {/* Thẻ thống kê */}
       <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-        {stats.map((item) => (
-          <div
-            key={item.title}
-            style={{
-              flex: 1,
-              background: "#f1f5f9",
-              padding: "20px",
-              borderRadius: "10px",
-              textAlign: "center",
-              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-            }}
-          >
-            <h3>{item.title}</h3>
-            <p style={{ fontSize: "24px", fontWeight: "bold", marginTop: "10px" }}>
-              {item.value}
-            </p>
-          </div>
-        ))}
+        <div style={cardStyle}>
+          <h3>Tổng số User</h3>
+          <p style={valueStyle}>{stats.totalUsers}</p>
+        </div>
+        <div style={cardStyle}>
+          <h3>User mới trong tuần</h3>
+          <p style={valueStyle}>{stats.newUsersThisWeek}</p>
+        </div>
+        <div style={cardStyle}>
+          <h3>User hoạt động hôm nay</h3>
+          <p style={valueStyle}>{stats.activeToday}</p>
+        </div>
       </div>
 
-      {/* Bảng hoạt động gần đây */}
+      {/* Bảng Users gần đây */}
       <div style={{ marginTop: "40px" }}>
-        <h2>📝 Hoạt động gần đây</h2>
-        <table
-          style={{
-            width: "100%",
-            marginTop: "10px",
-            borderCollapse: "collapse",
-            background: "#fff",
-          }}
-        >
+        <h2>📝 Danh sách User</h2>
+        <table style={tableStyle}>
           <thead>
             <tr style={{ background: "#e2e8f0" }}>
-              <th style={{ padding: "10px", border: "1px solid #ccc" }}>User</th>
-              <th style={{ padding: "10px", border: "1px solid #ccc" }}>Hành động</th>
-              <th style={{ padding: "10px", border: "1px solid #ccc" }}>Thời gian</th>
+              <th style={thStyle}>Tên</th>
+              <th style={thStyle}>Email</th>
+              <th style={thStyle}>Ngày tạo</th>
+              <th style={thStyle}>Lần đăng nhập cuối</th>
             </tr>
           </thead>
           <tbody>
-            {recentActivities.map((a) => (
-              <tr key={a.id}>
-                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{a.user}</td>
-                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{a.action}</td>
-                <td style={{ padding: "10px", border: "1px solid #ccc" }}>{a.time}</td>
+            {users.map((u) => (
+              <tr key={u._id}>
+                <td style={tdStyle}>{u.username}</td>
+                <td style={tdStyle}>{u.email}</td>
+                <td style={tdStyle}>
+                  {u.createdAt
+                    ? new Date(u.createdAt).toLocaleDateString("vi-VN")
+                    : "—"}
+                </td>
+                <td style={tdStyle}>
+                  {u.lastLogin
+                    ? new Date(u.lastLogin).toLocaleString("vi-VN")
+                    : "Chưa đăng nhập"}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -73,3 +97,26 @@ export default function DashBoardUsers() {
     </div>
   );
 }
+
+// CSS inline style tái sử dụng
+const cardStyle = {
+  flex: 1,
+  background: "#f1f5f9",
+  padding: "20px",
+  borderRadius: "10px",
+  textAlign: "center",
+  boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+};
+const valueStyle = {
+  fontSize: "24px",
+  fontWeight: "bold",
+  marginTop: "10px",
+};
+const tableStyle = {
+  width: "100%",
+  marginTop: "10px",
+  borderCollapse: "collapse",
+  background: "#fff",
+};
+const thStyle = { padding: "10px", border: "1px solid #ccc" };
+const tdStyle = { padding: "10px", border: "1px solid #ccc" };
