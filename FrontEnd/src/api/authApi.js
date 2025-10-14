@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:9999/v1";
+const BASE_URL = "http://localhost:9999/api/v1";
 
 // Lấy token từ localStorage
 const getAuthHeaders = () => {
