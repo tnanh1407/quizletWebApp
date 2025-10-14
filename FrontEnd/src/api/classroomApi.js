@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:9999/v1";
+const BASE_URL = "http://localhost:9999/api/v1";
 
 export const classroomApi = {
   getAll: async () => {
@@ -53,6 +53,40 @@ export const classroomApi = {
   removeFolder: async (classroomId, folderId) => {
     const res = await axios.delete(
       `${BASE_URL}/classrooms/${classroomId}/folders/${folderId}`
+    );
+    return res.data;
+  },
+  addMemberByEmail: async (classroomId, email) => {
+    const res = await axios.post(
+      `${BASE_URL}/classrooms/${classroomId}/members`,
+      {
+        email,
+      }
+    );
+    return res.data;
+  },
+
+  //  Xóa người dùng khỏi lớp
+  removeMember: async (classroomId, userId) => {
+    const res = await axios.delete(
+      `${BASE_URL}/classrooms/${classroomId}/members/${userId}`
+    );
+    return res.data;
+  },
+
+  // Tham gia lớp học
+  requestJoin: async (classroomId, userData) => {
+    const res = await axios.post(
+      `${BASE_URL}/classrooms/${classroomId}/join-request`,
+      userData
+    );
+    return res.data;
+  },
+
+  cancelJoinRequest: async (classroomId, userData) => {
+    const res = await axios.post(
+      `${BASE_URL}/classrooms/${classroomId}/cancel-request`,
+      userData
     );
     return res.data;
   },

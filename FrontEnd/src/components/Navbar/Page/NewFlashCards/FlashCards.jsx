@@ -206,17 +206,20 @@ export default function FlashCards() {
               <button onClick={toggleImport} className="button-close-import">
                 <i className="fa-solid fa-xmark close-import"></i>
               </button>
-
-              <textarea
-                className="custom-textarea"
-                placeholder={placeholder}
-                value={rawText}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setRawText(value);
-                  if (!value.trim()) setParsedData([]);
-                }}
-              />
+              <label>
+                <textarea
+                  id="rawText" // added for accessibility and label linking
+                  name="rawText" // added for form identification
+                  className="custom-textarea"
+                  placeholder={placeholder}
+                  value={rawText}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setRawText(value);
+                    if (!value.trim()) setParsedData([]);
+                  }}
+                />
+              </label>
 
               <div className="import-option flex flex-wrap gap-6 text-white">
                 {/* Between term and definition */}

@@ -383,7 +383,7 @@
 
 .footer {
   margin-top: 200px;
-  padding: 25px 15px !important;
+  padding: 40px 0 !important;
 }
 
 /* Css Edit Folder  */
@@ -477,4 +477,113 @@
   font-size: 24px;
   width: 100%;
   text-align: center;
+}
+
+.invite-email {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 600px;
+}
+
+.invite-email-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.invite-email-header .button-close {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  padding: 10px;
+  color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.invite-email-body input {
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #2e3856;
+  font-size: 16px;
+  margin-top: 16px;
+  color: white;
+}
+
+.invite-email-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.invite-email-footer button.send {
+  background-color: rgb(28, 28, 155);
+  color: white;
+  padding: 16px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  border: 1px solid white;
+}
+
+.invite-email-footer button.cancel {
+  background-color: transparent;
+  color: white;
+  padding: 16px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  border: 1px solid white;
+}
+
+/* Menu dropdown cho ClassDetail */
+.class-detail-menu {
+  position: absolute;
+  top: 50px; /* hiện phía dưới nút ba chấm */
+  right: 0;
+  background: #0d0d2b;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  width: 180px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  border: 1px solid #f6f7fb;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.class-detail-menu button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+  gap: 10px;
+  transition: background 0.2s ease;
+}
+
+.class-detail-menu button:hover {
+  background: #2e3856;
+}
+
+.class-detail-menu button.delete {
+  color: #ff4d4d;
+}
+
+.class-detail-menu button.delete:hover {
+  background: rgba(255, 77, 77, 0.1);
+}
+
+.add-flash-card {
+  background: var(--bg-color);
 }

@@ -746,7 +746,7 @@ textarea.custom-textarea {
 }
 
 textarea.custom-textarea::placeholder {
-  color: var(--bg-color);
+  color: var(--text-color);
 }
 
 textarea.custom-textarea::-webkit-scrollbar {
