@@ -24,6 +24,21 @@ const addFolders = async (classroomId, folderIds) =>
 const removeFolder = async (classroomId, folderId) =>
   classroomModel.removeFolder(classroomId, folderId);
 
+const addMember = async (classroomId, member) =>
+  classroomModel.addMember(classroomId, member);
+
+const removeMember = async (classroomId, userId) =>
+  classroomModel.removeMember(classroomId, userId);
+
+const addMemberByEmail = async (classroomId, email) =>
+  classroomModel.addMemberByEmail(classroomId, email);
+
+const requestJoin = async (classroomId, user) =>
+  classroomModel.requestJoin(classroomId, user);
+
+const handleJoinRequest = async (classroomId, userId, action) =>
+  classroomModel.handleJoinRequest(classroomId, userId, action);
+
 export const classroomService = {
   getAll,
   createNew,
@@ -34,4 +49,9 @@ export const classroomService = {
   removeFlashcard,
   addFolders,
   removeFolder,
+  addMember,
+  removeMember,
+  addMemberByEmail,
+  requestJoin,
+  handleJoinRequest,
 };

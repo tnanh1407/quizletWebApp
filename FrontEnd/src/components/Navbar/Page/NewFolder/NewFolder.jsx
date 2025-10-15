@@ -172,29 +172,36 @@ export default function NewFolder() {
               <p>Created by {folder?.creator.username}</p>
             )}
           </div>
-          <div className="study-other flex">
-            <Link to="/" className="stydy-other-a">
-              <p>Study</p>
-            </Link>
-            <button
-              className="other-new-folder"
-              onClick={() => setMenuFolder((prev) => !prev)}
-            >
-              <i className="fa-solid fa-ellipsis"></i>
-              {menuFolder && (
-                <div className="dropdown-menu">
-                  <button className="flex " onClick={toggleEditFolder}>
-                    <i className="fa-solid fa-pen"></i>
-                    <p>Edit</p>
-                  </button>
-                  <button onClick={toggleConfirmDelete} className="flex delete">
-                    <i className="fa-solid fa-trash"></i>
-                    <p>Delete</p>
-                  </button>
-                </div>
-              )}
-            </button>
-          </div>
+          {user &&
+          folder?.creator?.user_id &&
+          String(folder?.creator.user_id) === String(user.id) ? (
+            <div className="study-other flex">
+              <Link to="/" className="stydy-other-a">
+                <p>Study</p>
+              </Link>
+              <button
+                className="other-new-folder"
+                onClick={() => setMenuFolder((prev) => !prev)}
+              >
+                <i className="fa-solid fa-ellipsis"></i>
+                {menuFolder && (
+                  <div className="dropdown-menu">
+                    <button className="flex " onClick={toggleEditFolder}>
+                      <i className="fa-solid fa-pen"></i>
+                      <p>Edit</p>
+                    </button>
+                    <button
+                      onClick={toggleConfirmDelete}
+                      className="flex delete"
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                      <p>Delete</p>
+                    </button>
+                  </div>
+                )}
+              </button>
+            </div>
+          ) : null}
         </div>
         {confirmDelete && (
           <Modal onClose={toggleConfirmDelete}>
@@ -225,7 +232,7 @@ export default function NewFolder() {
                 onClick={handleDelete}
                 className="button-confirm"
               >
-                Yes, delete class
+                Yes, delete folder
               </button>
             </div>
           </Modal>
@@ -257,9 +264,16 @@ export default function NewFolder() {
             <button className="filter-add">
               <p>All</p>
             </button>
-            <button className="new-folder-filter-add">
+            {user &&
+            folder?.creator?.user_id &&
+            String(folder?.creator.user_id) === String(user.id) ? (
+              <button className="new-folder-filter-add">
+                <i className="fa-solid fa-plus"></i>
+              </button>
+            ) : null}
+            {/* <button className="new-folder-filter-add">
               <i className="fa-solid fa-plus"></i>
-            </button>
+            </button> */}
           </div>
 
           <div className="see-folder-maincontent flex">
@@ -270,15 +284,20 @@ export default function NewFolder() {
               </div>
             </button>
             <div className="see-folder-filter flex">
-              <button
-                className="see-folder-button-material flex"
-                onClick={toggleAddFlashCard}
-              >
-                <div className="see-folder-button-material-main flex">
-                  <i className="fa-solid fa-plus"></i>
-                  <p>Material</p>
-                </div>
-              </button>
+              {user &&
+              folder?.creator?.user_id &&
+              String(folder?.creator.user_id) === String(user.id) ? (
+                <button
+                  className="see-folder-button-material flex"
+                  onClick={toggleAddFlashCard}
+                >
+                  <div className="see-folder-button-material-main flex">
+                    <i className="fa-solid fa-plus"></i>
+                    <p>Material</p>
+                  </div>
+                </button>
+              ) : null}
+
               <div className="see-folder-search">
                 <input type="text" placeholder="Search this folder" />
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -290,17 +309,20 @@ export default function NewFolder() {
           <div className="see-folder-main-items">
             {folderFlashcards.map((card) => (
               <section key={card._id} id="item-folder">
-                <button
-                  className="item-folder-button-option"
-                  onClick={() =>
-                    setMenuOpen(menuOpen === card._id ? null : card._id)
-                  }
-                >
-                  <div className="button-option">
-                    <i className="fa-solid fa-ellipsis"></i>
-                  </div>
-                </button>
-
+                {user &&
+                folder?.creator?.user_id &&
+                String(folder?.creator.user_id) === String(user.id) ? (
+                  <button
+                    className="item-folder-button-option"
+                    onClick={() =>
+                      setMenuOpen(menuOpen === card._id ? null : card._id)
+                    }
+                  >
+                    <div className="button-option">
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </div>
+                  </button>
+                ) : null}
                 <div
                   id="item-folder-button-option-menu"
                   className={menuOpen === card._id ? "block" : "hidden"}
@@ -402,14 +424,18 @@ export default function NewFolder() {
             </Modal>
           )}
 
-          {folderFlashcards.length === 0 && !isAddFlashCard && (
-            <div className="new-folder-maincontent">
-              <div className="new-folder-main-content">
-                <h2>Let's start building your folder</h2>
-                <button onClick={toggleAddFlashCard}>Add Flash Cards</button>
+          {user &&
+            folder?.creator?.user_id &&
+            String(folder?.creator.user_id) === String(user.id) &&
+            folderFlashcards.length === 0 &&
+            !isAddFlashCard && (
+              <div className="new-folder-maincontent">
+                <div className="new-folder-main-content">
+                  <h2>Let's start building your folder</h2>
+                  <button onClick={toggleAddFlashCard}>Add Flash Cards</button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </div>
 

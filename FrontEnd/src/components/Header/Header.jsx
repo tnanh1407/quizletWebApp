@@ -10,7 +10,7 @@ import { TbCards } from "react-icons/tb";
 import { TbFolder } from "react-icons/tb";
 import { MdOutlineGroup } from "react-icons/md";
 
-export default function Header({ toggleNewFolder, isNewFolder }) {
+export default function Header() {
   const [addFolder, setAddFolder] = useState(false);
   const [isOpenAccount, setIsOpenAccount] = useState(false);
   const [user, setUser] = useState(null);
@@ -99,6 +99,9 @@ export default function Header({ toggleNewFolder, isNewFolder }) {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
+        <Link to="/monthly" className="class-upgrand">
+          <p>Try free upgrade</p>
+        </Link>
         <div className="setting">
           <button
             ref={buttonSettingRef}

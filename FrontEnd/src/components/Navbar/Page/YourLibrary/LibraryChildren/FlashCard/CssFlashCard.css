@@ -1,6 +1,7 @@
 .flashcardsearch {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-bottom: 10px;
 }
 
 .recentcard {
@@ -62,7 +63,8 @@
 
 .sectionflashcardset,
 .sectionfolder {
-  margin-top: 50px;
+  /* margin-top: 50px; */
+  margin-bottom: 20px;
   /* margin-bottom: 60px; */
 }
 

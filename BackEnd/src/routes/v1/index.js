@@ -4,8 +4,8 @@ import { userRoutes } from "../v1/userRouter.js";
 import { classroomRoutes } from "../v1/classroomRouter.js";
 import { folderRoutes } from "../v1/folderRouter.js";
 import { authRoutes } from "../v1/authRouter.js";
-// import { inviteRouter } from "../v1/inviteRouter.js";
-
+import { upgradeRoutes } from "./upgradeRouter.js";
+import { adminRoutes } from "./admin.js";
 const router = express.Router();
 
 router.use("/flashCards", flashCardRoutes);
@@ -13,6 +13,7 @@ router.use("/users", userRoutes);
 router.use("/folders", folderRoutes);
 router.use("/classrooms", classroomRoutes);
 router.use("/auth", authRoutes);
-// router.use("/invite", inviteRouter);
+router.use("/upgrade", upgradeRoutes);
+router.use("/admin", adminRoutes);
 
 export const APIs_V1 = router;

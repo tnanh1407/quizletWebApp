@@ -4,21 +4,22 @@
 }
 
 .member-container > p {
-  text-align: none !important;
   padding-bottom: 16px;
   font-size: 16px;
 }
+
 .member {
   height: 64px;
   justify-content: space-between;
   padding: 0 16px;
   color: var(--text-color);
+  position: relative;
 }
 
 .member-left img {
   height: 30px;
   width: 30px;
-  border-radius: 50px;
+  border-radius: 50%;
 }
 
 .member-left,
@@ -44,7 +45,7 @@
 
 .member-right i:hover {
   background: #282e3e;
-  border-radius: 50px;
+  border-radius: 50%;
 }
 
 .member-menu {
@@ -52,35 +53,59 @@
   background: none;
   border: none;
   position: relative;
+  cursor: pointer;
 }
 
-#option-member-menu {
+.member-menu-wrapper {
+  position: relative;
+}
+
+/* === sửa id thành class riêng cho từng popup === */
+.option-member-menu {
   position: absolute;
-  border-radius: 10px;
+  top: 35px;
   right: 0;
+  border-radius: 10px;
   border: 2px solid var(--text-color);
-  width: 200px;
+  width: 180px;
   background: var(--bg-color);
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
 }
 
 .option-menu {
   width: 100%;
-  padding: 10px 0;
-}
-
-.option-menu p {
-  color: var(--text-color);
-  font-size: 15px;
+  padding: 8px 0;
 }
 
 .option-menu button {
   width: 100%;
   background: none;
   border: none;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.option-menu button:hover {
+  background: #282e3e;
 }
 
 .icon-member-option {
-  color: var(--text-color);
   font-size: 20px;
   margin-right: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

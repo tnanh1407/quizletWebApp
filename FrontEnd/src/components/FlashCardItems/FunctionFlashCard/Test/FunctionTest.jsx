@@ -24,13 +24,28 @@ export default function FunctionTest({ isPadded }) {
 
   // Sinh options cho toàn bộ flashcards
   function generateCards(content) {
-    const allBacks = content.map((c) => c.back);
-    return content.map((c) => {
-      const wrongs = shuffle(allBacks.filter((b) => b !== c.back)).slice(0, 3);
+    // Lấy danh sách tất cả đáp án đúng (front)
+    const allDefinitions = content.map((item) => item.front);
+
+    return content.map((item) => {
+      // Đáp án đúng của câu hiện tại
+      const correctAnswer = item.front;
+
+      // Lọc ra các đáp án sai (khác với đáp án đúng)
+      const wrongAnswers = allDefinitions
+        .filter((def) => def !== correctAnswer)
+        .sort(() => Math.random() - 0.5) // trộn ngẫu nhiên
+        .slice(0, 3); // chọn 3 đáp án sai
+
+      // Gộp 3 sai + 1 đúng rồi trộn ngẫu nhiên
+      const options = [...wrongAnswers, correctAnswer].sort(
+        () => Math.random() - 0.5
+      );
+
       return {
-        term: c.back,
-        definition: c.front,
-        options: shuffle([...wrongs, c.front]),
+        term: item.back, // câu hỏi
+        definition: correctAnswer, // đáp án đúng
+        options, // 4 lựa chọn (1 đúng + 3 sai)
       };
     });
   }
@@ -88,8 +103,21 @@ export default function FunctionTest({ isPadded }) {
   const scrollToQuestion = (questionId) => {
     const element = document.getElementById(questionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // 🎯 Tính toán vị trí sao cho câu hỏi nằm giữa màn hình
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
+      const offset = window.innerHeight / 2 - element.offsetHeight / 2;
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: "smooth",
+      });
+
+      // 🎨 Hiệu ứng highlight nhẹ (tuỳ chọn)
+      element.classList.add("question-highlight");
+      setTimeout(() => element.classList.remove("question-highlight"), 600);
     }
+
+    // Đóng sidebar sau khi chọn
     setIsNavOpen(false);
   };
 
@@ -106,6 +134,36 @@ export default function FunctionTest({ isPadded }) {
           : state
       )
     );
+    setTimeout(() => {
+      const nextIndex = questionIndex + 1;
+      if (nextIndex < questions.length) {
+        const nextQuestionId = `question-${nextIndex + 1}`;
+        const nextEl = document.getElementById(nextQuestionId);
+        if (nextEl) {
+          // Cuộn sao cho câu hỏi nằm giữa màn hình
+          const elementPosition =
+            nextEl.getBoundingClientRect().top + window.scrollY;
+          const offset = window.innerHeight / 2 - nextEl.offsetHeight / 2;
+          window.scrollTo({
+            top: elementPosition - offset,
+            behavior: "smooth",
+          });
+        }
+      } else {
+        // Nếu là câu cuối thì cuộn đến phần submit
+        const submitSection = document.querySelector(".submit-section");
+        if (submitSection) {
+          const elementPosition =
+            submitSection.getBoundingClientRect().top + window.scrollY;
+          const offset =
+            window.innerHeight / 2 - submitSection.offsetHeight / 2;
+          window.scrollTo({
+            top: elementPosition - offset,
+            behavior: "smooth",
+          });
+        }
+      }
+    }, 100);
   };
 
   const handleSkipQuestion = (questionIndex) => {
@@ -252,6 +310,9 @@ export default function FunctionTest({ isPadded }) {
       className="function-test"
       style={{ paddingLeft: isPadded ? "200px" : "0px" }}
     >
+      {/* <button className="button-up">
+        <i class="fa-solid fa-angle-up"></i>
+      </button> */}
       {!isNavOpen && (
         <button className="btn-nav" onClick={toggleNav}>
           <i className="fa fa-bars"></i>

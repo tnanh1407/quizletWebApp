@@ -15,7 +15,7 @@ const START_SERVER = () => {
 
   app.use(express.json());
 
-  app.use("/v1", APIs_V1);
+  app.use("/api/v1", APIs_V1);
 
   // Middlewave xu ly loi tap trung
   // app.use(errorHandlingMiddleware);

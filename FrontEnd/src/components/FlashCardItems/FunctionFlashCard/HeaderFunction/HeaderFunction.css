@@ -4,12 +4,12 @@
   border-bottom: 2px solid #7583ff;
   height: 80px;
   width: 100%;
-  /* position: fixed;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
   bottom: 90vh;
-  z-index: 99; */
+  z-index: 99;
 }
 .head-content {
   display: grid;

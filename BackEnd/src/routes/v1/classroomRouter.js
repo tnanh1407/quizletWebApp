@@ -20,4 +20,16 @@ router.delete(
   classroomController.removeFlashcard
 );
 
+router.patch("/:id/members", classroomController.addMember); // body: { user_id, username, role }
+router.delete(
+  "/:classroomId/members/:userId",
+  classroomController.removeMember
+);
+router.post("/:id/members", classroomController.addMemberByEmail);
+// Gửi yêu cầu tham gia lớp
+router.post("/:id/join-request", classroomController.requestJoin);
+
+// Duyệt hoặc từ chối yêu cầu tham gia
+router.patch("/:id/handle-join", classroomController.handleJoinRequest);
+router.post("/:id/cancel-request", classroomController.cancelJoinRequest);
 export const classroomRoutes = router;

@@ -39,6 +39,9 @@ export default function ClassDetail() {
   const [schoolName, setSchoolName] = useState("");
   const [description, setDescription] = useState("");
 
+  const [isInviteEmail, setIsInviteEmail] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+
   // Get all flashcards
   useEffect(() => {
     const fetchFlashcards = async () => {
@@ -106,6 +109,23 @@ export default function ClassDetail() {
         ? prev.filter((id) => id !== flashcardId)
         : [...prev, flashcardId]
     );
+  };
+
+  // Handle invite by email
+  const handleInviteByEmail = async () => {
+    if (!inviteEmail) {
+      alert("Please enter an email address");
+      return;
+    }
+    try {
+      await classroomApi.addMemberByEmail(id, inviteEmail);
+      alert(`Invitation sent to ${inviteEmail}`);
+      setInviteEmail("");
+      setIsInviteEmail(false);
+    } catch (error) {
+      console.error("Error inviting user:", error);
+      alert("Failed to invite user. Please check the email again.");
+    }
   };
 
   // Delete class
@@ -189,16 +209,15 @@ export default function ClassDetail() {
   return (
     <>
       <div className="ClassDetail">
-        {classRoom?.creator.user_id === user.id && (
+        {(String(classRoom?.creator.user_id) === String(user.id) ||
+          classRoom?.members?.some(
+            (m) => String(m.user_id) === String(user.id)
+          )) && (
           <div className="element-notice">
-            <h5>Invite students to join this class</h5>
-            <p>
-              Students get free access to activities and materials you add to
-              your class
-            </p>
+            <h5>Welcome to the class!</h5>
+            <p>You can view activities and materials shared by the teacher.</p>
           </div>
         )}
-
         {/* Header */}
         <div className="header_classDetail">
           <div className="header_one">
@@ -224,7 +243,7 @@ export default function ClassDetail() {
                   </button>
 
                   {showMenu && (
-                    <div className="dropdown-menu">
+                    <div className="class-detail-menu">
                       <button onClick={toggleEditClass} className="flex">
                         <i className="fa-solid fa-pen"></i>
                         <p>Edit</p>
@@ -280,7 +299,6 @@ export default function ClassDetail() {
             </div>
           </Modal>
         )}
-
         {showEdit && (
           <Modal onClose={toggleEditClass}>
             <div className="edit-class">
@@ -327,7 +345,6 @@ export default function ClassDetail() {
             </div>
           </Modal>
         )}
-
         {/* Modal add flashcards */}
         {isAddFlashCard && (
           <Modal onClose={toggleAddFlashCard} className="add-flash-card">
@@ -397,51 +414,172 @@ export default function ClassDetail() {
             </div>
           </Modal>
         )}
+        {/* Modal invite by email */}
+        {isInviteEmail && (
+          <Modal
+            onClose={() => setIsInviteEmail(false)}
+            className="invite-email-modal"
+          >
+            <div className="invite-email">
+              <div className="invite-email-header">
+                <h1>Invite Member by Email</h1>
+                <button
+                  className="button-close"
+                  onClick={() => setIsInviteEmail(false)}
+                >
+                  <i className="fa-solid fa-xmark add-flash-c ards-icon"></i>
+                </button>
+              </div>
 
+              <div className="invite-email-body">
+                <p>Enter the email of the student you want to invite:</p>
+                <input
+                  type="email"
+                  placeholder="example@gmail.com"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                />
+              </div>
+
+              <div className="invite-email-footer flex">
+                <button
+                  className="cancel"
+                  onClick={() => setIsInviteEmail(false)}
+                >
+                  Cancel
+                </button>
+                <button className="send" onClick={handleInviteByEmail}>
+                  Send Invite
+                </button>
+              </div>
+            </div>
+          </Modal>
+        )}
         {/* Tabs */}
-        <div className="header_two">
-          <NavLink to={`/class/${classRoom?._id}/material`}>
-            <button
-              className={`tab ${
-                location.pathname.includes("material") ? "active" : ""
-              }`}
-            >
-              Materials
-            </button>
-          </NavLink>
-          {classRoom?.creator.user_id === user.id ? (
-            <NavLink to={`/class/${classRoom?._id}/member`}>
-              <button
-                className={`tab ${
-                  location.pathname.includes("member") ? "active" : ""
-                }`}
-              >
-                Members
-              </button>
-            </NavLink>
-          ) : null}
-        </div>
-
-        {user &&
-        classRoom?.creator?.user_id &&
-        String(classRoom?.creator.user_id) === String(user.id) ? (
-          <div className="header_three">
-            <button className="invite google">📂 Invite with Google</button>
-            <button className="invite email">✉️ Invite by email</button>
-            <button className="invite link">🔗 Copy link</button>
+        {classRoom &&
+        (String(classRoom.creator.user_id) === String(user.id) ||
+          classRoom.members?.some(
+            (member) => String(member.user_id) === String(user.id)
+          )) ? (
+          <div className="header_two">
+            <>
+              <NavLink to={`/class/${classRoom?._id}/material`}>
+                <button
+                  className={`tab ${
+                    location.pathname.includes("material") ? "active" : ""
+                  }`}
+                >
+                  Materials
+                </button>
+              </NavLink>
+              <NavLink to={`/class/${classRoom?._id}/member`}>
+                <button
+                  className={`tab ${
+                    location.pathname.includes("member") ? "active" : ""
+                  }`}
+                >
+                  Members
+                </button>
+              </NavLink>
+            </>
           </div>
-        ) : null}
-        {/* Invite buttons */}
+        ) : (
+          <>
+            <>
+              {classRoom?.pendingMembers?.some(
+                (member) => String(member.user_id) === String(user.id)
+              ) ? (
+                <button
+                  className="button-join-class waiting"
+                  onClick={async () => {
+                    try {
+                      await classroomApi.cancelJoinRequest(id, user.id);
+                      alert("Canceled join request");
+                      // Cập nhật lại dữ liệu lớp
+                      const updated = await classroomApi.getById(id);
+                      setClassRoom(updated);
+                    } catch (error) {
+                      console.error("Error canceling join request:", error);
+                      alert("Failed to cancel request");
+                    }
+                  }}
+                >
+                  <p>Waiting for approval (Cancel request)</p>
+                </button>
+              ) : classRoom?.members?.some(
+                  (member) => String(member.user_id) === String(user.id)
+                ) ? (
+                <p className="already-joined-text">
+                  You have already joined this class
+                </p>
+              ) : (
+                <button
+                  className="button-join-class"
+                  onClick={async () => {
+                    try {
+                      await classroomApi.requestJoin(id, user.id);
+                      alert("Join request sent");
+                      const updated = await classroomApi.getById(id);
+                      setClassRoom(updated);
+                    } catch (error) {
+                      console.error("Error sending join request:", error);
+                      alert("Failed to send join request");
+                    }
+                  }}
+                >
+                  <p>Request to join class</p>
+                </button>
+              )}
+            </>
+          </>
+        )}
+
+        {classRoom &&
+        (String(classRoom.creator.user_id) === String(user.id) ||
+          classRoom.members?.some(
+            (member) => String(member.user_id) === String(user.id)
+          )) ? (
+          <div className="header_three">
+            {String(classRoom.creator.user_id) === String(user.id) && (
+              <>
+                <button className="invite google">
+                  <i className="fa-solid fa-folder"></i> Invite with Google
+                </button>
+                <button
+                  className="invite email"
+                  onClick={() => setIsInviteEmail(true)}
+                >
+                  <i className="fa-solid fa-envelope"></i> Invite by email
+                </button>
+                <button className="invite link">
+                  <i className="fa-solid fa-link"></i> Copy link
+                </button>
+              </>
+            )}
+          </div>
+        ) : (
+          <>
+            <div className="main-nothing">
+              <p className="nothing-to-see">Nothing to see here</p>
+            </div>
+          </>
+        )}
 
         {/* Content */}
-        <div className="content">
-          <Outlet
-            context={{
-              flashcards: classFlashcards,
-              onRemoveFlashcard: handleRemoveFlashcard,
-            }}
-          />
-        </div>
+        {classRoom &&
+          (String(classRoom.creator.user_id) === String(user.id) ||
+            classRoom.members?.some(
+              (member) => String(member.user_id) === String(user.id)
+            )) && (
+            <div className="content">
+              <Outlet
+                context={{
+                  flashcards: classFlashcards,
+                  onRemoveFlashcard: handleRemoveFlashcard,
+                }}
+              />
+            </div>
+          )}
       </div>
       <Footer className="footer" />
     </>
