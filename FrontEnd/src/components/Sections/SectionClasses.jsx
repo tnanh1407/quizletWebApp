@@ -7,7 +7,7 @@ import "./SectionClasses.css";
 
 export default function SectionClasses() {
   const [classes, setClasses] = useState([]);
-  const [activeTab, setActiveTab] = useState("explore"); // "created" | "joined"
+  const [activeTab, setActiveTab] = useState("explore");
   const [searchTerm, setSearchTerm] = useState("");
   const { id } = useParams();
   const user = getUser();
@@ -36,9 +36,9 @@ export default function SectionClasses() {
   );
 
   const exploreClasses = classes.filter(
-    (cls) =>
-      cls.delete_classroom === false &&
-      !cls.members?.some((m) => String(m.user_id) === String(user.id))
+    (cls) => cls.delete_classroom === false
+    // &&
+    //   !cls.members?.some((m) => String(m.user_id) === String(user.id))
   );
 
   const joinedClasses = classes.filter(
@@ -71,7 +71,7 @@ export default function SectionClasses() {
             {activeTab === "created"
               ? "Created class"
               : activeTab === "joined"
-              ? "Created class"
+              ? "joined class"
               : "All classes"}
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
@@ -116,7 +116,6 @@ export default function SectionClasses() {
         </div>
       </div>
 
-      {/* List view */}
       {/* List view */}
       <div className="sectionclasses-list">
         {filteredList.length > 0 ? (

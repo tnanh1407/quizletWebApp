@@ -25,6 +25,7 @@ export default function ClassDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const user = getUser();
+  // console.log("id Của người dùng trong trang classDetail", user.id);
 
   const [flashCards, setFlashCards] = useState([]);
   const [selectedFlashcards, setSelectedFlashcards] = useState([]);
@@ -61,7 +62,7 @@ export default function ClassDetail() {
     };
     fetchFlashcards();
   }, []);
-
+  // console.log("ID người dùng : ", dataUser._id);
   // Get class by Id
   useEffect(() => {
     let isMounted = true;
@@ -143,6 +144,18 @@ export default function ClassDetail() {
       navigate(`/your-library/classes`, { state: { deleted: true } });
     } catch (err) {
       console.error("Error deleting class:", err);
+    }
+  };
+
+  const handleRemoveMember = async (userId) => {
+    try {
+      if (window.confirm("Are you sure you want to leave this class?")) {
+        await classroomApi.removeMember(id, userId);
+        alert("Bạn đã rời khỏi lớp!");
+        navigate("/your-library/classes");
+      }
+    } catch (error) {
+      console.error("Lỗi khi xóa người dùng:", error);
     }
   };
 
@@ -235,37 +248,57 @@ export default function ClassDetail() {
                 {classRoom?.university}
               </span>
             </div>
-            {classRoom?.creator.user_id === user.id && (
-              <div className="header_one_r">
-                <button className="share-btn" onClick={toggleAddFlashCard}>
-                  <i className="fa-solid fa-plus"></i>
-                </button>
+            {classRoom && (
+              <>
+                {classRoom.creator.user_id === user.id ? (
+                  // 👉 Nếu là Creator
+                  <div className="header_one_r">
+                    <button className="share-btn" onClick={toggleAddFlashCard}>
+                      <i className="fa-solid fa-plus"></i>
+                    </button>
 
-                <div className="menu-container">
-                  <button
-                    className="menu-toggle"
-                    onClick={() => setShowMenu((prev) => !prev)}
-                  >
-                    <i className="fa-solid fa-ellipsis"></i>
-                  </button>
-
-                  {showMenu && (
-                    <div className="class-detail-menu">
-                      <button onClick={toggleEditClass} className="flex">
-                        <i className="fa-solid fa-pen"></i>
-                        <p>Edit</p>
-                      </button>
+                    <div className="menu-container">
                       <button
-                        onClick={toggleConfirmDelete}
-                        className="flex delete"
+                        className="menu-toggle"
+                        onClick={() => setShowMenu((prev) => !prev)}
                       >
-                        <i className="fa-solid fa-trash"></i>
-                        <p>Delete</p>
+                        <i className="fa-solid fa-ellipsis"></i>
+                      </button>
+
+                      {showMenu && (
+                        <div className="class-detail-menu">
+                          <button onClick={toggleEditClass} className="flex">
+                            <i className="fa-solid fa-pen"></i>
+                            <p>Edit</p>
+                          </button>
+                          <button
+                            onClick={toggleConfirmDelete}
+                            className="flex delete"
+                          >
+                            <i className="fa-solid fa-trash"></i>
+                            <p>Delete</p>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  // 👉 Nếu KHÔNG PHẢI Creator (chỉ hiển thị nếu user là member)
+                  classRoom.members?.some(
+                    (member) => String(member.user_id) === String(user.id)
+                  ) && (
+                    <div className="header_one_r">
+                      <button
+                        className="leave-btn"
+                        onClick={() => handleRemoveMember(user.id)}
+                      >
+                        <i className="fa-solid fa-right-from-bracket"></i> Leave
+                        class
                       </button>
                     </div>
-                  )}
-                </div>
-              </div>
+                  )
+                )}
+              </>
             )}
           </div>
         </div>
@@ -588,30 +621,51 @@ export default function ClassDetail() {
           classRoom.members?.some(
             (member) => String(member.user_id) === String(user.id)
           )) ? (
-          <div className="header_three">
-            {String(classRoom.creator.user_id) === String(user.id) && (
-              <>
-                <button className="invite google">
-                  <i className="fa-solid fa-folder"></i> Invite with Google
-                </button>
-                <button
-                  className="invite email"
-                  onClick={() => setIsInviteEmail(true)}
-                >
-                  <i className="fa-solid fa-envelope"></i> Invite by email
-                </button>
-                <button className="invite link">
-                  <i className="fa-solid fa-link"></i> Copy link
-                </button>
-              </>
-            )}
+          <div
+            style={{
+              marginTop: classRoom.members?.some(
+                (member) =>
+                  String(member.user_id) === String(user.id) &&
+                  member.role === "Member"
+              )
+                ? "20px"
+                : "0",
+            }}
+          >
+            <div
+              className="header_three"
+              style={{
+                display: classRoom.members?.some(
+                  (member) =>
+                    String(member.user_id) === String(user.id) &&
+                    member.role === "Member"
+                )
+                  ? "none"
+                  : "flex",
+              }}
+            >
+              {String(classRoom.creator.user_id) === String(user.id) && (
+                <>
+                  <button className="invite google">
+                    <i className="fa-solid fa-folder"></i> Invite with Google
+                  </button>
+                  <button
+                    className="invite email"
+                    onClick={() => setIsInviteEmail(true)}
+                  >
+                    <i className="fa-solid fa-envelope"></i> Invite by email
+                  </button>
+                  <button className="invite link">
+                    <i className="fa-solid fa-link"></i> Copy link
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         ) : (
-          <>
-            <div className="main-nothing">
-              <p className="nothing-to-see">Nothing to see here</p>
-            </div>
-          </>
+          <div className="main-nothing">
+            <p className="nothing-to-see">Nothing to see here</p>
+          </div>
         )}
 
         {/* Content */}

@@ -9,6 +9,8 @@ import { IoMdTrash } from "react-icons/io";
 const Members = () => {
   const { id } = useParams();
   const user = getUser();
+  console.log("ID của lớp học: ", id);
+  console.log("Thông tin người dùng hiện tại:", user);
 
   const [classRoom, setClassRoom] = useState({
     member_count: 0,
@@ -31,6 +33,12 @@ const Members = () => {
       isMounted = false;
     };
   }, [id]);
+  console.log(classRoom.members);
+
+  // Dòng log này sẽ chạy 2 lần:
+  // 1. Với mảng rỗng (giá trị khởi tạo)
+  // 2. Với mảng members thật sau khi API trả về. Đây là hành vi đúng.
+  console.log("Danh sách members:", classRoom.members);
 
   // Click ra ngoài đóng menu
   useEffect(() => {
@@ -68,6 +76,9 @@ const Members = () => {
     }
   };
 
+  // Kiểm tra xem người dùng hiện tại có phải là chủ lớp không
+  const isOwner = String(classRoom.creator?.user_id) === String(user.id);
+
   return (
     <div className="member-container" ref={containerRef}>
       <p>{classRoom.member_count} members</p>
@@ -88,7 +99,7 @@ const Members = () => {
           <div className="member-right flex">
             <p>{member.role}</p>
 
-            {member.role !== "Owner" && (
+            {isOwner && member.role === "Owner" && (
               <div className="member-menu-wrapper">
                 <button
                   className="member-menu"
