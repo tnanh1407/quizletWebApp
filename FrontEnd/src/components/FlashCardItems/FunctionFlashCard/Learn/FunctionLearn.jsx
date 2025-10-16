@@ -153,7 +153,7 @@ export default function FunctionLearn({ isPadded }) {
         <button className="btnClose" onClick={handleClose}>
           <i className="fa fa-times"></i>
         </button>
-        <div className="function-learn-main-content">
+        <div className="function-learn-stats-main-content">
           <h2>Keep up the good work!</h2>
           <span className="progress-title">
             Total set progress:
