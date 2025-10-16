@@ -42,7 +42,17 @@ import SearchClasses from "./components/Search/SearchClasses/SearchClasses.jsx";
 import SearchFlashcard from "./components/Search/SearchFlashcard/SearchFlashcard.jsx";
 import SearchUsers from "./components/Search/SearchUsers/SearchUsers.jsx";
 import DashBoardLayOut from "./components/Layout/DashBoardLayOut.jsx";
-import DashBoard from "./components/DashBoard/DashBoard.jsx";
+import DashBoard from "./components/DashBoard/Flashcard.jsx";
+// import ClassDetail from "./components/Layout/ClassDetail.jsx";
+import UpgradeLayout from "./components/Layout/UpgradeLayOut.jsx";
+import Annually from "./components/Header/Upgrade/ChildrenUpgrand/Annually.jsx";
+import Monthly from "./components/Header/Upgrade/ChildrenUpgrand/Monthly.jsx";
+import CheckOut from "./components/Header/Upgrade/ChildrenUpgrand/CheckOut/CheckOut.jsx";
+
+import DashBoardFlashCard from "./components/DashBoard/Flashcard.jsx";
+import DashBoardUsers from "./components/DashBoard/Users.jsx";
+import DashBoardOverview from "./components/DashBoard/Overview.jsx";
+import DashBoardComingSoon from "./components/DashBoard/ComingSoon.jsx";
 // import ClassDetail from "./components/Layout/ClassDetail.jsx";
 import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
 import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials/LearningMaterials.jsx";
@@ -145,9 +155,16 @@ function App() {
           </Route>
 
           <Route element={<DashBoardLayOut />}>
-            {/* <Route path="/dashboard/flashcard" element={<DashBoardFlash />} /> */}
-            <Route path="/dashboard/comingsoon" element={<NewFolder />} />
-            <Route path="/dashboard" element={<CreateClass />} />
+            <Route path="/dashboard/overview" element={<DashBoardOverview />} />
+            <Route path="/dashboard/user" element={<DashBoardUsers />} />
+            <Route
+              path="/dashboard/comingsoon"
+              element={<DashBoardComingSoon />}
+            />
+            <Route
+              path="/dashboard/dashboardflashcard"
+              element={<DashBoardFlashCard />}
+            />
           </Route>
 
           {/* Function Flash Card - Learn - Test */}
@@ -156,6 +173,11 @@ function App() {
             <Route path="/:id/learn" element={<FunctionLearn />} />
             <Route path="/:id/test" element={<FunctionTest />} />
           </Route>
+          <Route element={<UpgradeLayout />}>
+            <Route path="/annually" element={<Annually />} />
+            <Route path="/monthly" element={<Monthly />} />
+          </Route>
+          <Route path="/checkout" element={<CheckOut />} />
           <Route element={<SignLayOut />}>
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />

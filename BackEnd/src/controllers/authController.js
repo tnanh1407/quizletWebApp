@@ -71,7 +71,17 @@ const refresh = async (req, res, next) => {
     const tokens = await authService.refresh(refreshToken);
     res.status(StatusCodes.OK).json(tokens);
   } catch (error) {
-    next(error);
+    // If the error is from JWT verification (e.g., expired, invalid),
+    // send a 401 or 403 status code.
+    if (
+      error.name === "JsonWebTokenError" ||
+      error.name === "TokenExpiredError"
+    ) {
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ message: error.message });
+    }
+    next(error); // For other unexpected errors
   }
 };
 

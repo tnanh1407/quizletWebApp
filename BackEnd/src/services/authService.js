@@ -98,13 +98,14 @@ const login = async (data) => {
 const refresh = async (refreshToken) => {
   try {
     const decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET);
-    const user = await userModel.findById(decoded.id);
+    const user = await userModel.getById(decoded.id);
     if (!user) throw new Error("User not found");
 
     const tokens = generateTokens(user);
     return tokens;
   } catch (err) {
-    throw new Error("Invalid refresh token");
+    // Ném lại lỗi gốc để controller có thể xử lý chi tiết hơn
+    throw err;
   }
 };
 
@@ -114,7 +115,7 @@ const logout = async (userId) => {
 };
 
 const getProfile = async (userId) => {
-  const user = await userModel.findById(userId);
+  const user = await userModel.getById(userId);
   if (!user) throw new Error("User not found");
 
   return {

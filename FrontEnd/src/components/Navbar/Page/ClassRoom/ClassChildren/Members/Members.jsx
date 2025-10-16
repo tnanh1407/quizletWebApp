@@ -78,6 +78,7 @@ const Members = () => {
 
   // Kiểm tra xem người dùng hiện tại có phải là chủ lớp không
   const isOwner = String(classRoom.creator?.user_id) === String(user.id);
+  console.log("Có nphair người đang xem là own không ? : ", isOwner);
 
   return (
     <div className="member-container" ref={containerRef}>
@@ -99,7 +100,8 @@ const Members = () => {
           <div className="member-right flex">
             <p>{member.role}</p>
 
-            {isOwner && member.role === "Owner" && (
+            {/* ✅ Hiển thị menu chỉ khi là OWNER (creator) */}
+            {isOwner && (
               <div className="member-menu-wrapper">
                 <button
                   className="member-menu"

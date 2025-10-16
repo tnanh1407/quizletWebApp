@@ -286,3 +286,25 @@ body.light-mode #add-folder p {
   font-size: 20px;
   margin-right: 10px;
 }
+
+.class-upgrand {
+  background: #ffcd1f;
+  border: none;
+  padding: 11px 15px;
+  border-radius: 50px;
+  color: var(--bg-color);
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+.class-upgrand p {
+  font-size: 14px;
+}
+
+.class-upgrand:hover {
+  background: #f8cf38;
+}
+
+.class-upgrand:hover p {
+  color: var(--bg-color) !important;
+}

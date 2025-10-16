@@ -58,7 +58,6 @@ const getByIdPublic = async (id) => {
     {
       projection: {
         passwordHash: 0, // ẩn mật khẩu
-        email: 0, // nếu không muốn công khai email
         settings: 0, // có thể ẩn luôn phần settings riêng tư
       },
     }

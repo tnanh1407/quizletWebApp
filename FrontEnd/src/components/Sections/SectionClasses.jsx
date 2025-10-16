@@ -19,15 +19,23 @@ export default function SectionClasses() {
     const fetchData = async () => {
       const data = await classroomApi.getAll();
       setClasses(data);
-
-      const userData = await userApi.getById(user.id);
-      setDataUser({
-        email: userData.email,
-        username: userData.username,
-      });
+      const user2 = await userApi.getByIdPublic(user.id);
+      console.log("Đây là id getByIdPublic : ", user2);
+      setDataUser(user2);
     };
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const userData = await userApi.getByIdPublic(user.id);
+  //     setDataUser({
+  //       email: userData.email,
+  //       username: userData.username,
+  //     });
+  //   };
+  //   fetchData();
+  // }, []);
 
   const createdClasses = classes.filter(
     (cls) =>
@@ -98,7 +106,7 @@ export default function SectionClasses() {
               }`}
               onClick={() => setActiveTab("joined")}
             >
-              Created class
+              Joined class
             </p>
           </div>
         </div>

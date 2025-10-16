@@ -12,7 +12,7 @@
 }
 
 .modal-content {
-  background: #0a092d;
+  background: #0a092d !important;
   border-radius: 20px;
   position: relative;
 }

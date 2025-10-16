@@ -1,7 +1,7 @@
 import axios from "axios";
 import { authApi } from "./authApi.js";
 
-const BASE_URL = "http://localhost:9999/v1";
+const BASE_URL = "http://localhost:9999/api/v1";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
@@ -54,10 +54,19 @@ export const userApi = {
 
   getById: async (id) =>
     fetchWithRefresh(() =>
-      axios
-        .get(`${BASE_URL}/users/${id}`, { headers: getAuthHeaders() })
-        .then((res) => res.data)
+      axios.get(`${BASE_URL}/users/${id}`).then((res) => res.data)
     ),
+  getById: async (id) => {
+    try {
+      const data = await fetchWithRefresh(() =>
+        axios.get(`${BASE_URL}/users/${id}`).then((res) => res.data)
+      );
+      return data;
+    } catch (error) {
+      console.error(`Failed to fetch user with id ${id}:`, error);
+      throw error; // Ném lại lỗi để component gọi có thể xử lý
+    }
+  },
 
   updateById: async (id, data) =>
     fetchWithRefresh(() =>

@@ -51,7 +51,7 @@ export default function ClassDetail() {
         const data = await flashCardApi.getAll();
         setFlashCards(data);
 
-        const userData = await userApi.getById(user.id);
+        const userData = await userApi.getByIdPublic(user.id);
         setDataUser({
           email: userData.email,
           username: userData.username,

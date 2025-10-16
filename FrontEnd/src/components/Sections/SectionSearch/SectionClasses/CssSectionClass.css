@@ -1,0 +1,146 @@
+.sectionclasses-container {
+  color: #fff;
+  min-height: 100vh;
+  padding: 0px;
+}
+
+.sectionclasses-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+/* Dropdown style */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background: transparent;
+  border: 1px solid white;
+
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.dropdown-btn i {
+  margin-left: 10px;
+}
+
+.dropdown-btn:hover {
+  background: #1e1e3f;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 200px;
+  background: #16163a;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  border: 1px solid #333;
+  z-index: 10;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-item {
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 16px !important;
+  border-radius: 0 !important;
+  font-size: 16px;
+  margin: 0 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active {
+  background: #2e3856;
+}
+
+/* Search box */
+.search-box {
+  position: relative;
+  width: 600px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 16px 40px 16px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #2a2a4a;
+  color: #fff;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 16px;
+  font-size: 18px;
+  color: #aaa;
+}
+
+/* List View */
+.sectionclasses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.class-item {
+  background: #2e3856;
+  padding: 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.class-item:hover {
+  background: #23235c;
+}
+
+.class-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.class-info {
+  font-size: 14px;
+  color: #bbb;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.empty-text {
+  text-align: center;
+  color: #aaa;
+  font-style: italic;
+  margin-top: 40px;
+}
+
+.join-btn {
+  background-color: rgb(68, 68, 211);
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  margin-top: 10px;
+}
+.join-btn .disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}

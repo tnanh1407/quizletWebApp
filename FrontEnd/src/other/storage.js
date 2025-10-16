@@ -18,9 +18,10 @@ export const getUser = () => {
   if (!userStr) return null;
   try {
     const user = JSON.parse(userStr);
-    // console.log("Loaded user:", user);
+    console.log("Loaded user:", user);
     return user;
   } catch (err) {
+    console.log("HELLO");
     console.error("Failed to parse user from localStorage:", err);
     return null;
   }
