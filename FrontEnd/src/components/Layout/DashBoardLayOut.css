@@ -1,20 +1,24 @@
+/* --- STYLE CHẾ ĐỘ SÁNG (LIGHT MODE) --- */
+
 .dashboard-container {
   display: flex;
   min-height: 100vh;
   font-family: Arial, sans-serif;
 }
 
+/* Sidebar (Light Mode) */
 .dashboard-sidebar {
   width: 220px;
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; 
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s, color 0.3s; 
 }
 
 .dashboard-sidebar h2 {
   margin-bottom: 20px;
   font-size: 20px;
-  color: #1e293b;
+  color: #1e293b; 
 }
 
 .dashboard-sidebar ul {
@@ -23,34 +27,145 @@
   margin: 0;
 }
 
-.dashboard-sidebar li {
-  margin-bottom: 10px;
-}
-
 .dashboard-sidebar a {
   display: block;
   padding: 10px 15px;
   text-decoration: none;
-  color: #333;
+  color: #333; 
   border-radius: 6px;
   transition: background-color 0.2s, color 0.2s;
 }
 
-/* Active link */
+/* Active link (Light Mode) */
 .dashboard-sidebar a.active {
   font-weight: bold;
-  color: #0ea5e9;
-  background-color: #e0f2fe;
+  color: #0ea5e9; 
+  background-color: #e0f2fe; 
 }
 
-/* Hover effect */
-.dashboard-sidebar a:hover {
-  background-color: #dbeafe;
-  color: #0ea5e9;
-}
-
+/* Main Content (Light Mode) */
 .dashboard-content {
   flex: 1;
   padding: 20px;
+  background-color: #fff; 
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+/* Style cho nút chuyển đổi Theme */
+.theme-toggle-button {
+  width: 100%;
+  margin-top: 30px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
   background-color: #fff;
+  color: #1e293b;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* --- STYLE CÁC THẺ VÀ BẢNG TRONG NỘI DUNG (LIGHT MODE) --- */
+.stat-card {
+    background: #f1f5f9; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.stat-value {
+    color: #1e293b; /* Màu đậm cho số liệu */
+}
+
+.data-table {
+    background: #fff;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.data-table th,
+.data-table td {
+    border-color: #ccc;
+}
+
+.table-header-row {
+    background: #e2e8f0;
+}
+
+
+/* ----------------------------------------------------------------------- */
+
+/* --- STYLE CHẾ ĐỘ TỐI (DARK MODE) --- */
+/* Class được sử dụng: .admin-theme-dark (áp dụng cho thẻ <body>) */
+
+.admin-theme-dark .dashboard-container {
+  color: #e2e8f0; /* Chữ sáng mặc định cho nội dung */
+}
+
+/* Sidebar (Dark Mode) */
+.admin-theme-dark .dashboard-sidebar {
+  background-color: #1e293b; 
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.admin-theme-dark .dashboard-sidebar h2 {
+  color: #f1f5f9; 
+}
+
+.admin-theme-dark .dashboard-sidebar a {
+  color: #a0a7b4; 
+}
+
+/* Active link (Dark Mode) */
+.admin-theme-dark .dashboard-sidebar a.active {
+  color: #38bdf8; 
+  background-color: #334155; 
+}
+
+/* Main Content (Dark Mode) */
+.admin-theme-dark .dashboard-content {
+  background-color: #0f172a; /* Nền rất tối */
+}
+
+/* Nút chuyển đổi Theme (Dark Mode) */
+.admin-theme-dark .theme-toggle-button {
+  border: 1px solid #334155;
+  background-color: #334155;
+  color: #f1f5f9;
+}
+
+
+/* --- STYLE CÁC THẺ VÀ BẢNG TRONG NỘI DUNG (DARK MODE) --- */
+
+/* Tiêu đề trong nội dung chính */
+.admin-theme-dark .dashboard-content h1,
+.admin-theme-dark .dashboard-content h2,
+.admin-theme-dark .dashboard-content h3 {
+    color: #f1f5f9;
+}
+
+/* Thẻ thống kê */
+.admin-theme-dark .stat-card {
+    background: #334155; /* Nền thẻ tối */
+    color: #f1f5f9;      /* Chữ h3 mặc định của thẻ */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Bóng đổ tối hơn */
+}
+
+/* Màu chữ của giá trị số (đã bị chìm) */
+.admin-theme-dark .stat-value {
+    color: #81e6ff; /* MÀU XANH SÁNG NỔI BẬT */
+    /* Màu này sẽ làm cho các số 19, 11, 7 hiển thị rõ */
+}
+
+/* Bảng */
+.admin-theme-dark .data-table {
+    background: #1f2937; /* Nền bảng tối */
+    color: #e2e8f0;
+}
+
+.admin-theme-dark .data-table th,
+.admin-theme-dark .data-table td {
+    border-color: #4b5563; /* Màu border tối */
+}
+
+.admin-theme-dark .table-header-row {
+    background: #475569; /* Nền tiêu đề bảng tối hơn */
 }
