@@ -15,6 +15,7 @@ export default function SectionClasses() {
 
   console.log(user);
   // useEffect(async () => {}, []);
+  console.log("ĐÃ FIX ");
   useEffect(() => {
     const fetchData = async () => {
       const data = await classroomApi.getAll();
