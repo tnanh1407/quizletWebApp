@@ -21,8 +21,8 @@ const CLASSROOM_COLLECTION_SCHEMA = Joi.object({
     .default([]),
   pending_users: Joi.array().items(
     Joi.object({
-      user_id: Joi.string().required(),
-      username: Joi.string().required(),
+      user_id: Joi.string().allow(""),
+      username: Joi.string().allow(""),
       avatar: Joi.string().allow(""),
     })
   ),
@@ -91,7 +91,7 @@ const createNew = async (data) => {
         role: "Owner",
       },
     ],
-    pending_users: [{}],
+    pending_users: [],
   };
 
   const validData = await validateClassroom(autoData);

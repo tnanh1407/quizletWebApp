@@ -1,6 +1,28 @@
 // src/components/Dashboard/DashBoardUsers.jsx
 import { useEffect, useState } from "react";
 
+// Style chỉ giữ bố cục
+const cardBaseStyle = {
+  flex: 1,
+  padding: "20px",
+  borderRadius: "10px",
+  textAlign: "center",
+};
+
+const valueStyle = {
+  fontSize: "24px",
+  fontWeight: "bold",
+  marginTop: "10px",
+};
+
+const tableBaseStyle = {
+  width: "100%",
+  marginTop: "10px",
+  borderCollapse: "collapse",
+};
+
+const thTdStyle = { padding: "10px", border: "1px solid #ccc" };
+
 export default function DashBoardUsers() {
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState({
@@ -10,25 +32,24 @@ export default function DashBoardUsers() {
   });
 
   useEffect(() => {
-    // Gọi API lấy toàn bộ users
-    fetch("http://localhost:9999/api/v1/admin/users")
+    // Gọi API lấy toàn bộ users -> Fetch all users API
+    fetch("https://quizlet-gzpa.onrender.com/api/v1/admin/users")
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
-
-        // Tính toán thống kê từ dữ liệu user
+        // ... (logic tính toán stats không đổi)
         const total = data.length;
         const now = new Date();
 
         const newUsers = data.filter((u) => {
           const created = new Date(u.createdAt);
-          return now - created < 7 * 24 * 60 * 60 * 1000; // trong 7 ngày
+          return now - created < 7 * 24 * 60 * 60 * 1000;
         }).length;
 
         const activeToday = data.filter((u) => {
           if (!u.lastLogin) return false;
           const last = new Date(u.lastLogin);
-          return last.toDateString() === now.toDateString(); // cùng ngày hôm nay
+          return last.toDateString() === now.toDateString();
         }).length;
 
         setStats({
@@ -37,55 +58,74 @@ export default function DashBoardUsers() {
           activeToday: activeToday,
         });
       })
-      .catch((err) => console.error("Lỗi fetch users:", err));
+      .catch((err) => console.error("Error fetching users:", err));
   }, []);
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>👤 Quản lý Users</h1>
+      <h1>User Management</h1>
 
-      {/* Thẻ thống kê */}
+      {/* Statistics Cards */}
       <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-        <div style={cardStyle}>
-          <h3>Tổng số User</h3>
-          <p style={valueStyle}>{stats.totalUsers}</p>
+        {/* Thẻ 1: Total Users */}
+        <div className="stat-card" style={cardBaseStyle}>
+          {" "}
+          {/* THÊM CLASS & DÙNG BASE STYLE */}
+          <h3>Total Users</h3>
+          <p className="stat-value" style={valueStyle}>
+            {stats.totalUsers}
+          </p>
         </div>
-        <div style={cardStyle}>
-          <h3>User mới trong tuần</h3>
-          <p style={valueStyle}>{stats.newUsersThisWeek}</p>
+
+        {/* Thẻ 2: New Users This Week */}
+        <div className="stat-card" style={cardBaseStyle}>
+          {" "}
+          {/* THÊM CLASS & DÙNG BASE STYLE */}
+          <h3>New Users This Week</h3>
+          <p className="stat-value" style={valueStyle}>
+            {stats.newUsersThisWeek}
+          </p>
         </div>
-        <div style={cardStyle}>
-          <h3>User hoạt động hôm nay</h3>
-          <p style={valueStyle}>{stats.activeToday}</p>
+
+        {/* Thẻ 3: Active Users Today */}
+        <div className="stat-card" style={cardBaseStyle}>
+          {" "}
+          {/* THÊM CLASS & DÙNG BASE STYLE */}
+          <h3>Active Users Today</h3>
+          <p className="stat-value" style={valueStyle}>
+            {stats.activeToday}
+          </p>
         </div>
       </div>
 
-      {/* Bảng Users gần đây */}
+      {/* Recent Users Table */}
       <div style={{ marginTop: "40px" }}>
-        <h2>📝 Danh sách User</h2>
-        <table style={tableStyle}>
+        <h2>User List</h2>
+        <table className="data-table" style={tableBaseStyle}>
+          {" "}
+          {/* THÊM CLASS & DÙNG BASE STYLE */}
           <thead>
-            <tr style={{ background: "#e2e8f0" }}>
-              <th style={thStyle}>Tên</th>
-              <th style={thStyle}>Email</th>
-              <th style={thStyle}>Ngày tạo</th>
-              <th style={thStyle}>Lần đăng nhập cuối</th>
+            <tr className="table-header-row">
+              <th style={thTdStyle}>Name</th>
+              <th style={thTdStyle}>Email</th>
+              <th style={thTdStyle}>Created Date</th>
+              <th style={thTdStyle}>Last Login</th>
             </tr>
           </thead>
           <tbody>
             {users.map((u) => (
               <tr key={u._id}>
-                <td style={tdStyle}>{u.username}</td>
-                <td style={tdStyle}>{u.email}</td>
-                <td style={tdStyle}>
+                <td style={thTdStyle}>{u.username}</td>
+                <td style={thTdStyle}>{u.email}</td>
+                <td style={thTdStyle}>
                   {u.createdAt
-                    ? new Date(u.createdAt).toLocaleDateString("vi-VN")
+                    ? new Date(u.createdAt).toLocaleDateString(undefined)
                     : "—"}
                 </td>
-                <td style={tdStyle}>
+                <td style={thTdStyle}>
                   {u.lastLogin
-                    ? new Date(u.lastLogin).toLocaleString("vi-VN")
-                    : "Chưa đăng nhập"}
+                    ? new Date(u.lastLogin).toLocaleString(undefined)
+                    : "Never logged in"}
                 </td>
               </tr>
             ))}
@@ -95,26 +135,3 @@ export default function DashBoardUsers() {
     </div>
   );
 }
-
-// CSS inline style tái sử dụng
-const cardStyle = {
-  flex: 1,
-  background: "#f1f5f9",
-  padding: "20px",
-  borderRadius: "10px",
-  textAlign: "center",
-  boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-};
-const valueStyle = {
-  fontSize: "24px",
-  fontWeight: "bold",
-  marginTop: "10px",
-};
-const tableStyle = {
-  width: "100%",
-  marginTop: "10px",
-  borderCollapse: "collapse",
-  background: "#fff",
-};
-const thStyle = { padding: "10px", border: "1px solid #ccc" };
-const tdStyle = { padding: "10px", border: "1px solid #ccc" };

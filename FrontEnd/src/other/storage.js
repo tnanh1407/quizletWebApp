@@ -5,7 +5,6 @@
 export const saveUser = (user) => {
   if (user) {
     localStorage.setItem("user", JSON.stringify(user));
-    // console.log("Saved user:", user);
   }
 };
 

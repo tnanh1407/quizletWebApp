@@ -481,15 +481,16 @@ export default function Achievements() {
                   fromYear={2025}
                   toYear={2025}
                   // ✅ đánh dấu những ngày có login streak
-                  modifiers={{
-                    streak: loginHistory.map((d) => new Date(d)),
-                  }}
+                  // modifiers={{
+                  //   streak: loginHistory.map((d) => new Date(d)),
+                  // }}
                   modifiersStyles={{
                     streak: {
                       position: "relative",
                       color: "var(--bg-color)",
                       backgroundImage:
-                        "url('/src/assets/img_achievements/streak-flame.svg')",
+                        // "url('/src/assets/img_achievements/streak-flame.svg')",
+                        "url(https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/streak-flame.svg?alt=media&token=5aea8a86-7e2b-479e-8d74-1a8b8e0b4afe)",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center center",
                       backgroundSize: "30px 30px",
@@ -519,7 +520,7 @@ export default function Achievements() {
                     {[...Array(currentStreak)].map((_, i) => (
                       <img
                         key={i}
-                        src="/src/assets/img_achievements/streak-flame.svg"
+                        src="https://firebasestorage.googleapis.com/v0/b/avtquizlet.firebasestorage.app/o/streak-flame.svg?alt=media&token=5aea8a86-7e2b-479e-8d74-1a8b8e0b4afe"
                         alt="🔥"
                         className="streak-flame"
                       />

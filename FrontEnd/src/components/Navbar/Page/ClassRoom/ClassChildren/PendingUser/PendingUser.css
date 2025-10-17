@@ -1,0 +1,26 @@
+.btn-accept {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-right: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-reject {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-accept:hover {
+  background-color: #274ada;
+}
+
+.btn-reject:hover {
+  background-color: #e53935;
+}

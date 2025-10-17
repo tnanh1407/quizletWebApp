@@ -12,6 +12,7 @@ import { flashCardApi } from "../../../../api/flashCardApi";
 import { getUser } from "../../../../other/storage";
 import Footer from "../../../Footer/Footer";
 import Modal from "../../../Modal/Modal";
+import { userApi } from "../../../../api/userApi";
 
 // ICONS
 import { LuUniversity } from "react-icons/lu";
@@ -24,6 +25,7 @@ export default function ClassDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const user = getUser();
+  // console.log("id Của người dùng trong trang classDetail", user.id);
 
   const [flashCards, setFlashCards] = useState([]);
   const [selectedFlashcards, setSelectedFlashcards] = useState([]);
@@ -41,20 +43,26 @@ export default function ClassDetail() {
 
   const [isInviteEmail, setIsInviteEmail] = useState(false);
   const [inviteEmail, setInviteEmail] = useState("");
-
+  const [dataUser, setDataUser] = useState(null);
   // Get all flashcards
   useEffect(() => {
     const fetchFlashcards = async () => {
       try {
         const data = await flashCardApi.getAll();
         setFlashCards(data);
+
+        const userData = await userApi.getByIdPublic(user.id);
+        setDataUser({
+          email: userData.email,
+          username: userData.username,
+        });
       } catch (error) {
         console.log("Error fetching flashcards:", error);
       }
     };
     fetchFlashcards();
   }, []);
-
+  // console.log("ID người dùng : ", dataUser._id);
   // Get class by Id
   useEffect(() => {
     let isMounted = true;
@@ -136,6 +144,18 @@ export default function ClassDetail() {
       navigate(`/your-library/classes`, { state: { deleted: true } });
     } catch (err) {
       console.error("Error deleting class:", err);
+    }
+  };
+
+  const handleRemoveMember = async (userId) => {
+    try {
+      if (window.confirm("Are you sure you want to leave this class?")) {
+        await classroomApi.removeMember(id, userId);
+        alert("Bạn đã rời khỏi lớp!");
+        navigate("/your-library/classes");
+      }
+    } catch (error) {
+      console.error("Lỗi khi xóa người dùng:", error);
     }
   };
 
@@ -228,37 +248,57 @@ export default function ClassDetail() {
                 {classRoom?.university}
               </span>
             </div>
-            {classRoom?.creator.user_id === user.id && (
-              <div className="header_one_r">
-                <button className="share-btn" onClick={toggleAddFlashCard}>
-                  <i className="fa-solid fa-plus"></i>
-                </button>
+            {classRoom && (
+              <>
+                {classRoom.creator.user_id === user.id ? (
+                  // 👉 Nếu là Creator
+                  <div className="header_one_r">
+                    <button className="share-btn" onClick={toggleAddFlashCard}>
+                      <i className="fa-solid fa-plus"></i>
+                    </button>
 
-                <div className="menu-container">
-                  <button
-                    className="menu-toggle"
-                    onClick={() => setShowMenu((prev) => !prev)}
-                  >
-                    <i className="fa-solid fa-ellipsis"></i>
-                  </button>
-
-                  {showMenu && (
-                    <div className="class-detail-menu">
-                      <button onClick={toggleEditClass} className="flex">
-                        <i className="fa-solid fa-pen"></i>
-                        <p>Edit</p>
-                      </button>
+                    <div className="menu-container">
                       <button
-                        onClick={toggleConfirmDelete}
-                        className="flex delete"
+                        className="menu-toggle"
+                        onClick={() => setShowMenu((prev) => !prev)}
                       >
-                        <i className="fa-solid fa-trash"></i>
-                        <p>Delete</p>
+                        <i className="fa-solid fa-ellipsis"></i>
+                      </button>
+
+                      {showMenu && (
+                        <div className="class-detail-menu">
+                          <button onClick={toggleEditClass} className="flex">
+                            <i className="fa-solid fa-pen"></i>
+                            <p>Edit</p>
+                          </button>
+                          <button
+                            onClick={toggleConfirmDelete}
+                            className="flex delete"
+                          >
+                            <i className="fa-solid fa-trash"></i>
+                            <p>Delete</p>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  // 👉 Nếu KHÔNG PHẢI Creator (chỉ hiển thị nếu user là member)
+                  classRoom.members?.some(
+                    (member) => String(member.user_id) === String(user.id)
+                  ) && (
+                    <div className="header_one_r">
+                      <button
+                        className="leave-btn"
+                        onClick={() => handleRemoveMember(user.id)}
+                      >
+                        <i className="fa-solid fa-right-from-bracket"></i> Leave
+                        class
                       </button>
                     </div>
-                  )}
-                </div>
-              </div>
+                  )
+                )}
+              </>
             )}
           </div>
         </div>
@@ -481,23 +521,54 @@ export default function ClassDetail() {
                   Members
                 </button>
               </NavLink>
+
+              {/*  Chỉ hiển thị nếu user là chủ lớp */}
+              {String(classRoom.creator.user_id) === String(user.id) && (
+                <>
+                  <NavLink to={`/class/${classRoom?._id}/pending`}>
+                    <button
+                      className={`tab ${
+                        location.pathname.includes("pending") ? "active" : ""
+                      }`}
+                    >
+                      Pending user
+                    </button>
+                  </NavLink>
+                  <NavLink to={`/class/${classRoom?._id}/progress`}>
+                    <button
+                      className={`tab ${
+                        location.pathname.includes("progress") ? "active" : ""
+                      }`}
+                    >
+                      Progress
+                    </button>
+                  </NavLink>
+                </>
+              )}
             </>
           </div>
         ) : (
           <>
             <>
-              {classRoom?.pendingMembers?.some(
+              {classRoom?.pending_users?.some(
                 (member) => String(member.user_id) === String(user.id)
               ) ? (
                 <button
                   className="button-join-class waiting"
                   onClick={async () => {
                     try {
-                      await classroomApi.cancelJoinRequest(id, user.id);
+                      await classroomApi.cancelJoinRequest(classRoom._id, {
+                        user_id: user.id,
+                      });
+
+                      setClassRoom((prev) => ({
+                        ...prev,
+                        pending_users: prev.pending_users.filter(
+                          (m) => String(m.user_id) !== String(user.id)
+                        ),
+                      }));
+
                       alert("Canceled join request");
-                      // Cập nhật lại dữ liệu lớp
-                      const updated = await classroomApi.getById(id);
-                      setClassRoom(updated);
                     } catch (error) {
                       console.error("Error canceling join request:", error);
                       alert("Failed to cancel request");
@@ -517,12 +588,23 @@ export default function ClassDetail() {
                   className="button-join-class"
                   onClick={async () => {
                     try {
-                      await classroomApi.requestJoin(id, user.id);
-                      alert("Join request sent");
-                      const updated = await classroomApi.getById(id);
-                      setClassRoom(updated);
-                    } catch (error) {
-                      console.error("Error sending join request:", error);
+                      await classroomApi.requestJoin(classRoom._id, {
+                        user_id: user.id,
+                        username: dataUser?.username || user.username,
+                        avatar: user.avatar,
+                        email: dataUser?.email || user.email,
+                      });
+
+                      // ✅ Cập nhật UI ngay lập tức (không cần fetch lại)
+                      setClassRoom((prev) => ({
+                        ...prev,
+                        pending_users: [
+                          ...(prev.pending_users || []),
+                          { user_id: user.id },
+                        ],
+                      }));
+                    } catch (err) {
+                      console.error("Error sending join request:", err);
                       alert("Failed to send join request");
                     }
                   }}
@@ -539,30 +621,51 @@ export default function ClassDetail() {
           classRoom.members?.some(
             (member) => String(member.user_id) === String(user.id)
           )) ? (
-          <div className="header_three">
-            {String(classRoom.creator.user_id) === String(user.id) && (
-              <>
-                <button className="invite google">
-                  <i className="fa-solid fa-folder"></i> Invite with Google
-                </button>
-                <button
-                  className="invite email"
-                  onClick={() => setIsInviteEmail(true)}
-                >
-                  <i className="fa-solid fa-envelope"></i> Invite by email
-                </button>
-                <button className="invite link">
-                  <i className="fa-solid fa-link"></i> Copy link
-                </button>
-              </>
-            )}
+          <div
+            style={{
+              marginTop: classRoom.members?.some(
+                (member) =>
+                  String(member.user_id) === String(user.id) &&
+                  member.role === "Member"
+              )
+                ? "20px"
+                : "0",
+            }}
+          >
+            <div
+              className="header_three"
+              style={{
+                display: classRoom.members?.some(
+                  (member) =>
+                    String(member.user_id) === String(user.id) &&
+                    member.role === "Member"
+                )
+                  ? "none"
+                  : "flex",
+              }}
+            >
+              {String(classRoom.creator.user_id) === String(user.id) && (
+                <>
+                  <button className="invite google">
+                    <i className="fa-solid fa-folder"></i> Invite with Google
+                  </button>
+                  <button
+                    className="invite email"
+                    onClick={() => setIsInviteEmail(true)}
+                  >
+                    <i className="fa-solid fa-envelope"></i> Invite by email
+                  </button>
+                  <button className="invite link">
+                    <i className="fa-solid fa-link"></i> Copy link
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         ) : (
-          <>
-            <div className="main-nothing">
-              <p className="nothing-to-see">Nothing to see here</p>
-            </div>
-          </>
+          <div className="main-nothing">
+            <p className="nothing-to-see">Nothing to see here</p>
+          </div>
         )}
 
         {/* Content */}

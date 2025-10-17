@@ -2,10 +2,10 @@ import { useState } from "react";
 import "./CssCreateClass.css";
 import { classroomApi } from "../../../../api/classroomApi";
 import { getUser } from "../../../../other/storage";
-import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateClassroom() {
-  const user = getUser(); // { id, username }
+  const user = getUser(); // { id, username, avatar }
   const navigate = useNavigate();
   const [classname, setClassname] = useState("");
   const [school, setSchool] = useState("");
@@ -18,33 +18,47 @@ export default function CreateClassroom() {
       return;
     }
 
+    if (!user?.id || !user?.username) {
+      alert("User information is missing. Please login again.");
+      return;
+    }
+
     try {
       setLoading(true);
 
+      // Payload giữ nguyên với creator object
       const payload = {
         title: classname,
         university: school,
-        description,
+        description: description,
         creator: {
-          user_id: user?.id,
-          username: user?.username,
-          avatar: user?.avatar,
+          user_id: user.id,
+          username: user.username,
+          avatar: user.avatar,
         },
       };
 
       const newClassroom = await classroomApi.create(payload);
 
       alert("Created successfully");
+
+      // Lấy id từ response
       const classroomId = newClassroom._id || newClassroom.id;
       navigate(`/class/${classroomId}/material`);
 
-      // reset form
+      // Reset form
       setClassname("");
       setSchool("");
       setDescription("");
     } catch (error) {
       console.error("Class creation error:", error);
-      alert("Failed to create class!");
+
+      // Hiển thị lỗi từ backend nếu có
+      if (error.response?.data) {
+        alert(`Failed to create class: ${error}`);
+      } else {
+        alert("Failed to create class!");
+      }
     } finally {
       setLoading(false);
     }

@@ -1,4 +1,4 @@
-import SectionUpgradeOptionAnnually from "../../../Sections/Upgrade/SectionUpgradeOptionannually.jsx";
+import SectionUpgradeOptionAnnually from "../../../Sections/Upgrade/SectionUpgradeOptionAnnually.jsx";
 import { upgradeApi } from "../../../../api/upgradeApi.js";
 import { useEffect, useState } from "react";
 

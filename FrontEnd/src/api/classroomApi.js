@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:9999/api/v1";
+// const BASE_URL = "http://localhost:9999/api/v1";
+const BASE_URL = "https://quizlet-gzpa.onrender.com/api/v1";
 
 export const classroomApi = {
   getAll: async () => {
@@ -87,6 +88,13 @@ export const classroomApi = {
     const res = await axios.post(
       `${BASE_URL}/classrooms/${classroomId}/cancel-request`,
       userData
+    );
+    return res.data;
+  },
+  handleJoinRequest: async (classroomId, data) => {
+    const res = await axios.post(
+      `${BASE_URL}/classrooms/${classroomId}/handle-join`,
+      data
     );
     return res.data;
   },

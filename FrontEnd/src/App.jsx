@@ -5,7 +5,7 @@ import "./App.css";
 
 import MainLayout from "./components/Layout/MainLayout.jsx";
 import FunctionLayout from "./components/Layout/FunctionLayout.jsx";
-import MainContentLayout from "./components/Layout/MainContentLayOut.jsx";
+import MainContentLayout from "./components/Layout/MainContentLayout.jsx";
 import Home from "./components/Navbar/Page/Home/Home.jsx";
 import FlashCards from "./components/Navbar/Page/NewFlashCards/FlashCards.jsx";
 
@@ -42,11 +42,8 @@ import SearchClasses from "./components/Search/SearchClasses/SearchClasses.jsx";
 import SearchFlashcard from "./components/Search/SearchFlashcard/SearchFlashcard.jsx";
 import SearchUsers from "./components/Search/SearchUsers/SearchUsers.jsx";
 import DashBoardLayOut from "./components/Layout/DashBoardLayOut.jsx";
-import DashBoard from "./components/DashBoard/Flashcard.jsx";
+// import DashBoard from "./components/DashBoard/Flashcard.jsx";
 // import ClassDetail from "./components/Layout/ClassDetail.jsx";
-import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
-import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials/LearningMaterials.jsx";
-import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members/Members.jsx";
 import UpgradeLayout from "./components/Layout/UpgradeLayOut.jsx";
 import Annually from "./components/Header/Upgrade/ChildrenUpgrand/Annually.jsx";
 import Monthly from "./components/Header/Upgrade/ChildrenUpgrand/Monthly.jsx";
@@ -56,6 +53,12 @@ import DashBoardFlashCard from "./components/DashBoard/Flashcard.jsx";
 import DashBoardUsers from "./components/DashBoard/Users.jsx";
 import DashBoardOverview from "./components/DashBoard/Overview.jsx";
 import DashBoardComingSoon from "./components/DashBoard/ComingSoon.jsx";
+
+import Class from "./components/Navbar/Page/ClassRoom/ClassDetail.jsx";
+import LearningMaterials from "./components/Navbar/Page/ClassRoom/ClassChildren/LearningMaterials/LearningMaterials.jsx";
+import Members from "./components/Navbar/Page/ClassRoom/ClassChildren/Members/Members.jsx";
+import Pending from "./components/Navbar/Page/ClassRoom/ClassChildren/PendingUser/PendingUser.jsx";
+import Progress from "./components/Navbar/Page/ClassRoom/ClassChildren/Progress/ProcessClass.jsx";
 
 function App() {
   const [isPadded, setIsPadded] = useState(true);
@@ -117,6 +120,8 @@ function App() {
                   element={<LearningMaterials />}
                 />
                 <Route path="/class/:id/member" element={<Members />} />
+                <Route path="/class/:id/pending" element={<Pending />} />
+                <Route path="/class/:id/progress" element={<Progress />} />
               </Route>
               {/* Route Your library  */}
 

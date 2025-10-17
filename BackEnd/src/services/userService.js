@@ -78,6 +78,7 @@ const getByIdPublic = async (id) => {
     status: user.status,
     createdAt: user.createdAt,
     avatar: user.avatar,
+    email: user.email,
   };
 };
 

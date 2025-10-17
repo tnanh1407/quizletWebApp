@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"; // nên để .env
+const JWT_SECRET = process.env.JWT_SECRET || "mySuperSecret123"; // nên để .env
 
 // Middleware xác thực người dùng
 export const verifyToken = (req, res, next) => {

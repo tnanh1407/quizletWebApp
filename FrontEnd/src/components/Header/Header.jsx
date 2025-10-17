@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import account from "../../assets/img/account.jpg";
 import logo from "../../assets/img/logoQ.png";
 import { userApi } from "../../api/userApi";
 import "./CssHeader.css";
@@ -99,9 +98,9 @@ export default function Header() {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-        <Link to="/monthly" className="class-upgrand">
+        {/* <Link to="/monthly" className="class-upgrand">
           <p>Try free upgrade</p>
-        </Link>
+        </Link> */}
         <div className="setting">
           <button
             ref={buttonSettingRef}

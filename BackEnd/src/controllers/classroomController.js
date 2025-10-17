@@ -30,6 +30,7 @@ const createNew = async (req, res, next) => {
           user_id: creator.user_id,
           username: creator.username,
           role: "Owner",
+          // avatar: creator.avatar,
         },
       ],
     });

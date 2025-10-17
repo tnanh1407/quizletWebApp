@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:9999/api/v1";
+// const BASE_URL = "http://localhost:9999/api/v1";
+const BASE_URL = "https://quizlet-gzpa.onrender.com/api/v1";
 
 // Lấy token từ localStorage
 const getAuthHeaders = () => {
@@ -23,6 +24,14 @@ export const authApi = {
       localStorage.setItem("token", res.data.accessToken);
     if (res.data?.refreshToken)
       localStorage.setItem("refreshToken", res.data.refreshToken);
+    // Lưu tokens và thông tin người dùng
+    if (res.data?.tokens) {
+      localStorage.setItem("token", res.data.tokens.accessToken);
+      localStorage.setItem("refreshToken", res.data.tokens.refreshToken);
+    }
+    if (res.data?.user) {
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+    }
     return res.data;
   },
 

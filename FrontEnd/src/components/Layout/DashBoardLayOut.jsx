@@ -1,7 +1,32 @@
 import { Outlet, NavLink } from "react-router-dom";
-import "./DashBoardLayOut.css"; // bạn có thể tạo file CSS để style menu
+import { useState, useEffect } from "react";
+import "./DashBoardLayOut.css";
+
+// ĐỊNH NGHĨA TÊN CLASS ĐỘC LẬP
+const LIGHT_MODE_CLASS = "admin-theme-light";
+const DARK_MODE_CLASS = "admin-theme-dark";
 
 export default function DashBoardLayOut() {
+  // Khởi tạo theme từ localStorage hoặc mặc định
+  const [themeClass, setThemeClass] = useState(
+    localStorage.getItem("themeClass") || LIGHT_MODE_CLASS
+  );
+
+  // Áp dụng class theme cho thẻ <body>
+  useEffect(() => {
+    document.body.className = themeClass;
+    localStorage.setItem("themeClass", themeClass);
+  }, [themeClass]);
+
+  // Function để chuyển đổi theme
+  const toggleTheme = () => {
+    setThemeClass((currentClass) =>
+      currentClass === LIGHT_MODE_CLASS ? DARK_MODE_CLASS : LIGHT_MODE_CLASS
+    );
+  };
+
+  const isDarkMode = themeClass === DARK_MODE_CLASS;
+
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -44,6 +69,15 @@ export default function DashBoardLayOut() {
             </li>
           </ul>
         </nav>
+
+        {/* Nút chuyển đổi Theme */}
+        <button
+          onClick={toggleTheme}
+          className="theme-toggle-button"
+          aria-label={`Chuyển sang chế độ ${isDarkMode ? "sáng" : "tối"}`}
+        >
+          {isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+        </button>
       </aside>
 
       {/* Main content */}
