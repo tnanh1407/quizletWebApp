@@ -30,6 +30,6 @@ router.post("/:id/members", classroomController.addMemberByEmail);
 router.post("/:id/join-request", classroomController.requestJoin);
 
 // Duyệt hoặc từ chối yêu cầu tham gia
-router.patch("/:id/handle-join", classroomController.handleJoinRequest);
+router.post("/:id/handle-join", classroomController.handleJoinRequest);
 router.post("/:id/cancel-request", classroomController.cancelJoinRequest);
 export const classroomRoutes = router;
